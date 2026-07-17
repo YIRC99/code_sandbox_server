@@ -52,6 +52,7 @@ def test_jenkins_applies_one_image_revision_and_prints_rollout_diagnostics() -> 
     render_position = jenkinsfile.index("newTag: latest/newTag: $IMAGE_TAG")
     apply_position = jenkinsfile.index("apply -k k8s/overlays/prod")
     assert render_position < apply_position
+    assert 'newTag: \\"$IMAGE_TAG\\"' in jenkinsfile
     assert "kubectl set image" not in jenkinsfile
     assert "rollout status deployment/code-sandbox-deployment --timeout=300s" in jenkinsfile
     assert "describe deployment code-sandbox-deployment" in jenkinsfile

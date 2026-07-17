@@ -64,7 +64,7 @@ pipeline {
                             kubectl --kubeconfig="$KUBECONFIG" "$@"
                         }
 
-                        sed -i "s/newTag: latest/newTag: $IMAGE_TAG/" k8s/overlays/prod/kustomization.yaml
+                        sed -i "s/newTag: latest/newTag: \"$IMAGE_TAG\"/" k8s/overlays/prod/kustomization.yaml
                         kube apply -k k8s/overlays/prod
                         kube annotate deployment/code-sandbox-deployment kubernetes.io/change-cause="Jenkins build $BUILD_NUMBER" --overwrite -n "$K8S_NAMESPACE"
 
