@@ -9,7 +9,7 @@
 3. 上传接口返回 `date` 和 `filename`。
 4. 使用相同的 `date` 和 `filename` 调用 `/execute`。
 
-代码使用文件上传，而不是放在 JSON 请求体中，可以避免长代码的转义、换行和层级解析问题。服务端不会修改文件名，只会做安全校验并拒绝同名覆盖。
+代码使用文件上传，而不是放在 JSON 请求体中，可以避免长代码的转义、换行和层级解析问题。服务端不会修改文件名，只会做安全校验并拒绝同名覆盖。同一个上传文件可以重复执行，文件超过 30 天后由定时任务清理；Pod 重启或重新部署时也会随 `emptyDir` 一起丢失。
 
 ## 本地运行
 
@@ -73,7 +73,7 @@ curl -X POST http://127.0.0.1:32004/execute \
 | `SANDBOX_MAX_CONCURRENT` | `4` | 每个 Pod 同时运行的脚本数 |
 | `SANDBOX_MAX_WAITING` | `20` | 每个 Pod 等待队列长度 |
 | `SANDBOX_QUEUE_WAIT_SECONDS` | `5` | 等待执行槽的最长时间 |
-| `SANDBOX_RETENTION_DAYS` | `7` | 上传文件保留天数 |
+| `SANDBOX_RETENTION_DAYS` | `30` | 上传文件保留天数 |
 | `SANDBOX_CLEANUP_INTERVAL_SECONDS` | `3600` | 过期文件扫描间隔 |
 | `SANDBOX_PROCESS_CPU_SECONDS` | `30` | Linux 子进程 CPU 时间限制 |
 | `SANDBOX_PROCESS_MEMORY_BYTES` | `1610612736` | Linux 子进程地址空间限制 |
@@ -82,18 +82,16 @@ curl -X POST http://127.0.0.1:32004/execute \
 | `SANDBOX_PROCESS_OPEN_FILES` | `64` | Linux 子进程打开文件数限制 |
 | `SANDBOX_TERMINATE_GRACE_SECONDS` | `1` | 超时后强制杀进程树前的宽限时间 |
 
-总执行并发约等于 `Pod 数量 × SANDBOX_MAX_CONCURRENT`。队列是每个 Pod 独立的；HPA 会根据 CPU 使用率将 Pod 数量从 2 扩到最多 10。
+服务固定运行一个 Pod，总执行并发等于 `SANDBOX_MAX_CONCURRENT`，等待队列也只存在于该 Pod 内。
 
 ## Kubernetes 部署
 
 生产清单位于 `k8s/overlays/prod`。部署前需要：
 
 - Nginx Ingress Controller。
-- Metrics Server，供 HPA 使用。
-- 支持 `ReadWriteMany` 的默认 StorageClass，或者在 `k8s/base/pvc.yaml` 中填写对应的 `storageClassName`。
 - 能拉取 `harbor.internal.net` 私有镜像的节点或 `imagePullSecret`。
 
-共享 PVC 可以理解为多个 Pod 共用的上传目录：一个 Pod 保存文件后，另一个 Pod 也能根据日期和文件名执行它。如果集群没有支持 `ReadWriteMany` 的存储，PVC 会一直处于 Pending。
+Deployment 固定为一个副本并采用 `Recreate` 更新策略。上传目录和执行临时目录均使用带容量限制的 `emptyDir`，不需要 PVC；Pod 重启或重新部署后，尚未执行的上传文件会丢失，这是预期行为。`Recreate` 会让更新过程出现短暂中断，但能避免新旧 Pod 同时存在时上传和执行请求落到不同 Pod。
 
 生产环境应先创建 API Key Secret；清单允许开发环境在 Secret 不存在时启动，但此时业务接口不会鉴权。示例清单不能直接用于生产：
 
@@ -118,7 +116,7 @@ kubectl apply -k k8s/overlays/prod
 
 ## 安全边界
 
-后端强制校验日期、文件名、API Key、上传大小、超时、并发和输出大小；Linux 中还限制 CPU、内存、进程数、文件大小和打开文件数。每次执行会把代码复制到独立临时目录，结束后删除，避免相对路径写入污染共享上传目录；超时会终止整个进程树。容器使用非 root 用户、只读根文件系统、删除全部 Linux capabilities，并默认禁止外网访问。
+后端强制校验日期、文件名、API Key、上传大小、超时、并发和输出大小；Linux 中还限制 CPU、内存、进程数、文件大小和打开文件数。每次执行会把代码复制到独立临时目录，结束后只删除临时副本，避免相对路径写入污染上传目录；原始上传文件保留至超过 30 天或 Pod 被替换。超时会终止整个进程树。容器使用非 root 用户、只读根文件系统、删除全部 Linux capabilities，并默认禁止外网访问。
 
 这仍然是“受限子进程沙箱”，适合受控的内部 AI 平台，不是面向完全不可信公网用户的虚拟机级隔离。若以后开放外部用户，需要升级到独立 Pod 配合 gVisor、Kata Containers 或专用沙箱运行时。
 

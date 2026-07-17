@@ -87,6 +87,8 @@ pipeline {
                             exit 1
                         fi
 
+                        kube delete horizontalpodautoscaler/code-sandbox poddisruptionbudget/code-sandbox \
+                            --ignore-not-found -n "$K8S_NAMESPACE"
                         kube apply -f "$RENDERED_MANIFEST"
                         kube annotate deployment/code-sandbox-deployment kubernetes.io/change-cause="Jenkins build $BUILD_NUMBER" --overwrite -n "$K8S_NAMESPACE"
 
@@ -94,7 +96,6 @@ pipeline {
                             echo "=== Deployment rollout failed: diagnostics ==="
                             kube get deployment code-sandbox-deployment -n "$K8S_NAMESPACE" -o wide || true
                             kube describe deployment code-sandbox-deployment -n "$K8S_NAMESPACE" || true
-                            kube describe pvc code-sandbox-uploads -n "$K8S_NAMESPACE" || true
                             kube get pods -l app.kubernetes.io/name=code-sandbox -n "$K8S_NAMESPACE" -o wide || true
                             kube get events -n "$K8S_NAMESPACE" --sort-by=.lastTimestamp | tail -100 || true
 

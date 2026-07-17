@@ -59,6 +59,7 @@ def test_upload_and_execute_preserve_date_filename_contract(tmp_path: Path) -> N
         uploaded = upload(client, "random_123.py", "print('from api')")
         identity = uploaded.json()
         executed = client.post("/execute", headers=auth_headers(), json=identity)
+        repeated = client.post("/execute", headers=auth_headers(), json=identity)
 
     assert uploaded.status_code == 201
     assert set(identity) == {"date", "filename"}
@@ -70,6 +71,9 @@ def test_upload_and_execute_preserve_date_filename_contract(tmp_path: Path) -> N
         "exit_code": 0,
         "status": "success",
     }
+    assert repeated.status_code == 200
+    assert repeated.json() == executed.json()
+    assert (tmp_path / identity["date"] / identity["filename"]).exists()
 
 
 def test_upload_rejects_invalid_duplicate_and_large_files(tmp_path: Path) -> None:
@@ -116,6 +120,28 @@ def test_execute_reports_nonzero_exit_as_error(tmp_path: Path) -> None:
     assert "RuntimeError: bad" in response.json()["stderr"]
 
 
+def test_upload_can_be_executed_twice_concurrently(tmp_path: Path) -> None:
+    with make_client(tmp_path, max_concurrent=2) as client:
+        identity = upload(client, "repeatable.py", "import time\ntime.sleep(0.3)").json()
+
+        with ThreadPoolExecutor(max_workers=1) as pool:
+            first = pool.submit(
+                client.post,
+                "/execute",
+                headers=auth_headers(),
+                json=identity,
+            )
+            for _ in range(100):
+                if client.app.state.gate.active == 1:
+                    break
+                time.sleep(0.005)
+            repeated = client.post("/execute", headers=auth_headers(), json=identity)
+            assert first.result().status_code == 200
+
+    assert repeated.status_code == 200
+    assert (tmp_path / identity["date"] / identity["filename"]).exists()
+
+
 def test_execute_returns_429_when_execution_queue_is_full(tmp_path: Path) -> None:
     with make_client(
         tmp_path,
@@ -123,14 +149,15 @@ def test_execute_returns_429_when_execution_queue_is_full(tmp_path: Path) -> Non
         max_waiting=0,
         queue_wait_seconds=0.1,
     ) as client:
-        identity = upload(client, "slow.py", "import time\ntime.sleep(0.5)").json()
+        slow_identity = upload(client, "slow.py", "import time\ntime.sleep(0.5)").json()
+        queued_identity = upload(client, "queued.py", "pass").json()
 
         with ThreadPoolExecutor(max_workers=1) as pool:
             first = pool.submit(
                 client.post,
                 "/execute",
                 headers=auth_headers(),
-                json={**identity, "timeout": 1},
+                json={**slow_identity, "timeout": 1},
             )
             for _ in range(100):
                 if client.app.state.gate.active == 1:
@@ -139,7 +166,7 @@ def test_execute_returns_429_when_execution_queue_is_full(tmp_path: Path) -> Non
             second = client.post(
                 "/execute",
                 headers=auth_headers(),
-                json={**identity, "timeout": 1},
+                json={**queued_identity, "timeout": 1},
             )
             assert first.result().status_code == 200
 
@@ -162,3 +189,4 @@ def test_unexpected_execute_error_does_not_leak_traceback(tmp_path: Path) -> Non
     assert response.json() == {"detail": "sandbox execution failed"}
     assert str(tmp_path) not in response.text
     assert "Traceback" not in response.text
+    assert (tmp_path / identity["date"] / identity["filename"]).exists()

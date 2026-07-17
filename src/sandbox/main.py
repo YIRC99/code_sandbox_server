@@ -172,7 +172,6 @@ def create_app(settings: Settings | None = None) -> FastAPI:
                 body.filename,
             )
             raise HTTPException(status_code=500, detail="sandbox execution failed") from exc
-
         logger.info(
             "Execution finished request_id=%s filename=%s status=%s exit_code=%s",
             request.state.request_id,

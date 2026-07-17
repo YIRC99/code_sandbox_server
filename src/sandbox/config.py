@@ -17,7 +17,7 @@ class Settings:
     max_concurrent: int = 4
     max_waiting: int = 20
     queue_wait_seconds: float = 5.0
-    retention_days: int = 7
+    retention_days: int = 30
     cleanup_interval_seconds: float = 3600.0
     process_cpu_seconds: int = 30
     process_memory_bytes: int = 1536 * 1024 * 1024
@@ -60,7 +60,7 @@ class Settings:
             max_concurrent=_env_int("SANDBOX_MAX_CONCURRENT", 4),
             max_waiting=_env_int("SANDBOX_MAX_WAITING", 20),
             queue_wait_seconds=_env_float("SANDBOX_QUEUE_WAIT_SECONDS", 5.0),
-            retention_days=_env_int("SANDBOX_RETENTION_DAYS", 7),
+            retention_days=_env_int("SANDBOX_RETENTION_DAYS", 30),
             cleanup_interval_seconds=_env_float("SANDBOX_CLEANUP_INTERVAL_SECONDS", 3600.0),
             process_cpu_seconds=_env_int("SANDBOX_PROCESS_CPU_SECONDS", 30),
             process_memory_bytes=_env_int("SANDBOX_PROCESS_MEMORY_BYTES", 1536 * 1024 * 1024),

@@ -59,12 +59,16 @@ def test_jenkins_validates_one_rendered_image_and_prints_rollout_diagnostics() -
     verify_position = jenkinsfile.index(
         'IMAGE_MATCH_COUNT=$(grep -Fc "image: $IMAGE_REF" "$RENDERED_MANIFEST" || true)'
     )
+    cleanup_position = jenkinsfile.index(
+        "delete horizontalpodautoscaler/code-sandbox poddisruptionbudget/code-sandbox"
+    )
     apply_position = jenkinsfile.index('apply -f "$RENDERED_MANIFEST"')
     assert (
         render_position
         < source_check_position
         < replace_position
         < verify_position
+        < cleanup_position
         < apply_position
     )
     assert "render_kustomization.py" not in jenkinsfile
@@ -72,7 +76,7 @@ def test_jenkins_validates_one_rendered_image_and_prints_rollout_diagnostics() -
     assert "kube set image" not in jenkinsfile
     assert "rollout status deployment/code-sandbox-deployment --timeout=300s" in jenkinsfile
     assert "describe deployment code-sandbox-deployment" in jenkinsfile
-    assert "describe pvc code-sandbox-uploads" in jenkinsfile
+    assert "describe pvc" not in jenkinsfile
     assert "describe pod" in jenkinsfile
     assert 'logs "$pod" --all-containers' in jenkinsfile
 
@@ -90,29 +94,38 @@ def test_deployment_has_container_and_pod_security_controls() -> None:
 
 
 def test_deployment_has_resources_probes_and_writable_mounts() -> None:
+    deployment = read("k8s/base/deployment.yaml")
+    configmap = read("k8s/base/configmap.yaml")
+
+    assert "requests:" in deployment
+    assert "limits:" in deployment
+    assert "cpu:" in deployment
+    assert "ephemeral-storage:" in deployment
+    assert "livenessProbe:" in deployment
+    assert "readinessProbe:" in deployment
+    assert "mountPath: /data/uploads" in deployment
+    assert "mountPath: /tmp" in deployment
+    assert "persistentVolumeClaim:" not in deployment
+    assert deployment.count("emptyDir:") == 2
+    assert "optional: true" in deployment
+    assert 'SANDBOX_RETENTION_DAYS: "30"' in configmap
+
+
+def test_kubernetes_uses_one_ephemeral_pod_without_scaling_resources() -> None:
     manifests = all_kubernetes_yaml()
+    deployment = read("k8s/base/deployment.yaml")
+    kustomization = read("k8s/base/kustomization.yaml")
 
-    assert "requests:" in manifests
-    assert "limits:" in manifests
-    assert "cpu:" in manifests
-    assert "ephemeral-storage:" in manifests
-    assert "livenessProbe:" in manifests
-    assert "readinessProbe:" in manifests
-    assert "mountPath: /data/uploads" in manifests
-    assert "mountPath: /tmp" in manifests
-    assert "persistentVolumeClaim:" in manifests
-    assert "emptyDir:" in manifests
-    assert "optional: true" in manifests
-
-
-def test_kubernetes_adds_shared_storage_service_and_scaling() -> None:
-    manifests = all_kubernetes_yaml()
-
-    assert "ReadWriteMany" in manifests
+    assert "replicas: 1" in deployment
+    assert "type: Recreate" in deployment
+    assert "pvc.yaml" not in kustomization
+    assert "hpa.yaml" not in kustomization
+    assert "pdb.yaml" not in kustomization
+    assert "kind: PersistentVolumeClaim" not in manifests
+    assert "kind: HorizontalPodAutoscaler" not in manifests
+    assert "kind: PodDisruptionBudget" not in manifests
     assert "kind: Service" in manifests
     assert "port: 32004" in manifests
-    assert "kind: HorizontalPodAutoscaler" in manifests
-    assert "kind: PodDisruptionBudget" in manifests
 
 
 def test_network_policy_denies_egress_by_default() -> None:

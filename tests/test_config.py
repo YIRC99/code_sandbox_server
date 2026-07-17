@@ -19,6 +19,13 @@ def test_settings_read_environment(monkeypatch: pytest.MonkeyPatch, tmp_path: Pa
     assert settings.max_concurrent == 3
 
 
+def test_default_retention_is_30_days(monkeypatch: pytest.MonkeyPatch) -> None:
+    monkeypatch.delenv("SANDBOX_RETENTION_DAYS", raising=False)
+
+    assert Settings().retention_days == 30
+    assert Settings.from_env().retention_days == 30
+
+
 @pytest.mark.parametrize(
     ("field", "value"),
     [
