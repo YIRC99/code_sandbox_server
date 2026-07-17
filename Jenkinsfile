@@ -2,10 +2,14 @@ pipeline {
     agent any
 
     environment {
-        HARBOR_REGISTRY = 'harbor.internal.net'
-        IMAGE_NAME = 'yunnan-agent/code-sandbox'
+        HARBOR_REGISTRY = '172.16.10.15:31001'
+        IMAGE_NAME = 'yntrust-dev/code-sandbox'
         IMAGE_TAG = "${env.BUILD_NUMBER}"
-        K8S_NAMESPACE = 'yunnan-agent-prod'
+        IMAGE_REF = "${HARBOR_REGISTRY}/${IMAGE_NAME}:${IMAGE_TAG}"
+        LATEST_REF = "${HARBOR_REGISTRY}/${IMAGE_NAME}:latest"
+        K8S_NAMESPACE = 'yntrust-dev'
+        DOCKER_CREDENTIAL_ID = '144a6a6f-3dd5-4513-b577-9e1536ad83e3'
+        K8S_CREDENTIAL_ID = 'd99fffce-86d2-4ba7-be11-44bcc2232924'
         DOCKER_BUILDKIT = '1'
     }
 
@@ -37,25 +41,30 @@ pipeline {
 
         stage('Build and Push') {
             steps {
-                script {
-                    docker.withRegistry("https://${HARBOR_REGISTRY}", 'harbor-credentials-id') {
-                        def image = docker.build("${HARBOR_REGISTRY}/${IMAGE_NAME}:${IMAGE_TAG}")
-                        image.push()
-                        image.push('latest')
-                    }
+                withCredentials([usernamePassword(credentialsId: env.DOCKER_CREDENTIAL_ID, usernameVariable: 'HARBOR_USER', passwordVariable: 'HARBOR_PASS')]) {
+                    sh '''
+                        set -eu
+                        echo "$HARBOR_PASS" | docker login "$HARBOR_REGISTRY" -u "$HARBOR_USER" --password-stdin
+                        docker build -t "$IMAGE_REF" .
+                        docker tag "$IMAGE_REF" "$LATEST_REF"
+                        docker push "$IMAGE_REF"
+                        docker push "$LATEST_REF"
+                        docker logout "$HARBOR_REGISTRY"
+                    '''
                 }
             }
         }
 
         stage('Deploy') {
             steps {
-                script {
-                    withKubeConfig([credentialsId: 'k8s-config-id']) {
-                        sh 'kubectl apply -k k8s/overlays/prod'
-                        sh "kubectl set image deployment/code-sandbox-deployment code-sandbox=${HARBOR_REGISTRY}/${IMAGE_NAME}:${IMAGE_TAG} -n ${K8S_NAMESPACE}"
-                        sh "kubectl annotate deployment/code-sandbox-deployment kubernetes.io/change-cause='Jenkins build ${BUILD_NUMBER}' --overwrite -n ${K8S_NAMESPACE}"
-                        sh "kubectl rollout status deployment/code-sandbox-deployment --timeout=180s -n ${K8S_NAMESPACE}"
-                    }
+                withCredentials([file(credentialsId: env.K8S_CREDENTIAL_ID, variable: 'KUBECONFIG')]) {
+                    sh '''
+                        set -eu
+                        kubectl --kubeconfig="$KUBECONFIG" apply -k k8s/overlays/prod
+                        kubectl --kubeconfig="$KUBECONFIG" set image deployment/code-sandbox-deployment code-sandbox="$IMAGE_REF" -n "$K8S_NAMESPACE"
+                        kubectl --kubeconfig="$KUBECONFIG" annotate deployment/code-sandbox-deployment kubernetes.io/change-cause="Jenkins build $BUILD_NUMBER" --overwrite -n "$K8S_NAMESPACE"
+                        kubectl --kubeconfig="$KUBECONFIG" rollout status deployment/code-sandbox-deployment --timeout=180s -n "$K8S_NAMESPACE"
+                    '''
                 }
             }
         }

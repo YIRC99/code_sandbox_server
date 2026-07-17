@@ -1,5 +1,4 @@
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: yunnan-agent-prod
-
+  name: yntrust-dev

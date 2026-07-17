@@ -95,13 +95,13 @@ curl -X POST http://127.0.0.1:32004/execute \
 
 共享 PVC 可以理解为多个 Pod 共用的上传目录：一个 Pod 保存文件后，另一个 Pod 也能根据日期和文件名执行它。如果集群没有支持 `ReadWriteMany` 的存储，PVC 会一直处于 Pending。
 
-先创建 API Key Secret，示例清单不能直接用于生产：
+生产环境应先创建 API Key Secret；清单允许开发环境在 Secret 不存在时启动，但此时业务接口不会鉴权。示例清单不能直接用于生产：
 
 ```bash
-kubectl create namespace yunnan-agent-prod --dry-run=client -o yaml | kubectl apply -f -
+kubectl create namespace yntrust-dev --dry-run=client -o yaml | kubectl apply -f -
 kubectl create secret generic code-sandbox-secret \
   --from-literal=api-key='replace-with-a-long-random-value' \
-  -n yunnan-agent-prod
+  -n yntrust-dev
 kubectl apply -k k8s/overlays/prod
 ```
 
@@ -111,8 +111,8 @@ kubectl apply -k k8s/overlays/prod
 
 流水线需要 Jenkins Agent 已安装 Python/pip、Docker 和 `kubectl`。流水线会优先通过清华 PyPI 镜像将 `uv` 安装到 Jenkins 用户目录，失败时回退到 uv 官方安装脚本，然后执行依赖同步、测试和 Ruff。还需要配置：
 
-- Harbor 凭据 ID：`harbor-credentials-id`
-- Kubeconfig 凭据 ID：`k8s-config-id`
+- Harbor 凭据 ID：`144a6a6f-3dd5-4513-b577-9e1536ad83e3`
+- Kubeconfig 凭据 ID：`d99fffce-86d2-4ba7-be11-44bcc2232924`
 
 流水线依次执行依赖同步、Pytest、Ruff、镜像构建与推送、Kustomize apply、指定构建号镜像更新和 rollout 等待。任何阶段失败都会停止部署。
 

@@ -30,6 +30,17 @@ def test_jenkins_installs_uv_before_host_verification() -> None:
     assert "docker build --target test" not in jenkinsfile
 
 
+def test_jenkins_uses_installed_credentials_binding_steps() -> None:
+    jenkinsfile = read("Jenkinsfile")
+
+    assert "docker.withRegistry" not in jenkinsfile
+    assert "withKubeConfig" not in jenkinsfile
+    assert "withCredentials([usernamePassword(" in jenkinsfile
+    assert "withCredentials([file(" in jenkinsfile
+    assert "172.16.10.15:31001" in jenkinsfile
+    assert "yntrust-dev/code-sandbox" in jenkinsfile
+
+
 def test_deployment_has_container_and_pod_security_controls() -> None:
     manifests = all_kubernetes_yaml()
 
@@ -55,6 +66,7 @@ def test_deployment_has_resources_probes_and_writable_mounts() -> None:
     assert "mountPath: /tmp" in manifests
     assert "persistentVolumeClaim:" in manifests
     assert "emptyDir:" in manifests
+    assert "optional: true" in manifests
 
 
 def test_kubernetes_adds_shared_storage_service_and_scaling() -> None:
