@@ -1,15 +1,21 @@
 # syntax=docker/dockerfile:1.7
 FROM python:3.12-slim AS builder
 
-COPY --from=ghcr.io/astral-sh/uv:latest /uv /uvx /bin/
+ARG UV_VERSION=0.15.22
+RUN python -m pip install --no-cache-dir "uv==${UV_VERSION}" \
+    -i https://pypi.tuna.tsinghua.edu.cn/simple
+ENV UV_INDEX_URL=https://pypi.tuna.tsinghua.edu.cn/simple
+
 WORKDIR /app
 COPY pyproject.toml uv.lock ./
 RUN --mount=type=cache,target=/root/.cache/uv \
-    /bin/uv sync --frozen --no-install-project --no-dev
+    uv sync --frozen --no-install-project --no-dev
 
 FROM python:3.12-slim
 
-RUN apt-get update \
+RUN sed -i 's|http://deb.debian.org|https://mirrors.tuna.tsinghua.edu.cn|g' \
+        /etc/apt/sources.list.d/debian.sources \
+    && DEBIAN_FRONTEND=noninteractive apt-get update \
     && apt-get install --no-install-recommends --yes tini \
     && rm -rf /var/lib/apt/lists/* \
     && groupadd --gid 10001 sandbox \

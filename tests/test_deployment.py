@@ -16,6 +16,10 @@ def test_dockerfile_uses_lockfile_and_fixed_non_root_user() -> None:
 
     assert "COPY pyproject.toml uv.lock" in dockerfile
     assert "uv sync --frozen --no-install-project --no-dev" in dockerfile
+    assert "ghcr.io/astral-sh/uv" not in dockerfile
+    assert "pip install --no-cache-dir" in dockerfile
+    assert "https://pypi.tuna.tsinghua.edu.cn/simple" in dockerfile
+    assert "https://mirrors.tuna.tsinghua.edu.cn" in dockerfile
     assert "USER 10001:10001" in dockerfile
     assert "/data/uploads" in dockerfile
 
