@@ -126,10 +126,18 @@ async def test_timeout_kills_descendant_processes(tmp_path: Path) -> None:
         f"subprocess.Popen([sys.executable, '-c', {child_source!r}])\n"
         "time.sleep(5)\n",
     )
-    executor = SandboxExecutor(Settings(upload_dir=tmp_path, terminate_grace_seconds=0.1))
+    executor = SandboxExecutor(
+        Settings(
+            upload_dir=tmp_path,
+            terminate_grace_seconds=0.1,
+            # RLIMIT_NPROC counts every process owned by the Jenkins Unix user.
+            # Keep this test focused on process-tree termination, not the shared host count.
+            process_count_limit=4096,
+        )
+    )
 
     result = await executor.execute(script, timeout=0.1)
     await asyncio.sleep(0.7)
 
-    assert result.status == "timeout"
+    assert result.status == "timeout", result.stderr
     assert not marker.exists()
