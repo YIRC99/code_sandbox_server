@@ -46,6 +46,20 @@ def test_jenkins_uses_installed_credentials_binding_steps() -> None:
     assert "yntrust-dev/code-sandbox" in jenkinsfile
 
 
+def test_jenkins_applies_one_image_revision_and_prints_rollout_diagnostics() -> None:
+    jenkinsfile = read("Jenkinsfile")
+
+    render_position = jenkinsfile.index("newTag: latest/newTag: $IMAGE_TAG")
+    apply_position = jenkinsfile.index("apply -k k8s/overlays/prod")
+    assert render_position < apply_position
+    assert "kubectl set image" not in jenkinsfile
+    assert "rollout status deployment/code-sandbox-deployment --timeout=300s" in jenkinsfile
+    assert "describe deployment code-sandbox-deployment" in jenkinsfile
+    assert "describe pvc code-sandbox-uploads" in jenkinsfile
+    assert "describe pod" in jenkinsfile
+    assert 'logs "$pod" --all-containers' in jenkinsfile
+
+
 def test_deployment_has_container_and_pod_security_controls() -> None:
     manifests = all_kubernetes_yaml()
 

@@ -60,10 +60,30 @@ pipeline {
                 withCredentials([file(credentialsId: env.K8S_CREDENTIAL_ID, variable: 'KUBECONFIG')]) {
                     sh '''
                         set -eu
-                        kubectl --kubeconfig="$KUBECONFIG" apply -k k8s/overlays/prod
-                        kubectl --kubeconfig="$KUBECONFIG" set image deployment/code-sandbox-deployment code-sandbox="$IMAGE_REF" -n "$K8S_NAMESPACE"
-                        kubectl --kubeconfig="$KUBECONFIG" annotate deployment/code-sandbox-deployment kubernetes.io/change-cause="Jenkins build $BUILD_NUMBER" --overwrite -n "$K8S_NAMESPACE"
-                        kubectl --kubeconfig="$KUBECONFIG" rollout status deployment/code-sandbox-deployment --timeout=180s -n "$K8S_NAMESPACE"
+                        kube() {
+                            kubectl --kubeconfig="$KUBECONFIG" "$@"
+                        }
+
+                        sed -i "s/newTag: latest/newTag: $IMAGE_TAG/" k8s/overlays/prod/kustomization.yaml
+                        kube apply -k k8s/overlays/prod
+                        kube annotate deployment/code-sandbox-deployment kubernetes.io/change-cause="Jenkins build $BUILD_NUMBER" --overwrite -n "$K8S_NAMESPACE"
+
+                        if ! kube rollout status deployment/code-sandbox-deployment --timeout=300s -n "$K8S_NAMESPACE"; then
+                            echo "=== Deployment rollout failed: diagnostics ==="
+                            kube get deployment code-sandbox-deployment -n "$K8S_NAMESPACE" -o wide || true
+                            kube describe deployment code-sandbox-deployment -n "$K8S_NAMESPACE" || true
+                            kube describe pvc code-sandbox-uploads -n "$K8S_NAMESPACE" || true
+                            kube get pods -l app.kubernetes.io/name=code-sandbox -n "$K8S_NAMESPACE" -o wide || true
+                            kube get events -n "$K8S_NAMESPACE" --sort-by=.lastTimestamp | tail -100 || true
+
+                            pods=$(kube get pods -l app.kubernetes.io/name=code-sandbox -n "$K8S_NAMESPACE" -o jsonpath='{.items[*].metadata.name}')
+                            for pod in $pods; do
+                                echo "=== Pod: $pod ==="
+                                kube describe pod "$pod" -n "$K8S_NAMESPACE" || true
+                                kube logs "$pod" --all-containers --tail=200 -n "$K8S_NAMESPACE" || true
+                            done
+                            exit 1
+                        fi
                     '''
                 }
             }
