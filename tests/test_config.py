@@ -34,4 +34,3 @@ def test_settings_read_environment(monkeypatch: pytest.MonkeyPatch, tmp_path: Pa
 def test_settings_reject_invalid_limits(field: str, value: int) -> None:
     with pytest.raises(ValueError, match=field):
         Settings(**{field: value})
-

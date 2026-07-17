@@ -60,17 +60,19 @@ class SandboxExecutor:
             await self._terminate_process_tree(process)
 
         stdout_bytes, stderr_bytes = await asyncio.gather(stdout_task, stderr_task)
+        stdout = self._decode(stdout_bytes)
+        stderr = self._sanitize_stderr(self._decode(stderr_bytes), script)
         if timed_out:
             return ExecutionResult(
-                stdout=self._decode(stdout_bytes),
-                stderr=self._decode(stderr_bytes),
+                stdout=stdout,
+                stderr=stderr,
                 exit_code=-1,
                 status="timeout",
             )
         exit_code = process.returncode if process.returncode is not None else -2
         return ExecutionResult(
-            stdout=self._decode(stdout_bytes),
-            stderr=self._decode(stderr_bytes),
+            stdout=stdout,
+            stderr=stderr,
             exit_code=exit_code,
             status="success" if exit_code == 0 else "error",
         )
@@ -99,9 +101,7 @@ class SandboxExecutor:
         except ProcessLookupError:
             return
         try:
-            await asyncio.wait_for(
-                process.wait(), timeout=self._settings.terminate_grace_seconds
-            )
+            await asyncio.wait_for(process.wait(), timeout=self._settings.terminate_grace_seconds)
         except TimeoutError:
             try:
                 os.killpg(process.pid, signal.SIGKILL)
@@ -124,9 +124,7 @@ class SandboxExecutor:
         except OSError:
             process.kill()
         try:
-            await asyncio.wait_for(
-                process.wait(), timeout=self._settings.terminate_grace_seconds
-            )
+            await asyncio.wait_for(process.wait(), timeout=self._settings.terminate_grace_seconds)
         except TimeoutError:
             process.kill()
             await process.wait()
@@ -151,3 +149,14 @@ class SandboxExecutor:
     @staticmethod
     def _decode(value: bytes) -> str:
         return value.decode("utf-8", errors="replace").replace("\r\n", "\n")
+
+    def _sanitize_stderr(self, value: str, script: Path) -> str:
+        replacements = (
+            (str(script), script.name),
+            (script.as_posix(), script.name),
+            (str(self._runner), self._runner.name),
+            (self._runner.as_posix(), self._runner.name),
+        )
+        for absolute_path, safe_name in replacements:
+            value = value.replace(absolute_path, safe_name)
+        return value

@@ -132,8 +132,10 @@ def create_app(settings: Settings | None = None) -> FastAPI:
         request: Request,
         _: Annotated[None, authenticated],
     ) -> ExecuteResponse:
-        timeout = body.timeout if body.timeout is not None else min(
-            10, resolved_settings.max_timeout_seconds
+        timeout = (
+            body.timeout
+            if body.timeout is not None
+            else min(10, resolved_settings.max_timeout_seconds)
         )
         if timeout > resolved_settings.max_timeout_seconds:
             raise HTTPException(

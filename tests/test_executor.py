@@ -39,6 +39,17 @@ async def test_execute_maps_nonzero_exit_to_error(tmp_path: Path) -> None:
 
 
 @pytest.mark.asyncio
+async def test_execute_hides_uploaded_file_absolute_path(tmp_path: Path) -> None:
+    executor = SandboxExecutor(Settings(upload_dir=tmp_path))
+    script = write_script(tmp_path, "raise RuntimeError('bad')")
+
+    result = await executor.execute(script, timeout=1)
+
+    assert str(tmp_path) not in result.stderr
+    assert 'File "script.py"' in result.stderr
+
+
+@pytest.mark.asyncio
 async def test_execute_times_out(tmp_path: Path) -> None:
     executor = SandboxExecutor(Settings(upload_dir=tmp_path, terminate_grace_seconds=0.1))
     script = write_script(tmp_path, "import time\nprint('started', flush=True)\ntime.sleep(5)")

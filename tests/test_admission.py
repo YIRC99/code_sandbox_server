@@ -69,4 +69,3 @@ async def test_wait_timeout_is_rejected_and_waiter_count_recovers() -> None:
             async with gate.slot():
                 pass
         assert gate.waiting == 0
-

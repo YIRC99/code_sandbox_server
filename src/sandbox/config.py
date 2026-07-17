@@ -63,13 +63,9 @@ class Settings:
             retention_days=_env_int("SANDBOX_RETENTION_DAYS", 7),
             cleanup_interval_seconds=_env_float("SANDBOX_CLEANUP_INTERVAL_SECONDS", 3600.0),
             process_cpu_seconds=_env_int("SANDBOX_PROCESS_CPU_SECONDS", 30),
-            process_memory_bytes=_env_int(
-                "SANDBOX_PROCESS_MEMORY_BYTES", 1536 * 1024 * 1024
-            ),
+            process_memory_bytes=_env_int("SANDBOX_PROCESS_MEMORY_BYTES", 1536 * 1024 * 1024),
             process_count_limit=_env_int("SANDBOX_PROCESS_COUNT_LIMIT", 32),
-            process_file_bytes=_env_int(
-                "SANDBOX_PROCESS_FILE_BYTES", 20 * 1024 * 1024
-            ),
+            process_file_bytes=_env_int("SANDBOX_PROCESS_FILE_BYTES", 20 * 1024 * 1024),
             process_open_files=_env_int("SANDBOX_PROCESS_OPEN_FILES", 64),
             terminate_grace_seconds=_env_float("SANDBOX_TERMINATE_GRACE_SECONDS", 1.0),
         )
@@ -81,4 +77,3 @@ def _env_int(name: str, default: int) -> int:
 
 def _env_float(name: str, default: float) -> float:
     return float(os.getenv(name, str(default)))
-

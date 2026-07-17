@@ -69,9 +69,7 @@ class UploadStorage:
                 while chunk := await upload.read(_UPLOAD_CHUNK_BYTES):
                     total += len(chunk)
                     if total > self._max_upload_bytes:
-                        raise UploadTooLargeError(
-                            f"upload exceeds {self._max_upload_bytes} bytes"
-                        )
+                        raise UploadTooLargeError(f"upload exceeds {self._max_upload_bytes} bytes")
                     destination.write(chunk)
         except FileExistsError as exc:
             raise DuplicateUploadError("a file with this name already exists today") from exc

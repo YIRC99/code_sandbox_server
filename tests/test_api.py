@@ -98,9 +98,7 @@ def test_execute_rejects_invalid_missing_and_excessive_timeout(tmp_path: Path) -
             json={"date": "2026-07-17", "filename": "missing.py"},
         )
         uploaded = upload(client, "slow.py", "pass").json()
-        excessive = client.post(
-            "/execute", headers=auth_headers(), json={**uploaded, "timeout": 3}
-        )
+        excessive = client.post("/execute", headers=auth_headers(), json={**uploaded, "timeout": 3})
 
     assert invalid.status_code == 400
     assert missing.status_code == 404
@@ -154,9 +152,7 @@ def test_unexpected_execute_error_does_not_leak_traceback(tmp_path: Path) -> Non
         async def execute(self, script: Path, timeout: float):
             raise RuntimeError(f"secret path: {script}")
 
-    app = create_app(
-        Settings(upload_dir=tmp_path, api_key="test-key", cleanup_interval_seconds=60)
-    )
+    app = create_app(Settings(upload_dir=tmp_path, api_key="test-key", cleanup_interval_seconds=60))
     app.state.executor = BrokenExecutor()
     with TestClient(app) as client:
         identity = upload(client, "broken.py", "pass").json()

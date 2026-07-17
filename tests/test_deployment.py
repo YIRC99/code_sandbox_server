@@ -1,6 +1,5 @@
 from pathlib import Path
 
-
 ROOT = Path(__file__).parents[1]
 
 
@@ -9,9 +8,7 @@ def read(path: str) -> str:
 
 
 def all_kubernetes_yaml() -> str:
-    return "\n".join(
-        path.read_text(encoding="utf-8") for path in (ROOT / "k8s").rglob("*.yaml")
-    )
+    return "\n".join(path.read_text(encoding="utf-8") for path in (ROOT / "k8s").rglob("*.yaml"))
 
 
 def test_dockerfile_uses_lockfile_and_fixed_non_root_user() -> None:
