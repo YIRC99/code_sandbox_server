@@ -1,7 +1,7 @@
 # syntax=docker/dockerfile:1.7
 FROM python:3.12-slim AS builder
 
-ARG UV_VERSION=0.15.22
+ARG UV_VERSION=0.11.21
 RUN python -m pip install --no-cache-dir "uv==${UV_VERSION}" \
     -i https://pypi.tuna.tsinghua.edu.cn/simple
 ENV UV_INDEX_URL=https://pypi.tuna.tsinghua.edu.cn/simple
