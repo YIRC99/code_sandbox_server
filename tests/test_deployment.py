@@ -1,8 +1,4 @@
-import subprocess
-import sys
 from pathlib import Path
-
-import yaml
 
 ROOT = Path(__file__).parents[1]
 
@@ -50,49 +46,30 @@ def test_jenkins_uses_installed_credentials_binding_steps() -> None:
     assert "yntrust-dev/code-sandbox" in jenkinsfile
 
 
-def test_renderer_preserves_numeric_image_tag_as_yaml_string(tmp_path: Path) -> None:
-    kustomization = tmp_path / "kustomization.yaml"
-    kustomization.write_text(
-        """\
-images:
-  - name: registry.example/code-sandbox
-    newName: registry.example/code-sandbox
-    newTag: latest
-""",
-        encoding="utf-8",
-    )
-
-    subprocess.run(
-        [
-            sys.executable,
-            str(ROOT / "scripts" / "render_kustomization.py"),
-            "--file",
-            str(kustomization),
-            "--image",
-            "registry.example/code-sandbox",
-            "--tag",
-            "10",
-        ],
-        check=True,
-    )
-
-    rendered = yaml.safe_load(kustomization.read_text(encoding="utf-8"))
-    new_tag = rendered["images"][0]["newTag"]
-    assert new_tag == "10"
-    assert isinstance(new_tag, str)
-
-
 def test_jenkins_validates_one_rendered_image_and_prints_rollout_diagnostics() -> None:
     jenkinsfile = read("Jenkinsfile")
 
-    configure_position = jenkinsfile.index("scripts/render_kustomization.py")
     render_position = jenkinsfile.index("kube kustomize k8s/overlays/prod")
-    verify_position = jenkinsfile.index('grep -Fq "image: $IMAGE_REF" "$RENDERED_MANIFEST"')
+    source_check_position = jenkinsfile.index(
+        'SOURCE_MATCH_COUNT=$(grep -Fc "image: $SOURCE_IMAGE" "$RENDERED_MANIFEST" || true)'
+    )
+    replace_position = jenkinsfile.index(
+        'sed -i "s|image: $SOURCE_IMAGE|image: $IMAGE_REF|" "$RENDERED_MANIFEST"'
+    )
+    verify_position = jenkinsfile.index(
+        'IMAGE_MATCH_COUNT=$(grep -Fc "image: $IMAGE_REF" "$RENDERED_MANIFEST" || true)'
+    )
     apply_position = jenkinsfile.index('apply -f "$RENDERED_MANIFEST"')
-    assert configure_position < render_position < verify_position < apply_position
-    assert "sed -i" not in jenkinsfile
+    assert (
+        render_position
+        < source_check_position
+        < replace_position
+        < verify_position
+        < apply_position
+    )
+    assert "render_kustomization.py" not in jenkinsfile
     assert "apply -k k8s/overlays/prod" not in jenkinsfile
-    assert "kubectl set image" not in jenkinsfile
+    assert "kube set image" not in jenkinsfile
     assert "rollout status deployment/code-sandbox-deployment --timeout=300s" in jenkinsfile
     assert "describe deployment code-sandbox-deployment" in jenkinsfile
     assert "describe pvc code-sandbox-uploads" in jenkinsfile

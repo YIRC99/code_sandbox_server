@@ -64,25 +64,25 @@ pipeline {
                             kubectl --kubeconfig="$KUBECONFIG" "$@"
                         }
 
-                        KUSTOMIZATION_FILE="k8s/overlays/prod/kustomization.yaml"
-                        KUSTOMIZATION_BACKUP=$(mktemp)
                         RENDERED_MANIFEST=$(mktemp)
-                        cp "$KUSTOMIZATION_FILE" "$KUSTOMIZATION_BACKUP"
                         cleanup() {
-                            cp "$KUSTOMIZATION_BACKUP" "$KUSTOMIZATION_FILE"
-                            rm -f "$KUSTOMIZATION_BACKUP" "$RENDERED_MANIFEST"
+                            rm -f "$RENDERED_MANIFEST"
                         }
                         trap cleanup EXIT
 
-                        export PATH="$HOME/.local/bin:$HOME/.cargo/bin:$PATH"
-                        uv run python scripts/render_kustomization.py \
-                            --file "$KUSTOMIZATION_FILE" \
-                            --image "$HARBOR_REGISTRY/$IMAGE_NAME" \
-                            --tag "$IMAGE_TAG"
-
+                        SOURCE_IMAGE="$HARBOR_REGISTRY/$IMAGE_NAME:latest"
                         kube kustomize k8s/overlays/prod > "$RENDERED_MANIFEST"
-                        if ! grep -Fq "image: $IMAGE_REF" "$RENDERED_MANIFEST"; then
-                            echo "Rendered manifest does not contain expected image: $IMAGE_REF" >&2
+                        SOURCE_MATCH_COUNT=$(grep -Fc "image: $SOURCE_IMAGE" "$RENDERED_MANIFEST" || true)
+                        if [ "$SOURCE_MATCH_COUNT" -ne 1 ]; then
+                            echo "Expected one rendered source image, found $SOURCE_MATCH_COUNT: $SOURCE_IMAGE" >&2
+                            grep -n "image:" "$RENDERED_MANIFEST" >&2 || true
+                            exit 1
+                        fi
+
+                        sed -i "s|image: $SOURCE_IMAGE|image: $IMAGE_REF|" "$RENDERED_MANIFEST"
+                        IMAGE_MATCH_COUNT=$(grep -Fc "image: $IMAGE_REF" "$RENDERED_MANIFEST" || true)
+                        if [ "$IMAGE_MATCH_COUNT" -ne 1 ]; then
+                            echo "Expected one rendered deployment image, found $IMAGE_MATCH_COUNT: $IMAGE_REF" >&2
                             grep -n "image:" "$RENDERED_MANIFEST" >&2 || true
                             exit 1
                         fi

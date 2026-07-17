@@ -2,14 +2,14 @@
 
 ## Goal
 
-Deploy the immutable Jenkins build image without relying on Groovy/Shell/sed quote escaping, and verify the fully rendered Kubernetes manifest before it reaches the cluster.
+Deploy the immutable Jenkins build image by writing the complete image reference into a locally rendered manifest, then verify that manifest before it reaches the cluster.
 
 ## Design
 
-- Keep the existing numeric Harbor tag (`BUILD_NUMBER`).
-- Add a small Python renderer that parses `kustomization.yaml` as YAML and assigns `images[].newTag` as a Python string.
-- In Jenkins, back up the checked-in overlay, invoke the renderer, run `kubectl kustomize` into a temporary manifest, and assert that the manifest contains exactly `IMAGE_REF` before applying it.
-- Restore the checked-in overlay and delete temporary files through a shell trap.
+- Keep the checked-in Kustomize overlay unchanged.
+- Run `kubectl kustomize` to produce the complete manifest containing every managed resource.
+- Assert that the manifest contains exactly one current `:latest` image, replace that full image reference with `IMAGE_REF`, then assert exactly one final image before applying the manifest once.
+- Delete the temporary manifest through a shell trap.
 - Keep rollout diagnostics unchanged.
 
 ## Why Bond_Y Does Not Fail This Way
@@ -18,6 +18,6 @@ Bond_Y writes a complete `image: registry/project/service:<build>` value into a 
 
 ## Verification
 
-- A regression test invokes the real renderer with tag `10` and verifies that YAML reloads it as the string `"10"`.
-- A pipeline contract test verifies render, image assertion, and apply ordering, and rejects `sed`-based mutation.
+- A pipeline contract test verifies complete rendering, exact source and target image counts, replacement, and apply ordering.
+- The contract rejects an additional Python renderer, `kubectl set image` output that would omit unchanged resources, and direct `apply -k` followed by a second cluster mutation.
 - The normal test, lint, and format checks must pass.

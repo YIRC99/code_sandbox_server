@@ -274,7 +274,6 @@ dependencies = [
 dev = [
     { name = "pytest" },
     { name = "pytest-asyncio" },
-    { name = "pyyaml" },
     { name = "ruff" },
 ]
 
@@ -302,7 +301,6 @@ requires-dist = [
 dev = [
     { name = "pytest", specifier = ">=8,<9" },
     { name = "pytest-asyncio", specifier = ">=0.25,<1" },
-    { name = "pyyaml", specifier = ">=6,<7" },
     { name = "ruff", specifier = ">=0.11,<1" },
 ]
 
