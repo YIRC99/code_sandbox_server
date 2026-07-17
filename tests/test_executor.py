@@ -100,6 +100,20 @@ async def test_execute_does_not_expose_parent_environment(
 
 
 @pytest.mark.asyncio
+async def test_execute_uses_disposable_working_directory(tmp_path: Path) -> None:
+    executor = SandboxExecutor(Settings(upload_dir=tmp_path))
+    script = write_script(
+        tmp_path,
+        "from pathlib import Path\nPath('artifact.txt').write_text('temporary')",
+    )
+
+    result = await executor.execute(script, timeout=1)
+
+    assert result.status == "success"
+    assert not (tmp_path / "artifact.txt").exists()
+
+
+@pytest.mark.asyncio
 async def test_timeout_kills_descendant_processes(tmp_path: Path) -> None:
     marker = tmp_path / "descendant-survived"
     child_source = (

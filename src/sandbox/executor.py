@@ -1,8 +1,10 @@
 import asyncio
 import os
+import shutil
 import signal
 import subprocess
 import sys
+import tempfile
 from dataclasses import dataclass
 from pathlib import Path
 
@@ -29,6 +31,12 @@ class SandboxExecutor:
             raise ValueError(
                 f"timeout must be between 0 and {self._settings.max_timeout_seconds} seconds"
             )
+        with tempfile.TemporaryDirectory(prefix="code-sandbox-") as workspace:
+            isolated_script = Path(workspace) / script.name
+            shutil.copyfile(script, isolated_script)
+            return await self._execute_isolated(isolated_script, timeout)
+
+    async def _execute_isolated(self, script: Path, timeout: float) -> ExecutionResult:
         process_options: dict[str, object]
         if os.name == "nt":
             process_options = {"creationflags": subprocess.CREATE_NEW_PROCESS_GROUP}

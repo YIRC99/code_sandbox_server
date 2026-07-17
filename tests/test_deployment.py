@@ -38,6 +38,7 @@ def test_deployment_has_resources_probes_and_writable_mounts() -> None:
     assert "requests:" in manifests
     assert "limits:" in manifests
     assert "cpu:" in manifests
+    assert "ephemeral-storage:" in manifests
     assert "livenessProbe:" in manifests
     assert "readinessProbe:" in manifests
     assert "mountPath: /data/uploads" in manifests

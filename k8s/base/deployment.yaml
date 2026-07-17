@@ -56,9 +56,11 @@ spec:
             requests:
               cpu: 500m
               memory: 1Gi
+              ephemeral-storage: 256Mi
             limits:
               cpu: "2"
               memory: 4Gi
+              ephemeral-storage: 1Gi
           readinessProbe:
             httpGet:
               path: /health
@@ -87,4 +89,3 @@ spec:
         - name: tmp
           emptyDir:
             sizeLimit: 1Gi
-
