@@ -6,7 +6,7 @@ import sys
 from dataclasses import dataclass
 from pathlib import Path
 
-from sandbox.config import Settings
+from .config import Settings
 
 _TRUNCATION_MARKER = b"\n[output truncated]\n"
 

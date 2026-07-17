@@ -12,9 +12,9 @@ def _set_limit(resource_module: object, resource_name: str, value: int) -> None:
     limit_type = getattr(resource_module, resource_name, None)
     if limit_type is None:
         return
-    getrlimit = getattr(resource_module, "getrlimit")
-    setrlimit = getattr(resource_module, "setrlimit")
-    infinity = getattr(resource_module, "RLIM_INFINITY")
+    getrlimit = resource_module.getrlimit
+    setrlimit = resource_module.setrlimit
+    infinity = resource_module.RLIM_INFINITY
     _, current_hard = getrlimit(limit_type)
     hard = value if current_hard == infinity else min(value, current_hard)
     setrlimit(limit_type, (min(value, hard), hard))

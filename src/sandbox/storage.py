@@ -5,7 +5,7 @@ from pathlib import Path
 
 from fastapi import UploadFile
 
-from sandbox.config import Settings
+from .config import Settings
 
 _FILENAME_PATTERN = re.compile(r"^[A-Za-z0-9][A-Za-z0-9_-]{0,119}\.py$")
 _UPLOAD_CHUNK_BYTES = 64 * 1024
