@@ -133,7 +133,7 @@ class SandboxExecutor:
 
     def _child_environment(self) -> dict[str, str]:
         environment = {
-            "HOME": "/tmp/sandbox",
+            "HOME": "/tmp",
             "LANG": "C.UTF-8",
             "PATH": os.defpath,
             "SANDBOX_LIMIT_CPU_SECONDS": str(self._settings.process_cpu_seconds),
