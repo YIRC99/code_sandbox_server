@@ -64,8 +64,30 @@ pipeline {
                             kubectl --kubeconfig="$KUBECONFIG" "$@"
                         }
 
-                        sed -i "s/newTag: latest/newTag: \"$IMAGE_TAG\"/" k8s/overlays/prod/kustomization.yaml
-                        kube apply -k k8s/overlays/prod
+                        KUSTOMIZATION_FILE="k8s/overlays/prod/kustomization.yaml"
+                        KUSTOMIZATION_BACKUP=$(mktemp)
+                        RENDERED_MANIFEST=$(mktemp)
+                        cp "$KUSTOMIZATION_FILE" "$KUSTOMIZATION_BACKUP"
+                        cleanup() {
+                            cp "$KUSTOMIZATION_BACKUP" "$KUSTOMIZATION_FILE"
+                            rm -f "$KUSTOMIZATION_BACKUP" "$RENDERED_MANIFEST"
+                        }
+                        trap cleanup EXIT
+
+                        export PATH="$HOME/.local/bin:$HOME/.cargo/bin:$PATH"
+                        uv run python scripts/render_kustomization.py \
+                            --file "$KUSTOMIZATION_FILE" \
+                            --image "$HARBOR_REGISTRY/$IMAGE_NAME" \
+                            --tag "$IMAGE_TAG"
+
+                        kube kustomize k8s/overlays/prod > "$RENDERED_MANIFEST"
+                        if ! grep -Fq "image: $IMAGE_REF" "$RENDERED_MANIFEST"; then
+                            echo "Rendered manifest does not contain expected image: $IMAGE_REF" >&2
+                            grep -n "image:" "$RENDERED_MANIFEST" >&2 || true
+                            exit 1
+                        fi
+
+                        kube apply -f "$RENDERED_MANIFEST"
                         kube annotate deployment/code-sandbox-deployment kubernetes.io/change-cause="Jenkins build $BUILD_NUMBER" --overwrite -n "$K8S_NAMESPACE"
 
                         if ! kube rollout status deployment/code-sandbox-deployment --timeout=300s -n "$K8S_NAMESPACE"; then

@@ -1,4 +1,8 @@
+import subprocess
+import sys
 from pathlib import Path
+
+import yaml
 
 ROOT = Path(__file__).parents[1]
 
@@ -46,12 +50,48 @@ def test_jenkins_uses_installed_credentials_binding_steps() -> None:
     assert "yntrust-dev/code-sandbox" in jenkinsfile
 
 
-def test_jenkins_applies_one_image_revision_and_prints_rollout_diagnostics() -> None:
+def test_renderer_preserves_numeric_image_tag_as_yaml_string(tmp_path: Path) -> None:
+    kustomization = tmp_path / "kustomization.yaml"
+    kustomization.write_text(
+        """\
+images:
+  - name: registry.example/code-sandbox
+    newName: registry.example/code-sandbox
+    newTag: latest
+""",
+        encoding="utf-8",
+    )
+
+    subprocess.run(
+        [
+            sys.executable,
+            str(ROOT / "scripts" / "render_kustomization.py"),
+            "--file",
+            str(kustomization),
+            "--image",
+            "registry.example/code-sandbox",
+            "--tag",
+            "10",
+        ],
+        check=True,
+    )
+
+    rendered = yaml.safe_load(kustomization.read_text(encoding="utf-8"))
+    new_tag = rendered["images"][0]["newTag"]
+    assert new_tag == "10"
+    assert isinstance(new_tag, str)
+
+
+def test_jenkins_validates_one_rendered_image_and_prints_rollout_diagnostics() -> None:
     jenkinsfile = read("Jenkinsfile")
 
-    render_position = jenkinsfile.index('newTag: latest/newTag: \\"$IMAGE_TAG\\"')
-    apply_position = jenkinsfile.index("apply -k k8s/overlays/prod")
-    assert render_position < apply_position
+    configure_position = jenkinsfile.index("scripts/render_kustomization.py")
+    render_position = jenkinsfile.index("kube kustomize k8s/overlays/prod")
+    verify_position = jenkinsfile.index('grep -Fq "image: $IMAGE_REF" "$RENDERED_MANIFEST"')
+    apply_position = jenkinsfile.index('apply -f "$RENDERED_MANIFEST"')
+    assert configure_position < render_position < verify_position < apply_position
+    assert "sed -i" not in jenkinsfile
+    assert "apply -k k8s/overlays/prod" not in jenkinsfile
     assert "kubectl set image" not in jenkinsfile
     assert "rollout status deployment/code-sandbox-deployment --timeout=300s" in jenkinsfile
     assert "describe deployment code-sandbox-deployment" in jenkinsfile
