@@ -31,4 +31,3 @@ EXPOSE 32004
 
 ENTRYPOINT ["/usr/bin/tini", "--"]
 CMD ["uvicorn", "src.sandbox.main:app", "--host", "0.0.0.0", "--port", "32004", "--no-access-log"]
-

@@ -20,6 +20,16 @@ def test_dockerfile_uses_lockfile_and_fixed_non_root_user() -> None:
     assert "/data/uploads" in dockerfile
 
 
+def test_jenkins_installs_uv_before_host_verification() -> None:
+    jenkinsfile = read("Jenkinsfile")
+
+    install_position = jenkinsfile.index("pip install uv")
+    sync_position = jenkinsfile.index("uv sync --frozen --group dev")
+    assert install_position < sync_position
+    assert 'export PATH="$HOME/.local/bin:$HOME/.cargo/bin:$PATH"' in jenkinsfile
+    assert "docker build --target test" not in jenkinsfile
+
+
 def test_deployment_has_container_and_pod_security_controls() -> None:
     manifests = all_kubernetes_yaml()
 

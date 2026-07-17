@@ -18,10 +18,20 @@ pipeline {
 
         stage('Verify') {
             steps {
-                sh 'uv sync --frozen --group dev'
-                sh 'uv run pytest -q'
-                sh 'uv run ruff check .'
-                sh 'uv run ruff format --check .'
+                sh '''
+                    set -eu
+                    if ! command -v uv >/dev/null 2>&1; then
+                        pip install uv -i https://pypi.tuna.tsinghua.edu.cn/simple --user \
+                            || pip3 install uv -i https://pypi.tuna.tsinghua.edu.cn/simple --user \
+                            || curl -LsSf https://astral.sh/uv/install.sh | sh
+                    fi
+                    export PATH="$HOME/.local/bin:$HOME/.cargo/bin:$PATH"
+                    uv --version
+                    uv sync --frozen --group dev
+                    uv run pytest -q
+                    uv run ruff check .
+                    uv run ruff format --check .
+                '''
             }
         }
 
@@ -60,4 +70,3 @@ pipeline {
         }
     }
 }
-

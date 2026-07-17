@@ -109,7 +109,7 @@ kubectl apply -k k8s/overlays/prod
 
 ## Jenkins
 
-流水线需要 Jenkins Agent 已安装 `uv`、Docker 和 `kubectl`，并配置：
+流水线需要 Jenkins Agent 已安装 Python/pip、Docker 和 `kubectl`。流水线会优先通过清华 PyPI 镜像将 `uv` 安装到 Jenkins 用户目录，失败时回退到 uv 官方安装脚本，然后执行依赖同步、测试和 Ruff。还需要配置：
 
 - Harbor 凭据 ID：`harbor-credentials-id`
 - Kubeconfig 凭据 ID：`k8s-config-id`
