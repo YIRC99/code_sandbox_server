@@ -1,0 +1,51 @@
+[project]
+name = "code-sandbox"
+version = "0.1.0"
+description = "Secure isolated Python Code Sandbox Service"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "fastapi>=0.115,<1",
+    "uvicorn[standard]>=0.34,<1",
+    "pydantic>=2,<3",
+    "python-multipart>=0.0.20,<1",
+    # 数据分析与科学计算 (Data Analysis & SciComp)
+    "numpy>=1.24,<3",
+    "pandas>=2.0,<3",
+    "scipy>=1.10,<2",
+    # 数据可视化 (Visualization)
+    "matplotlib>=3.7,<4",
+    "seaborn>=0.12,<1",
+    "plotly>=5.13,<6",
+    # 技术指标与回测框架 (Quant & Backtesting)
+    "backtesting>=0.3.3,<1",
+    "pandas-ta>=0.3.14b",
+    # 机器学习 (Machine Learning in Backtesting)
+    "scikit-learn>=1.2,<2",
+    # 网络请求与数据获取 (HTTP & Ticker Data)
+    "requests>=2.31,<3",
+    "httpx>=0.24,<1",
+    "yfinance>=0.2.18",
+]
+
+[dependency-groups]
+dev = [
+    "pytest>=8,<9",
+    "pytest-asyncio>=0.25,<1",
+    "ruff>=0.11,<1",
+]
+
+[tool.uv]
+index-url = "https://pypi.tuna.tsinghua.edu.cn/simple"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
+asyncio_mode = "auto"
+
+[tool.ruff]
+target-version = "py312"
+line-length = 100
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B"]

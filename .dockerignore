@@ -1,0 +1,11 @@
+.git
+.gitignore
+.venv
+.worktrees
+**/__pycache__
+**/*.pyc
+.pytest_cache
+.ruff_cache
+docs
+tests
+uploads
