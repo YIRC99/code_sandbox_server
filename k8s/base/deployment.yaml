@@ -29,7 +29,7 @@ spec:
           type: RuntimeDefault
       containers:
         - name: code-sandbox
-          image: 172.16.10.15:31001/yntrust-dev/code-sandbox:latest
+          image: 172.16.10.17:7747/yntrust-dev/code-sandbox:latest
           imagePullPolicy: IfNotPresent
           ports:
             - name: http

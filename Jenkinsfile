@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        HARBOR_REGISTRY = '172.16.10.15:31001'
+        HARBOR_REGISTRY = '172.16.10.17:7747'
         IMAGE_NAME = 'yntrust-dev/code-sandbox'
         IMAGE_TAG = "${env.BUILD_NUMBER}"
         IMAGE_REF = "${HARBOR_REGISTRY}/${IMAGE_NAME}:${IMAGE_TAG}"
