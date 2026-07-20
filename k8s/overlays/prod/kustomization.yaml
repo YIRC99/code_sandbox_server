@@ -5,6 +5,6 @@ resources:
   - namespace.yaml
   - ../../base
 images:
-  - name: 172.16.10.15:31001/yntrust-dev/code-sandbox
-    newName: 172.16.10.15:31001/yntrust-dev/code-sandbox
+  - name: 172.16.10.17:7747/yntrust-dev/code-sandbox
+    newName: 172.16.10.17:7747/yntrust-dev/code-sandbox
     newTag: latest

@@ -42,7 +42,7 @@ def test_jenkins_uses_installed_credentials_binding_steps() -> None:
     assert "withKubeConfig" not in jenkinsfile
     assert "withCredentials([usernamePassword(" in jenkinsfile
     assert "withCredentials([file(" in jenkinsfile
-    assert "172.16.10.15:31001" in jenkinsfile
+    assert "172.16.10.17:7747" in jenkinsfile
     assert "yntrust-dev/code-sandbox" in jenkinsfile
 
 
