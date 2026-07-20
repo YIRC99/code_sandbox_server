@@ -128,6 +128,13 @@ def test_kubernetes_uses_one_ephemeral_pod_without_scaling_resources() -> None:
     assert "port: 32004" in manifests
 
 
+def test_kubernetes_service_exposes_fixed_node_port() -> None:
+    service = read("k8s/base/service.yaml")
+
+    assert "type: NodePort" in service
+    assert "nodePort: 32004" in service
+
+
 def test_network_policy_denies_egress_by_default() -> None:
     policy = read("k8s/base/network-policy.yaml")
 

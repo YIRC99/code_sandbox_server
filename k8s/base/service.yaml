@@ -5,10 +5,11 @@ metadata:
   labels:
     app.kubernetes.io/name: code-sandbox
 spec:
+  type: NodePort
   selector:
     app.kubernetes.io/name: code-sandbox
   ports:
     - name: http
       port: 32004
       targetPort: http
-
+      nodePort: 32004
