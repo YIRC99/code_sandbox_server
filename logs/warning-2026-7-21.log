@@ -1,0 +1,936 @@
+2026-07-21 13:53:42.456 | WARNING  | sandbox.admission:_acquire:48 - Execution gate queue full! Rejecting request: active=1/1 waiting=1/1
+2026-07-21 13:53:42.475 | WARNING  | sandbox.admission:_acquire:79 - Execution queue wait timed out after 0.01s: active=1/1 waiting=1/1
+2026-07-21 13:53:42.547 | WARNING  | sandbox.main:require_api_key:229 - API Key authentication failed for request_id=%s client=%s
+2026-07-21 13:53:42.551 | WARNING  | sandbox.main:require_api_key:229 - API Key authentication failed for request_id=%s client=%s
+2026-07-21 13:53:42.779 | WARNING  | sandbox.storage:validate_filename:64 - Unsafe or invalid python filename attempted: %s
+2026-07-21 13:53:42.779 | WARNING  | sandbox.main:upload_file:271 - Upload rejected (InvalidPathError 400): %s request_id=%s
+2026-07-21 13:53:42.789 | WARNING  | sandbox.storage:save:121 - Duplicate upload rejected: file already exists at %s
+2026-07-21 13:53:42.789 | WARNING  | sandbox.main:upload_file:274 - Upload rejected (DuplicateUploadError 409): %s request_id=%s
+2026-07-21 13:53:42.793 | WARNING  | sandbox.storage:save:112 - Upload file size limit exceeded (%d > %d bytes) for %s
+2026-07-21 13:53:42.793 | WARNING  | sandbox.main:upload_file:279 - Upload rejected (UploadTooLargeError 413): %s request_id=%s
+2026-07-21 13:53:42.809 | WARNING  | sandbox.storage:validate_date:54 - Invalid date format provided: %s
+2026-07-21 13:53:42.809 | WARNING  | sandbox.main:execute_code:327 - Execution rejected (InvalidPathError 400): %s request_id=%s
+2026-07-21 13:53:42.813 | WARNING  | sandbox.storage:resolve:149 - Upload script not found: date=%s filename=%s path=%s
+2026-07-21 13:53:42.813 | WARNING  | sandbox.main:execute_code:332 - Execution rejected (ScriptNotFound 404): date=%s filename=%s request_id=%s
+2026-07-21 13:53:42.823 | WARNING  | sandbox.main:execute_code:313 - Execution rejected (TimeoutExceeded 400): requested timeout %.2f > max %.2f request_id=%s
+2026-07-21 13:53:42.854 | WARNING  | sandbox.storage:validate_data_path_segments:78 - Unsafe Windows characters in data_file segment: %s
+2026-07-21 13:53:42.854 | WARNING  | sandbox.main:execute_code:348 - Execution rejected (DataFileInvalidPath 400): %s request_id=%s
+2026-07-21 13:53:42.858 | WARNING  | sandbox.storage:validate_data_path_segments:81 - Segment trailing dots/spaces in data_file segment: %s
+2026-07-21 13:53:42.859 | WARNING  | sandbox.main:execute_code:348 - Execution rejected (DataFileInvalidPath 400): %s request_id=%s
+2026-07-21 13:53:42.863 | WARNING  | sandbox.storage:resolve:213 - Invalid data_file path structure requested: %s
+2026-07-21 13:53:42.863 | WARNING  | sandbox.main:execute_code:348 - Execution rejected (DataFileInvalidPath 400): %s request_id=%s
+2026-07-21 13:53:42.868 | WARNING  | sandbox.storage:resolve:227 - CSV data_file not found at resolved path: %s
+2026-07-21 13:53:42.868 | WARNING  | sandbox.main:execute_code:353 - Execution rejected (DataFileNotFound 404): data_file=%s request_id=%s
+2026-07-21 13:53:42.891 | WARNING  | sandbox.storage:validate_data_path_segments:78 - Unsafe Windows characters in data_file segment: %s
+2026-07-21 13:53:42.892 | WARNING  | sandbox.main:execute_code:348 - Execution rejected (DataFileInvalidPath 400): %s request_id=%s
+2026-07-21 13:53:42.896 | WARNING  | sandbox.storage:validate_data_path_segments:85 - Reserved device name in data_file segment: %s
+2026-07-21 13:53:42.896 | WARNING  | sandbox.main:execute_code:348 - Execution rejected (DataFileInvalidPath 400): %s request_id=%s
+2026-07-21 13:53:42.899 | WARNING  | sandbox.storage:validate_data_path_segments:85 - Reserved device name in data_file segment: %s
+2026-07-21 13:53:42.899 | WARNING  | sandbox.main:execute_code:348 - Execution rejected (DataFileInvalidPath 400): %s request_id=%s
+2026-07-21 13:53:42.902 | WARNING  | sandbox.storage:validate_data_path_segments:85 - Reserved device name in data_file segment: %s
+2026-07-21 13:53:42.902 | WARNING  | sandbox.main:execute_code:348 - Execution rejected (DataFileInvalidPath 400): %s request_id=%s
+2026-07-21 13:53:42.906 | WARNING  | sandbox.storage:validate_data_path_segments:85 - Reserved device name in data_file segment: %s
+2026-07-21 13:53:42.906 | WARNING  | sandbox.main:execute_code:348 - Execution rejected (DataFileInvalidPath 400): %s request_id=%s
+2026-07-21 13:53:42.909 | WARNING  | sandbox.storage:validate_data_path_segments:85 - Reserved device name in data_file segment: %s
+2026-07-21 13:53:42.909 | WARNING  | sandbox.main:execute_code:348 - Execution rejected (DataFileInvalidPath 400): %s request_id=%s
+2026-07-21 13:53:42.912 | WARNING  | sandbox.storage:validate_data_path_segments:85 - Reserved device name in data_file segment: %s
+2026-07-21 13:53:42.912 | WARNING  | sandbox.main:execute_code:348 - Execution rejected (DataFileInvalidPath 400): %s request_id=%s
+2026-07-21 13:53:42.915 | WARNING  | sandbox.storage:validate_data_path_segments:85 - Reserved device name in data_file segment: %s
+2026-07-21 13:53:42.916 | WARNING  | sandbox.main:execute_code:348 - Execution rejected (DataFileInvalidPath 400): %s request_id=%s
+2026-07-21 13:53:42.918 | WARNING  | sandbox.storage:validate_data_path_segments:85 - Reserved device name in data_file segment: %s
+2026-07-21 13:53:42.918 | WARNING  | sandbox.main:execute_code:348 - Execution rejected (DataFileInvalidPath 400): %s request_id=%s
+2026-07-21 13:53:42.921 | WARNING  | sandbox.storage:validate_data_path_segments:85 - Reserved device name in data_file segment: %s
+2026-07-21 13:53:42.921 | WARNING  | sandbox.main:execute_code:348 - Execution rejected (DataFileInvalidPath 400): %s request_id=%s
+2026-07-21 13:53:42.923 | WARNING  | sandbox.storage:validate_data_path_segments:85 - Reserved device name in data_file segment: %s
+2026-07-21 13:53:42.923 | WARNING  | sandbox.main:execute_code:348 - Execution rejected (DataFileInvalidPath 400): %s request_id=%s
+2026-07-21 13:53:42.928 | WARNING  | sandbox.storage:validate_data_path_segments:85 - Reserved device name in data_file segment: %s
+2026-07-21 13:53:42.928 | WARNING  | sandbox.main:execute_code:348 - Execution rejected (DataFileInvalidPath 400): %s request_id=%s
+2026-07-21 13:53:42.932 | WARNING  | sandbox.storage:validate_data_path_segments:85 - Reserved device name in data_file segment: %s
+2026-07-21 13:53:42.932 | WARNING  | sandbox.main:execute_code:348 - Execution rejected (DataFileInvalidPath 400): %s request_id=%s
+2026-07-21 13:53:42.936 | WARNING  | sandbox.storage:validate_data_path_segments:85 - Reserved device name in data_file segment: %s
+2026-07-21 13:53:42.936 | WARNING  | sandbox.main:execute_code:348 - Execution rejected (DataFileInvalidPath 400): %s request_id=%s
+2026-07-21 13:53:42.938 | WARNING  | sandbox.storage:validate_data_path_segments:78 - Unsafe Windows characters in data_file segment: %s
+2026-07-21 13:53:42.938 | WARNING  | sandbox.main:execute_code:348 - Execution rejected (DataFileInvalidPath 400): %s request_id=%s
+2026-07-21 13:53:42.942 | WARNING  | sandbox.storage:validate_data_path_segments:71 - Unsafe control characters in data_file: %s
+2026-07-21 13:53:42.942 | WARNING  | sandbox.main:execute_code:348 - Execution rejected (DataFileInvalidPath 400): %s request_id=%s
+2026-07-21 13:53:42.946 | WARNING  | sandbox.storage:validate_data_path_segments:71 - Unsafe control characters in data_file: %s
+2026-07-21 13:53:42.946 | WARNING  | sandbox.main:execute_code:348 - Execution rejected (DataFileInvalidPath 400): %s request_id=%s
+2026-07-21 13:53:42.948 | WARNING  | sandbox.storage:validate_data_path_segments:71 - Unsafe control characters in data_file: %s
+2026-07-21 13:53:42.949 | WARNING  | sandbox.main:execute_code:348 - Execution rejected (DataFileInvalidPath 400): %s request_id=%s
+2026-07-21 13:53:43.094 | WARNING  | sandbox.storage:resolve:235 - Data file size limit exceeded (%d > %d bytes) for %s
+2026-07-21 13:53:43.094 | WARNING  | sandbox.main:execute_code:343 - Execution rejected (DataFileTooLargeError 413): %s request_id=%s
+2026-07-21 13:53:43.661 | WARNING  | sandbox.admission:_acquire:48 - Execution gate queue full! Rejecting request: active=1/1 waiting=0/0
+2026-07-21 13:53:43.661 | WARNING  | sandbox.main:execute_code:376 - Execution rejected (SandboxBusy 429): active=%d waiting=%d request_id=%s
+2026-07-21 13:53:47.388 | WARNING  | sandbox.executor:_execute_isolated:144 - Asyncio subprocess creation not supported on current loop/OS; falling back to sync process execution
+2026-07-21 13:53:47.530 | WARNING  | sandbox.storage:validate_date:54 - Invalid date format provided: %s
+2026-07-21 13:53:47.531 | WARNING  | sandbox.storage:validate_date:54 - Invalid date format provided: %s
+2026-07-21 13:53:47.533 | WARNING  | sandbox.storage:validate_date:54 - Invalid date format provided: %s
+2026-07-21 13:53:47.535 | WARNING  | sandbox.storage:validate_date:54 - Invalid date format provided: %s
+2026-07-21 13:53:47.538 | WARNING  | sandbox.storage:validate_filename:64 - Unsafe or invalid python filename attempted: %s
+2026-07-21 13:53:47.539 | WARNING  | sandbox.storage:validate_filename:64 - Unsafe or invalid python filename attempted: %s
+2026-07-21 13:53:47.541 | WARNING  | sandbox.storage:validate_filename:64 - Unsafe or invalid python filename attempted: %s
+2026-07-21 13:53:47.542 | WARNING  | sandbox.storage:validate_filename:64 - Unsafe or invalid python filename attempted: %s
+2026-07-21 13:53:47.545 | WARNING  | sandbox.storage:validate_filename:64 - Unsafe or invalid python filename attempted: %s
+2026-07-21 13:53:47.547 | WARNING  | sandbox.storage:validate_filename:64 - Unsafe or invalid python filename attempted: %s
+2026-07-21 13:53:47.573 | WARNING  | sandbox.storage:save:121 - Duplicate upload rejected: file already exists at %s
+2026-07-21 13:53:47.584 | WARNING  | sandbox.storage:save:112 - Upload file size limit exceeded (%d > %d bytes) for %s
+2026-07-21 13:53:47.590 | WARNING  | sandbox.storage:resolve:149 - Upload script not found: date=%s filename=%s path=%s
+2026-07-21 13:54:10.410 | WARNING  | sandbox.admission:_acquire:48 - Execution gate queue full! Rejecting request: active=1/1 waiting=1/1
+2026-07-21 13:54:10.426 | WARNING  | sandbox.admission:_acquire:79 - Execution queue wait timed out after 0.01s: active=1/1 waiting=1/1
+2026-07-21 13:54:10.499 | WARNING  | sandbox.main:require_api_key:227 - API Key authentication failed for request_id=%s client=%s
+2026-07-21 13:54:10.502 | WARNING  | sandbox.main:require_api_key:227 - API Key authentication failed for request_id=%s client=%s
+2026-07-21 13:54:10.750 | WARNING  | sandbox.storage:validate_filename:63 - Unsafe or invalid python filename attempted: %s
+2026-07-21 13:54:10.750 | WARNING  | sandbox.main:upload_file:269 - Upload rejected (InvalidPathError 400): %s request_id=%s
+2026-07-21 13:54:10.759 | WARNING  | sandbox.storage:save:120 - Duplicate upload rejected: file already exists at %s
+2026-07-21 13:54:10.759 | WARNING  | sandbox.main:upload_file:272 - Upload rejected (DuplicateUploadError 409): %s request_id=%s
+2026-07-21 13:54:10.763 | WARNING  | sandbox.storage:save:111 - Upload file size limit exceeded (%d > %d bytes) for %s
+2026-07-21 13:54:10.763 | WARNING  | sandbox.main:upload_file:277 - Upload rejected (UploadTooLargeError 413): %s request_id=%s
+2026-07-21 13:54:10.781 | WARNING  | sandbox.storage:validate_date:53 - Invalid date format provided: %s
+2026-07-21 13:54:10.781 | WARNING  | sandbox.main:execute_code:325 - Execution rejected (InvalidPathError 400): %s request_id=%s
+2026-07-21 13:54:10.784 | WARNING  | sandbox.storage:resolve:148 - Upload script not found: date=%s filename=%s path=%s
+2026-07-21 13:54:10.784 | WARNING  | sandbox.main:execute_code:330 - Execution rejected (ScriptNotFound 404): date=%s filename=%s request_id=%s
+2026-07-21 13:54:10.793 | WARNING  | sandbox.main:execute_code:311 - Execution rejected (TimeoutExceeded 400): requested timeout %.2f > max %.2f request_id=%s
+2026-07-21 13:54:10.816 | WARNING  | sandbox.storage:validate_data_path_segments:77 - Unsafe Windows characters in data_file segment: %s
+2026-07-21 13:54:10.816 | WARNING  | sandbox.main:execute_code:346 - Execution rejected (DataFileInvalidPath 400): %s request_id=%s
+2026-07-21 13:54:10.820 | WARNING  | sandbox.storage:validate_data_path_segments:80 - Segment trailing dots/spaces in data_file segment: %s
+2026-07-21 13:54:10.820 | WARNING  | sandbox.main:execute_code:346 - Execution rejected (DataFileInvalidPath 400): %s request_id=%s
+2026-07-21 13:54:10.824 | WARNING  | sandbox.storage:resolve:212 - Invalid data_file path structure requested: %s
+2026-07-21 13:54:10.824 | WARNING  | sandbox.main:execute_code:346 - Execution rejected (DataFileInvalidPath 400): %s request_id=%s
+2026-07-21 13:54:10.827 | WARNING  | sandbox.storage:resolve:226 - CSV data_file not found at resolved path: %s
+2026-07-21 13:54:10.828 | WARNING  | sandbox.main:execute_code:351 - Execution rejected (DataFileNotFound 404): data_file=%s request_id=%s
+2026-07-21 13:54:10.852 | WARNING  | sandbox.storage:validate_data_path_segments:77 - Unsafe Windows characters in data_file segment: %s
+2026-07-21 13:54:10.852 | WARNING  | sandbox.main:execute_code:346 - Execution rejected (DataFileInvalidPath 400): %s request_id=%s
+2026-07-21 13:54:10.857 | WARNING  | sandbox.storage:validate_data_path_segments:84 - Reserved device name in data_file segment: %s
+2026-07-21 13:54:10.857 | WARNING  | sandbox.main:execute_code:346 - Execution rejected (DataFileInvalidPath 400): %s request_id=%s
+2026-07-21 13:54:10.860 | WARNING  | sandbox.storage:validate_data_path_segments:84 - Reserved device name in data_file segment: %s
+2026-07-21 13:54:10.860 | WARNING  | sandbox.main:execute_code:346 - Execution rejected (DataFileInvalidPath 400): %s request_id=%s
+2026-07-21 13:54:10.863 | WARNING  | sandbox.storage:validate_data_path_segments:84 - Reserved device name in data_file segment: %s
+2026-07-21 13:54:10.863 | WARNING  | sandbox.main:execute_code:346 - Execution rejected (DataFileInvalidPath 400): %s request_id=%s
+2026-07-21 13:54:10.867 | WARNING  | sandbox.storage:validate_data_path_segments:84 - Reserved device name in data_file segment: %s
+2026-07-21 13:54:10.868 | WARNING  | sandbox.main:execute_code:346 - Execution rejected (DataFileInvalidPath 400): %s request_id=%s
+2026-07-21 13:54:10.871 | WARNING  | sandbox.storage:validate_data_path_segments:84 - Reserved device name in data_file segment: %s
+2026-07-21 13:54:10.871 | WARNING  | sandbox.main:execute_code:346 - Execution rejected (DataFileInvalidPath 400): %s request_id=%s
+2026-07-21 13:54:10.875 | WARNING  | sandbox.storage:validate_data_path_segments:84 - Reserved device name in data_file segment: %s
+2026-07-21 13:54:10.875 | WARNING  | sandbox.main:execute_code:346 - Execution rejected (DataFileInvalidPath 400): %s request_id=%s
+2026-07-21 13:54:10.879 | WARNING  | sandbox.storage:validate_data_path_segments:84 - Reserved device name in data_file segment: %s
+2026-07-21 13:54:10.879 | WARNING  | sandbox.main:execute_code:346 - Execution rejected (DataFileInvalidPath 400): %s request_id=%s
+2026-07-21 13:54:10.882 | WARNING  | sandbox.storage:validate_data_path_segments:84 - Reserved device name in data_file segment: %s
+2026-07-21 13:54:10.882 | WARNING  | sandbox.main:execute_code:346 - Execution rejected (DataFileInvalidPath 400): %s request_id=%s
+2026-07-21 13:54:10.885 | WARNING  | sandbox.storage:validate_data_path_segments:84 - Reserved device name in data_file segment: %s
+2026-07-21 13:54:10.885 | WARNING  | sandbox.main:execute_code:346 - Execution rejected (DataFileInvalidPath 400): %s request_id=%s
+2026-07-21 13:54:10.888 | WARNING  | sandbox.storage:validate_data_path_segments:84 - Reserved device name in data_file segment: %s
+2026-07-21 13:54:10.888 | WARNING  | sandbox.main:execute_code:346 - Execution rejected (DataFileInvalidPath 400): %s request_id=%s
+2026-07-21 13:54:10.891 | WARNING  | sandbox.storage:validate_data_path_segments:84 - Reserved device name in data_file segment: %s
+2026-07-21 13:54:10.891 | WARNING  | sandbox.main:execute_code:346 - Execution rejected (DataFileInvalidPath 400): %s request_id=%s
+2026-07-21 13:54:10.894 | WARNING  | sandbox.storage:validate_data_path_segments:84 - Reserved device name in data_file segment: %s
+2026-07-21 13:54:10.894 | WARNING  | sandbox.main:execute_code:346 - Execution rejected (DataFileInvalidPath 400): %s request_id=%s
+2026-07-21 13:54:10.898 | WARNING  | sandbox.storage:validate_data_path_segments:84 - Reserved device name in data_file segment: %s
+2026-07-21 13:54:10.898 | WARNING  | sandbox.main:execute_code:346 - Execution rejected (DataFileInvalidPath 400): %s request_id=%s
+2026-07-21 13:54:10.902 | WARNING  | sandbox.storage:validate_data_path_segments:77 - Unsafe Windows characters in data_file segment: %s
+2026-07-21 13:54:10.902 | WARNING  | sandbox.main:execute_code:346 - Execution rejected (DataFileInvalidPath 400): %s request_id=%s
+2026-07-21 13:54:10.906 | WARNING  | sandbox.storage:validate_data_path_segments:70 - Unsafe control characters in data_file: %s
+2026-07-21 13:54:10.906 | WARNING  | sandbox.main:execute_code:346 - Execution rejected (DataFileInvalidPath 400): %s request_id=%s
+2026-07-21 13:54:10.910 | WARNING  | sandbox.storage:validate_data_path_segments:70 - Unsafe control characters in data_file: %s
+2026-07-21 13:54:10.910 | WARNING  | sandbox.main:execute_code:346 - Execution rejected (DataFileInvalidPath 400): %s request_id=%s
+2026-07-21 13:54:10.913 | WARNING  | sandbox.storage:validate_data_path_segments:70 - Unsafe control characters in data_file: %s
+2026-07-21 13:54:10.913 | WARNING  | sandbox.main:execute_code:346 - Execution rejected (DataFileInvalidPath 400): %s request_id=%s
+2026-07-21 13:54:11.079 | WARNING  | sandbox.storage:resolve:234 - Data file size limit exceeded (%d > %d bytes) for %s
+2026-07-21 13:54:11.079 | WARNING  | sandbox.main:execute_code:341 - Execution rejected (DataFileTooLargeError 413): %s request_id=%s
+2026-07-21 13:54:11.677 | WARNING  | sandbox.admission:_acquire:48 - Execution gate queue full! Rejecting request: active=1/1 waiting=0/0
+2026-07-21 13:54:11.677 | WARNING  | sandbox.main:execute_code:374 - Execution rejected (SandboxBusy 429): active=%d waiting=%d request_id=%s
+2026-07-21 13:54:15.174 | WARNING  | sandbox.executor:_execute_isolated:143 - Asyncio subprocess creation not supported on current loop/OS; falling back to sync process execution
+2026-07-21 13:54:15.270 | WARNING  | sandbox.storage:validate_date:53 - Invalid date format provided: %s
+2026-07-21 13:54:15.272 | WARNING  | sandbox.storage:validate_date:53 - Invalid date format provided: %s
+2026-07-21 13:54:15.273 | WARNING  | sandbox.storage:validate_date:53 - Invalid date format provided: %s
+2026-07-21 13:54:15.274 | WARNING  | sandbox.storage:validate_date:53 - Invalid date format provided: %s
+2026-07-21 13:54:15.275 | WARNING  | sandbox.storage:validate_filename:63 - Unsafe or invalid python filename attempted: %s
+2026-07-21 13:54:15.277 | WARNING  | sandbox.storage:validate_filename:63 - Unsafe or invalid python filename attempted: %s
+2026-07-21 13:54:15.279 | WARNING  | sandbox.storage:validate_filename:63 - Unsafe or invalid python filename attempted: %s
+2026-07-21 13:54:15.280 | WARNING  | sandbox.storage:validate_filename:63 - Unsafe or invalid python filename attempted: %s
+2026-07-21 13:54:15.282 | WARNING  | sandbox.storage:validate_filename:63 - Unsafe or invalid python filename attempted: %s
+2026-07-21 13:54:15.283 | WARNING  | sandbox.storage:validate_filename:63 - Unsafe or invalid python filename attempted: %s
+2026-07-21 13:54:15.303 | WARNING  | sandbox.storage:save:120 - Duplicate upload rejected: file already exists at %s
+2026-07-21 13:54:15.314 | WARNING  | sandbox.storage:save:111 - Upload file size limit exceeded (%d > %d bytes) for %s
+2026-07-21 13:54:15.322 | WARNING  | sandbox.storage:resolve:148 - Upload script not found: date=%s filename=%s path=%s
+2026-07-21 13:55:00.447 | WARNING  | src.sandbox.main:execute_code:311 - Execution rejected (TimeoutExceeded 400): requested timeout %.2f > max %.2f request_id=%s
+2026-07-21 13:56:06.039 | WARNING  | sandbox.admission:_acquire:48 - Execution gate queue full! Rejecting request: active=1/1 waiting=1/1
+2026-07-21 13:56:06.063 | WARNING  | sandbox.admission:_acquire:79 - Execution queue wait timed out after 0.01s: active=1/1 waiting=1/1
+2026-07-21 13:56:06.167 | WARNING  | sandbox.main:require_api_key:214 - API Key authentication failed for request_id=ef9e57fc97414fb98592b2ed9d7ff463 client=testclient
+2026-07-21 13:56:06.170 | WARNING  | sandbox.main:require_api_key:214 - API Key authentication failed for request_id=c635e081142f4e949f91c8f75f5a71a7 client=testclient
+2026-07-21 13:56:06.399 | WARNING  | sandbox.storage:validate_filename:63 - Unsafe or invalid python filename attempted: %s
+2026-07-21 13:56:06.399 | WARNING  | sandbox.main:upload_file:250 - Upload rejected (InvalidPathError 400): filename must be a safe Python basename request_id=6522cb0a7e334b5cba98c73b95190e70
+2026-07-21 13:56:06.406 | WARNING  | sandbox.storage:save:120 - Duplicate upload rejected: file already exists at %s
+2026-07-21 13:56:06.406 | WARNING  | sandbox.main:upload_file:253 - Upload rejected (DuplicateUploadError 409): a file with this name already exists today request_id=bdd79e03d9ed482299ccada7acf122fb
+2026-07-21 13:56:06.410 | WARNING  | sandbox.storage:save:111 - Upload file size limit exceeded (%d > %d bytes) for %s
+2026-07-21 13:56:06.410 | WARNING  | sandbox.main:upload_file:256 - Upload rejected (UploadTooLargeError 413): upload exceeds 4 bytes request_id=331bab4af77a4e3a87b8db4f06352f9e
+2026-07-21 13:56:06.427 | WARNING  | sandbox.storage:validate_date:53 - Invalid date format provided: %s
+2026-07-21 13:56:06.428 | WARNING  | sandbox.main:execute_code:294 - Execution rejected (InvalidPathError 400): date must use YYYY-MM-DD format request_id=395bdc303a69409aa4996b21123fa0de
+2026-07-21 13:56:06.431 | WARNING  | sandbox.storage:resolve:148 - Upload script not found: date=%s filename=%s path=%s
+2026-07-21 13:56:06.431 | WARNING  | sandbox.main:execute_code:297 - Execution rejected (ScriptNotFound 404): date=2026-07-17 filename=missing.py request_id=b45aa13a840f48d99c30e5b6c2f39632
+2026-07-21 13:56:06.437 | WARNING  | sandbox.main:execute_code:283 - Execution rejected (TimeoutExceeded 400): requested timeout 3.00 > max 2.00 request_id=03beed3dce6d4052b5d7348c496d97d4
+2026-07-21 13:56:06.459 | WARNING  | sandbox.storage:validate_data_path_segments:77 - Unsafe Windows characters in data_file segment: %s
+2026-07-21 13:56:06.459 | WARNING  | sandbox.main:execute_code:311 - Execution rejected (DataFileInvalidPath 400): data_file contains an unsafe path segment request_id=2daf867907f643358bc14ab6a2fd57ec
+2026-07-21 13:56:06.463 | WARNING  | sandbox.storage:validate_data_path_segments:80 - Segment trailing dots/spaces in data_file segment: %s
+2026-07-21 13:56:06.463 | WARNING  | sandbox.main:execute_code:311 - Execution rejected (DataFileInvalidPath 400): data_file contains an unsafe path segment request_id=a161f8a918f8462a9bb28b24d3116084
+2026-07-21 13:56:06.466 | WARNING  | sandbox.storage:resolve:212 - Invalid data_file path structure requested: %s
+2026-07-21 13:56:06.466 | WARNING  | sandbox.main:execute_code:311 - Execution rejected (DataFileInvalidPath 400): data_file must be a relative CSV path request_id=b249c261c8a14d0086f8c3bbab1f1206
+2026-07-21 13:56:06.470 | WARNING  | sandbox.storage:resolve:226 - CSV data_file not found at resolved path: %s
+2026-07-21 13:56:06.470 | WARNING  | sandbox.main:execute_code:316 - Execution rejected (DataFileNotFound 404): data_file=missing.csv request_id=01544dbbfb354c96a57679659267f007
+2026-07-21 13:56:06.490 | WARNING  | sandbox.storage:validate_data_path_segments:77 - Unsafe Windows characters in data_file segment: %s
+2026-07-21 13:56:06.490 | WARNING  | sandbox.main:execute_code:311 - Execution rejected (DataFileInvalidPath 400): data_file contains an unsafe path segment request_id=530f9ee7eb8e4d61b4a33024c6e9fc2c
+2026-07-21 13:56:06.494 | WARNING  | sandbox.storage:validate_data_path_segments:84 - Reserved device name in data_file segment: %s
+2026-07-21 13:56:06.495 | WARNING  | sandbox.main:execute_code:311 - Execution rejected (DataFileInvalidPath 400): data_file contains an unsafe path segment request_id=975b5618cd404a55a25607120a04e17b
+2026-07-21 13:56:06.499 | WARNING  | sandbox.storage:validate_data_path_segments:84 - Reserved device name in data_file segment: %s
+2026-07-21 13:56:06.499 | WARNING  | sandbox.main:execute_code:311 - Execution rejected (DataFileInvalidPath 400): data_file contains an unsafe path segment request_id=695abb7448ec4cbcb6962d27f43c04f6
+2026-07-21 13:56:06.503 | WARNING  | sandbox.storage:validate_data_path_segments:84 - Reserved device name in data_file segment: %s
+2026-07-21 13:56:06.504 | WARNING  | sandbox.main:execute_code:311 - Execution rejected (DataFileInvalidPath 400): data_file contains an unsafe path segment request_id=a8d6ca8c367442f08af1f30660a50f0e
+2026-07-21 13:56:06.507 | WARNING  | sandbox.storage:validate_data_path_segments:84 - Reserved device name in data_file segment: %s
+2026-07-21 13:56:06.508 | WARNING  | sandbox.main:execute_code:311 - Execution rejected (DataFileInvalidPath 400): data_file contains an unsafe path segment request_id=3e0ab0b957034a2e9d1a6539ad3478af
+2026-07-21 13:56:06.512 | WARNING  | sandbox.storage:validate_data_path_segments:84 - Reserved device name in data_file segment: %s
+2026-07-21 13:56:06.512 | WARNING  | sandbox.main:execute_code:311 - Execution rejected (DataFileInvalidPath 400): data_file contains an unsafe path segment request_id=42f79b54b1fc4e7f9291e3a150a9115b
+2026-07-21 13:56:06.517 | WARNING  | sandbox.storage:validate_data_path_segments:84 - Reserved device name in data_file segment: %s
+2026-07-21 13:56:06.517 | WARNING  | sandbox.main:execute_code:311 - Execution rejected (DataFileInvalidPath 400): data_file contains an unsafe path segment request_id=e72ef3609eb34c57a8e8119ca1dd0453
+2026-07-21 13:56:06.520 | WARNING  | sandbox.storage:validate_data_path_segments:84 - Reserved device name in data_file segment: %s
+2026-07-21 13:56:06.521 | WARNING  | sandbox.main:execute_code:311 - Execution rejected (DataFileInvalidPath 400): data_file contains an unsafe path segment request_id=aebcec3f1a5d45a78f8d926a68c2d29d
+2026-07-21 13:56:06.524 | WARNING  | sandbox.storage:validate_data_path_segments:84 - Reserved device name in data_file segment: %s
+2026-07-21 13:56:06.524 | WARNING  | sandbox.main:execute_code:311 - Execution rejected (DataFileInvalidPath 400): data_file contains an unsafe path segment request_id=dc06efe1212a4055bd6e31066a1ac29d
+2026-07-21 13:56:06.529 | WARNING  | sandbox.storage:validate_data_path_segments:84 - Reserved device name in data_file segment: %s
+2026-07-21 13:56:06.529 | WARNING  | sandbox.main:execute_code:311 - Execution rejected (DataFileInvalidPath 400): data_file contains an unsafe path segment request_id=3d5a035795314a92a0c49838916d7f62
+2026-07-21 13:56:06.533 | WARNING  | sandbox.storage:validate_data_path_segments:84 - Reserved device name in data_file segment: %s
+2026-07-21 13:56:06.533 | WARNING  | sandbox.main:execute_code:311 - Execution rejected (DataFileInvalidPath 400): data_file contains an unsafe path segment request_id=567eb5911c5f4e85b22235d590c1e0f3
+2026-07-21 13:56:06.536 | WARNING  | sandbox.storage:validate_data_path_segments:84 - Reserved device name in data_file segment: %s
+2026-07-21 13:56:06.536 | WARNING  | sandbox.main:execute_code:311 - Execution rejected (DataFileInvalidPath 400): data_file contains an unsafe path segment request_id=e3f3fd9960004c4b98d63ff10bc5ab22
+2026-07-21 13:56:06.539 | WARNING  | sandbox.storage:validate_data_path_segments:84 - Reserved device name in data_file segment: %s
+2026-07-21 13:56:06.539 | WARNING  | sandbox.main:execute_code:311 - Execution rejected (DataFileInvalidPath 400): data_file contains an unsafe path segment request_id=9addf095a1a74525a9263b83046a645b
+2026-07-21 13:56:06.542 | WARNING  | sandbox.storage:validate_data_path_segments:84 - Reserved device name in data_file segment: %s
+2026-07-21 13:56:06.542 | WARNING  | sandbox.main:execute_code:311 - Execution rejected (DataFileInvalidPath 400): data_file contains an unsafe path segment request_id=c634c1d44f4247079755594a19d30799
+2026-07-21 13:56:06.546 | WARNING  | sandbox.storage:validate_data_path_segments:77 - Unsafe Windows characters in data_file segment: %s
+2026-07-21 13:56:06.546 | WARNING  | sandbox.main:execute_code:311 - Execution rejected (DataFileInvalidPath 400): data_file contains an unsafe path segment request_id=de949c2ee47e4c0db19f134c05e58ecf
+2026-07-21 13:56:06.550 | WARNING  | sandbox.storage:validate_data_path_segments:70 - Unsafe control characters in data_file: %s
+2026-07-21 13:56:06.550 | WARNING  | sandbox.main:execute_code:311 - Execution rejected (DataFileInvalidPath 400): data_file contains an unsafe path segment request_id=fff7492a62b648138a1a8985b0b068a9
+2026-07-21 13:56:06.553 | WARNING  | sandbox.storage:validate_data_path_segments:70 - Unsafe control characters in data_file: %s
+2026-07-21 13:56:06.554 | WARNING  | sandbox.main:execute_code:311 - Execution rejected (DataFileInvalidPath 400): data_file contains an unsafe path segment request_id=427f1c2b377c4c229f2772585b742ff2
+2026-07-21 13:56:06.557 | WARNING  | sandbox.storage:validate_data_path_segments:70 - Unsafe control characters in data_file: %s
+2026-07-21 13:56:06.557 | WARNING  | sandbox.main:execute_code:311 - Execution rejected (DataFileInvalidPath 400): data_file contains an unsafe path segment request_id=7d362497ae714fb4b5d6a4df1793fdc5
+2026-07-21 13:56:06.709 | WARNING  | sandbox.storage:resolve:234 - Data file size limit exceeded (%d > %d bytes) for %s
+2026-07-21 13:56:06.709 | WARNING  | sandbox.main:execute_code:306 - Execution rejected (DataFileTooLargeError 413): data file exceeds configured size limit request_id=b6b57c944136449db352e69009a580f1
+2026-07-21 13:56:07.274 | WARNING  | sandbox.admission:_acquire:48 - Execution gate queue full! Rejecting request: active=1/1 waiting=0/0
+2026-07-21 13:56:07.274 | WARNING  | sandbox.main:execute_code:334 - Execution rejected (SandboxBusy 429): active=1 waiting=0 request_id=a0f899762e484c39a204824fd3178b7c
+2026-07-21 13:56:10.578 | WARNING  | sandbox.executor:_execute_isolated:143 - Asyncio subprocess creation not supported on current loop/OS; falling back to sync process execution
+2026-07-21 13:56:10.664 | WARNING  | sandbox.storage:validate_date:53 - Invalid date format provided: %s
+2026-07-21 13:56:10.665 | WARNING  | sandbox.storage:validate_date:53 - Invalid date format provided: %s
+2026-07-21 13:56:10.667 | WARNING  | sandbox.storage:validate_date:53 - Invalid date format provided: %s
+2026-07-21 13:56:10.668 | WARNING  | sandbox.storage:validate_date:53 - Invalid date format provided: %s
+2026-07-21 13:56:10.669 | WARNING  | sandbox.storage:validate_filename:63 - Unsafe or invalid python filename attempted: %s
+2026-07-21 13:56:10.669 | WARNING  | sandbox.storage:validate_filename:63 - Unsafe or invalid python filename attempted: %s
+2026-07-21 13:56:10.670 | WARNING  | sandbox.storage:validate_filename:63 - Unsafe or invalid python filename attempted: %s
+2026-07-21 13:56:10.671 | WARNING  | sandbox.storage:validate_filename:63 - Unsafe or invalid python filename attempted: %s
+2026-07-21 13:56:10.672 | WARNING  | sandbox.storage:validate_filename:63 - Unsafe or invalid python filename attempted: %s
+2026-07-21 13:56:10.673 | WARNING  | sandbox.storage:validate_filename:63 - Unsafe or invalid python filename attempted: %s
+2026-07-21 13:56:10.689 | WARNING  | sandbox.storage:save:120 - Duplicate upload rejected: file already exists at %s
+2026-07-21 13:56:10.698 | WARNING  | sandbox.storage:save:111 - Upload file size limit exceeded (%d > %d bytes) for %s
+2026-07-21 13:56:10.702 | WARNING  | sandbox.storage:resolve:148 - Upload script not found: date=%s filename=%s path=%s
+2026-07-21 13:56:45.506 | WARNING  | src.sandbox.executor:_execute_isolated:143 - Asyncio subprocess creation not supported on current loop/OS; falling back to sync process execution
+2026-07-21 13:59:38.785 | WARNING  | sandbox.admission:_acquire:48 - Execution gate queue full! Rejecting request: active=1/1 waiting=1/1
+2026-07-21 13:59:38.818 | WARNING  | sandbox.admission:_acquire:79 - Execution queue wait timed out after 0.01s: active=1/1 waiting=1/1
+2026-07-21 13:59:38.894 | WARNING  | sandbox.main:require_api_key:214 - API Key authentication failed for request_id=db9013c446bf4737a3acabe427e65acf client=testclient
+2026-07-21 13:59:38.898 | WARNING  | sandbox.main:require_api_key:214 - API Key authentication failed for request_id=dbce4748b30e469fa50e5449b0d21117 client=testclient
+2026-07-21 13:59:39.137 | WARNING  | sandbox.storage:validate_filename:63 - Unsafe or invalid python filename attempted: %s
+2026-07-21 13:59:39.137 | WARNING  | sandbox.main:upload_file:250 - Upload rejected (InvalidPathError 400): filename must be a safe Python basename request_id=9e884a3a3e2b493f835c8d908aed76a0
+2026-07-21 13:59:39.145 | WARNING  | sandbox.storage:save:120 - Duplicate upload rejected: file already exists at %s
+2026-07-21 13:59:39.145 | WARNING  | sandbox.main:upload_file:253 - Upload rejected (DuplicateUploadError 409): a file with this name already exists today request_id=7b76b1709f524c84b2e0f76a514a02f8
+2026-07-21 13:59:39.149 | WARNING  | sandbox.storage:save:111 - Upload file size limit exceeded (%d > %d bytes) for %s
+2026-07-21 13:59:39.149 | WARNING  | sandbox.main:upload_file:256 - Upload rejected (UploadTooLargeError 413): upload exceeds 4 bytes request_id=20a3e420cd6d4f939bba232448ac8b2a
+2026-07-21 13:59:39.164 | WARNING  | sandbox.storage:validate_date:53 - Invalid date format provided: %s
+2026-07-21 13:59:39.164 | WARNING  | sandbox.main:execute_code:293 - Execution rejected (InvalidPathError 400): date must use YYYY-MM-DD format request_id=22d37a7b879f4138b32f5d48a95a29b0
+2026-07-21 13:59:39.168 | WARNING  | sandbox.storage:resolve:148 - Upload script not found: date=%s filename=%s path=%s
+2026-07-21 13:59:39.168 | WARNING  | sandbox.main:execute_code:296 - Execution rejected (ScriptNotFound 404): date=2026-07-17 filename=missing.py request_id=ab1f8d326f8e4354b176c9e89c9c2249
+2026-07-21 13:59:39.175 | WARNING  | sandbox.main:execute_code:282 - Execution rejected (TimeoutExceeded 400): requested timeout 3.00 > max 2.00 request_id=36bd396e9505440b8fd63db8e6176e7b
+2026-07-21 13:59:39.195 | WARNING  | sandbox.storage:validate_data_path_segments:77 - Unsafe Windows characters in data_file segment: %s
+2026-07-21 13:59:39.195 | WARNING  | sandbox.main:execute_code:310 - Execution rejected (DataFileInvalidPath 400): data_file contains an unsafe path segment request_id=41a87016716b41c28aa2940dc6381d0e
+2026-07-21 13:59:39.198 | WARNING  | sandbox.storage:validate_data_path_segments:80 - Segment trailing dots/spaces in data_file segment: %s
+2026-07-21 13:59:39.199 | WARNING  | sandbox.main:execute_code:310 - Execution rejected (DataFileInvalidPath 400): data_file contains an unsafe path segment request_id=d796ae8cdbae44a9aabf049d9d008dd5
+2026-07-21 13:59:39.202 | WARNING  | sandbox.storage:resolve:212 - Invalid data_file path structure requested: %s
+2026-07-21 13:59:39.202 | WARNING  | sandbox.main:execute_code:310 - Execution rejected (DataFileInvalidPath 400): data_file must be a relative CSV path request_id=33083da1ac394db38c5ae0eeb1ce51f3
+2026-07-21 13:59:39.205 | WARNING  | sandbox.storage:resolve:226 - CSV data_file not found at resolved path: %s
+2026-07-21 13:59:39.205 | WARNING  | sandbox.main:execute_code:315 - Execution rejected (DataFileNotFound 404): data_file=missing.csv request_id=184146b4a4024201bd1a4cf22d115453
+2026-07-21 13:59:39.230 | WARNING  | sandbox.storage:validate_data_path_segments:77 - Unsafe Windows characters in data_file segment: %s
+2026-07-21 13:59:39.230 | WARNING  | sandbox.main:execute_code:310 - Execution rejected (DataFileInvalidPath 400): data_file contains an unsafe path segment request_id=edc490379524474a984e5ff823495853
+2026-07-21 13:59:39.233 | WARNING  | sandbox.storage:validate_data_path_segments:84 - Reserved device name in data_file segment: %s
+2026-07-21 13:59:39.233 | WARNING  | sandbox.main:execute_code:310 - Execution rejected (DataFileInvalidPath 400): data_file contains an unsafe path segment request_id=292bbd93e15c4531968802b0a2a49314
+2026-07-21 13:59:39.237 | WARNING  | sandbox.storage:validate_data_path_segments:84 - Reserved device name in data_file segment: %s
+2026-07-21 13:59:39.237 | WARNING  | sandbox.main:execute_code:310 - Execution rejected (DataFileInvalidPath 400): data_file contains an unsafe path segment request_id=708f2f4649f64072a2a5617ea877615a
+2026-07-21 13:59:39.240 | WARNING  | sandbox.storage:validate_data_path_segments:84 - Reserved device name in data_file segment: %s
+2026-07-21 13:59:39.240 | WARNING  | sandbox.main:execute_code:310 - Execution rejected (DataFileInvalidPath 400): data_file contains an unsafe path segment request_id=83c47d53fb9a403bab6628b7681429a8
+2026-07-21 13:59:39.242 | WARNING  | sandbox.storage:validate_data_path_segments:84 - Reserved device name in data_file segment: %s
+2026-07-21 13:59:39.242 | WARNING  | sandbox.main:execute_code:310 - Execution rejected (DataFileInvalidPath 400): data_file contains an unsafe path segment request_id=36495f55f89f43b89de6596c557fe2d0
+2026-07-21 13:59:39.245 | WARNING  | sandbox.storage:validate_data_path_segments:84 - Reserved device name in data_file segment: %s
+2026-07-21 13:59:39.245 | WARNING  | sandbox.main:execute_code:310 - Execution rejected (DataFileInvalidPath 400): data_file contains an unsafe path segment request_id=27e75779ccb947f0920be9f434103a49
+2026-07-21 13:59:39.248 | WARNING  | sandbox.storage:validate_data_path_segments:84 - Reserved device name in data_file segment: %s
+2026-07-21 13:59:39.248 | WARNING  | sandbox.main:execute_code:310 - Execution rejected (DataFileInvalidPath 400): data_file contains an unsafe path segment request_id=035009f0e125466c9197e2d45be3215e
+2026-07-21 13:59:39.251 | WARNING  | sandbox.storage:validate_data_path_segments:84 - Reserved device name in data_file segment: %s
+2026-07-21 13:59:39.251 | WARNING  | sandbox.main:execute_code:310 - Execution rejected (DataFileInvalidPath 400): data_file contains an unsafe path segment request_id=161e571c80a84f6ebbad5658f4186986
+2026-07-21 13:59:39.254 | WARNING  | sandbox.storage:validate_data_path_segments:84 - Reserved device name in data_file segment: %s
+2026-07-21 13:59:39.254 | WARNING  | sandbox.main:execute_code:310 - Execution rejected (DataFileInvalidPath 400): data_file contains an unsafe path segment request_id=c04a5e48b3124c6f83b5345f431a4b36
+2026-07-21 13:59:39.257 | WARNING  | sandbox.storage:validate_data_path_segments:84 - Reserved device name in data_file segment: %s
+2026-07-21 13:59:39.257 | WARNING  | sandbox.main:execute_code:310 - Execution rejected (DataFileInvalidPath 400): data_file contains an unsafe path segment request_id=1ce0248af97b4e85802fef7a5d5220ec
+2026-07-21 13:59:39.260 | WARNING  | sandbox.storage:validate_data_path_segments:84 - Reserved device name in data_file segment: %s
+2026-07-21 13:59:39.260 | WARNING  | sandbox.main:execute_code:310 - Execution rejected (DataFileInvalidPath 400): data_file contains an unsafe path segment request_id=aa9b30048f7647d88564376991b32465
+2026-07-21 13:59:39.263 | WARNING  | sandbox.storage:validate_data_path_segments:84 - Reserved device name in data_file segment: %s
+2026-07-21 13:59:39.263 | WARNING  | sandbox.main:execute_code:310 - Execution rejected (DataFileInvalidPath 400): data_file contains an unsafe path segment request_id=5a1dcfbd76894387a83893aa968a4a9d
+2026-07-21 13:59:39.267 | WARNING  | sandbox.storage:validate_data_path_segments:84 - Reserved device name in data_file segment: %s
+2026-07-21 13:59:39.267 | WARNING  | sandbox.main:execute_code:310 - Execution rejected (DataFileInvalidPath 400): data_file contains an unsafe path segment request_id=9cb6f7f89b11422998cdaa211e2f98c9
+2026-07-21 13:59:39.270 | WARNING  | sandbox.storage:validate_data_path_segments:84 - Reserved device name in data_file segment: %s
+2026-07-21 13:59:39.270 | WARNING  | sandbox.main:execute_code:310 - Execution rejected (DataFileInvalidPath 400): data_file contains an unsafe path segment request_id=da5ca2c62b1342bebe8b92f8ec308f13
+2026-07-21 13:59:39.274 | WARNING  | sandbox.storage:validate_data_path_segments:77 - Unsafe Windows characters in data_file segment: %s
+2026-07-21 13:59:39.274 | WARNING  | sandbox.main:execute_code:310 - Execution rejected (DataFileInvalidPath 400): data_file contains an unsafe path segment request_id=0f2b876c84cb48e78521f0c50efa9a69
+2026-07-21 13:59:39.277 | WARNING  | sandbox.storage:validate_data_path_segments:70 - Unsafe control characters in data_file: %s
+2026-07-21 13:59:39.277 | WARNING  | sandbox.main:execute_code:310 - Execution rejected (DataFileInvalidPath 400): data_file contains an unsafe path segment request_id=48dc17ed9e6341728386c07a0c0733fa
+2026-07-21 13:59:39.281 | WARNING  | sandbox.storage:validate_data_path_segments:70 - Unsafe control characters in data_file: %s
+2026-07-21 13:59:39.281 | WARNING  | sandbox.main:execute_code:310 - Execution rejected (DataFileInvalidPath 400): data_file contains an unsafe path segment request_id=1855d5dfced74ec1a0621b47e8fa64a2
+2026-07-21 13:59:39.284 | WARNING  | sandbox.storage:validate_data_path_segments:70 - Unsafe control characters in data_file: %s
+2026-07-21 13:59:39.285 | WARNING  | sandbox.main:execute_code:310 - Execution rejected (DataFileInvalidPath 400): data_file contains an unsafe path segment request_id=66a5dd4621844e73a8c3d44f789577a1
+2026-07-21 13:59:39.434 | WARNING  | sandbox.storage:resolve:234 - Data file size limit exceeded (%d > %d bytes) for %s
+2026-07-21 13:59:39.434 | WARNING  | sandbox.main:execute_code:305 - Execution rejected (DataFileTooLargeError 413): data file exceeds configured size limit request_id=5ec9e48141bf41c3bbe303b81f8df1bb
+2026-07-21 13:59:39.994 | WARNING  | sandbox.admission:_acquire:48 - Execution gate queue full! Rejecting request: active=1/1 waiting=0/0
+2026-07-21 13:59:39.995 | WARNING  | sandbox.main:execute_code:332 - Execution rejected (SandboxBusy 429): active=1 waiting=0 request_id=4f557172cea3480d8d35e2d96872cfc3
+2026-07-21 13:59:43.322 | WARNING  | sandbox.executor:_execute_isolated:143 - Asyncio subprocess creation not supported on current loop/OS; falling back to sync process execution
+2026-07-21 13:59:43.416 | WARNING  | sandbox.storage:validate_date:53 - Invalid date format provided: %s
+2026-07-21 13:59:43.417 | WARNING  | sandbox.storage:validate_date:53 - Invalid date format provided: %s
+2026-07-21 13:59:43.418 | WARNING  | sandbox.storage:validate_date:53 - Invalid date format provided: %s
+2026-07-21 13:59:43.419 | WARNING  | sandbox.storage:validate_date:53 - Invalid date format provided: %s
+2026-07-21 13:59:43.422 | WARNING  | sandbox.storage:validate_filename:63 - Unsafe or invalid python filename attempted: %s
+2026-07-21 13:59:43.424 | WARNING  | sandbox.storage:validate_filename:63 - Unsafe or invalid python filename attempted: %s
+2026-07-21 13:59:43.425 | WARNING  | sandbox.storage:validate_filename:63 - Unsafe or invalid python filename attempted: %s
+2026-07-21 13:59:43.426 | WARNING  | sandbox.storage:validate_filename:63 - Unsafe or invalid python filename attempted: %s
+2026-07-21 13:59:43.428 | WARNING  | sandbox.storage:validate_filename:63 - Unsafe or invalid python filename attempted: %s
+2026-07-21 13:59:43.430 | WARNING  | sandbox.storage:validate_filename:63 - Unsafe or invalid python filename attempted: %s
+2026-07-21 13:59:43.463 | WARNING  | sandbox.storage:save:120 - Duplicate upload rejected: file already exists at %s
+2026-07-21 13:59:43.474 | WARNING  | sandbox.storage:save:111 - Upload file size limit exceeded (%d > %d bytes) for %s
+2026-07-21 13:59:43.480 | WARNING  | sandbox.storage:resolve:148 - Upload script not found: date=%s filename=%s path=%s
+2026-07-21 14:02:25.178 | WARNING  | sandbox.admission:_acquire:48 - Execution gate queue full! Rejecting request: active=1/1 waiting=1/1
+2026-07-21 14:02:25.199 | WARNING  | sandbox.admission:_acquire:79 - Execution queue wait timed out after 0.01s: active=1/1 waiting=1/1
+2026-07-21 14:02:25.262 | WARNING  | sandbox.main:require_api_key:214 - API Key authentication failed for request_id=2eb7886c79674c78913c62320f1570b1 client=testclient
+2026-07-21 14:02:25.266 | WARNING  | sandbox.main:require_api_key:214 - API Key authentication failed for request_id=95e58b7eb13349989fde76e12ec04cd4 client=testclient
+2026-07-21 14:02:25.505 | WARNING  | sandbox.storage:validate_filename:63 - Unsafe or invalid python filename attempted: %s
+2026-07-21 14:02:25.505 | WARNING  | sandbox.main:upload_file:250 - Upload rejected (InvalidPathError 400): filename must be a safe Python basename request_id=cd5b211995334130ab41fd7e75772b37
+2026-07-21 14:02:25.513 | WARNING  | sandbox.storage:save:120 - Duplicate upload rejected: file already exists at %s
+2026-07-21 14:02:25.513 | WARNING  | sandbox.main:upload_file:253 - Upload rejected (DuplicateUploadError 409): a file with this name already exists today request_id=4249f37b9bfc451cb267a281b6bf0aeb
+2026-07-21 14:02:25.518 | WARNING  | sandbox.storage:save:111 - Upload file size limit exceeded (%d > %d bytes) for %s
+2026-07-21 14:02:25.519 | WARNING  | sandbox.main:upload_file:256 - Upload rejected (UploadTooLargeError 413): upload exceeds 4 bytes request_id=3fa814e0464c42af9dd712097e1d225c
+2026-07-21 14:02:25.548 | WARNING  | sandbox.storage:validate_date:53 - Invalid date format provided: %s
+2026-07-21 14:02:25.549 | WARNING  | sandbox.main:execute_code:293 - Execution rejected (InvalidPathError 400): date must use YYYY-MM-DD format request_id=c11f5985c750473990a77fb6661b32de
+2026-07-21 14:02:25.551 | WARNING  | sandbox.storage:resolve:148 - Upload script not found: date=%s filename=%s path=%s
+2026-07-21 14:02:25.552 | WARNING  | sandbox.main:execute_code:296 - Execution rejected (ScriptNotFound 404): date=2026-07-17 filename=missing.py request_id=c1e08a13bfe34885b3f96c12e4efab09
+2026-07-21 14:02:25.558 | WARNING  | sandbox.main:execute_code:282 - Execution rejected (TimeoutExceeded 400): requested timeout 3.00 > max 2.00 request_id=ef785c4bd4664d18b4ca36b1cbeadc61
+2026-07-21 14:02:25.580 | WARNING  | sandbox.storage:validate_data_path_segments:77 - Unsafe Windows characters in data_file segment: %s
+2026-07-21 14:02:25.580 | WARNING  | sandbox.main:execute_code:310 - Execution rejected (DataFileInvalidPath 400): data_file contains an unsafe path segment request_id=7e3154479e5d497caaf1a5fa4e42aa2a
+2026-07-21 14:02:25.584 | WARNING  | sandbox.storage:validate_data_path_segments:80 - Segment trailing dots/spaces in data_file segment: %s
+2026-07-21 14:02:25.584 | WARNING  | sandbox.main:execute_code:310 - Execution rejected (DataFileInvalidPath 400): data_file contains an unsafe path segment request_id=fc2dd89033ec4e309ed4fb6b40e61085
+2026-07-21 14:02:25.588 | WARNING  | sandbox.storage:resolve:212 - Invalid data_file path structure requested: %s
+2026-07-21 14:02:25.588 | WARNING  | sandbox.main:execute_code:310 - Execution rejected (DataFileInvalidPath 400): data_file must be a relative CSV path request_id=a8f4ce1b738f44bc92a4bd1090c2acc3
+2026-07-21 14:02:25.592 | WARNING  | sandbox.storage:resolve:226 - CSV data_file not found at resolved path: %s
+2026-07-21 14:02:25.592 | WARNING  | sandbox.main:execute_code:315 - Execution rejected (DataFileNotFound 404): data_file=missing.csv request_id=5c83809c792c47838379b50e04da7244
+2026-07-21 14:02:25.615 | WARNING  | sandbox.storage:validate_data_path_segments:77 - Unsafe Windows characters in data_file segment: %s
+2026-07-21 14:02:25.615 | WARNING  | sandbox.main:execute_code:310 - Execution rejected (DataFileInvalidPath 400): data_file contains an unsafe path segment request_id=95d8c6f8926c4bdfa4529d791b6b8c0a
+2026-07-21 14:02:25.619 | WARNING  | sandbox.storage:validate_data_path_segments:84 - Reserved device name in data_file segment: %s
+2026-07-21 14:02:25.619 | WARNING  | sandbox.main:execute_code:310 - Execution rejected (DataFileInvalidPath 400): data_file contains an unsafe path segment request_id=4bd3473cbe9b47feaccb516761da414f
+2026-07-21 14:02:25.622 | WARNING  | sandbox.storage:validate_data_path_segments:84 - Reserved device name in data_file segment: %s
+2026-07-21 14:02:25.622 | WARNING  | sandbox.main:execute_code:310 - Execution rejected (DataFileInvalidPath 400): data_file contains an unsafe path segment request_id=201b75badd9c4beda223f0bb00f6bab5
+2026-07-21 14:02:25.626 | WARNING  | sandbox.storage:validate_data_path_segments:84 - Reserved device name in data_file segment: %s
+2026-07-21 14:02:25.626 | WARNING  | sandbox.main:execute_code:310 - Execution rejected (DataFileInvalidPath 400): data_file contains an unsafe path segment request_id=2327f873457749899057ef1d43a405e0
+2026-07-21 14:02:25.629 | WARNING  | sandbox.storage:validate_data_path_segments:84 - Reserved device name in data_file segment: %s
+2026-07-21 14:02:25.629 | WARNING  | sandbox.main:execute_code:310 - Execution rejected (DataFileInvalidPath 400): data_file contains an unsafe path segment request_id=8060014e57264786b7905ed675f2e120
+2026-07-21 14:02:25.632 | WARNING  | sandbox.storage:validate_data_path_segments:84 - Reserved device name in data_file segment: %s
+2026-07-21 14:02:25.632 | WARNING  | sandbox.main:execute_code:310 - Execution rejected (DataFileInvalidPath 400): data_file contains an unsafe path segment request_id=9a443106ff70435ead74b35c3d4228f3
+2026-07-21 14:02:25.636 | WARNING  | sandbox.storage:validate_data_path_segments:84 - Reserved device name in data_file segment: %s
+2026-07-21 14:02:25.636 | WARNING  | sandbox.main:execute_code:310 - Execution rejected (DataFileInvalidPath 400): data_file contains an unsafe path segment request_id=7a8174f0be794290a0856578fc330b3a
+2026-07-21 14:02:25.639 | WARNING  | sandbox.storage:validate_data_path_segments:84 - Reserved device name in data_file segment: %s
+2026-07-21 14:02:25.639 | WARNING  | sandbox.main:execute_code:310 - Execution rejected (DataFileInvalidPath 400): data_file contains an unsafe path segment request_id=8b5118ce8ba04605b3f18c4f37a4b180
+2026-07-21 14:02:25.645 | WARNING  | sandbox.storage:validate_data_path_segments:84 - Reserved device name in data_file segment: %s
+2026-07-21 14:02:25.645 | WARNING  | sandbox.main:execute_code:310 - Execution rejected (DataFileInvalidPath 400): data_file contains an unsafe path segment request_id=246844a63313463081c61f1644d1bba0
+2026-07-21 14:02:25.649 | WARNING  | sandbox.storage:validate_data_path_segments:84 - Reserved device name in data_file segment: %s
+2026-07-21 14:02:25.649 | WARNING  | sandbox.main:execute_code:310 - Execution rejected (DataFileInvalidPath 400): data_file contains an unsafe path segment request_id=066325b8a51d4c3b936862b8c72083e1
+2026-07-21 14:02:25.654 | WARNING  | sandbox.storage:validate_data_path_segments:84 - Reserved device name in data_file segment: %s
+2026-07-21 14:02:25.654 | WARNING  | sandbox.main:execute_code:310 - Execution rejected (DataFileInvalidPath 400): data_file contains an unsafe path segment request_id=41af2eabad8f412fae9f294220229958
+2026-07-21 14:02:25.658 | WARNING  | sandbox.storage:validate_data_path_segments:84 - Reserved device name in data_file segment: %s
+2026-07-21 14:02:25.658 | WARNING  | sandbox.main:execute_code:310 - Execution rejected (DataFileInvalidPath 400): data_file contains an unsafe path segment request_id=78245f4fa41b4a3d88cb2119f757924c
+2026-07-21 14:02:25.660 | WARNING  | sandbox.storage:validate_data_path_segments:84 - Reserved device name in data_file segment: %s
+2026-07-21 14:02:25.660 | WARNING  | sandbox.main:execute_code:310 - Execution rejected (DataFileInvalidPath 400): data_file contains an unsafe path segment request_id=32f9278ed2d34caab7bc526f30badd5a
+2026-07-21 14:02:25.664 | WARNING  | sandbox.storage:validate_data_path_segments:84 - Reserved device name in data_file segment: %s
+2026-07-21 14:02:25.666 | WARNING  | sandbox.main:execute_code:310 - Execution rejected (DataFileInvalidPath 400): data_file contains an unsafe path segment request_id=2588ac4620b04474b0a21631947bc157
+2026-07-21 14:02:25.669 | WARNING  | sandbox.storage:validate_data_path_segments:77 - Unsafe Windows characters in data_file segment: %s
+2026-07-21 14:02:25.669 | WARNING  | sandbox.main:execute_code:310 - Execution rejected (DataFileInvalidPath 400): data_file contains an unsafe path segment request_id=db1a2c8a97a145f4a877be19b240df22
+2026-07-21 14:02:25.671 | WARNING  | sandbox.storage:validate_data_path_segments:70 - Unsafe control characters in data_file: %s
+2026-07-21 14:02:25.671 | WARNING  | sandbox.main:execute_code:310 - Execution rejected (DataFileInvalidPath 400): data_file contains an unsafe path segment request_id=c040540910b64350a92e7fb37773f6a1
+2026-07-21 14:02:25.675 | WARNING  | sandbox.storage:validate_data_path_segments:70 - Unsafe control characters in data_file: %s
+2026-07-21 14:02:25.675 | WARNING  | sandbox.main:execute_code:310 - Execution rejected (DataFileInvalidPath 400): data_file contains an unsafe path segment request_id=924eb9eb4da04de0ac0e49ceba481c7a
+2026-07-21 14:02:25.677 | WARNING  | sandbox.storage:validate_data_path_segments:70 - Unsafe control characters in data_file: %s
+2026-07-21 14:02:25.678 | WARNING  | sandbox.main:execute_code:310 - Execution rejected (DataFileInvalidPath 400): data_file contains an unsafe path segment request_id=b36a0b9a9aea4fa784a27e7c9aec6639
+2026-07-21 14:02:25.819 | WARNING  | sandbox.storage:resolve:234 - Data file size limit exceeded (%d > %d bytes) for %s
+2026-07-21 14:02:25.819 | WARNING  | sandbox.main:execute_code:305 - Execution rejected (DataFileTooLargeError 413): data file exceeds configured size limit request_id=7c68f3454bef406a91d98e99e48def60
+2026-07-21 14:02:26.391 | WARNING  | sandbox.admission:_acquire:48 - Execution gate queue full! Rejecting request: active=1/1 waiting=0/0
+2026-07-21 14:02:26.391 | WARNING  | sandbox.main:execute_code:332 - Execution rejected (SandboxBusy 429): active=1 waiting=0 request_id=38068049afe2404b89487e90dd4691e7
+2026-07-21 14:02:29.725 | WARNING  | sandbox.executor:_execute_isolated:143 - Asyncio subprocess creation not supported on current loop/OS; falling back to sync process execution
+2026-07-21 14:02:29.805 | WARNING  | sandbox.storage:validate_date:53 - Invalid date format provided: %s
+2026-07-21 14:02:29.806 | WARNING  | sandbox.storage:validate_date:53 - Invalid date format provided: %s
+2026-07-21 14:02:29.807 | WARNING  | sandbox.storage:validate_date:53 - Invalid date format provided: %s
+2026-07-21 14:02:29.808 | WARNING  | sandbox.storage:validate_date:53 - Invalid date format provided: %s
+2026-07-21 14:02:29.809 | WARNING  | sandbox.storage:validate_filename:63 - Unsafe or invalid python filename attempted: %s
+2026-07-21 14:02:29.810 | WARNING  | sandbox.storage:validate_filename:63 - Unsafe or invalid python filename attempted: %s
+2026-07-21 14:02:29.810 | WARNING  | sandbox.storage:validate_filename:63 - Unsafe or invalid python filename attempted: %s
+2026-07-21 14:02:29.812 | WARNING  | sandbox.storage:validate_filename:63 - Unsafe or invalid python filename attempted: %s
+2026-07-21 14:02:29.813 | WARNING  | sandbox.storage:validate_filename:63 - Unsafe or invalid python filename attempted: %s
+2026-07-21 14:02:29.813 | WARNING  | sandbox.storage:validate_filename:63 - Unsafe or invalid python filename attempted: %s
+2026-07-21 14:02:29.829 | WARNING  | sandbox.storage:save:120 - Duplicate upload rejected: file already exists at %s
+2026-07-21 14:02:29.836 | WARNING  | sandbox.storage:save:111 - Upload file size limit exceeded (%d > %d bytes) for %s
+2026-07-21 14:02:29.840 | WARNING  | sandbox.storage:resolve:148 - Upload script not found: date=%s filename=%s path=%s
+2026-07-21 14:02:50.076 | WARNING  | src.sandbox.executor:_execute_isolated:143 - Asyncio subprocess creation not supported on current loop/OS; falling back to sync process execution
+2026-07-21 14:03:45.978 | WARNING  | src.sandbox.executor:_execute_isolated:143 - Asyncio subprocess creation not supported on current loop/OS; falling back to sync process execution
+2026-07-21 14:04:48.754 | WARNING  | sandbox.admission:_acquire:48 - Execution gate queue full! Rejecting request: active=1/1 waiting=1/1
+2026-07-21 14:04:48.770 | WARNING  | sandbox.admission:_acquire:79 - Execution queue wait timed out after 0.01s: active=1/1 waiting=1/1
+2026-07-21 14:04:48.843 | WARNING  | sandbox.main:require_api_key:214 - API Key authentication failed for request_id=5449a920b9c142d1a47e8f987cadd3f3 client=testclient
+2026-07-21 14:04:48.848 | WARNING  | sandbox.main:require_api_key:214 - API Key authentication failed for request_id=dd8707a2532c4ddb8bdd87f393e2b92c client=testclient
+2026-07-21 14:04:49.085 | WARNING  | sandbox.storage:validate_filename:63 - Unsafe or invalid python filename attempted: ../unsafe.py
+2026-07-21 14:04:49.085 | WARNING  | sandbox.main:upload_file:250 - Upload rejected (InvalidPathError 400): filename must be a safe Python basename request_id=595b5ae62ddd4b8ba1257aed87329995
+2026-07-21 14:04:49.091 | WARNING  | sandbox.storage:save:115 - Duplicate upload rejected: file already exists at C:\Users\admin\AppData\Local\Temp\pytest-of-admin\pytest-962\test_upload_rejects_invalid_du0\2026-07-21\same.py
+2026-07-21 14:04:49.092 | WARNING  | sandbox.main:upload_file:253 - Upload rejected (DuplicateUploadError 409): a file with this name already exists today request_id=ae5b60b5f2aa40669bded55dcc208122
+2026-07-21 14:04:49.095 | WARNING  | sandbox.storage:save:109 - Upload file size limit exceeded (5 > 4 bytes) for large.py
+2026-07-21 14:04:49.095 | WARNING  | sandbox.main:upload_file:256 - Upload rejected (UploadTooLargeError 413): upload exceeds 4 bytes request_id=cf74acd745374a5fae130c4a7037ff94
+2026-07-21 14:04:49.109 | WARNING  | sandbox.storage:validate_date:53 - Invalid date format provided: ../2026-07-17
+2026-07-21 14:04:49.110 | WARNING  | sandbox.main:execute_code:293 - Execution rejected (InvalidPathError 400): date must use YYYY-MM-DD format request_id=d6061e553a6642dca45111879de421cd
+2026-07-21 14:04:49.113 | WARNING  | sandbox.storage:resolve:138 - Upload script not found: date=2026-07-17 filename=missing.py path=C:\Users\admin\AppData\Local\Temp\pytest-of-admin\pytest-962\test_execute_rejects_invalid_m0\2026-07-17\missing.py
+2026-07-21 14:04:49.113 | WARNING  | sandbox.main:execute_code:296 - Execution rejected (ScriptNotFound 404): date=2026-07-17 filename=missing.py request_id=34442cd73df04b40a441cee0e9304ad4
+2026-07-21 14:04:49.121 | WARNING  | sandbox.main:execute_code:282 - Execution rejected (TimeoutExceeded 400): requested timeout 3.00 > max 2.00 request_id=c558db7d924049fb9e4a7feb21b6ef0d
+2026-07-21 14:04:49.141 | WARNING  | sandbox.storage:validate_data_path_segments:77 - Unsafe Windows characters in data_file segment: C:
+2026-07-21 14:04:49.141 | WARNING  | sandbox.main:execute_code:310 - Execution rejected (DataFileInvalidPath 400): data_file contains an unsafe path segment request_id=d880e707d1104972afb28324f82b5237
+2026-07-21 14:04:49.145 | WARNING  | sandbox.storage:validate_data_path_segments:80 - Segment trailing dots/spaces in data_file segment: ..
+2026-07-21 14:04:49.145 | WARNING  | sandbox.main:execute_code:310 - Execution rejected (DataFileInvalidPath 400): data_file contains an unsafe path segment request_id=f49428e1cc414587b7aa08860ddb492c
+2026-07-21 14:04:49.149 | WARNING  | sandbox.storage:resolve:199 - Invalid data_file path structure requested: input.txt
+2026-07-21 14:04:49.149 | WARNING  | sandbox.main:execute_code:310 - Execution rejected (DataFileInvalidPath 400): data_file must be a relative CSV path request_id=8bb84a13f51b45c6a6e9a949f24c7f0f
+2026-07-21 14:04:49.153 | WARNING  | sandbox.storage:resolve:213 - CSV data_file not found at resolved path: C:\Users\admin\AppData\Local\Temp\pytest-of-admin\pytest-962\test_execute_rejects_unsafe_or0\data\missing.csv
+2026-07-21 14:04:49.153 | WARNING  | sandbox.main:execute_code:315 - Execution rejected (DataFileNotFound 404): data_file=missing.csv request_id=90b003790023491fa9d8d3fc3b3c2abf
+2026-07-21 14:04:49.178 | WARNING  | sandbox.storage:validate_data_path_segments:77 - Unsafe Windows characters in data_file segment: data:secret.csv
+2026-07-21 14:04:49.178 | WARNING  | sandbox.main:execute_code:310 - Execution rejected (DataFileInvalidPath 400): data_file contains an unsafe path segment request_id=4563b0301b414a45a95ba5240309eaf7
+2026-07-21 14:04:49.182 | WARNING  | sandbox.storage:validate_data_path_segments:84 - Reserved device name in data_file segment: NUL
+2026-07-21 14:04:49.182 | WARNING  | sandbox.main:execute_code:310 - Execution rejected (DataFileInvalidPath 400): data_file contains an unsafe path segment request_id=b38f191d8ed44a24aba9264de41ff749
+2026-07-21 14:04:49.186 | WARNING  | sandbox.storage:validate_data_path_segments:84 - Reserved device name in data_file segment: COM1
+2026-07-21 14:04:49.186 | WARNING  | sandbox.main:execute_code:310 - Execution rejected (DataFileInvalidPath 400): data_file contains an unsafe path segment request_id=5f812d7d33eb45d28789597c1fdd34a9
+2026-07-21 14:04:49.189 | WARNING  | sandbox.storage:validate_data_path_segments:84 - Reserved device name in data_file segment: AUX
+2026-07-21 14:04:49.189 | WARNING  | sandbox.main:execute_code:310 - Execution rejected (DataFileInvalidPath 400): data_file contains an unsafe path segment request_id=6063c706d0744afe911d724ab5b840f8
+2026-07-21 14:04:49.191 | WARNING  | sandbox.storage:validate_data_path_segments:84 - Reserved device name in data_file segment: NUL
+2026-07-21 14:04:49.192 | WARNING  | sandbox.main:execute_code:310 - Execution rejected (DataFileInvalidPath 400): data_file contains an unsafe path segment request_id=7063251ced1d40feb8985fd1c9e54fff
+2026-07-21 14:04:49.194 | WARNING  | sandbox.storage:validate_data_path_segments:84 - Reserved device name in data_file segment: COM1
+2026-07-21 14:04:49.194 | WARNING  | sandbox.main:execute_code:310 - Execution rejected (DataFileInvalidPath 400): data_file contains an unsafe path segment request_id=3fe5835e90c14306985bfbfa46e22956
+2026-07-21 14:04:49.199 | WARNING  | sandbox.storage:validate_data_path_segments:84 - Reserved device name in data_file segment: CONIN$
+2026-07-21 14:04:49.199 | WARNING  | sandbox.main:execute_code:310 - Execution rejected (DataFileInvalidPath 400): data_file contains an unsafe path segment request_id=30cd510ef2404a31921e1203b7bfa0e5
+2026-07-21 14:04:49.202 | WARNING  | sandbox.storage:validate_data_path_segments:84 - Reserved device name in data_file segment: CONOUT$
+2026-07-21 14:04:49.202 | WARNING  | sandbox.main:execute_code:310 - Execution rejected (DataFileInvalidPath 400): data_file contains an unsafe path segment request_id=9a2346cce68346f7b2086b0584e30f3c
+2026-07-21 14:04:49.205 | WARNING  | sandbox.storage:validate_data_path_segments:84 - Reserved device name in data_file segment: COM¹
+2026-07-21 14:04:49.205 | WARNING  | sandbox.main:execute_code:310 - Execution rejected (DataFileInvalidPath 400): data_file contains an unsafe path segment request_id=e5846398b04742f2892b91403d15980b
+2026-07-21 14:04:49.207 | WARNING  | sandbox.storage:validate_data_path_segments:84 - Reserved device name in data_file segment: COM²
+2026-07-21 14:04:49.208 | WARNING  | sandbox.main:execute_code:310 - Execution rejected (DataFileInvalidPath 400): data_file contains an unsafe path segment request_id=9faac6f8ead04f498bbae2b3ab3b8916
+2026-07-21 14:04:49.210 | WARNING  | sandbox.storage:validate_data_path_segments:84 - Reserved device name in data_file segment: COM³
+2026-07-21 14:04:49.210 | WARNING  | sandbox.main:execute_code:310 - Execution rejected (DataFileInvalidPath 400): data_file contains an unsafe path segment request_id=2dc483868b2e4c6f93bc46e625f1bd6e
+2026-07-21 14:04:49.214 | WARNING  | sandbox.storage:validate_data_path_segments:84 - Reserved device name in data_file segment: LPT¹
+2026-07-21 14:04:49.214 | WARNING  | sandbox.main:execute_code:310 - Execution rejected (DataFileInvalidPath 400): data_file contains an unsafe path segment request_id=389f9b1734ca41bc9ca747ce0d35831f
+2026-07-21 14:04:49.216 | WARNING  | sandbox.storage:validate_data_path_segments:84 - Reserved device name in data_file segment: LPT²
+2026-07-21 14:04:49.217 | WARNING  | sandbox.main:execute_code:310 - Execution rejected (DataFileInvalidPath 400): data_file contains an unsafe path segment request_id=d4fdaeb2ca0d4705ba47d8e727e12de5
+2026-07-21 14:04:49.219 | WARNING  | sandbox.storage:validate_data_path_segments:84 - Reserved device name in data_file segment: LPT³
+2026-07-21 14:04:49.219 | WARNING  | sandbox.main:execute_code:310 - Execution rejected (DataFileInvalidPath 400): data_file contains an unsafe path segment request_id=0d19107035eb48fc9c1b7a93c3673838
+2026-07-21 14:04:49.222 | WARNING  | sandbox.storage:validate_data_path_segments:77 - Unsafe Windows characters in data_file segment: bad?.csv
+2026-07-21 14:04:49.222 | WARNING  | sandbox.main:execute_code:310 - Execution rejected (DataFileInvalidPath 400): data_file contains an unsafe path segment request_id=5bfb758f3c64483297afc91134957441
+2026-07-21 14:04:49.225 | WARNING  | sandbox.storage:validate_data_path_segments:70 - Unsafe control characters in data_file: 'market/control\x1f.csv'
+2026-07-21 14:04:49.225 | WARNING  | sandbox.main:execute_code:310 - Execution rejected (DataFileInvalidPath 400): data_file contains an unsafe path segment request_id=f7bcc38c87854075ad77f91bd583a36e
+2026-07-21 14:04:49.230 | WARNING  | sandbox.storage:validate_data_path_segments:70 - Unsafe control characters in data_file: 'market/delete\x7f.csv'
+2026-07-21 14:04:49.230 | WARNING  | sandbox.main:execute_code:310 - Execution rejected (DataFileInvalidPath 400): data_file contains an unsafe path segment request_id=a3f25f65cc304d368c05f13804bf191e
+2026-07-21 14:04:49.233 | WARNING  | sandbox.storage:validate_data_path_segments:70 - Unsafe control characters in data_file: 'market/nul\x00.csv'
+2026-07-21 14:04:49.233 | WARNING  | sandbox.main:execute_code:310 - Execution rejected (DataFileInvalidPath 400): data_file contains an unsafe path segment request_id=271317b12390475b81a21b6346aa077b
+2026-07-21 14:04:49.364 | WARNING  | sandbox.storage:resolve:221 - Data file size limit exceeded (30 > 8 bytes) for C:\Users\admin\AppData\Local\Temp\pytest-of-admin\pytest-962\test_execute_rejects_oversized0\data\input.csv
+2026-07-21 14:04:49.364 | WARNING  | sandbox.main:execute_code:305 - Execution rejected (DataFileTooLargeError 413): data file exceeds configured size limit request_id=8b632fb5f943445394aa57468668e3df
+2026-07-21 14:04:49.940 | WARNING  | sandbox.admission:_acquire:48 - Execution gate queue full! Rejecting request: active=1/1 waiting=0/0
+2026-07-21 14:04:49.941 | WARNING  | sandbox.main:execute_code:332 - Execution rejected (SandboxBusy 429): active=1 waiting=0 request_id=abe01390ddfa4cfba1e7c75ef6262811
+2026-07-21 14:04:53.458 | WARNING  | sandbox.executor:_execute_isolated:137 - Asyncio subprocess creation not supported on current loop/OS; falling back to sync process execution
+2026-07-21 14:04:53.563 | WARNING  | sandbox.storage:validate_date:53 - Invalid date format provided: ../2026-07-17
+2026-07-21 14:04:53.565 | WARNING  | sandbox.storage:validate_date:53 - Invalid date format provided: 2026-7-1
+2026-07-21 14:04:53.566 | WARNING  | sandbox.storage:validate_date:53 - Invalid date format provided: not-a-date
+2026-07-21 14:04:53.568 | WARNING  | sandbox.storage:validate_date:53 - Invalid date format provided: 2026-02-30
+2026-07-21 14:04:53.569 | WARNING  | sandbox.storage:validate_filename:63 - Unsafe or invalid python filename attempted: ../code.py
+2026-07-21 14:04:53.570 | WARNING  | sandbox.storage:validate_filename:63 - Unsafe or invalid python filename attempted: folder/code.py
+2026-07-21 14:04:53.571 | WARNING  | sandbox.storage:validate_filename:63 - Unsafe or invalid python filename attempted: folder\code.py
+2026-07-21 14:04:53.574 | WARNING  | sandbox.storage:validate_filename:63 - Unsafe or invalid python filename attempted: .hidden.py
+2026-07-21 14:04:53.575 | WARNING  | sandbox.storage:validate_filename:63 - Unsafe or invalid python filename attempted: code.txt
+2026-07-21 14:04:53.576 | WARNING  | sandbox.storage:validate_filename:63 - Unsafe or invalid python filename attempted: a b.py
+2026-07-21 14:04:53.593 | WARNING  | sandbox.storage:save:115 - Duplicate upload rejected: file already exists at C:\Users\admin\AppData\Local\Temp\pytest-of-admin\pytest-962\test_save_rejects_duplicate_wi0\2026-07-21\same.py
+2026-07-21 14:04:53.602 | WARNING  | sandbox.storage:save:109 - Upload file size limit exceeded (5 > 4 bytes) for large.py
+2026-07-21 14:04:53.606 | WARNING  | sandbox.storage:resolve:138 - Upload script not found: date=2026-07-17 filename=missing.py path=C:\Users\admin\AppData\Local\Temp\pytest-of-admin\pytest-962\test_resolve_rejects_missing_f0\2026-07-17\missing.py
+2026-07-21 14:05:19.057 | WARNING  | sandbox.admission:_acquire:48 - Execution gate queue full! Rejecting request: active=1/1 waiting=1/1
+2026-07-21 14:05:19.084 | WARNING  | sandbox.admission:_acquire:79 - Execution queue wait timed out after 0.01s: active=1/1 waiting=1/1
+2026-07-21 14:05:19.155 | WARNING  | sandbox.main:require_api_key:214 - API Key authentication failed for request_id=14f02ec290bb4d808b319cc4069bd178 client=testclient
+2026-07-21 14:05:19.160 | WARNING  | sandbox.main:require_api_key:214 - API Key authentication failed for request_id=bcb87494b0e44af4963d01bf1cd3c7bf client=testclient
+2026-07-21 14:05:19.410 | WARNING  | sandbox.storage:validate_filename:63 - Unsafe or invalid python filename attempted: ../unsafe.py
+2026-07-21 14:05:19.410 | WARNING  | sandbox.main:upload_file:250 - Upload rejected (InvalidPathError 400): filename must be a safe Python basename request_id=0a0a4dbbee734c34a83bc85663375026
+2026-07-21 14:05:19.418 | WARNING  | sandbox.storage:save:116 - Duplicate upload rejected: file already exists at C:\Users\admin\AppData\Local\Temp\pytest-of-admin\pytest-963\test_upload_rejects_invalid_du0\2026-07-21\same.py
+2026-07-21 14:05:19.418 | WARNING  | sandbox.main:upload_file:253 - Upload rejected (DuplicateUploadError 409): a file with this name already exists today request_id=1539a473e66b4337aaa6f4aea30cf925
+2026-07-21 14:05:19.420 | WARNING  | sandbox.storage:save:109 - Upload file size limit exceeded (5 > 4 bytes) for large.py
+2026-07-21 14:05:19.421 | WARNING  | sandbox.main:upload_file:256 - Upload rejected (UploadTooLargeError 413): upload exceeds 4 bytes request_id=1d91c42281c74718bc5b05cfecd28de4
+2026-07-21 14:05:19.438 | WARNING  | sandbox.storage:validate_date:53 - Invalid date format provided: ../2026-07-17
+2026-07-21 14:05:19.438 | WARNING  | sandbox.main:execute_code:293 - Execution rejected (InvalidPathError 400): date must use YYYY-MM-DD format request_id=6ab3c7fa10424529bb67196087a894fe
+2026-07-21 14:05:19.442 | WARNING  | sandbox.storage:resolve:140 - Upload script not found: date=2026-07-17 filename=missing.py path=C:\Users\admin\AppData\Local\Temp\pytest-of-admin\pytest-963\test_execute_rejects_invalid_m0\2026-07-17\missing.py
+2026-07-21 14:05:19.442 | WARNING  | sandbox.main:execute_code:296 - Execution rejected (ScriptNotFound 404): date=2026-07-17 filename=missing.py request_id=1712c83a5ec3423e93226c1c97f35ac7
+2026-07-21 14:05:19.449 | WARNING  | sandbox.main:execute_code:282 - Execution rejected (TimeoutExceeded 400): requested timeout 3.00 > max 2.00 request_id=95f38bc8485f4ef7a0b3513d41b59956
+2026-07-21 14:05:19.470 | WARNING  | sandbox.storage:validate_data_path_segments:77 - Unsafe Windows characters in data_file segment: C:
+2026-07-21 14:05:19.470 | WARNING  | sandbox.main:execute_code:310 - Execution rejected (DataFileInvalidPath 400): data_file contains an unsafe path segment request_id=5c3d6cfc8def4f2c8e10ef80be5891dc
+2026-07-21 14:05:19.472 | WARNING  | sandbox.storage:validate_data_path_segments:80 - Segment trailing dots/spaces in data_file segment: ..
+2026-07-21 14:05:19.473 | WARNING  | sandbox.main:execute_code:310 - Execution rejected (DataFileInvalidPath 400): data_file contains an unsafe path segment request_id=7d311569bbbe469daec3726855364a98
+2026-07-21 14:05:19.476 | WARNING  | sandbox.storage:resolve:201 - Invalid data_file path structure requested: input.txt
+2026-07-21 14:05:19.476 | WARNING  | sandbox.main:execute_code:310 - Execution rejected (DataFileInvalidPath 400): data_file must be a relative CSV path request_id=62a909b606a545a08c2b4d7d65b0b957
+2026-07-21 14:05:19.479 | WARNING  | sandbox.storage:resolve:215 - CSV data_file not found at resolved path: C:\Users\admin\AppData\Local\Temp\pytest-of-admin\pytest-963\test_execute_rejects_unsafe_or0\data\missing.csv
+2026-07-21 14:05:19.479 | WARNING  | sandbox.main:execute_code:315 - Execution rejected (DataFileNotFound 404): data_file=missing.csv request_id=c2fc6d6f36a0407a9a0b6c3208747817
+2026-07-21 14:05:19.500 | WARNING  | sandbox.storage:validate_data_path_segments:77 - Unsafe Windows characters in data_file segment: data:secret.csv
+2026-07-21 14:05:19.500 | WARNING  | sandbox.main:execute_code:310 - Execution rejected (DataFileInvalidPath 400): data_file contains an unsafe path segment request_id=e79d7cd17218413bbb473b76b9255e60
+2026-07-21 14:05:19.503 | WARNING  | sandbox.storage:validate_data_path_segments:84 - Reserved device name in data_file segment: NUL
+2026-07-21 14:05:19.503 | WARNING  | sandbox.main:execute_code:310 - Execution rejected (DataFileInvalidPath 400): data_file contains an unsafe path segment request_id=2cea5d5509484ac3b37b3ae83dd8dac0
+2026-07-21 14:05:19.506 | WARNING  | sandbox.storage:validate_data_path_segments:84 - Reserved device name in data_file segment: COM1
+2026-07-21 14:05:19.506 | WARNING  | sandbox.main:execute_code:310 - Execution rejected (DataFileInvalidPath 400): data_file contains an unsafe path segment request_id=9ef39c076c6f4acb9fa5dbc2ee9d66de
+2026-07-21 14:05:19.508 | WARNING  | sandbox.storage:validate_data_path_segments:84 - Reserved device name in data_file segment: AUX
+2026-07-21 14:05:19.508 | WARNING  | sandbox.main:execute_code:310 - Execution rejected (DataFileInvalidPath 400): data_file contains an unsafe path segment request_id=4e49c6259fff4c269fcfb083cda5f0b2
+2026-07-21 14:05:19.511 | WARNING  | sandbox.storage:validate_data_path_segments:84 - Reserved device name in data_file segment: NUL
+2026-07-21 14:05:19.511 | WARNING  | sandbox.main:execute_code:310 - Execution rejected (DataFileInvalidPath 400): data_file contains an unsafe path segment request_id=1eb7f68cdf7c46aa9ecefd8c644da533
+2026-07-21 14:05:19.513 | WARNING  | sandbox.storage:validate_data_path_segments:84 - Reserved device name in data_file segment: COM1
+2026-07-21 14:05:19.513 | WARNING  | sandbox.main:execute_code:310 - Execution rejected (DataFileInvalidPath 400): data_file contains an unsafe path segment request_id=0b33c98f110a4f479388761e135985a8
+2026-07-21 14:05:19.516 | WARNING  | sandbox.storage:validate_data_path_segments:84 - Reserved device name in data_file segment: CONIN$
+2026-07-21 14:05:19.517 | WARNING  | sandbox.main:execute_code:310 - Execution rejected (DataFileInvalidPath 400): data_file contains an unsafe path segment request_id=2b7c4fb1a80146d28e3efe4e6aee4be5
+2026-07-21 14:05:19.519 | WARNING  | sandbox.storage:validate_data_path_segments:84 - Reserved device name in data_file segment: CONOUT$
+2026-07-21 14:05:19.519 | WARNING  | sandbox.main:execute_code:310 - Execution rejected (DataFileInvalidPath 400): data_file contains an unsafe path segment request_id=a59b0319d03d4cb88ff625ad422f0c43
+2026-07-21 14:05:19.521 | WARNING  | sandbox.storage:validate_data_path_segments:84 - Reserved device name in data_file segment: COM¹
+2026-07-21 14:05:19.521 | WARNING  | sandbox.main:execute_code:310 - Execution rejected (DataFileInvalidPath 400): data_file contains an unsafe path segment request_id=8706348e6a604b45b710c3e5bfedf022
+2026-07-21 14:05:19.523 | WARNING  | sandbox.storage:validate_data_path_segments:84 - Reserved device name in data_file segment: COM²
+2026-07-21 14:05:19.523 | WARNING  | sandbox.main:execute_code:310 - Execution rejected (DataFileInvalidPath 400): data_file contains an unsafe path segment request_id=c1277c07ef374fa29370bb7a889780e1
+2026-07-21 14:05:19.526 | WARNING  | sandbox.storage:validate_data_path_segments:84 - Reserved device name in data_file segment: COM³
+2026-07-21 14:05:19.526 | WARNING  | sandbox.main:execute_code:310 - Execution rejected (DataFileInvalidPath 400): data_file contains an unsafe path segment request_id=b2782305a2d94d9696b284db538f18da
+2026-07-21 14:05:19.529 | WARNING  | sandbox.storage:validate_data_path_segments:84 - Reserved device name in data_file segment: LPT¹
+2026-07-21 14:05:19.529 | WARNING  | sandbox.main:execute_code:310 - Execution rejected (DataFileInvalidPath 400): data_file contains an unsafe path segment request_id=d8f6cd792a1f43c4af635c0a60f042db
+2026-07-21 14:05:19.533 | WARNING  | sandbox.storage:validate_data_path_segments:84 - Reserved device name in data_file segment: LPT²
+2026-07-21 14:05:19.533 | WARNING  | sandbox.main:execute_code:310 - Execution rejected (DataFileInvalidPath 400): data_file contains an unsafe path segment request_id=d867998165514916806ba11610e436d4
+2026-07-21 14:05:19.536 | WARNING  | sandbox.storage:validate_data_path_segments:84 - Reserved device name in data_file segment: LPT³
+2026-07-21 14:05:19.536 | WARNING  | sandbox.main:execute_code:310 - Execution rejected (DataFileInvalidPath 400): data_file contains an unsafe path segment request_id=f3c51e7b01774c8ebb897ca652ebd9ab
+2026-07-21 14:05:19.539 | WARNING  | sandbox.storage:validate_data_path_segments:77 - Unsafe Windows characters in data_file segment: bad?.csv
+2026-07-21 14:05:19.539 | WARNING  | sandbox.main:execute_code:310 - Execution rejected (DataFileInvalidPath 400): data_file contains an unsafe path segment request_id=2de8d3493b314b50947079e8bd43a82f
+2026-07-21 14:05:19.542 | WARNING  | sandbox.storage:validate_data_path_segments:70 - Unsafe control characters in data_file: 'market/control\x1f.csv'
+2026-07-21 14:05:19.542 | WARNING  | sandbox.main:execute_code:310 - Execution rejected (DataFileInvalidPath 400): data_file contains an unsafe path segment request_id=cfd4ca0d214f4d99b74adbe8b5225b85
+2026-07-21 14:05:19.546 | WARNING  | sandbox.storage:validate_data_path_segments:70 - Unsafe control characters in data_file: 'market/delete\x7f.csv'
+2026-07-21 14:05:19.546 | WARNING  | sandbox.main:execute_code:310 - Execution rejected (DataFileInvalidPath 400): data_file contains an unsafe path segment request_id=bc7d4f3856ac4472bd7332040bd96388
+2026-07-21 14:05:19.549 | WARNING  | sandbox.storage:validate_data_path_segments:70 - Unsafe control characters in data_file: 'market/nul\x00.csv'
+2026-07-21 14:05:19.549 | WARNING  | sandbox.main:execute_code:310 - Execution rejected (DataFileInvalidPath 400): data_file contains an unsafe path segment request_id=c0667b72c5d74d4cbd09a8f7c37395ee
+2026-07-21 14:05:19.673 | WARNING  | sandbox.storage:resolve:223 - Data file size limit exceeded (30 > 8 bytes) for C:\Users\admin\AppData\Local\Temp\pytest-of-admin\pytest-963\test_execute_rejects_oversized0\data\input.csv
+2026-07-21 14:05:19.673 | WARNING  | sandbox.main:execute_code:305 - Execution rejected (DataFileTooLargeError 413): data file exceeds configured size limit request_id=3a7e36537bc24e2ea0115e5b26db5837
+2026-07-21 14:05:20.218 | WARNING  | sandbox.admission:_acquire:48 - Execution gate queue full! Rejecting request: active=1/1 waiting=0/0
+2026-07-21 14:05:20.218 | WARNING  | sandbox.main:execute_code:332 - Execution rejected (SandboxBusy 429): active=1 waiting=0 request_id=c31614a003a84cc383aa488c560a562c
+2026-07-21 14:05:23.574 | WARNING  | sandbox.executor:_execute_isolated:137 - Asyncio subprocess creation not supported on current loop/OS; falling back to sync process execution
+2026-07-21 14:05:23.665 | WARNING  | sandbox.storage:validate_date:53 - Invalid date format provided: ../2026-07-17
+2026-07-21 14:05:23.666 | WARNING  | sandbox.storage:validate_date:53 - Invalid date format provided: 2026-7-1
+2026-07-21 14:05:23.667 | WARNING  | sandbox.storage:validate_date:53 - Invalid date format provided: not-a-date
+2026-07-21 14:05:23.668 | WARNING  | sandbox.storage:validate_date:53 - Invalid date format provided: 2026-02-30
+2026-07-21 14:05:23.670 | WARNING  | sandbox.storage:validate_filename:63 - Unsafe or invalid python filename attempted: ../code.py
+2026-07-21 14:05:23.671 | WARNING  | sandbox.storage:validate_filename:63 - Unsafe or invalid python filename attempted: folder/code.py
+2026-07-21 14:05:23.672 | WARNING  | sandbox.storage:validate_filename:63 - Unsafe or invalid python filename attempted: folder\code.py
+2026-07-21 14:05:23.672 | WARNING  | sandbox.storage:validate_filename:63 - Unsafe or invalid python filename attempted: .hidden.py
+2026-07-21 14:05:23.673 | WARNING  | sandbox.storage:validate_filename:63 - Unsafe or invalid python filename attempted: code.txt
+2026-07-21 14:05:23.674 | WARNING  | sandbox.storage:validate_filename:63 - Unsafe or invalid python filename attempted: a b.py
+2026-07-21 14:05:23.688 | WARNING  | sandbox.storage:save:116 - Duplicate upload rejected: file already exists at C:\Users\admin\AppData\Local\Temp\pytest-of-admin\pytest-963\test_save_rejects_duplicate_wi0\2026-07-21\same.py
+2026-07-21 14:05:23.695 | WARNING  | sandbox.storage:save:109 - Upload file size limit exceeded (5 > 4 bytes) for large.py
+2026-07-21 14:05:23.700 | WARNING  | sandbox.storage:resolve:140 - Upload script not found: date=2026-07-17 filename=missing.py path=C:\Users\admin\AppData\Local\Temp\pytest-of-admin\pytest-963\test_resolve_rejects_missing_f0\2026-07-17\missing.py
+2026-07-21 14:18:48.219 | WARNING  | sandbox.admission:_acquire:48 - Execution gate queue full! Rejecting request: active=1/1 waiting=1/1
+2026-07-21 14:18:48.235 | WARNING  | sandbox.admission:_acquire:79 - Execution queue wait timed out after 0.01s: active=1/1 waiting=1/1
+2026-07-21 14:18:48.292 | WARNING  | sandbox.main:require_api_key:214 - API Key authentication failed for request_id=068318c4d9af48cd926f0e5fb1e40b0c client=testclient
+2026-07-21 14:18:48.294 | WARNING  | sandbox.main:require_api_key:214 - API Key authentication failed for request_id=de258ec1305546e2802d5f76e6fa396d client=testclient
+2026-07-21 14:18:48.492 | WARNING  | sandbox.storage:validate_filename:63 - Unsafe or invalid python filename attempted: ../unsafe.py
+2026-07-21 14:18:48.492 | WARNING  | sandbox.main:upload_file:250 - Upload rejected (InvalidPathError 400): filename must be a safe Python basename request_id=c9acce3330a74764956d6c35030fdd0c
+2026-07-21 14:18:48.499 | WARNING  | sandbox.storage:save:116 - Duplicate upload rejected: file already exists at C:\Users\admin\AppData\Local\Temp\pytest-of-admin\pytest-966\test_upload_rejects_invalid_du0\2026-07-21\same.py
+2026-07-21 14:18:48.499 | WARNING  | sandbox.main:upload_file:253 - Upload rejected (DuplicateUploadError 409): a file with this name already exists today request_id=04c89ef6d77c4ab7ac893ea359f19004
+2026-07-21 14:18:48.502 | WARNING  | sandbox.storage:save:109 - Upload file size limit exceeded (5 > 4 bytes) for large.py
+2026-07-21 14:18:48.502 | WARNING  | sandbox.main:upload_file:256 - Upload rejected (UploadTooLargeError 413): upload exceeds 4 bytes request_id=991bd1ec26fb48ff99d3cfd70ef5d387
+2026-07-21 14:18:48.517 | WARNING  | sandbox.storage:validate_date:53 - Invalid date format provided: ../2026-07-17
+2026-07-21 14:18:48.517 | WARNING  | sandbox.main:execute_code:293 - Execution rejected (InvalidPathError 400): date must use YYYY-MM-DD format request_id=add68f9d0ff64fb18f1750ed2ac94b2e
+2026-07-21 14:18:48.520 | WARNING  | sandbox.storage:resolve:140 - Upload script not found: date=2026-07-17 filename=missing.py path=C:\Users\admin\AppData\Local\Temp\pytest-of-admin\pytest-966\test_execute_rejects_invalid_m0\2026-07-17\missing.py
+2026-07-21 14:18:48.520 | WARNING  | sandbox.main:execute_code:296 - Execution rejected (ScriptNotFound 404): date=2026-07-17 filename=missing.py request_id=385ba53b7a5841fe95cdb6ae553ffa14
+2026-07-21 14:18:48.525 | WARNING  | sandbox.main:execute_code:282 - Execution rejected (TimeoutExceeded 400): requested timeout 3.00 > max 2.00 request_id=f3cb250f0c5342238c534110389f64d8
+2026-07-21 14:18:48.544 | WARNING  | sandbox.storage:validate_data_path_segments:77 - Unsafe Windows characters in data_file segment: C:
+2026-07-21 14:18:48.545 | WARNING  | sandbox.main:execute_code:310 - Execution rejected (DataFileInvalidPath 400): data_file contains an unsafe path segment request_id=9a5d94e7bbc64bbfa021caa4d97c0d04
+2026-07-21 14:18:48.549 | WARNING  | sandbox.storage:validate_data_path_segments:80 - Segment trailing dots/spaces in data_file segment: ..
+2026-07-21 14:18:48.549 | WARNING  | sandbox.main:execute_code:310 - Execution rejected (DataFileInvalidPath 400): data_file contains an unsafe path segment request_id=6967dde7fcdd4139bf5608c685d858ee
+2026-07-21 14:18:48.551 | WARNING  | sandbox.storage:resolve:201 - Invalid data_file path structure requested: input.txt
+2026-07-21 14:18:48.551 | WARNING  | sandbox.main:execute_code:310 - Execution rejected (DataFileInvalidPath 400): data_file must be a relative CSV path request_id=e02f2eb6cb5b4096bcc5c39a2d70f65c
+2026-07-21 14:18:48.554 | WARNING  | sandbox.storage:resolve:215 - CSV data_file not found at resolved path: C:\Users\admin\AppData\Local\Temp\pytest-of-admin\pytest-966\test_execute_rejects_unsafe_or0\data\missing.csv
+2026-07-21 14:18:48.554 | WARNING  | sandbox.main:execute_code:315 - Execution rejected (DataFileNotFound 404): data_file=missing.csv request_id=5d25136932ee4f058bb5a1fc32c4b70c
+2026-07-21 14:18:48.572 | WARNING  | sandbox.storage:validate_data_path_segments:77 - Unsafe Windows characters in data_file segment: data:secret.csv
+2026-07-21 14:18:48.572 | WARNING  | sandbox.main:execute_code:310 - Execution rejected (DataFileInvalidPath 400): data_file contains an unsafe path segment request_id=84b275166e1b429a8af80c7a44ad59bb
+2026-07-21 14:18:48.574 | WARNING  | sandbox.storage:validate_data_path_segments:84 - Reserved device name in data_file segment: NUL
+2026-07-21 14:18:48.574 | WARNING  | sandbox.main:execute_code:310 - Execution rejected (DataFileInvalidPath 400): data_file contains an unsafe path segment request_id=07ec4325d0e446cdbfc291dd388ecb15
+2026-07-21 14:18:48.577 | WARNING  | sandbox.storage:validate_data_path_segments:84 - Reserved device name in data_file segment: COM1
+2026-07-21 14:18:48.577 | WARNING  | sandbox.main:execute_code:310 - Execution rejected (DataFileInvalidPath 400): data_file contains an unsafe path segment request_id=baea6a7f83464bcd9896dd6a313e2fbb
+2026-07-21 14:18:48.580 | WARNING  | sandbox.storage:validate_data_path_segments:84 - Reserved device name in data_file segment: AUX
+2026-07-21 14:18:48.580 | WARNING  | sandbox.main:execute_code:310 - Execution rejected (DataFileInvalidPath 400): data_file contains an unsafe path segment request_id=90009fe026a949dba88960b1a402de23
+2026-07-21 14:18:48.582 | WARNING  | sandbox.storage:validate_data_path_segments:84 - Reserved device name in data_file segment: NUL
+2026-07-21 14:18:48.583 | WARNING  | sandbox.main:execute_code:310 - Execution rejected (DataFileInvalidPath 400): data_file contains an unsafe path segment request_id=91992cdd68e84211a067dd3905954be6
+2026-07-21 14:18:48.585 | WARNING  | sandbox.storage:validate_data_path_segments:84 - Reserved device name in data_file segment: COM1
+2026-07-21 14:18:48.586 | WARNING  | sandbox.main:execute_code:310 - Execution rejected (DataFileInvalidPath 400): data_file contains an unsafe path segment request_id=7a1be899a75249c3aaa254fb3d6e3c80
+2026-07-21 14:18:48.589 | WARNING  | sandbox.storage:validate_data_path_segments:84 - Reserved device name in data_file segment: CONIN$
+2026-07-21 14:18:48.589 | WARNING  | sandbox.main:execute_code:310 - Execution rejected (DataFileInvalidPath 400): data_file contains an unsafe path segment request_id=2a90f34b54914e54a8fb19008960adf4
+2026-07-21 14:18:48.591 | WARNING  | sandbox.storage:validate_data_path_segments:84 - Reserved device name in data_file segment: CONOUT$
+2026-07-21 14:18:48.591 | WARNING  | sandbox.main:execute_code:310 - Execution rejected (DataFileInvalidPath 400): data_file contains an unsafe path segment request_id=ea344ad5cf4941d7bb2feb31a57a4299
+2026-07-21 14:18:48.593 | WARNING  | sandbox.storage:validate_data_path_segments:84 - Reserved device name in data_file segment: COM¹
+2026-07-21 14:18:48.593 | WARNING  | sandbox.main:execute_code:310 - Execution rejected (DataFileInvalidPath 400): data_file contains an unsafe path segment request_id=f28a33b440794d4fb53e3fe3260d0e61
+2026-07-21 14:18:48.596 | WARNING  | sandbox.storage:validate_data_path_segments:84 - Reserved device name in data_file segment: COM²
+2026-07-21 14:18:48.596 | WARNING  | sandbox.main:execute_code:310 - Execution rejected (DataFileInvalidPath 400): data_file contains an unsafe path segment request_id=4781902ff1c24111b3cc009737b7d3f1
+2026-07-21 14:18:48.600 | WARNING  | sandbox.storage:validate_data_path_segments:84 - Reserved device name in data_file segment: COM³
+2026-07-21 14:18:48.600 | WARNING  | sandbox.main:execute_code:310 - Execution rejected (DataFileInvalidPath 400): data_file contains an unsafe path segment request_id=a3c9e3f76226470dbb24bad799f749b6
+2026-07-21 14:18:48.602 | WARNING  | sandbox.storage:validate_data_path_segments:84 - Reserved device name in data_file segment: LPT¹
+2026-07-21 14:18:48.602 | WARNING  | sandbox.main:execute_code:310 - Execution rejected (DataFileInvalidPath 400): data_file contains an unsafe path segment request_id=4b36f8347caf48138d457d40b69051cb
+2026-07-21 14:18:48.604 | WARNING  | sandbox.storage:validate_data_path_segments:84 - Reserved device name in data_file segment: LPT²
+2026-07-21 14:18:48.604 | WARNING  | sandbox.main:execute_code:310 - Execution rejected (DataFileInvalidPath 400): data_file contains an unsafe path segment request_id=f22c8acc54c0425588d253f12fd849f9
+2026-07-21 14:18:48.607 | WARNING  | sandbox.storage:validate_data_path_segments:84 - Reserved device name in data_file segment: LPT³
+2026-07-21 14:18:48.607 | WARNING  | sandbox.main:execute_code:310 - Execution rejected (DataFileInvalidPath 400): data_file contains an unsafe path segment request_id=75d327aff2ae443fad5bf5811922567a
+2026-07-21 14:18:48.609 | WARNING  | sandbox.storage:validate_data_path_segments:77 - Unsafe Windows characters in data_file segment: bad?.csv
+2026-07-21 14:18:48.609 | WARNING  | sandbox.main:execute_code:310 - Execution rejected (DataFileInvalidPath 400): data_file contains an unsafe path segment request_id=4c9044452f8b43a8bfdcdadc2edf902f
+2026-07-21 14:18:48.613 | WARNING  | sandbox.storage:validate_data_path_segments:70 - Unsafe control characters in data_file: 'market/control\x1f.csv'
+2026-07-21 14:18:48.613 | WARNING  | sandbox.main:execute_code:310 - Execution rejected (DataFileInvalidPath 400): data_file contains an unsafe path segment request_id=dc4211bb3e1446d1a0edf1c587b5ed1d
+2026-07-21 14:18:48.616 | WARNING  | sandbox.storage:validate_data_path_segments:70 - Unsafe control characters in data_file: 'market/delete\x7f.csv'
+2026-07-21 14:18:48.616 | WARNING  | sandbox.main:execute_code:310 - Execution rejected (DataFileInvalidPath 400): data_file contains an unsafe path segment request_id=8c9767844dca4bfc9631d91a3cc1fbe5
+2026-07-21 14:18:48.618 | WARNING  | sandbox.storage:validate_data_path_segments:70 - Unsafe control characters in data_file: 'market/nul\x00.csv'
+2026-07-21 14:18:48.619 | WARNING  | sandbox.main:execute_code:310 - Execution rejected (DataFileInvalidPath 400): data_file contains an unsafe path segment request_id=fb3e4c83077d4beebbafc3dba406effe
+2026-07-21 14:18:48.747 | WARNING  | sandbox.storage:resolve:223 - Data file size limit exceeded (30 > 8 bytes) for C:\Users\admin\AppData\Local\Temp\pytest-of-admin\pytest-966\test_execute_rejects_oversized0\data\input.csv
+2026-07-21 14:18:48.747 | WARNING  | sandbox.main:execute_code:305 - Execution rejected (DataFileTooLargeError 413): data file exceeds configured size limit request_id=3a9c9f4b2cc949f287d42c82db7cf674
+2026-07-21 14:18:49.288 | WARNING  | sandbox.admission:_acquire:48 - Execution gate queue full! Rejecting request: active=1/1 waiting=0/0
+2026-07-21 14:18:49.288 | WARNING  | sandbox.main:execute_code:332 - Execution rejected (SandboxBusy 429): active=1 waiting=0 request_id=029e6b2e49ae49219545a26cd9a5bdb6
+2026-07-21 14:18:52.171 | WARNING  | sandbox.executor:_execute_isolated:137 - Asyncio subprocess creation not supported on current loop/OS; falling back to sync process execution
+2026-07-21 14:18:52.268 | WARNING  | sandbox.storage:validate_date:53 - Invalid date format provided: ../2026-07-17
+2026-07-21 14:18:52.270 | WARNING  | sandbox.storage:validate_date:53 - Invalid date format provided: 2026-7-1
+2026-07-21 14:18:52.272 | WARNING  | sandbox.storage:validate_date:53 - Invalid date format provided: not-a-date
+2026-07-21 14:18:52.273 | WARNING  | sandbox.storage:validate_date:53 - Invalid date format provided: 2026-02-30
+2026-07-21 14:18:52.274 | WARNING  | sandbox.storage:validate_filename:63 - Unsafe or invalid python filename attempted: ../code.py
+2026-07-21 14:18:52.275 | WARNING  | sandbox.storage:validate_filename:63 - Unsafe or invalid python filename attempted: folder/code.py
+2026-07-21 14:18:52.277 | WARNING  | sandbox.storage:validate_filename:63 - Unsafe or invalid python filename attempted: folder\code.py
+2026-07-21 14:18:52.278 | WARNING  | sandbox.storage:validate_filename:63 - Unsafe or invalid python filename attempted: .hidden.py
+2026-07-21 14:18:52.279 | WARNING  | sandbox.storage:validate_filename:63 - Unsafe or invalid python filename attempted: code.txt
+2026-07-21 14:18:52.281 | WARNING  | sandbox.storage:validate_filename:63 - Unsafe or invalid python filename attempted: a b.py
+2026-07-21 14:18:52.298 | WARNING  | sandbox.storage:save:116 - Duplicate upload rejected: file already exists at C:\Users\admin\AppData\Local\Temp\pytest-of-admin\pytest-966\test_save_rejects_duplicate_wi0\2026-07-21\same.py
+2026-07-21 14:18:52.308 | WARNING  | sandbox.storage:save:109 - Upload file size limit exceeded (5 > 4 bytes) for large.py
+2026-07-21 14:18:52.313 | WARNING  | sandbox.storage:resolve:140 - Upload script not found: date=2026-07-17 filename=missing.py path=C:\Users\admin\AppData\Local\Temp\pytest-of-admin\pytest-966\test_resolve_rejects_missing_f0\2026-07-17\missing.py
+2026-07-21 14:19:07.870 | WARNING  | sandbox.admission:_acquire:48 - Execution gate queue full! Rejecting request: active=1/1 waiting=1/1
+2026-07-21 14:19:07.891 | WARNING  | sandbox.admission:_acquire:79 - Execution queue wait timed out after 0.01s: active=1/1 waiting=1/1
+2026-07-21 14:19:07.977 | WARNING  | sandbox.main:require_api_key:214 - API Key authentication failed for request_id=b6204ba425114ce4add34df559acedb6 client=testclient
+2026-07-21 14:19:07.981 | WARNING  | sandbox.main:require_api_key:214 - API Key authentication failed for request_id=5988c257cb024091b70d67480f0b198e client=testclient
+2026-07-21 14:19:08.182 | WARNING  | sandbox.storage:validate_filename:63 - Unsafe or invalid python filename attempted: ../unsafe.py
+2026-07-21 14:19:08.182 | WARNING  | sandbox.main:upload_file:250 - Upload rejected (InvalidPathError 400): filename must be a safe Python basename request_id=666004dfe5de476db56678060eeacf31
+2026-07-21 14:19:08.192 | WARNING  | sandbox.storage:save:116 - Duplicate upload rejected: file already exists at C:\Users\admin\AppData\Local\Temp\pytest-of-admin\pytest-967\test_upload_rejects_invalid_du0\2026-07-21\same.py
+2026-07-21 14:19:08.192 | WARNING  | sandbox.main:upload_file:253 - Upload rejected (DuplicateUploadError 409): a file with this name already exists today request_id=1003b19239e94519b514bf697c5968ca
+2026-07-21 14:19:08.197 | WARNING  | sandbox.storage:save:109 - Upload file size limit exceeded (5 > 4 bytes) for large.py
+2026-07-21 14:19:08.198 | WARNING  | sandbox.main:upload_file:256 - Upload rejected (UploadTooLargeError 413): upload exceeds 4 bytes request_id=d13bb0bcb2a949cf8b9db6a926307899
+2026-07-21 14:19:08.238 | WARNING  | sandbox.storage:validate_date:53 - Invalid date format provided: ../2026-07-17
+2026-07-21 14:19:08.238 | WARNING  | sandbox.main:execute_code:293 - Execution rejected (InvalidPathError 400): date must use YYYY-MM-DD format request_id=f69dbee7c2b04b208428675b389db443
+2026-07-21 14:19:08.242 | WARNING  | sandbox.storage:resolve:140 - Upload script not found: date=2026-07-17 filename=missing.py path=C:\Users\admin\AppData\Local\Temp\pytest-of-admin\pytest-967\test_execute_rejects_invalid_m0\2026-07-17\missing.py
+2026-07-21 14:19:08.242 | WARNING  | sandbox.main:execute_code:296 - Execution rejected (ScriptNotFound 404): date=2026-07-17 filename=missing.py request_id=b35259636ce44ad4b9978bcc997ab352
+2026-07-21 14:19:08.251 | WARNING  | sandbox.main:execute_code:282 - Execution rejected (TimeoutExceeded 400): requested timeout 3.00 > max 2.00 request_id=34fa1001d57a402b9920ea16725e4434
+2026-07-21 14:19:08.270 | WARNING  | sandbox.storage:validate_data_path_segments:77 - Unsafe Windows characters in data_file segment: C:
+2026-07-21 14:19:08.270 | WARNING  | sandbox.main:execute_code:310 - Execution rejected (DataFileInvalidPath 400): data_file contains an unsafe path segment request_id=2accb656843540bb9f805b01d58a1d1d
+2026-07-21 14:19:08.274 | WARNING  | sandbox.storage:validate_data_path_segments:80 - Segment trailing dots/spaces in data_file segment: ..
+2026-07-21 14:19:08.274 | WARNING  | sandbox.main:execute_code:310 - Execution rejected (DataFileInvalidPath 400): data_file contains an unsafe path segment request_id=d1f215c082e7438f834e3df858beed4a
+2026-07-21 14:19:08.276 | WARNING  | sandbox.storage:resolve:201 - Invalid data_file path structure requested: input.txt
+2026-07-21 14:19:08.276 | WARNING  | sandbox.main:execute_code:310 - Execution rejected (DataFileInvalidPath 400): data_file must be a relative CSV path request_id=5fe996180e8b494689289311e44a9dfd
+2026-07-21 14:19:08.281 | WARNING  | sandbox.storage:resolve:215 - CSV data_file not found at resolved path: C:\Users\admin\AppData\Local\Temp\pytest-of-admin\pytest-967\test_execute_rejects_unsafe_or0\data\missing.csv
+2026-07-21 14:19:08.281 | WARNING  | sandbox.main:execute_code:315 - Execution rejected (DataFileNotFound 404): data_file=missing.csv request_id=8d90826c3227494c943d2c261b9f7dff
+2026-07-21 14:19:08.301 | WARNING  | sandbox.storage:validate_data_path_segments:77 - Unsafe Windows characters in data_file segment: data:secret.csv
+2026-07-21 14:19:08.301 | WARNING  | sandbox.main:execute_code:310 - Execution rejected (DataFileInvalidPath 400): data_file contains an unsafe path segment request_id=b4587b83fb9c49de9bdf4d908656001f
+2026-07-21 14:19:08.303 | WARNING  | sandbox.storage:validate_data_path_segments:84 - Reserved device name in data_file segment: NUL
+2026-07-21 14:19:08.303 | WARNING  | sandbox.main:execute_code:310 - Execution rejected (DataFileInvalidPath 400): data_file contains an unsafe path segment request_id=44327f83c1414d1e8ee882f9694e6c4c
+2026-07-21 14:19:08.306 | WARNING  | sandbox.storage:validate_data_path_segments:84 - Reserved device name in data_file segment: COM1
+2026-07-21 14:19:08.306 | WARNING  | sandbox.main:execute_code:310 - Execution rejected (DataFileInvalidPath 400): data_file contains an unsafe path segment request_id=5cf9a6a8a6594d5fac5c80fb442619f9
+2026-07-21 14:19:08.308 | WARNING  | sandbox.storage:validate_data_path_segments:84 - Reserved device name in data_file segment: AUX
+2026-07-21 14:19:08.308 | WARNING  | sandbox.main:execute_code:310 - Execution rejected (DataFileInvalidPath 400): data_file contains an unsafe path segment request_id=3a394584e6c4418dab9f040e31c01e03
+2026-07-21 14:19:08.312 | WARNING  | sandbox.storage:validate_data_path_segments:84 - Reserved device name in data_file segment: NUL
+2026-07-21 14:19:08.312 | WARNING  | sandbox.main:execute_code:310 - Execution rejected (DataFileInvalidPath 400): data_file contains an unsafe path segment request_id=c86266e74ae8486a9d2d1ce1b816a908
+2026-07-21 14:19:08.315 | WARNING  | sandbox.storage:validate_data_path_segments:84 - Reserved device name in data_file segment: COM1
+2026-07-21 14:19:08.315 | WARNING  | sandbox.main:execute_code:310 - Execution rejected (DataFileInvalidPath 400): data_file contains an unsafe path segment request_id=e2e6afe0936942c4aee5d62a235f0383
+2026-07-21 14:19:08.318 | WARNING  | sandbox.storage:validate_data_path_segments:84 - Reserved device name in data_file segment: CONIN$
+2026-07-21 14:19:08.318 | WARNING  | sandbox.main:execute_code:310 - Execution rejected (DataFileInvalidPath 400): data_file contains an unsafe path segment request_id=24db8523893f4f8aa2ec06c45a74dda7
+2026-07-21 14:19:08.321 | WARNING  | sandbox.storage:validate_data_path_segments:84 - Reserved device name in data_file segment: CONOUT$
+2026-07-21 14:19:08.321 | WARNING  | sandbox.main:execute_code:310 - Execution rejected (DataFileInvalidPath 400): data_file contains an unsafe path segment request_id=e7a6fe9db0d64f3d9c700c4f69704abb
+2026-07-21 14:19:08.324 | WARNING  | sandbox.storage:validate_data_path_segments:84 - Reserved device name in data_file segment: COM¹
+2026-07-21 14:19:08.324 | WARNING  | sandbox.main:execute_code:310 - Execution rejected (DataFileInvalidPath 400): data_file contains an unsafe path segment request_id=0682a2fff15345cda78e5d659600092e
+2026-07-21 14:19:08.327 | WARNING  | sandbox.storage:validate_data_path_segments:84 - Reserved device name in data_file segment: COM²
+2026-07-21 14:19:08.327 | WARNING  | sandbox.main:execute_code:310 - Execution rejected (DataFileInvalidPath 400): data_file contains an unsafe path segment request_id=5466d44f9ec2412fae2f3b9b772180fc
+2026-07-21 14:19:08.331 | WARNING  | sandbox.storage:validate_data_path_segments:84 - Reserved device name in data_file segment: COM³
+2026-07-21 14:19:08.331 | WARNING  | sandbox.main:execute_code:310 - Execution rejected (DataFileInvalidPath 400): data_file contains an unsafe path segment request_id=cb89645b37ef459c8fbf37f807f13c51
+2026-07-21 14:19:08.334 | WARNING  | sandbox.storage:validate_data_path_segments:84 - Reserved device name in data_file segment: LPT¹
+2026-07-21 14:19:08.334 | WARNING  | sandbox.main:execute_code:310 - Execution rejected (DataFileInvalidPath 400): data_file contains an unsafe path segment request_id=91fcf4ea5e6342028320e96e4392d2de
+2026-07-21 14:19:08.336 | WARNING  | sandbox.storage:validate_data_path_segments:84 - Reserved device name in data_file segment: LPT²
+2026-07-21 14:19:08.336 | WARNING  | sandbox.main:execute_code:310 - Execution rejected (DataFileInvalidPath 400): data_file contains an unsafe path segment request_id=33471e606b4546b2a985d5505b57f325
+2026-07-21 14:19:08.338 | WARNING  | sandbox.storage:validate_data_path_segments:84 - Reserved device name in data_file segment: LPT³
+2026-07-21 14:19:08.339 | WARNING  | sandbox.main:execute_code:310 - Execution rejected (DataFileInvalidPath 400): data_file contains an unsafe path segment request_id=3afe29545be74b14bb470d7809e8bc5f
+2026-07-21 14:19:08.342 | WARNING  | sandbox.storage:validate_data_path_segments:77 - Unsafe Windows characters in data_file segment: bad?.csv
+2026-07-21 14:19:08.342 | WARNING  | sandbox.main:execute_code:310 - Execution rejected (DataFileInvalidPath 400): data_file contains an unsafe path segment request_id=4374ba36570c4ceeb16849dccce81127
+2026-07-21 14:19:08.345 | WARNING  | sandbox.storage:validate_data_path_segments:70 - Unsafe control characters in data_file: 'market/control\x1f.csv'
+2026-07-21 14:19:08.345 | WARNING  | sandbox.main:execute_code:310 - Execution rejected (DataFileInvalidPath 400): data_file contains an unsafe path segment request_id=a70f58c29344445db8e28b33a1b9da29
+2026-07-21 14:19:08.349 | WARNING  | sandbox.storage:validate_data_path_segments:70 - Unsafe control characters in data_file: 'market/delete\x7f.csv'
+2026-07-21 14:19:08.350 | WARNING  | sandbox.main:execute_code:310 - Execution rejected (DataFileInvalidPath 400): data_file contains an unsafe path segment request_id=59d2d55091e846bf930f91d3aef721fc
+2026-07-21 14:19:08.353 | WARNING  | sandbox.storage:validate_data_path_segments:70 - Unsafe control characters in data_file: 'market/nul\x00.csv'
+2026-07-21 14:19:08.353 | WARNING  | sandbox.main:execute_code:310 - Execution rejected (DataFileInvalidPath 400): data_file contains an unsafe path segment request_id=9d91ce05dd904ec9a66de936c0fdd2d6
+2026-07-21 14:19:08.476 | WARNING  | sandbox.storage:resolve:223 - Data file size limit exceeded (30 > 8 bytes) for C:\Users\admin\AppData\Local\Temp\pytest-of-admin\pytest-967\test_execute_rejects_oversized0\data\input.csv
+2026-07-21 14:19:08.476 | WARNING  | sandbox.main:execute_code:305 - Execution rejected (DataFileTooLargeError 413): data file exceeds configured size limit request_id=5dea325398f14837997cf40be659b42c
+2026-07-21 14:19:09.026 | WARNING  | sandbox.admission:_acquire:48 - Execution gate queue full! Rejecting request: active=1/1 waiting=0/0
+2026-07-21 14:19:09.027 | WARNING  | sandbox.main:execute_code:332 - Execution rejected (SandboxBusy 429): active=1 waiting=0 request_id=fcb1debaf6e14123a7693f362b8b8830
+2026-07-21 14:19:11.799 | WARNING  | sandbox.executor:_execute_isolated:137 - Asyncio subprocess creation not supported on current loop/OS; falling back to sync process execution
+2026-07-21 14:19:11.891 | WARNING  | sandbox.storage:validate_date:53 - Invalid date format provided: ../2026-07-17
+2026-07-21 14:19:11.892 | WARNING  | sandbox.storage:validate_date:53 - Invalid date format provided: 2026-7-1
+2026-07-21 14:19:11.894 | WARNING  | sandbox.storage:validate_date:53 - Invalid date format provided: not-a-date
+2026-07-21 14:19:11.896 | WARNING  | sandbox.storage:validate_date:53 - Invalid date format provided: 2026-02-30
+2026-07-21 14:19:11.899 | WARNING  | sandbox.storage:validate_filename:63 - Unsafe or invalid python filename attempted: ../code.py
+2026-07-21 14:19:11.901 | WARNING  | sandbox.storage:validate_filename:63 - Unsafe or invalid python filename attempted: folder/code.py
+2026-07-21 14:19:11.903 | WARNING  | sandbox.storage:validate_filename:63 - Unsafe or invalid python filename attempted: folder\code.py
+2026-07-21 14:19:11.906 | WARNING  | sandbox.storage:validate_filename:63 - Unsafe or invalid python filename attempted: .hidden.py
+2026-07-21 14:19:11.907 | WARNING  | sandbox.storage:validate_filename:63 - Unsafe or invalid python filename attempted: code.txt
+2026-07-21 14:19:11.908 | WARNING  | sandbox.storage:validate_filename:63 - Unsafe or invalid python filename attempted: a b.py
+2026-07-21 14:19:11.928 | WARNING  | sandbox.storage:save:116 - Duplicate upload rejected: file already exists at C:\Users\admin\AppData\Local\Temp\pytest-of-admin\pytest-967\test_save_rejects_duplicate_wi0\2026-07-21\same.py
+2026-07-21 14:19:11.937 | WARNING  | sandbox.storage:save:109 - Upload file size limit exceeded (5 > 4 bytes) for large.py
+2026-07-21 14:19:11.942 | WARNING  | sandbox.storage:resolve:140 - Upload script not found: date=2026-07-17 filename=missing.py path=C:\Users\admin\AppData\Local\Temp\pytest-of-admin\pytest-967\test_resolve_rejects_missing_f0\2026-07-17\missing.py
+2026-07-21 14:22:02.168 | WARNING  | src.sandbox.executor:_execute_isolated:137 - Asyncio subprocess creation not supported on current loop/OS; falling back to sync process execution
+2026-07-21 14:22:45.645 | WARNING  | sandbox.admission:_acquire:48 - Execution gate queue full! Rejecting request: active=1/1 waiting=1/1
+2026-07-21 14:22:45.675 | WARNING  | sandbox.admission:_acquire:79 - Execution queue wait timed out after 0.01s: active=1/1 waiting=1/1
+2026-07-21 14:22:45.730 | WARNING  | sandbox.main:require_api_key:214 - API Key authentication failed for request_id=5e05a050f06244fca242967818fe1c77 client=testclient
+2026-07-21 14:22:45.733 | WARNING  | sandbox.main:require_api_key:214 - API Key authentication failed for request_id=46c48ad2397f442cb916067007d6672d client=testclient
+2026-07-21 14:22:45.911 | WARNING  | sandbox.storage:validate_filename:63 - Unsafe or invalid python filename attempted: ../unsafe.py
+2026-07-21 14:22:45.911 | WARNING  | sandbox.main:upload_file:250 - Upload rejected (InvalidPathError 400): filename must be a safe Python basename request_id=09256abddccb4a9f9bcf63a710efa664
+2026-07-21 14:22:45.918 | WARNING  | sandbox.storage:save:116 - Duplicate upload rejected: file already exists at C:\Users\admin\AppData\Local\Temp\pytest-of-admin\pytest-968\test_upload_rejects_invalid_du0\2026-07-21\same.py
+2026-07-21 14:22:45.918 | WARNING  | sandbox.main:upload_file:253 - Upload rejected (DuplicateUploadError 409): a file with this name already exists today request_id=0bd3fd1bedbb423cb4e4a5de94cb0cec
+2026-07-21 14:22:45.920 | WARNING  | sandbox.storage:save:109 - Upload file size limit exceeded (5 > 4 bytes) for large.py
+2026-07-21 14:22:45.922 | WARNING  | sandbox.main:upload_file:256 - Upload rejected (UploadTooLargeError 413): upload exceeds 4 bytes request_id=6e4d24bb39bd4ef995f7b30f670fd33f
+2026-07-21 14:22:45.935 | WARNING  | sandbox.storage:validate_date:53 - Invalid date format provided: ../2026-07-17
+2026-07-21 14:22:45.935 | WARNING  | sandbox.main:execute_code:293 - Execution rejected (InvalidPathError 400): date must use YYYY-MM-DD format request_id=37c844fc880c4a67b18ec9a0abceda51
+2026-07-21 14:22:45.938 | WARNING  | sandbox.storage:resolve:140 - Upload script not found: date=2026-07-17 filename=missing.py path=C:\Users\admin\AppData\Local\Temp\pytest-of-admin\pytest-968\test_execute_rejects_invalid_m0\2026-07-17\missing.py
+2026-07-21 14:22:45.938 | WARNING  | sandbox.main:execute_code:296 - Execution rejected (ScriptNotFound 404): date=2026-07-17 filename=missing.py request_id=a57a5e52032140a5b7a77c0b111c6da6
+2026-07-21 14:22:45.943 | WARNING  | sandbox.main:execute_code:282 - Execution rejected (TimeoutExceeded 400): requested timeout 3.00 > max 2.00 request_id=0554bc1daaf84d04bf2af0fc8ec55407
+2026-07-21 14:22:45.961 | WARNING  | sandbox.storage:validate_data_path_segments:77 - Unsafe Windows characters in data_file segment: C:
+2026-07-21 14:22:45.961 | WARNING  | sandbox.main:execute_code:310 - Execution rejected (DataFileInvalidPath 400): data_file contains an unsafe path segment request_id=b8bd7096deb34deaab0bc7bf97950e6f
+2026-07-21 14:22:45.964 | WARNING  | sandbox.storage:validate_data_path_segments:80 - Segment trailing dots/spaces in data_file segment: ..
+2026-07-21 14:22:45.964 | WARNING  | sandbox.main:execute_code:310 - Execution rejected (DataFileInvalidPath 400): data_file contains an unsafe path segment request_id=62102a1bc2c94d30bf3256470ab1728e
+2026-07-21 14:22:45.967 | WARNING  | sandbox.storage:resolve:201 - Invalid data_file path structure requested: input.txt
+2026-07-21 14:22:45.967 | WARNING  | sandbox.main:execute_code:310 - Execution rejected (DataFileInvalidPath 400): data_file must be a relative CSV path request_id=cca7b526e8b44e44ab3f5ad2510893cc
+2026-07-21 14:22:45.971 | WARNING  | sandbox.storage:resolve:215 - CSV data_file not found at resolved path: C:\Users\admin\AppData\Local\Temp\pytest-of-admin\pytest-968\test_execute_rejects_unsafe_or0\data\missing.csv
+2026-07-21 14:22:45.971 | WARNING  | sandbox.main:execute_code:315 - Execution rejected (DataFileNotFound 404): data_file=missing.csv request_id=6d8f7e32b8fe4454b134942a6051cf5e
+2026-07-21 14:22:45.988 | WARNING  | sandbox.storage:validate_data_path_segments:77 - Unsafe Windows characters in data_file segment: data:secret.csv
+2026-07-21 14:22:45.988 | WARNING  | sandbox.main:execute_code:310 - Execution rejected (DataFileInvalidPath 400): data_file contains an unsafe path segment request_id=28c8e4a350a7432db744a6a63b46f86f
+2026-07-21 14:22:45.991 | WARNING  | sandbox.storage:validate_data_path_segments:84 - Reserved device name in data_file segment: NUL
+2026-07-21 14:22:45.991 | WARNING  | sandbox.main:execute_code:310 - Execution rejected (DataFileInvalidPath 400): data_file contains an unsafe path segment request_id=c68d5f3985e74701b204b64bc1c0cc2e
+2026-07-21 14:22:45.993 | WARNING  | sandbox.storage:validate_data_path_segments:84 - Reserved device name in data_file segment: COM1
+2026-07-21 14:22:45.993 | WARNING  | sandbox.main:execute_code:310 - Execution rejected (DataFileInvalidPath 400): data_file contains an unsafe path segment request_id=31bf356315f842d3960e64dba1187acb
+2026-07-21 14:22:45.996 | WARNING  | sandbox.storage:validate_data_path_segments:84 - Reserved device name in data_file segment: AUX
+2026-07-21 14:22:45.996 | WARNING  | sandbox.main:execute_code:310 - Execution rejected (DataFileInvalidPath 400): data_file contains an unsafe path segment request_id=ca063d56df9c4e13900ef5be3a93c2c7
+2026-07-21 14:22:45.998 | WARNING  | sandbox.storage:validate_data_path_segments:84 - Reserved device name in data_file segment: NUL
+2026-07-21 14:22:45.998 | WARNING  | sandbox.main:execute_code:310 - Execution rejected (DataFileInvalidPath 400): data_file contains an unsafe path segment request_id=c1c162045c014e56bc2ce93e93b84939
+2026-07-21 14:22:46.001 | WARNING  | sandbox.storage:validate_data_path_segments:84 - Reserved device name in data_file segment: COM1
+2026-07-21 14:22:46.001 | WARNING  | sandbox.main:execute_code:310 - Execution rejected (DataFileInvalidPath 400): data_file contains an unsafe path segment request_id=344ccfede6ad4ed6b02cbf7d6b1bf9b7
+2026-07-21 14:22:46.002 | WARNING  | sandbox.storage:validate_data_path_segments:84 - Reserved device name in data_file segment: CONIN$
+2026-07-21 14:22:46.002 | WARNING  | sandbox.main:execute_code:310 - Execution rejected (DataFileInvalidPath 400): data_file contains an unsafe path segment request_id=5e2ac6fc73d04f2b84075e2eac62a5f4
+2026-07-21 14:22:46.037 | WARNING  | sandbox.storage:validate_data_path_segments:84 - Reserved device name in data_file segment: CONOUT$
+2026-07-21 14:22:46.037 | WARNING  | sandbox.main:execute_code:310 - Execution rejected (DataFileInvalidPath 400): data_file contains an unsafe path segment request_id=699b17e04fdd40fdb4f7331d6bc7a66b
+2026-07-21 14:22:46.040 | WARNING  | sandbox.storage:validate_data_path_segments:84 - Reserved device name in data_file segment: COM¹
+2026-07-21 14:22:46.040 | WARNING  | sandbox.main:execute_code:310 - Execution rejected (DataFileInvalidPath 400): data_file contains an unsafe path segment request_id=2732ae1f7f104835ae7a6f7b8e6c04d0
+2026-07-21 14:22:46.042 | WARNING  | sandbox.storage:validate_data_path_segments:84 - Reserved device name in data_file segment: COM²
+2026-07-21 14:22:46.042 | WARNING  | sandbox.main:execute_code:310 - Execution rejected (DataFileInvalidPath 400): data_file contains an unsafe path segment request_id=c34e3e7d98404f319dd377ee45e2bffe
+2026-07-21 14:22:46.045 | WARNING  | sandbox.storage:validate_data_path_segments:84 - Reserved device name in data_file segment: COM³
+2026-07-21 14:22:46.045 | WARNING  | sandbox.main:execute_code:310 - Execution rejected (DataFileInvalidPath 400): data_file contains an unsafe path segment request_id=0b71a76877f94223b026124086685bab
+2026-07-21 14:22:46.047 | WARNING  | sandbox.storage:validate_data_path_segments:84 - Reserved device name in data_file segment: LPT¹
+2026-07-21 14:22:46.047 | WARNING  | sandbox.main:execute_code:310 - Execution rejected (DataFileInvalidPath 400): data_file contains an unsafe path segment request_id=9646c350a619481ca8f91c3caf899e87
+2026-07-21 14:22:46.050 | WARNING  | sandbox.storage:validate_data_path_segments:84 - Reserved device name in data_file segment: LPT²
+2026-07-21 14:22:46.050 | WARNING  | sandbox.main:execute_code:310 - Execution rejected (DataFileInvalidPath 400): data_file contains an unsafe path segment request_id=cf967beda1b448d690723e8c2d7061a3
+2026-07-21 14:22:46.052 | WARNING  | sandbox.storage:validate_data_path_segments:84 - Reserved device name in data_file segment: LPT³
+2026-07-21 14:22:46.052 | WARNING  | sandbox.main:execute_code:310 - Execution rejected (DataFileInvalidPath 400): data_file contains an unsafe path segment request_id=16d5f56ec33f441b954e60c417035842
+2026-07-21 14:22:46.054 | WARNING  | sandbox.storage:validate_data_path_segments:77 - Unsafe Windows characters in data_file segment: bad?.csv
+2026-07-21 14:22:46.054 | WARNING  | sandbox.main:execute_code:310 - Execution rejected (DataFileInvalidPath 400): data_file contains an unsafe path segment request_id=f3e26b87f8e84bd89ba159553624f324
+2026-07-21 14:22:46.057 | WARNING  | sandbox.storage:validate_data_path_segments:70 - Unsafe control characters in data_file: 'market/control\x1f.csv'
+2026-07-21 14:22:46.057 | WARNING  | sandbox.main:execute_code:310 - Execution rejected (DataFileInvalidPath 400): data_file contains an unsafe path segment request_id=517b9c1a4fc248e0bdabf2bf76c19828
+2026-07-21 14:22:46.059 | WARNING  | sandbox.storage:validate_data_path_segments:70 - Unsafe control characters in data_file: 'market/delete\x7f.csv'
+2026-07-21 14:22:46.059 | WARNING  | sandbox.main:execute_code:310 - Execution rejected (DataFileInvalidPath 400): data_file contains an unsafe path segment request_id=299b6f5e2b2a48fdad9539264979c5cb
+2026-07-21 14:22:46.061 | WARNING  | sandbox.storage:validate_data_path_segments:70 - Unsafe control characters in data_file: 'market/nul\x00.csv'
+2026-07-21 14:22:46.061 | WARNING  | sandbox.main:execute_code:310 - Execution rejected (DataFileInvalidPath 400): data_file contains an unsafe path segment request_id=045f84a310944f10884acdc7196539c1
+2026-07-21 14:22:46.172 | WARNING  | sandbox.storage:resolve:223 - Data file size limit exceeded (30 > 8 bytes) for C:\Users\admin\AppData\Local\Temp\pytest-of-admin\pytest-968\test_execute_rejects_oversized0\data\input.csv
+2026-07-21 14:22:46.172 | WARNING  | sandbox.main:execute_code:305 - Execution rejected (DataFileTooLargeError 413): data file exceeds configured size limit request_id=fdb72259a67449509408b6a6c0b3219a
+2026-07-21 14:22:46.718 | WARNING  | sandbox.admission:_acquire:48 - Execution gate queue full! Rejecting request: active=1/1 waiting=0/0
+2026-07-21 14:22:46.718 | WARNING  | sandbox.main:execute_code:332 - Execution rejected (SandboxBusy 429): active=1 waiting=0 request_id=b4e508d2d2ef48f29984e208624d9072
+2026-07-21 14:22:49.240 | WARNING  | sandbox.executor:_execute_isolated:137 - Asyncio subprocess creation not supported on current loop/OS; falling back to sync process execution
+2026-07-21 14:22:49.318 | WARNING  | sandbox.storage:validate_date:53 - Invalid date format provided: ../2026-07-17
+2026-07-21 14:22:49.319 | WARNING  | sandbox.storage:validate_date:53 - Invalid date format provided: 2026-7-1
+2026-07-21 14:22:49.320 | WARNING  | sandbox.storage:validate_date:53 - Invalid date format provided: not-a-date
+2026-07-21 14:22:49.321 | WARNING  | sandbox.storage:validate_date:53 - Invalid date format provided: 2026-02-30
+2026-07-21 14:22:49.324 | WARNING  | sandbox.storage:validate_filename:63 - Unsafe or invalid python filename attempted: ../code.py
+2026-07-21 14:22:49.325 | WARNING  | sandbox.storage:validate_filename:63 - Unsafe or invalid python filename attempted: folder/code.py
+2026-07-21 14:22:49.325 | WARNING  | sandbox.storage:validate_filename:63 - Unsafe or invalid python filename attempted: folder\code.py
+2026-07-21 14:22:49.326 | WARNING  | sandbox.storage:validate_filename:63 - Unsafe or invalid python filename attempted: .hidden.py
+2026-07-21 14:22:49.327 | WARNING  | sandbox.storage:validate_filename:63 - Unsafe or invalid python filename attempted: code.txt
+2026-07-21 14:22:49.328 | WARNING  | sandbox.storage:validate_filename:63 - Unsafe or invalid python filename attempted: a b.py
+2026-07-21 14:22:49.340 | WARNING  | sandbox.storage:save:116 - Duplicate upload rejected: file already exists at C:\Users\admin\AppData\Local\Temp\pytest-of-admin\pytest-968\test_save_rejects_duplicate_wi0\2026-07-21\same.py
+2026-07-21 14:22:49.347 | WARNING  | sandbox.storage:save:109 - Upload file size limit exceeded (5 > 4 bytes) for large.py
+2026-07-21 14:22:49.351 | WARNING  | sandbox.storage:resolve:140 - Upload script not found: date=2026-07-17 filename=missing.py path=C:\Users\admin\AppData\Local\Temp\pytest-of-admin\pytest-968\test_resolve_rejects_missing_f0\2026-07-17\missing.py
+2026-07-21 14:24:49.013 | WARNING  | sandbox.admission:_acquire:48 - 执行门控等待队列已满！拒绝请求：运行中=1/1 排队中=1/1
+2026-07-21 14:24:49.040 | WARNING  | sandbox.admission:_acquire:79 - 排队等待超时 (0.01秒)：运行中=1/1 排队中=1/1
+2026-07-21 14:24:49.097 | WARNING  | sandbox.main:require_api_key:214 - API Key 鉴权失败：请求ID=46a00652da1a4a838966ef8720fb8194 客户端IP=testclient
+2026-07-21 14:24:49.100 | WARNING  | sandbox.main:require_api_key:214 - API Key 鉴权失败：请求ID=f47d046b8fea4e9d8afd50cee44a49bb 客户端IP=testclient
+2026-07-21 14:24:49.339 | WARNING  | sandbox.storage:validate_filename:63 - 尝试使用不安全或无效的 Python 文件名：../unsafe.py
+2026-07-21 14:24:49.339 | WARNING  | sandbox.main:upload_file:250 - 上传被拒绝 (路径格式无效 400)：filename must be a safe Python basename 请求ID=ad6f097543c1479ca6fb552bf954b964
+2026-07-21 14:24:49.346 | WARNING  | sandbox.storage:save:116 - 重复上传被拒绝：文件已存在于 C:\Users\admin\AppData\Local\Temp\pytest-of-admin\pytest-969\test_upload_rejects_invalid_du0\2026-07-21\same.py
+2026-07-21 14:24:49.346 | WARNING  | sandbox.main:upload_file:253 - 上传被拒绝 (文件重复 409)：a file with this name already exists today 请求ID=29f53d2ceb2a4610883fd9eb35f7c92e
+2026-07-21 14:24:49.350 | WARNING  | sandbox.storage:save:109 - 上传文件大小超出限制 (5 > 4 字节)：large.py
+2026-07-21 14:24:49.350 | WARNING  | sandbox.main:upload_file:256 - 上传被拒绝 (文件过大 413)：upload exceeds 4 bytes 请求ID=ad0da3f3465f4f9e972f76fd71dc3486
+2026-07-21 14:24:49.367 | WARNING  | sandbox.storage:validate_date:53 - 提供了无效的日期格式：../2026-07-17
+2026-07-21 14:24:49.367 | WARNING  | sandbox.main:execute_code:293 - 代码执行被拒绝 (路径格式无效 400)：date must use YYYY-MM-DD format 请求ID=38a2e199cf1d4b29bb693eb4097e2779
+2026-07-21 14:24:49.370 | WARNING  | sandbox.storage:resolve:140 - 未找到上传脚本：日期=2026-07-17 文件名=missing.py 路径=C:\Users\admin\AppData\Local\Temp\pytest-of-admin\pytest-969\test_execute_rejects_invalid_m0\2026-07-17\missing.py
+2026-07-21 14:24:49.370 | WARNING  | sandbox.main:execute_code:296 - 代码执行被拒绝 (未找到脚本 404)：日期=2026-07-17 文件名=missing.py 请求ID=92beccb294014e86ba58aa27be5d7dc8
+2026-07-21 14:24:49.377 | WARNING  | sandbox.main:execute_code:282 - 代码执行被拒绝 (超时超出限制 400)：请求超时 3.00秒 > 上限 2.00秒 请求ID=9a1ca8597f204a118fc4f9e7032e8f32
+2026-07-21 14:24:49.396 | WARNING  | sandbox.storage:validate_data_path_segments:77 - data_file 路径段中包含不安全的 Windows 字符：C:
+2026-07-21 14:24:49.396 | WARNING  | sandbox.main:execute_code:310 - 代码执行被拒绝 (数据文件路径无效 400)：data_file contains an unsafe path segment 请求ID=a198fe633e3d46aca5ab0f190fb3d5f1
+2026-07-21 14:24:49.399 | WARNING  | sandbox.storage:validate_data_path_segments:80 - data_file 路径段包含末尾点号或空格：..
+2026-07-21 14:24:49.399 | WARNING  | sandbox.main:execute_code:310 - 代码执行被拒绝 (数据文件路径无效 400)：data_file contains an unsafe path segment 请求ID=f1b5c03e2c3640bb836aa5083621ded5
+2026-07-21 14:24:49.402 | WARNING  | sandbox.storage:resolve:201 - 请求的数据文件路径结构无效：input.txt
+2026-07-21 14:24:49.402 | WARNING  | sandbox.main:execute_code:310 - 代码执行被拒绝 (数据文件路径无效 400)：data_file must be a relative CSV path 请求ID=7e6bcbbf24074519b90a49aa32b853c3
+2026-07-21 14:24:49.406 | WARNING  | sandbox.storage:resolve:215 - 在解析路径处未找到 CSV 数据文件：C:\Users\admin\AppData\Local\Temp\pytest-of-admin\pytest-969\test_execute_rejects_unsafe_or0\data\missing.csv
+2026-07-21 14:24:49.406 | WARNING  | sandbox.main:execute_code:315 - 代码执行被拒绝 (未找到数据文件 404)：数据文件=missing.csv 请求ID=44b3a2ff02b5402fa8751fbb7cdec7fc
+2026-07-21 14:24:49.425 | WARNING  | sandbox.storage:validate_data_path_segments:77 - data_file 路径段中包含不安全的 Windows 字符：data:secret.csv
+2026-07-21 14:24:49.425 | WARNING  | sandbox.main:execute_code:310 - 代码执行被拒绝 (数据文件路径无效 400)：data_file contains an unsafe path segment 请求ID=1f750ce6d4c0465eb65d1570e5d50e89
+2026-07-21 14:24:49.430 | WARNING  | sandbox.storage:validate_data_path_segments:84 - data_file 路径段包含保留设备名：NUL
+2026-07-21 14:24:49.430 | WARNING  | sandbox.main:execute_code:310 - 代码执行被拒绝 (数据文件路径无效 400)：data_file contains an unsafe path segment 请求ID=1198b458171049398dc9863bba745bbd
+2026-07-21 14:24:49.433 | WARNING  | sandbox.storage:validate_data_path_segments:84 - data_file 路径段包含保留设备名：COM1
+2026-07-21 14:24:49.433 | WARNING  | sandbox.main:execute_code:310 - 代码执行被拒绝 (数据文件路径无效 400)：data_file contains an unsafe path segment 请求ID=5949952a689046a7b7133fcdf4ae6732
+2026-07-21 14:24:49.435 | WARNING  | sandbox.storage:validate_data_path_segments:84 - data_file 路径段包含保留设备名：AUX
+2026-07-21 14:24:49.435 | WARNING  | sandbox.main:execute_code:310 - 代码执行被拒绝 (数据文件路径无效 400)：data_file contains an unsafe path segment 请求ID=fccf3d7b70ce4ca592fdf12e8f2b2a7d
+2026-07-21 14:24:49.439 | WARNING  | sandbox.storage:validate_data_path_segments:84 - data_file 路径段包含保留设备名：NUL
+2026-07-21 14:24:49.439 | WARNING  | sandbox.main:execute_code:310 - 代码执行被拒绝 (数据文件路径无效 400)：data_file contains an unsafe path segment 请求ID=76199226e51e45de913c9cc98541f4f9
+2026-07-21 14:24:49.443 | WARNING  | sandbox.storage:validate_data_path_segments:84 - data_file 路径段包含保留设备名：COM1
+2026-07-21 14:24:49.443 | WARNING  | sandbox.main:execute_code:310 - 代码执行被拒绝 (数据文件路径无效 400)：data_file contains an unsafe path segment 请求ID=23b1476b189c494caac5198a98152194
+2026-07-21 14:24:49.447 | WARNING  | sandbox.storage:validate_data_path_segments:84 - data_file 路径段包含保留设备名：CONIN$
+2026-07-21 14:24:49.447 | WARNING  | sandbox.main:execute_code:310 - 代码执行被拒绝 (数据文件路径无效 400)：data_file contains an unsafe path segment 请求ID=d7a9a05b501c4ed1b2404efb0339ad95
+2026-07-21 14:24:49.450 | WARNING  | sandbox.storage:validate_data_path_segments:84 - data_file 路径段包含保留设备名：CONOUT$
+2026-07-21 14:24:49.450 | WARNING  | sandbox.main:execute_code:310 - 代码执行被拒绝 (数据文件路径无效 400)：data_file contains an unsafe path segment 请求ID=a06e846e83d348edb91dffbf298c82cc
+2026-07-21 14:24:49.453 | WARNING  | sandbox.storage:validate_data_path_segments:84 - data_file 路径段包含保留设备名：COM¹
+2026-07-21 14:24:49.453 | WARNING  | sandbox.main:execute_code:310 - 代码执行被拒绝 (数据文件路径无效 400)：data_file contains an unsafe path segment 请求ID=282cdeee8af74dacb9907361edd8e62e
+2026-07-21 14:24:49.456 | WARNING  | sandbox.storage:validate_data_path_segments:84 - data_file 路径段包含保留设备名：COM²
+2026-07-21 14:24:49.456 | WARNING  | sandbox.main:execute_code:310 - 代码执行被拒绝 (数据文件路径无效 400)：data_file contains an unsafe path segment 请求ID=c13fc07912f44afe8e76ce09eaf78c09
+2026-07-21 14:24:49.459 | WARNING  | sandbox.storage:validate_data_path_segments:84 - data_file 路径段包含保留设备名：COM³
+2026-07-21 14:24:49.459 | WARNING  | sandbox.main:execute_code:310 - 代码执行被拒绝 (数据文件路径无效 400)：data_file contains an unsafe path segment 请求ID=43ba2f60572646528222e70cca403872
+2026-07-21 14:24:49.462 | WARNING  | sandbox.storage:validate_data_path_segments:84 - data_file 路径段包含保留设备名：LPT¹
+2026-07-21 14:24:49.462 | WARNING  | sandbox.main:execute_code:310 - 代码执行被拒绝 (数据文件路径无效 400)：data_file contains an unsafe path segment 请求ID=c05c5c050be24da6b0493e3dcbea895e
+2026-07-21 14:24:49.465 | WARNING  | sandbox.storage:validate_data_path_segments:84 - data_file 路径段包含保留设备名：LPT²
+2026-07-21 14:24:49.467 | WARNING  | sandbox.main:execute_code:310 - 代码执行被拒绝 (数据文件路径无效 400)：data_file contains an unsafe path segment 请求ID=2720d7a3dab84f9b864cd6daf654ff0d
+2026-07-21 14:24:49.469 | WARNING  | sandbox.storage:validate_data_path_segments:84 - data_file 路径段包含保留设备名：LPT³
+2026-07-21 14:24:49.469 | WARNING  | sandbox.main:execute_code:310 - 代码执行被拒绝 (数据文件路径无效 400)：data_file contains an unsafe path segment 请求ID=0d9977131e464a30b3eddb8a7dd32f2a
+2026-07-21 14:24:49.472 | WARNING  | sandbox.storage:validate_data_path_segments:77 - data_file 路径段中包含不安全的 Windows 字符：bad?.csv
+2026-07-21 14:24:49.472 | WARNING  | sandbox.main:execute_code:310 - 代码执行被拒绝 (数据文件路径无效 400)：data_file contains an unsafe path segment 请求ID=4ec548d6557e45a1948c8892caaa78a0
+2026-07-21 14:24:49.474 | WARNING  | sandbox.storage:validate_data_path_segments:70 - data_file 中包含不安全的控制字符：'market/control\x1f.csv'
+2026-07-21 14:24:49.475 | WARNING  | sandbox.main:execute_code:310 - 代码执行被拒绝 (数据文件路径无效 400)：data_file contains an unsafe path segment 请求ID=73e4dad6a7ee4c08b6c9afdea06f0a28
+2026-07-21 14:24:49.477 | WARNING  | sandbox.storage:validate_data_path_segments:70 - data_file 中包含不安全的控制字符：'market/delete\x7f.csv'
+2026-07-21 14:24:49.477 | WARNING  | sandbox.main:execute_code:310 - 代码执行被拒绝 (数据文件路径无效 400)：data_file contains an unsafe path segment 请求ID=a3fb753ce3fb4d4781c96a846ceb9049
+2026-07-21 14:24:49.481 | WARNING  | sandbox.storage:validate_data_path_segments:70 - data_file 中包含不安全的控制字符：'market/nul\x00.csv'
+2026-07-21 14:24:49.481 | WARNING  | sandbox.main:execute_code:310 - 代码执行被拒绝 (数据文件路径无效 400)：data_file contains an unsafe path segment 请求ID=aee1ae5986dd4f0997d1fddf7ea35ef2
+2026-07-21 14:24:49.628 | WARNING  | sandbox.storage:resolve:223 - 数据文件大小超过限制 (30 > 8 字节)：C:\Users\admin\AppData\Local\Temp\pytest-of-admin\pytest-969\test_execute_rejects_oversized0\data\input.csv
+2026-07-21 14:24:49.628 | WARNING  | sandbox.main:execute_code:305 - 代码执行被拒绝 (数据文件过大 413)：data file exceeds configured size limit 请求ID=f3c628c2f26b48ec9d4caa1369d92c63
+2026-07-21 14:24:50.144 | WARNING  | sandbox.admission:_acquire:48 - 执行门控等待队列已满！拒绝请求：运行中=1/1 排队中=0/0
+2026-07-21 14:24:50.144 | WARNING  | sandbox.main:execute_code:332 - 代码执行被拒绝 (沙箱繁忙 429)：运行中=1 排队中=0 请求ID=fb81a966892f4b64a3999f75fd0895a0
+2026-07-21 14:24:52.616 | WARNING  | sandbox.executor:_execute_isolated:137 - 当前事件循环/操作系统不支持 asyncio 子进程创建；自动回退降级为同步进程执行模式
+2026-07-21 14:24:52.683 | WARNING  | sandbox.storage:validate_date:53 - 提供了无效的日期格式：../2026-07-17
+2026-07-21 14:24:52.684 | WARNING  | sandbox.storage:validate_date:53 - 提供了无效的日期格式：2026-7-1
+2026-07-21 14:24:52.685 | WARNING  | sandbox.storage:validate_date:53 - 提供了无效的日期格式：not-a-date
+2026-07-21 14:24:52.686 | WARNING  | sandbox.storage:validate_date:53 - 提供了无效的日期格式：2026-02-30
+2026-07-21 14:24:52.687 | WARNING  | sandbox.storage:validate_filename:63 - 尝试使用不安全或无效的 Python 文件名：../code.py
+2026-07-21 14:24:52.688 | WARNING  | sandbox.storage:validate_filename:63 - 尝试使用不安全或无效的 Python 文件名：folder/code.py
+2026-07-21 14:24:52.689 | WARNING  | sandbox.storage:validate_filename:63 - 尝试使用不安全或无效的 Python 文件名：folder\code.py
+2026-07-21 14:24:52.690 | WARNING  | sandbox.storage:validate_filename:63 - 尝试使用不安全或无效的 Python 文件名：.hidden.py
+2026-07-21 14:24:52.691 | WARNING  | sandbox.storage:validate_filename:63 - 尝试使用不安全或无效的 Python 文件名：code.txt
+2026-07-21 14:24:52.692 | WARNING  | sandbox.storage:validate_filename:63 - 尝试使用不安全或无效的 Python 文件名：a b.py
+2026-07-21 14:24:52.703 | WARNING  | sandbox.storage:save:116 - 重复上传被拒绝：文件已存在于 C:\Users\admin\AppData\Local\Temp\pytest-of-admin\pytest-969\test_save_rejects_duplicate_wi0\2026-07-21\same.py
+2026-07-21 14:24:52.710 | WARNING  | sandbox.storage:save:109 - 上传文件大小超出限制 (5 > 4 字节)：large.py
+2026-07-21 14:24:52.713 | WARNING  | sandbox.storage:resolve:140 - 未找到上传脚本：日期=2026-07-17 文件名=missing.py 路径=C:\Users\admin\AppData\Local\Temp\pytest-of-admin\pytest-969\test_resolve_rejects_missing_f0\2026-07-17\missing.py
+2026-07-21 14:25:26.506 | WARNING  | sandbox.admission:_acquire:48 - 执行门控等待队列已满！拒绝请求：运行中=1/1 排队中=1/1
+2026-07-21 14:25:26.522 | WARNING  | sandbox.admission:_acquire:79 - 排队等待超时 (0.01秒)：运行中=1/1 排队中=1/1
+2026-07-21 14:25:26.588 | WARNING  | sandbox.main:require_api_key:214 - API Key 鉴权失败：请求ID=57599e72be8b472199a816e36a787716 客户端IP=testclient
+2026-07-21 14:25:26.591 | WARNING  | sandbox.main:require_api_key:214 - API Key 鉴权失败：请求ID=49a9e51c2bc942caa621e0bd0a03494e 客户端IP=testclient
+2026-07-21 14:25:26.806 | WARNING  | sandbox.storage:validate_filename:63 - 尝试使用不安全或无效的 Python 文件名：../unsafe.py
+2026-07-21 14:25:26.806 | WARNING  | sandbox.main:upload_file:250 - 上传被拒绝 (路径格式无效 400)：filename must be a safe Python basename 请求ID=83356c282fda4042ad36517db607e43f
+2026-07-21 14:25:26.812 | WARNING  | sandbox.storage:save:116 - 重复上传被拒绝：文件已存在于 C:\Users\admin\AppData\Local\Temp\pytest-of-admin\pytest-970\test_upload_rejects_invalid_du0\2026-07-21\same.py
+2026-07-21 14:25:26.812 | WARNING  | sandbox.main:upload_file:253 - 上传被拒绝 (文件重复 409)：a file with this name already exists today 请求ID=6e3929106adf4096ba78ccc935c153bd
+2026-07-21 14:25:26.817 | WARNING  | sandbox.storage:save:109 - 上传文件大小超出限制 (5 > 4 字节)：large.py
+2026-07-21 14:25:26.817 | WARNING  | sandbox.main:upload_file:256 - 上传被拒绝 (文件过大 413)：upload exceeds 4 bytes 请求ID=2fd0a4f5d07d4f24a359eb3c3712347f
+2026-07-21 14:25:26.830 | WARNING  | sandbox.storage:validate_date:53 - 提供了无效的日期格式：../2026-07-17
+2026-07-21 14:25:26.830 | WARNING  | sandbox.main:execute_code:293 - 代码执行被拒绝 (路径格式无效 400)：date must use YYYY-MM-DD format 请求ID=265aa65a6aee4bd0a2d652aab492762d
+2026-07-21 14:25:26.833 | WARNING  | sandbox.storage:resolve:140 - 未找到上传脚本：日期=2026-07-17 文件名=missing.py 路径=C:\Users\admin\AppData\Local\Temp\pytest-of-admin\pytest-970\test_execute_rejects_invalid_m0\2026-07-17\missing.py
+2026-07-21 14:25:26.833 | WARNING  | sandbox.main:execute_code:296 - 代码执行被拒绝 (未找到脚本 404)：日期=2026-07-17 文件名=missing.py 请求ID=8daeeb23f0f0409bb85b3a733ef6ab5a
+2026-07-21 14:25:26.839 | WARNING  | sandbox.main:execute_code:282 - 代码执行被拒绝 (超时超出限制 400)：请求超时 3.00秒 > 上限 2.00秒 请求ID=73c7a97be0404d09ae06c62e47f31981
+2026-07-21 14:25:26.858 | WARNING  | sandbox.storage:validate_data_path_segments:77 - data_file 路径段中包含不安全的 Windows 字符：C:
+2026-07-21 14:25:26.858 | WARNING  | sandbox.main:execute_code:310 - 代码执行被拒绝 (数据文件路径无效 400)：data_file contains an unsafe path segment 请求ID=63fb2c841e9c4feaa23d5405e6d1dc57
+2026-07-21 14:25:26.860 | WARNING  | sandbox.storage:validate_data_path_segments:80 - data_file 路径段包含末尾点号或空格：..
+2026-07-21 14:25:26.860 | WARNING  | sandbox.main:execute_code:310 - 代码执行被拒绝 (数据文件路径无效 400)：data_file contains an unsafe path segment 请求ID=6dbd6f8cbd13492599a584674ed434e6
+2026-07-21 14:25:26.864 | WARNING  | sandbox.storage:resolve:201 - 请求的数据文件路径结构无效：input.txt
+2026-07-21 14:25:26.864 | WARNING  | sandbox.main:execute_code:310 - 代码执行被拒绝 (数据文件路径无效 400)：data_file must be a relative CSV path 请求ID=c45a972e19a24e73903cd35acc5de88d
+2026-07-21 14:25:26.867 | WARNING  | sandbox.storage:resolve:215 - 在解析路径处未找到 CSV 数据文件：C:\Users\admin\AppData\Local\Temp\pytest-of-admin\pytest-970\test_execute_rejects_unsafe_or0\data\missing.csv
+2026-07-21 14:25:26.867 | WARNING  | sandbox.main:execute_code:315 - 代码执行被拒绝 (未找到数据文件 404)：数据文件=missing.csv 请求ID=f464e6dfd9144cf38aa534d1ea23b1d9
+2026-07-21 14:25:26.884 | WARNING  | sandbox.storage:validate_data_path_segments:77 - data_file 路径段中包含不安全的 Windows 字符：data:secret.csv
+2026-07-21 14:25:26.884 | WARNING  | sandbox.main:execute_code:310 - 代码执行被拒绝 (数据文件路径无效 400)：data_file contains an unsafe path segment 请求ID=02ce0847c087478889e1f1676712e78b
+2026-07-21 14:25:26.888 | WARNING  | sandbox.storage:validate_data_path_segments:84 - data_file 路径段包含保留设备名：NUL
+2026-07-21 14:25:26.888 | WARNING  | sandbox.main:execute_code:310 - 代码执行被拒绝 (数据文件路径无效 400)：data_file contains an unsafe path segment 请求ID=32fb9166941b4fcdb6f6360ea039d738
+2026-07-21 14:25:26.891 | WARNING  | sandbox.storage:validate_data_path_segments:84 - data_file 路径段包含保留设备名：COM1
+2026-07-21 14:25:26.891 | WARNING  | sandbox.main:execute_code:310 - 代码执行被拒绝 (数据文件路径无效 400)：data_file contains an unsafe path segment 请求ID=abc5726edae1476ca5bd05df21e77468
+2026-07-21 14:25:26.893 | WARNING  | sandbox.storage:validate_data_path_segments:84 - data_file 路径段包含保留设备名：AUX
+2026-07-21 14:25:26.893 | WARNING  | sandbox.main:execute_code:310 - 代码执行被拒绝 (数据文件路径无效 400)：data_file contains an unsafe path segment 请求ID=ae4a8446286b4d1ea947a86954db356d
+2026-07-21 14:25:26.895 | WARNING  | sandbox.storage:validate_data_path_segments:84 - data_file 路径段包含保留设备名：NUL
+2026-07-21 14:25:26.895 | WARNING  | sandbox.main:execute_code:310 - 代码执行被拒绝 (数据文件路径无效 400)：data_file contains an unsafe path segment 请求ID=2d72b34e1acb4710a1a14ce5089c5d68
+2026-07-21 14:25:26.899 | WARNING  | sandbox.storage:validate_data_path_segments:84 - data_file 路径段包含保留设备名：COM1
+2026-07-21 14:25:26.899 | WARNING  | sandbox.main:execute_code:310 - 代码执行被拒绝 (数据文件路径无效 400)：data_file contains an unsafe path segment 请求ID=651c4933c1fd4cd9a8d44490d044ea72
+2026-07-21 14:25:26.902 | WARNING  | sandbox.storage:validate_data_path_segments:84 - data_file 路径段包含保留设备名：CONIN$
+2026-07-21 14:25:26.902 | WARNING  | sandbox.main:execute_code:310 - 代码执行被拒绝 (数据文件路径无效 400)：data_file contains an unsafe path segment 请求ID=ec428d6a6669492cbdffa825dce7f7c2
+2026-07-21 14:25:26.904 | WARNING  | sandbox.storage:validate_data_path_segments:84 - data_file 路径段包含保留设备名：CONOUT$
+2026-07-21 14:25:26.904 | WARNING  | sandbox.main:execute_code:310 - 代码执行被拒绝 (数据文件路径无效 400)：data_file contains an unsafe path segment 请求ID=ba1c6bd5ba43415aa54559def58cc528
+2026-07-21 14:25:26.906 | WARNING  | sandbox.storage:validate_data_path_segments:84 - data_file 路径段包含保留设备名：COM¹
+2026-07-21 14:25:26.907 | WARNING  | sandbox.main:execute_code:310 - 代码执行被拒绝 (数据文件路径无效 400)：data_file contains an unsafe path segment 请求ID=fe43165cc3e9439e9f18cde6558b7c21
+2026-07-21 14:25:26.909 | WARNING  | sandbox.storage:validate_data_path_segments:84 - data_file 路径段包含保留设备名：COM²
+2026-07-21 14:25:26.909 | WARNING  | sandbox.main:execute_code:310 - 代码执行被拒绝 (数据文件路径无效 400)：data_file contains an unsafe path segment 请求ID=d1b2827dfd9b421fadab22efb110d0b8
+2026-07-21 14:25:26.911 | WARNING  | sandbox.storage:validate_data_path_segments:84 - data_file 路径段包含保留设备名：COM³
+2026-07-21 14:25:26.911 | WARNING  | sandbox.main:execute_code:310 - 代码执行被拒绝 (数据文件路径无效 400)：data_file contains an unsafe path segment 请求ID=4045d550ccc74b4f88f7f513b6cc868c
+2026-07-21 14:25:26.914 | WARNING  | sandbox.storage:validate_data_path_segments:84 - data_file 路径段包含保留设备名：LPT¹
+2026-07-21 14:25:26.914 | WARNING  | sandbox.main:execute_code:310 - 代码执行被拒绝 (数据文件路径无效 400)：data_file contains an unsafe path segment 请求ID=ca1e6d3261a54755b386b9db0904f599
+2026-07-21 14:25:26.918 | WARNING  | sandbox.storage:validate_data_path_segments:84 - data_file 路径段包含保留设备名：LPT²
+2026-07-21 14:25:26.918 | WARNING  | sandbox.main:execute_code:310 - 代码执行被拒绝 (数据文件路径无效 400)：data_file contains an unsafe path segment 请求ID=3d25dc13ae2549459bd16dc23f434b3c
+2026-07-21 14:25:26.920 | WARNING  | sandbox.storage:validate_data_path_segments:84 - data_file 路径段包含保留设备名：LPT³
+2026-07-21 14:25:26.920 | WARNING  | sandbox.main:execute_code:310 - 代码执行被拒绝 (数据文件路径无效 400)：data_file contains an unsafe path segment 请求ID=aeca5f78fbd84cdcb6a15e6014290113
+2026-07-21 14:25:26.922 | WARNING  | sandbox.storage:validate_data_path_segments:77 - data_file 路径段中包含不安全的 Windows 字符：bad?.csv
+2026-07-21 14:25:26.922 | WARNING  | sandbox.main:execute_code:310 - 代码执行被拒绝 (数据文件路径无效 400)：data_file contains an unsafe path segment 请求ID=77f3a1cdedce47848d28cdc173fc5220
+2026-07-21 14:25:26.924 | WARNING  | sandbox.storage:validate_data_path_segments:70 - data_file 中包含不安全的控制字符：'market/control\x1f.csv'
+2026-07-21 14:25:26.924 | WARNING  | sandbox.main:execute_code:310 - 代码执行被拒绝 (数据文件路径无效 400)：data_file contains an unsafe path segment 请求ID=6b8a22a2747f41c2aed2baff3cdb2d3f
+2026-07-21 14:25:26.926 | WARNING  | sandbox.storage:validate_data_path_segments:70 - data_file 中包含不安全的控制字符：'market/delete\x7f.csv'
+2026-07-21 14:25:26.927 | WARNING  | sandbox.main:execute_code:310 - 代码执行被拒绝 (数据文件路径无效 400)：data_file contains an unsafe path segment 请求ID=699c6e3c5a6a4ba6a179e7406b1f3619
+2026-07-21 14:25:26.931 | WARNING  | sandbox.storage:validate_data_path_segments:70 - data_file 中包含不安全的控制字符：'market/nul\x00.csv'
+2026-07-21 14:25:26.931 | WARNING  | sandbox.main:execute_code:310 - 代码执行被拒绝 (数据文件路径无效 400)：data_file contains an unsafe path segment 请求ID=41988bd245e248769a1181696b9f433b
+2026-07-21 14:25:27.051 | WARNING  | sandbox.storage:resolve:223 - 数据文件大小超过限制 (30 > 8 字节)：C:\Users\admin\AppData\Local\Temp\pytest-of-admin\pytest-970\test_execute_rejects_oversized0\data\input.csv
+2026-07-21 14:25:27.051 | WARNING  | sandbox.main:execute_code:305 - 代码执行被拒绝 (数据文件过大 413)：data file exceeds configured size limit 请求ID=e7630940f9514e499532a4d47094fc54
+2026-07-21 14:25:27.610 | WARNING  | sandbox.admission:_acquire:48 - 执行门控等待队列已满！拒绝请求：运行中=1/1 排队中=0/0
+2026-07-21 14:25:27.610 | WARNING  | sandbox.main:execute_code:332 - 代码执行被拒绝 (沙箱繁忙 429)：运行中=1 排队中=0 请求ID=f29d0626868a46d98d60dc7ba3db1c3b
+2026-07-21 14:25:30.185 | WARNING  | sandbox.executor:_execute_isolated:137 - 当前事件循环/操作系统不支持 asyncio 子进程创建；自动回退降级为同步进程执行模式
+2026-07-21 14:25:30.258 | WARNING  | sandbox.storage:validate_date:53 - 提供了无效的日期格式：../2026-07-17
+2026-07-21 14:25:30.259 | WARNING  | sandbox.storage:validate_date:53 - 提供了无效的日期格式：2026-7-1
+2026-07-21 14:25:30.259 | WARNING  | sandbox.storage:validate_date:53 - 提供了无效的日期格式：not-a-date
+2026-07-21 14:25:30.260 | WARNING  | sandbox.storage:validate_date:53 - 提供了无效的日期格式：2026-02-30
+2026-07-21 14:25:30.262 | WARNING  | sandbox.storage:validate_filename:63 - 尝试使用不安全或无效的 Python 文件名：../code.py
+2026-07-21 14:25:30.262 | WARNING  | sandbox.storage:validate_filename:63 - 尝试使用不安全或无效的 Python 文件名：folder/code.py
+2026-07-21 14:25:30.263 | WARNING  | sandbox.storage:validate_filename:63 - 尝试使用不安全或无效的 Python 文件名：folder\code.py
+2026-07-21 14:25:30.264 | WARNING  | sandbox.storage:validate_filename:63 - 尝试使用不安全或无效的 Python 文件名：.hidden.py
+2026-07-21 14:25:30.265 | WARNING  | sandbox.storage:validate_filename:63 - 尝试使用不安全或无效的 Python 文件名：code.txt
+2026-07-21 14:25:30.266 | WARNING  | sandbox.storage:validate_filename:63 - 尝试使用不安全或无效的 Python 文件名：a b.py
+2026-07-21 14:25:30.281 | WARNING  | sandbox.storage:save:116 - 重复上传被拒绝：文件已存在于 C:\Users\admin\AppData\Local\Temp\pytest-of-admin\pytest-970\test_save_rejects_duplicate_wi0\2026-07-21\same.py
+2026-07-21 14:25:30.288 | WARNING  | sandbox.storage:save:109 - 上传文件大小超出限制 (5 > 4 字节)：large.py
+2026-07-21 14:25:30.293 | WARNING  | sandbox.storage:resolve:140 - 未找到上传脚本：日期=2026-07-17 文件名=missing.py 路径=C:\Users\admin\AppData\Local\Temp\pytest-of-admin\pytest-970\test_resolve_rejects_missing_f0\2026-07-17\missing.py
+2026-07-21 14:25:48.116 | WARNING  | src.sandbox.executor:_execute_isolated:137 - 当前事件循环/操作系统不支持 asyncio 子进程创建；自动回退降级为同步进程执行模式
+2026-07-21 14:29:48.996 | WARNING  | src.sandbox.executor:_execute_isolated:137 - 当前事件循环/操作系统不支持 asyncio 子进程创建；自动回退降级为同步进程执行模式
+2026-07-21 14:30:00.822 | WARNING  | src.sandbox.executor:_execute_isolated:137 - 当前事件循环/操作系统不支持 asyncio 子进程创建；自动回退降级为同步进程执行模式
+2026-07-21 14:30:02.680 | WARNING  | src.sandbox.executor:_execute_isolated:137 - 当前事件循环/操作系统不支持 asyncio 子进程创建；自动回退降级为同步进程执行模式
+2026-07-21 14:30:04.050 | WARNING  | src.sandbox.executor:_execute_isolated:137 - 当前事件循环/操作系统不支持 asyncio 子进程创建；自动回退降级为同步进程执行模式
+2026-07-21 14:30:09.337 | WARNING  | src.sandbox.executor:_execute_isolated:137 - 当前事件循环/操作系统不支持 asyncio 子进程创建；自动回退降级为同步进程执行模式
+2026-07-21 14:52:48.637 | WARNING  | src.sandbox.executor:_execute_isolated:137 - 当前事件循环/操作系统不支持 asyncio 子进程创建；自动回退降级为同步进程执行模式

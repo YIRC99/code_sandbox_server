@@ -72,13 +72,14 @@ curl -X POST http://127.0.0.1:32004/execute \
 | `SANDBOX_MAX_UPLOAD_BYTES` | `10485760` | 单文件最大字节数 |
 | `SANDBOX_MAX_DATA_FILE_BYTES` | `104857600` | 单个 CSV 数据文件最大字节数 |
 | `SANDBOX_MAX_OUTPUT_BYTES` | `10485760` | stdout、stderr 各自最多保留的字节数 |
-| `SANDBOX_MAX_TIMEOUT_SECONDS` | `30` | 调用方可请求的最大超时 |
+| `SANDBOX_MAX_TIMEOUT_SECONDS` | `60` | 调用方可请求的最大超时 |
 | `SANDBOX_MAX_CONCURRENT` | `4` | 每个 Pod 同时运行的脚本数 |
 | `SANDBOX_MAX_WAITING` | `20` | 每个 Pod 等待队列长度 |
 | `SANDBOX_QUEUE_WAIT_SECONDS` | `5` | 等待执行槽的最长时间 |
 | `SANDBOX_RETENTION_DAYS` | `30` | 上传文件保留天数 |
 | `SANDBOX_CLEANUP_INTERVAL_SECONDS` | `3600` | 过期文件扫描间隔 |
-| `SANDBOX_PROCESS_CPU_SECONDS` | `30` | Linux 子进程 CPU 时间限制 |
+| `SANDBOX_PROCESS_CPU_SECONDS` | `60` | Linux 子进程 CPU 时间限制 |
+
 | `SANDBOX_PROCESS_MEMORY_BYTES` | `1610612736` | Linux 子进程地址空间限制 |
 | `SANDBOX_PROCESS_COUNT_LIMIT` | `32` | Linux 子进程可创建的进程数限制 |
 | `SANDBOX_PROCESS_FILE_BYTES` | `20971520` | Linux 子进程可写单文件上限 |

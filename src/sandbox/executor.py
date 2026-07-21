@@ -6,8 +6,11 @@ import subprocess
 import sys
 import tempfile
 import threading
+import time
 from dataclasses import dataclass
 from pathlib import Path
+
+from loguru import logger
 
 from .config import Settings
 from .storage import DataFileTooLargeError
@@ -28,13 +31,21 @@ class SandboxExecutor:
     def __init__(self, settings: Settings) -> None:
         self._settings = settings
         self._runner = Path(__file__).with_name("runner.py").resolve()
+        logger.info("SandboxExecutor 初始化完成，执行器脚本路径：%s", self._runner)
 
     async def execute(self, script: Path, data_file: Path, timeout: float) -> ExecutionResult:
         if timeout <= 0 or timeout > self._settings.max_timeout_seconds:
+            logger.warning(
+                "指定了无效的超时时间：%.2f秒 (允许范围: 0..%.2f秒)",
+                timeout,
+                self._settings.max_timeout_seconds,
+            )
             raise ValueError(
                 f"timeout must be between 0 and {self._settings.max_timeout_seconds} seconds"
             )
+        start_time = time.monotonic()
         with tempfile.TemporaryDirectory(prefix="code-sandbox-") as workspace:
+            logger.debug("创建临时工作区目录：%s", workspace)
             isolated_script = Path(workspace) / script.name
             isolated_data_file = Path(workspace) / data_file.name
             await asyncio.to_thread(
@@ -44,7 +55,16 @@ class SandboxExecutor:
                 isolated_script,
                 isolated_data_file,
             )
-            return await self._execute_isolated(isolated_script, isolated_data_file, timeout)
+            result = await self._execute_isolated(isolated_script, isolated_data_file, timeout)
+            elapsed = time.monotonic() - start_time
+            stdout_len = len(result.stdout.encode("utf-8"))
+            stderr_len = len(result.stderr.encode("utf-8"))
+            logger.info(
+                f"脚本执行结束：脚本={script.name} 状态={result.status} "
+                f"退出码={result.exit_code} 耗时={elapsed:.3f}秒 "
+                f"标准输出字节={stdout_len} 标准错误字节={stderr_len}"
+            )
+            return result
 
     def _copy_inputs(
         self,
@@ -53,11 +73,15 @@ class SandboxExecutor:
         isolated_script: Path,
         isolated_data_file: Path,
     ) -> None:
+        logger.debug(f"正在复制脚本 {script} 和数据文件 {data_file} 到沙箱工作区")
         shutil.copyfile(script, isolated_script)
         self._copy_data_file_limited(data_file, isolated_data_file)
 
     def _copy_data_file_limited(self, source: Path, destination: Path) -> None:
         if source.stat().st_size > self._settings.max_data_file_bytes:
+            logger.warning(
+                f"数据文件 {source} 在复制前超出大小限制 ({source.stat().st_size} 字节)"
+            )
             raise DataFileTooLargeError("data file exceeds configured size limit")
 
         copied = 0
@@ -65,10 +89,14 @@ class SandboxExecutor:
             while chunk := source_stream.read(_COPY_CHUNK_BYTES):
                 copied += len(chunk)
                 if copied > self._settings.max_data_file_bytes:
+                    logger.warning(
+                        f"数据文件复制流过程中超出大小限制 ({copied} 字节)"
+                    )
                     raise DataFileTooLargeError("data file exceeds configured size limit")
                 destination_stream.write(chunk)
 
         if destination.stat().st_size > self._settings.max_data_file_bytes:
+            logger.warning(f"数据文件 {destination} 在复制后超出大小限制")
             raise DataFileTooLargeError("data file exceeds configured size limit")
 
     async def _execute_isolated(
@@ -80,6 +108,15 @@ class SandboxExecutor:
         else:
             process_options = {"start_new_session": True}
 
+        env = self._child_environment()
+        cpu_sec = env.get("SANDBOX_LIMIT_CPU_SECONDS")
+        mem_bytes = env.get("SANDBOX_LIMIT_MEMORY_BYTES")
+        proc_cnt = env.get("SANDBOX_LIMIT_PROCESS_COUNT")
+        logger.info(
+            f"启动隔离子进程：脚本={script.name} 数据文件={data_file.name} "
+            f"超时={timeout:.2f}s 限制=(CPU:{cpu_sec}s, 内存:{mem_bytes}B, 进程:{proc_cnt})"
+        )
+
         try:
             process = await asyncio.create_subprocess_exec(
                 sys.executable,
@@ -90,12 +127,17 @@ class SandboxExecutor:
                 str(script),
                 str(data_file),
                 cwd=str(script.parent),
-                env=self._child_environment(),
+                env=env,
                 stdout=asyncio.subprocess.PIPE,
                 stderr=asyncio.subprocess.PIPE,
                 **process_options,
             )
+            logger.info(f"子进程已成功启动，PID={process.pid}")
         except NotImplementedError:
+            logger.warning(
+                "当前事件循环/操作系统不支持 asyncio 子进程创建；"
+                "自动回退降级为同步进程执行模式"
+            )
             return await asyncio.to_thread(
                 self._execute_isolated_sync, script, data_file, timeout, process_options
             )
@@ -107,8 +149,18 @@ class SandboxExecutor:
         timed_out = False
         try:
             await asyncio.wait_for(process.wait(), timeout=timeout)
+            logger.debug(
+                "子进程 PID=%d 已正常终止，退出码 exit_code=%s",
+                process.pid,
+                process.returncode,
+            )
         except TimeoutError:
             timed_out = True
+            logger.error(
+                "子进程 PID=%d 执行超时 (%.2f秒)。正在强制终止进程树...",
+                process.pid,
+                timeout,
+            )
             await self._terminate_process_tree(process)
 
         stdout_bytes, stderr_bytes = await asyncio.gather(stdout_task, stderr_task)
