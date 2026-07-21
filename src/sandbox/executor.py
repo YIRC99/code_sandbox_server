@@ -79,9 +79,7 @@ class SandboxExecutor:
 
     def _copy_data_file_limited(self, source: Path, destination: Path) -> None:
         if source.stat().st_size > self._settings.max_data_file_bytes:
-            logger.warning(
-                f"数据文件 {source} 在复制前超出大小限制 ({source.stat().st_size} 字节)"
-            )
+            logger.warning(f"数据文件 {source} 在复制前超出大小限制 ({source.stat().st_size} 字节)")
             raise DataFileTooLargeError("data file exceeds configured size limit")
 
         copied = 0
@@ -89,9 +87,7 @@ class SandboxExecutor:
             while chunk := source_stream.read(_COPY_CHUNK_BYTES):
                 copied += len(chunk)
                 if copied > self._settings.max_data_file_bytes:
-                    logger.warning(
-                        f"数据文件复制流过程中超出大小限制 ({copied} 字节)"
-                    )
+                    logger.warning(f"数据文件复制流过程中超出大小限制 ({copied} 字节)")
                     raise DataFileTooLargeError("data file exceeds configured size limit")
                 destination_stream.write(chunk)
 
@@ -135,8 +131,7 @@ class SandboxExecutor:
             logger.info(f"子进程已成功启动，PID={process.pid}")
         except NotImplementedError:
             logger.warning(
-                "当前事件循环/操作系统不支持 asyncio 子进程创建；"
-                "自动回退降级为同步进程执行模式"
+                "当前事件循环/操作系统不支持 asyncio 子进程创建；自动回退降级为同步进程执行模式"
             )
             return await asyncio.to_thread(
                 self._execute_isolated_sync, script, data_file, timeout, process_options

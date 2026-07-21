@@ -52,9 +52,7 @@ def generate_10y_15m_market_data(
 
     random.seed(42)  # 固定种子确保结果可复现但有自然随机性
 
-    print(
-        f"正在生成 [{security_id}] 从 {start_date_str} 到 {end_date_str} 的 10年15分钟K线数据..."
-    )
+    print(f"正在生成 [{security_id}] 从 {start_date_str} 到 {end_date_str} 的 10年15分钟K线数据...")
 
     day_count = 0
 
@@ -72,7 +70,6 @@ def generate_10y_15m_market_data(
 
             for _idx, slot_time in enumerate(TIME_SLOTS):
                 time_str = f"{date_str} {slot_time}"
-
 
                 # 15分钟价格随机游走波动 (-0.8% 到 +0.8%)
                 pct_change = random.gauss(0.0001, 0.003)

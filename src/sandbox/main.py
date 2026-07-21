@@ -136,8 +136,7 @@ async def _cleanup_loop(storage: UploadStorage, interval: float) -> None:
 def create_app(settings: Settings | None = None) -> FastAPI:
     resolved_settings = settings or Settings.from_env()
     logger.info(
-        "初始化沙箱服务配置：最大并发=%d 最大排队=%d "
-        "最大超时时间=%d秒 上传根目录=%s 数据根目录=%s",
+        "初始化沙箱服务配置：最大并发=%d 最大排队=%d 最大超时时间=%d秒 上传根目录=%s 数据根目录=%s",
         resolved_settings.max_concurrent,
         resolved_settings.max_waiting,
         resolved_settings.max_timeout_seconds,
@@ -212,8 +211,7 @@ def create_app(settings: Settings | None = None) -> FastAPI:
         ):
             client_ip = request.client.host if request.client else "unknown"
             logger.warning(
-                f"API Key 鉴权失败：请求ID={request.state.request_id} "
-                f"客户端IP={client_ip}"
+                f"API Key 鉴权失败：请求ID={request.state.request_id} 客户端IP={client_ip}"
             )
             raise HTTPException(
                 status_code=status.HTTP_401_UNAUTHORIZED,
@@ -302,19 +300,14 @@ def create_app(settings: Settings | None = None) -> FastAPI:
         try:
             data_file = application.state.data_files.resolve(body.data_file)
         except DataFileTooLargeError as exc:
-            logger.warning(
-                f"代码执行被拒绝 (数据文件过大 413)：{exc} 请求ID={req_id}"
-            )
+            logger.warning(f"代码执行被拒绝 (数据文件过大 413)：{exc} 请求ID={req_id}")
             raise HTTPException(status_code=413, detail=str(exc)) from exc
         except InvalidPathError as exc:
-            logger.warning(
-                f"代码执行被拒绝 (数据文件路径无效 400)：{exc} 请求ID={req_id}"
-            )
+            logger.warning(f"代码执行被拒绝 (数据文件路径无效 400)：{exc} 请求ID={req_id}")
             raise HTTPException(status_code=400, detail=str(exc)) from exc
         except FileNotFoundError as exc:
             logger.warning(
-                f"代码执行被拒绝 (未找到数据文件 404)：数据文件={body.data_file} "
-                f"请求ID={req_id}"
+                f"代码执行被拒绝 (未找到数据文件 404)：数据文件={body.data_file} 请求ID={req_id}"
             )
             raise HTTPException(status_code=404, detail="data file not found") from exc
 

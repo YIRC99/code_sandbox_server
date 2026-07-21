@@ -245,4 +245,3 @@ async def test_execute_fallback_when_asyncio_subprocess_not_implemented(
     assert result.status == "success"
     assert result.exit_code == 0
     assert result.stdout == "fallback,data\nworks,1\n"
-

@@ -127,19 +127,12 @@ class UploadStorage:
         safe_filename = validate_filename(filename)
         candidate = self._root / safe_date / safe_filename
         resolved = candidate.resolve()
-        logger.debug(
-            f"解析上传脚本路径：请求=({date_string}, {filename}) -> "
-            f"解析目标={resolved}"
-        )
+        logger.debug(f"解析上传脚本路径：请求=({date_string}, {filename}) -> 解析目标={resolved}")
         if not resolved.is_relative_to(self._root):
-            logger.error(
-                f"安全告警：解析后的上传路径 {resolved} 越界超出了上传根目录 {self._root}"
-            )
+            logger.error(f"安全告警：解析后的上传路径 {resolved} 越界超出了上传根目录 {self._root}")
             raise InvalidPathError("resolved path is outside the upload directory")
         if not resolved.is_file():
-            logger.warning(
-                f"未找到上传脚本：日期={date_string} 文件名={filename} 路径={resolved}"
-            )
+            logger.warning(f"未找到上传脚本：日期={date_string} 文件名={filename} 路径={resolved}")
             raise FileNotFoundError(safe_filename)
         return resolved
 
@@ -207,9 +200,7 @@ class DataFileStorage:
             logger.warning(f"无法解析相对数据文件路径：{data_file}")
             raise InvalidPathError("data_file must be a relative CSV path") from exc
         if not resolved.is_relative_to(self._root):
-            logger.error(
-                f"安全告警：数据文件路径 {resolved} 越界超出了数据根目录 {self._root}"
-            )
+            logger.error(f"安全告警：数据文件路径 {resolved} 越界超出了数据根目录 {self._root}")
             raise InvalidPathError("data_file must stay within the data directory")
         if not resolved.is_file():
             logger.warning(f"在解析路径处未找到 CSV 数据文件：{resolved}")
@@ -221,8 +212,7 @@ class DataFileStorage:
             raise FileNotFoundError(data_file) from exc
         if data_size > self._max_data_file_bytes:
             logger.warning(
-                f"数据文件大小超过限制 ({data_size} > "
-                f"{self._max_data_file_bytes} 字节)：{resolved}"
+                f"数据文件大小超过限制 ({data_size} > {self._max_data_file_bytes} 字节)：{resolved}"
             )
             raise DataFileTooLargeError("data file exceeds configured size limit")
 
