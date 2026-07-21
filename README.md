@@ -71,7 +71,7 @@ curl -X POST http://127.0.0.1:32004/execute \
 | `SANDBOX_API_KEY` | 空 | 业务接口 API Key；生产环境必须设置 |
 | `SANDBOX_MAX_UPLOAD_BYTES` | `10485760` | 单文件最大字节数 |
 | `SANDBOX_MAX_DATA_FILE_BYTES` | `104857600` | 单个 CSV 数据文件最大字节数 |
-| `SANDBOX_MAX_OUTPUT_BYTES` | `1048576` | stdout、stderr 各自最多保留的字节数 |
+| `SANDBOX_MAX_OUTPUT_BYTES` | `10485760` | stdout、stderr 各自最多保留的字节数 |
 | `SANDBOX_MAX_TIMEOUT_SECONDS` | `30` | 调用方可请求的最大超时 |
 | `SANDBOX_MAX_CONCURRENT` | `4` | 每个 Pod 同时运行的脚本数 |
 | `SANDBOX_MAX_WAITING` | `20` | 每个 Pod 等待队列长度 |

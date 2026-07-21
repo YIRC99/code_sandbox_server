@@ -109,6 +109,7 @@ def test_deployment_has_resources_probes_and_writable_mounts() -> None:
     assert deployment.count("emptyDir:") == 2
     assert "optional: true" in deployment
     assert 'SANDBOX_RETENTION_DAYS: "30"' in configmap
+    assert 'SANDBOX_MAX_OUTPUT_BYTES: "10485760"' in configmap
 
 
 def test_kubernetes_uses_one_ephemeral_pod_without_scaling_resources() -> None:

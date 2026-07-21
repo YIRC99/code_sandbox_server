@@ -39,6 +39,13 @@ def test_default_data_directory_is_absolute_project_data_path(
     assert Settings.from_env().data_dir == Path("data").resolve()
 
 
+def test_default_output_limit_is_10_mib(monkeypatch: pytest.MonkeyPatch) -> None:
+    monkeypatch.delenv("SANDBOX_MAX_OUTPUT_BYTES", raising=False)
+
+    assert Settings().max_output_bytes == 10_485_760
+    assert Settings.from_env().max_output_bytes == 10_485_760
+
+
 @pytest.mark.parametrize(
     ("field", "value"),
     [

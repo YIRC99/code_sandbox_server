@@ -18,7 +18,7 @@ class Settings:
     api_key: str = ""
     max_upload_bytes: int = 10 * 1024 * 1024
     max_data_file_bytes: int = 100 * 1024 * 1024
-    max_output_bytes: int = 1024 * 1024
+    max_output_bytes: int = 10 * 1024 * 1024
     max_timeout_seconds: int = 30
     max_concurrent: int = 4
     max_waiting: int = 20
@@ -65,7 +65,7 @@ class Settings:
             api_key=os.getenv("SANDBOX_API_KEY", ""),
             max_upload_bytes=_env_int("SANDBOX_MAX_UPLOAD_BYTES", 10 * 1024 * 1024),
             max_data_file_bytes=_env_int("SANDBOX_MAX_DATA_FILE_BYTES", 100 * 1024 * 1024),
-            max_output_bytes=_env_int("SANDBOX_MAX_OUTPUT_BYTES", 1024 * 1024),
+            max_output_bytes=_env_int("SANDBOX_MAX_OUTPUT_BYTES", 10 * 1024 * 1024),
             max_timeout_seconds=_env_int("SANDBOX_MAX_TIMEOUT_SECONDS", 30),
             max_concurrent=_env_int("SANDBOX_MAX_CONCURRENT", 4),
             max_waiting=_env_int("SANDBOX_MAX_WAITING", 20),
