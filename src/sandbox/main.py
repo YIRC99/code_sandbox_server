@@ -17,6 +17,8 @@ from .admission import ExecutionGate, SandboxBusyError
 from .config import Settings
 from .executor import SandboxExecutor
 from .storage import (
+    DataFileStorage,
+    DataFileTooLargeError,
     DuplicateUploadError,
     InvalidPathError,
     UploadStorage,
@@ -29,6 +31,7 @@ logger = logging.getLogger("sandbox")
 class ExecuteRequest(BaseModel):
     date: str = Field(description="Upload date in YYYY-MM-DD format")
     filename: str = Field(description="Uploaded Python filename")
+    data_file: str = Field(description="CSV path relative to the configured data directory")
     timeout: float | None = Field(default=None, gt=0, description="Timeout in seconds")
 
 
@@ -72,6 +75,7 @@ def create_app(settings: Settings | None = None) -> FastAPI:
     )
     application.state.settings = resolved_settings
     application.state.storage = UploadStorage(resolved_settings)
+    application.state.data_files = DataFileStorage(resolved_settings)
     application.state.executor = SandboxExecutor(resolved_settings)
     application.state.gate = ExecutionGate(
         max_active=resolved_settings.max_concurrent,
@@ -152,17 +156,28 @@ def create_app(settings: Settings | None = None) -> FastAPI:
             raise HTTPException(status_code=400, detail=str(exc)) from exc
         except FileNotFoundError as exc:
             raise HTTPException(status_code=404, detail="uploaded file not found") from exc
+        try:
+            data_file = application.state.data_files.resolve(body.data_file)
+        except DataFileTooLargeError as exc:
+            raise HTTPException(status_code=413, detail=str(exc)) from exc
+        except InvalidPathError as exc:
+            raise HTTPException(status_code=400, detail=str(exc)) from exc
+        except FileNotFoundError as exc:
+            raise HTTPException(status_code=404, detail="data file not found") from exc
 
         logger.info(
-            "Execution requested request_id=%s date=%s filename=%s timeout=%s",
+            "Execution requested request_id=%s date=%s filename=%s data_file=%s timeout=%s",
             request.state.request_id,
             body.date,
             body.filename,
+            body.data_file,
             timeout,
         )
         try:
             async with application.state.gate.slot():
-                result = await application.state.executor.execute(script, timeout)
+                result = await application.state.executor.execute(script, data_file, timeout)
+        except DataFileTooLargeError as exc:
+            raise HTTPException(status_code=413, detail=str(exc)) from exc
         except SandboxBusyError as exc:
             raise HTTPException(
                 status_code=429,

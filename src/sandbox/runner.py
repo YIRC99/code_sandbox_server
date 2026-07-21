@@ -33,12 +33,13 @@ def apply_resource_limits() -> None:
 
 
 def main() -> None:
-    if len(sys.argv) != 2:
-        raise SystemExit("usage: runner.py <script.py>")
+    if len(sys.argv) != 3:
+        raise SystemExit("usage: runner.py <script.py> <data.csv>")
     script = Path(sys.argv[1]).resolve(strict=True)
+    data_file = Path(sys.argv[2]).resolve(strict=True)
     apply_resource_limits()
     os.chdir(script.parent)
-    sys.argv = [str(script)]
+    sys.argv = [str(script), str(data_file)]
     runpy.run_path(str(script), run_name="__main__")
 
 

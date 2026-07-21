@@ -103,3 +103,23 @@ def test_cleanup_expired_removes_old_files_only(tmp_path: Path) -> None:
     assert removed == 1
     assert not old_file.exists()
     assert current_file.exists()
+
+
+def test_cleanup_expired_only_removes_empty_expired_date_directories(tmp_path: Path) -> None:
+    retention_days = 7
+    storage = UploadStorage(Settings(upload_dir=tmp_path, retention_days=retention_days))
+    today = date.today()
+    current_dir = tmp_path / today.isoformat()
+    retained_dir = tmp_path / (today - timedelta(days=retention_days - 1)).isoformat()
+    expired_dir = tmp_path / (today - timedelta(days=retention_days + 1)).isoformat()
+    invalid_dir = tmp_path / "not-a-date"
+    for directory in (current_dir, retained_dir, expired_dir, invalid_dir):
+        directory.mkdir()
+
+    removed = storage.cleanup_expired()
+
+    assert removed == 0
+    assert current_dir.is_dir()
+    assert retained_dir.is_dir()
+    assert not expired_dir.exists()
+    assert invalid_dir.is_dir()

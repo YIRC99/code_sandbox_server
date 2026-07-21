@@ -7,11 +7,17 @@ def _default_upload_dir() -> Path:
     return Path("uploads").resolve()
 
 
+def _default_data_dir() -> Path:
+    return Path("data").resolve()
+
+
 @dataclass(frozen=True, slots=True)
 class Settings:
     upload_dir: Path = field(default_factory=_default_upload_dir)
+    data_dir: Path = field(default_factory=_default_data_dir)
     api_key: str = ""
     max_upload_bytes: int = 10 * 1024 * 1024
+    max_data_file_bytes: int = 100 * 1024 * 1024
     max_output_bytes: int = 1024 * 1024
     max_timeout_seconds: int = 30
     max_concurrent: int = 4
@@ -28,8 +34,10 @@ class Settings:
 
     def __post_init__(self) -> None:
         object.__setattr__(self, "upload_dir", Path(self.upload_dir).resolve())
+        object.__setattr__(self, "data_dir", Path(self.data_dir).resolve())
         positive_fields = (
             "max_upload_bytes",
+            "max_data_file_bytes",
             "max_output_bytes",
             "max_timeout_seconds",
             "max_concurrent",
@@ -53,8 +61,10 @@ class Settings:
     def from_env(cls) -> "Settings":
         return cls(
             upload_dir=Path(os.getenv("SANDBOX_UPLOAD_DIR", "uploads")),
+            data_dir=Path(os.getenv("SANDBOX_DATA_DIR", "data")),
             api_key=os.getenv("SANDBOX_API_KEY", ""),
             max_upload_bytes=_env_int("SANDBOX_MAX_UPLOAD_BYTES", 10 * 1024 * 1024),
+            max_data_file_bytes=_env_int("SANDBOX_MAX_DATA_FILE_BYTES", 100 * 1024 * 1024),
             max_output_bytes=_env_int("SANDBOX_MAX_OUTPUT_BYTES", 1024 * 1024),
             max_timeout_seconds=_env_int("SANDBOX_MAX_TIMEOUT_SECONDS", 30),
             max_concurrent=_env_int("SANDBOX_MAX_CONCURRENT", 4),

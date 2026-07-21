@@ -10,8 +10,10 @@ from dataclasses import dataclass
 from pathlib import Path
 
 from .config import Settings
+from .storage import DataFileTooLargeError
 
 _TRUNCATION_MARKER = b"\n[output truncated]\n"
+_COPY_CHUNK_BYTES = 1024 * 1024
 
 
 @dataclass(frozen=True, slots=True)
@@ -27,17 +29,51 @@ class SandboxExecutor:
         self._settings = settings
         self._runner = Path(__file__).with_name("runner.py").resolve()
 
-    async def execute(self, script: Path, timeout: float) -> ExecutionResult:
+    async def execute(self, script: Path, data_file: Path, timeout: float) -> ExecutionResult:
         if timeout <= 0 or timeout > self._settings.max_timeout_seconds:
             raise ValueError(
                 f"timeout must be between 0 and {self._settings.max_timeout_seconds} seconds"
             )
         with tempfile.TemporaryDirectory(prefix="code-sandbox-") as workspace:
             isolated_script = Path(workspace) / script.name
-            shutil.copyfile(script, isolated_script)
-            return await self._execute_isolated(isolated_script, timeout)
+            isolated_data_file = Path(workspace) / data_file.name
+            await asyncio.to_thread(
+                self._copy_inputs,
+                script,
+                data_file,
+                isolated_script,
+                isolated_data_file,
+            )
+            return await self._execute_isolated(isolated_script, isolated_data_file, timeout)
 
-    async def _execute_isolated(self, script: Path, timeout: float) -> ExecutionResult:
+    def _copy_inputs(
+        self,
+        script: Path,
+        data_file: Path,
+        isolated_script: Path,
+        isolated_data_file: Path,
+    ) -> None:
+        shutil.copyfile(script, isolated_script)
+        self._copy_data_file_limited(data_file, isolated_data_file)
+
+    def _copy_data_file_limited(self, source: Path, destination: Path) -> None:
+        if source.stat().st_size > self._settings.max_data_file_bytes:
+            raise DataFileTooLargeError("data file exceeds configured size limit")
+
+        copied = 0
+        with source.open("rb") as source_stream, destination.open("xb") as destination_stream:
+            while chunk := source_stream.read(_COPY_CHUNK_BYTES):
+                copied += len(chunk)
+                if copied > self._settings.max_data_file_bytes:
+                    raise DataFileTooLargeError("data file exceeds configured size limit")
+                destination_stream.write(chunk)
+
+        if destination.stat().st_size > self._settings.max_data_file_bytes:
+            raise DataFileTooLargeError("data file exceeds configured size limit")
+
+    async def _execute_isolated(
+        self, script: Path, data_file: Path, timeout: float
+    ) -> ExecutionResult:
         process_options: dict[str, object]
         if os.name == "nt":
             process_options = {"creationflags": subprocess.CREATE_NEW_PROCESS_GROUP}
@@ -52,6 +88,7 @@ class SandboxExecutor:
                 "-I",
                 str(self._runner),
                 str(script),
+                str(data_file),
                 cwd=str(script.parent),
                 env=self._child_environment(),
                 stdout=asyncio.subprocess.PIPE,
@@ -60,7 +97,7 @@ class SandboxExecutor:
             )
         except NotImplementedError:
             return await asyncio.to_thread(
-                self._execute_isolated_sync, script, timeout, process_options
+                self._execute_isolated_sync, script, data_file, timeout, process_options
             )
 
         assert process.stdout is not None
@@ -93,7 +130,11 @@ class SandboxExecutor:
         )
 
     def _execute_isolated_sync(
-        self, script: Path, timeout: float, process_options: dict[str, object]
+        self,
+        script: Path,
+        data_file: Path,
+        timeout: float,
+        process_options: dict[str, object],
     ) -> ExecutionResult:
         cmd = [
             sys.executable,
@@ -102,6 +143,7 @@ class SandboxExecutor:
             "-I",
             str(self._runner),
             str(script),
+            str(data_file),
         ]
         proc = subprocess.Popen(
             cmd,
