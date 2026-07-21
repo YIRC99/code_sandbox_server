@@ -1,17 +1,17 @@
 import asyncio
 import hmac
 import logging
+import os
 import sys
 import time
 import uuid
 from collections.abc import AsyncIterator
 from contextlib import asynccontextmanager, suppress
+from pathlib import Path
 from typing import Annotated
 
 if sys.platform == "win32":
     asyncio.set_event_loop_policy(asyncio.WindowsProactorEventLoopPolicy())
-
-from pathlib import Path
 
 from fastapi import Depends, FastAPI, File, Header, HTTPException, Request, UploadFile, status
 from loguru import logger
@@ -47,9 +47,27 @@ class InterceptHandler(logging.Handler):
         logger.opt(depth=depth, exception=record.exc_info).log(level, record.getMessage())
 
 
-def setup_loguru_logging(logs_dir: Path = Path("logs")) -> None:
+def setup_loguru_logging(logs_dir: Path | None = None) -> None:
     """初始化 Loguru 日志系统，自动创建 logs 文件夹并配置多级别按天日志文件"""
-    logs_dir.mkdir(parents=True, exist_ok=True)
+    if logs_dir is None:
+        env_log_dir = os.getenv("SANDBOX_LOG_DIR")
+        if env_log_dir:
+            logs_dir = Path(env_log_dir)
+        else:
+            default_dir = Path("logs")
+            try:
+                default_dir.mkdir(parents=True, exist_ok=True)
+                logs_dir = default_dir
+            except OSError:
+                # 兼容容器环境只读文件系统 (Read-only rootfs)，自动降级回退到可写的 /tmp/logs
+                logs_dir = Path("/tmp/logs")
+
+    try:
+        logs_dir.mkdir(parents=True, exist_ok=True)
+        file_logging_enabled = True
+    except OSError:
+        file_logging_enabled = False
+
     logger.remove()
 
     log_format = (
@@ -62,38 +80,39 @@ def setup_loguru_logging(logs_dir: Path = Path("logs")) -> None:
     # 1. 控制台标准输出
     logger.add(sys.stderr, format=log_format, level="INFO")
 
-    # 2. INFO 级别按天日志文件 (如 logs/info-2026-7-21.log)
-    logger.add(
-        sink=str(logs_dir / "info-{time:YYYY-M-D}.log"),
-        format=log_format,
-        filter=lambda r: r["level"].name == "INFO",
-        rotation="00:00",
-        retention="30 days",
-        encoding="utf-8",
-        enqueue=True,
-    )
+    if file_logging_enabled:
+        # 2. INFO 级别按天日志文件 (如 logs/info-2026-7-21.log)
+        logger.add(
+            sink=str(logs_dir / "info-{time:YYYY-M-D}.log"),
+            format=log_format,
+            filter=lambda r: r["level"].name == "INFO",
+            rotation="00:00",
+            retention="30 days",
+            encoding="utf-8",
+            enqueue=True,
+        )
 
-    # 3. WARNING 级别按天日志文件 (如 logs/warning-2026-7-21.log)
-    logger.add(
-        sink=str(logs_dir / "warning-{time:YYYY-M-D}.log"),
-        format=log_format,
-        filter=lambda r: r["level"].name == "WARNING",
-        rotation="00:00",
-        retention="30 days",
-        encoding="utf-8",
-        enqueue=True,
-    )
+        # 3. WARNING 级别按天日志文件 (如 logs/warning-2026-7-21.log)
+        logger.add(
+            sink=str(logs_dir / "warning-{time:YYYY-M-D}.log"),
+            format=log_format,
+            filter=lambda r: r["level"].name == "WARNING",
+            rotation="00:00",
+            retention="30 days",
+            encoding="utf-8",
+            enqueue=True,
+        )
 
-    # 4. ERROR 及以上级别按天日志文件 (如 logs/error-2026-7-21.log)
-    logger.add(
-        sink=str(logs_dir / "error-{time:YYYY-M-D}.log"),
-        format=log_format,
-        filter=lambda r: r["level"].no >= 40,
-        rotation="00:00",
-        retention="30 days",
-        encoding="utf-8",
-        enqueue=True,
-    )
+        # 4. ERROR 及以上级别按天日志文件 (如 logs/error-2026-7-21.log)
+        logger.add(
+            sink=str(logs_dir / "error-{time:YYYY-M-D}.log"),
+            format=log_format,
+            filter=lambda r: r["level"].no >= 40,
+            rotation="00:00",
+            retention="30 days",
+            encoding="utf-8",
+            enqueue=True,
+        )
 
     # 拦截标准库 logging 模块（包含 FastAPI 和 Uvicorn）
     logging.basicConfig(handlers=[InterceptHandler()], level=0, force=True)
