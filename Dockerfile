@@ -26,6 +26,7 @@ RUN sed -i 's|http://deb.debian.org|https://mirrors.tuna.tsinghua.edu.cn|g' \
 WORKDIR /app
 COPY --from=builder /app/.venv /app/.venv
 COPY src/ /app/src/
+COPY --chown=10001:10001 data/ /app/data/
 
 ENV PATH="/app/.venv/bin:$PATH" \
     HOME="/tmp" \
