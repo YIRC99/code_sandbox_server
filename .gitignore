@@ -23,3 +23,5 @@ uploads/
 # OS metadata
 .DS_Store
 Thumbs.db
+logs/
+docs/
