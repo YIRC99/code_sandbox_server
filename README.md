@@ -7,7 +7,8 @@
 1. 调用方提前生成不会重复的随机 `.py` 文件名。
 2. 通过 `/upload` 上传文件，服务按 `uploads/YYYY-MM-DD/<filename>.py` 保存。
 3. 上传接口返回 `date` 和 `filename`。
-4. 使用相同的 `date` 和 `filename` 调用 `/execute`。
+4. 将 CSV 放入 `SANDBOX_DATA_DIR` 指定的数据根目录。
+5. 使用相同的 `date`、`filename` 和 CSV 相对路径 `data_file` 调用 `/execute`。
 
 代码使用文件上传，而不是放在 JSON 请求体中，可以避免长代码的转义、换行和层级解析问题。服务端不会修改文件名，只会做安全校验并拒绝同名覆盖。同一个上传文件可以重复执行，文件超过 30 天后由定时任务清理；Pod 重启或重新部署时也会随 `emptyDir` 一起丢失。
 
@@ -20,7 +21,7 @@ uv sync --frozen --group dev
 uv run python main.py
 ```
 
-本地监听 `http://127.0.0.1:32004`。未设置 `SANDBOX_API_KEY` 时，本地业务接口不校验 API Key。
+本地监听 `http://127.0.0.1:32004`。未设置 `SANDBOX_API_KEY` 时，本地业务接口不校验 API Key。默认从项目根目录下的 `data` 目录读取 CSV；策略脚本通过 `sys.argv[1]` 获取本次执行的 CSV 路径。
 
 ## API
 
@@ -50,7 +51,7 @@ curl -X POST http://127.0.0.1:32004/upload \
 curl -X POST http://127.0.0.1:32004/execute \
   -H "Content-Type: application/json" \
   -H "X-API-Key: your-key" \
-  -d '{"date":"2026-07-17","filename":"random_8f31a2.py","timeout":10}'
+  -d '{"date":"2026-07-17","filename":"random_8f31a2.py","data_file":"market/quotes.csv","timeout":10}'
 ```
 
 响应：
@@ -59,16 +60,18 @@ curl -X POST http://127.0.0.1:32004/execute \
 {"stdout":"...","stderr":"","exit_code":0,"status":"success"}
 ```
 
-`status` 可能为 `success`、`error` 或 `timeout`。脚本非零退出时返回 `error` 和实际退出码；超时返回 `timeout` 和 `-1`。文件不存在为 HTTP 404，重复上传为 409，文件过大为 413，执行队列繁忙为 429。
+`data_file` 必填，只能是相对于数据根目录的 `.csv` 路径，不支持通过接口上传 CSV。绝对路径、越界路径和非 CSV 路径返回 HTTP 400；CSV 或代码文件不存在返回 404。`status` 可能为 `success`、`error` 或 `timeout`。脚本非零退出时返回 `error` 和实际退出码；超时返回 `timeout` 和 `-1`。重复上传为 409，文件过大为 413，执行队列繁忙为 429。
 
 ## 配置
 
 | 环境变量 | 默认值 | 说明 |
 | --- | ---: | --- |
 | `SANDBOX_UPLOAD_DIR` | `uploads` | 上传根目录 |
+| `SANDBOX_DATA_DIR` | `data` | 只读 CSV 数据根目录；配置值会解析为绝对路径 |
 | `SANDBOX_API_KEY` | 空 | 业务接口 API Key；生产环境必须设置 |
 | `SANDBOX_MAX_UPLOAD_BYTES` | `10485760` | 单文件最大字节数 |
-| `SANDBOX_MAX_OUTPUT_BYTES` | `1048576` | stdout、stderr 各自最多保留的字节数 |
+| `SANDBOX_MAX_DATA_FILE_BYTES` | `104857600` | 单个 CSV 数据文件最大字节数 |
+| `SANDBOX_MAX_OUTPUT_BYTES` | `10485760` | stdout、stderr 各自最多保留的字节数 |
 | `SANDBOX_MAX_TIMEOUT_SECONDS` | `30` | 调用方可请求的最大超时 |
 | `SANDBOX_MAX_CONCURRENT` | `4` | 每个 Pod 同时运行的脚本数 |
 | `SANDBOX_MAX_WAITING` | `20` | 每个 Pod 等待队列长度 |
@@ -116,7 +119,7 @@ kubectl apply -k k8s/overlays/prod
 
 ## 安全边界
 
-后端强制校验日期、文件名、API Key、上传大小、超时、并发和输出大小；Linux 中还限制 CPU、内存、进程数、文件大小和打开文件数。每次执行会把代码复制到独立临时目录，结束后只删除临时副本，避免相对路径写入污染上传目录；原始上传文件保留至超过 30 天或 Pod 被替换。超时会终止整个进程树。容器使用非 root 用户、只读根文件系统、删除全部 Linux capabilities，并默认禁止外网访问。
+后端强制校验日期、文件名、CSV 相对路径、API Key、上传大小、超时、并发和输出大小；Linux 中还限制 CPU、内存、进程数、文件大小和打开文件数。每次执行会把代码和选定 CSV 复制到独立临时目录，结束后只删除临时副本，避免脚本修改原始上传文件或数据文件；原始上传文件保留至超过 30 天或 Pod 被替换。超时会终止整个进程树。容器使用非 root 用户、只读根文件系统、删除全部 Linux capabilities，并默认禁止外网访问。
 
 这仍然是“受限子进程沙箱”，适合受控的内部 AI 平台，不是面向完全不可信公网用户的虚拟机级隔离。若以后开放外部用户，需要升级到独立 Pod 配合 gVisor、Kata Containers 或专用沙箱运行时。
 
