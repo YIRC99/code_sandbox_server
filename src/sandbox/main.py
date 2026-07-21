@@ -1,10 +1,14 @@
 import asyncio
 import hmac
 import logging
+import sys
 import uuid
 from collections.abc import AsyncIterator
 from contextlib import asynccontextmanager, suppress
 from typing import Annotated
+
+if sys.platform == "win32":
+    asyncio.set_event_loop_policy(asyncio.WindowsProactorEventLoopPolicy())
 
 from fastapi import Depends, FastAPI, File, Header, HTTPException, Request, UploadFile, status
 from pydantic import BaseModel, Field

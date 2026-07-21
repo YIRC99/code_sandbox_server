@@ -141,3 +141,23 @@ async def test_timeout_kills_descendant_processes(tmp_path: Path) -> None:
 
     assert result.status == "timeout", result.stderr
     assert not marker.exists()
+
+
+@pytest.mark.asyncio
+async def test_execute_fallback_when_asyncio_subprocess_not_implemented(
+    monkeypatch: pytest.MonkeyPatch, tmp_path: Path
+) -> None:
+    async def mock_create_subprocess_exec(*args, **kwargs):
+        raise NotImplementedError
+
+    monkeypatch.setattr(asyncio, "create_subprocess_exec", mock_create_subprocess_exec)
+
+    executor = SandboxExecutor(Settings(upload_dir=tmp_path))
+    script = write_script(tmp_path, "print('fallback_works')")
+
+    result = await executor.execute(script, timeout=1)
+
+    assert result.status == "success"
+    assert result.exit_code == 0
+    assert result.stdout == "fallback_works\n"
+
