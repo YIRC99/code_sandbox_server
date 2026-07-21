@@ -2,6 +2,7 @@ import asyncio
 import hmac
 import logging
 import sys
+import time
 import uuid
 from collections.abc import AsyncIterator
 from contextlib import asynccontextmanager, suppress
@@ -10,7 +11,10 @@ from typing import Annotated
 if sys.platform == "win32":
     asyncio.set_event_loop_policy(asyncio.WindowsProactorEventLoopPolicy())
 
+from pathlib import Path
+
 from fastapi import Depends, FastAPI, File, Header, HTTPException, Request, UploadFile, status
+from loguru import logger
 from pydantic import BaseModel, Field
 
 from .admission import ExecutionGate, SandboxBusyError
@@ -25,7 +29,82 @@ from .storage import (
     UploadTooLargeError,
 )
 
-logger = logging.getLogger("sandbox")
+
+class InterceptHandler(logging.Handler):
+    """将 Python 标准 logging 模块的日志重定向到 Loguru 处理器"""
+
+    def emit(self, record: logging.LogRecord) -> None:
+        try:
+            level = logger.level(record.levelname).name
+        except ValueError:
+            level = record.levelno
+
+        frame, depth = logging.currentframe(), 2
+        while frame and frame.f_code.co_filename == logging.__file__:
+            frame = frame.f_back
+            depth += 1
+
+        logger.opt(depth=depth, exception=record.exc_info).log(level, record.getMessage())
+
+
+def setup_loguru_logging(logs_dir: Path = Path("logs")) -> None:
+    """初始化 Loguru 日志系统，自动创建 logs 文件夹并配置多级别按天日志文件"""
+    logs_dir.mkdir(parents=True, exist_ok=True)
+    logger.remove()
+
+    log_format = (
+        "<green>{time:YYYY-MM-DD HH:mm:ss.SSS}</green> | "
+        "<level>{level: <8}</level> | "
+        "<cyan>{name}</cyan>:<cyan>{function}</cyan>:<cyan>{line}</cyan> - "
+        "<level>{message}</level>"
+    )
+
+    # 1. 控制台标准输出
+    logger.add(sys.stderr, format=log_format, level="INFO")
+
+    # 2. INFO 级别按天日志文件 (如 logs/info-2026-7-21.log)
+    logger.add(
+        sink=str(logs_dir / "info-{time:YYYY-M-D}.log"),
+        format=log_format,
+        filter=lambda r: r["level"].name == "INFO",
+        rotation="00:00",
+        retention="30 days",
+        encoding="utf-8",
+        enqueue=True,
+    )
+
+    # 3. WARNING 级别按天日志文件 (如 logs/warning-2026-7-21.log)
+    logger.add(
+        sink=str(logs_dir / "warning-{time:YYYY-M-D}.log"),
+        format=log_format,
+        filter=lambda r: r["level"].name == "WARNING",
+        rotation="00:00",
+        retention="30 days",
+        encoding="utf-8",
+        enqueue=True,
+    )
+
+    # 4. ERROR 及以上级别按天日志文件 (如 logs/error-2026-7-21.log)
+    logger.add(
+        sink=str(logs_dir / "error-{time:YYYY-M-D}.log"),
+        format=log_format,
+        filter=lambda r: r["level"].no >= 40,
+        rotation="00:00",
+        retention="30 days",
+        encoding="utf-8",
+        enqueue=True,
+    )
+
+    # 拦截标准库 logging 模块（包含 FastAPI 和 Uvicorn）
+    logging.basicConfig(handlers=[InterceptHandler()], level=0, force=True)
+    for logger_name in ("uvicorn", "uvicorn.access", "uvicorn.error", "fastapi"):
+        mod_logger = logging.getLogger(logger_name)
+        mod_logger.handlers = [InterceptHandler()]
+        mod_logger.propagate = False
+
+
+# 执行全局 Loguru 配置
+setup_loguru_logging()
 
 
 class ExecuteRequest(BaseModel):
@@ -43,27 +122,39 @@ class ExecuteResponse(BaseModel):
 
 
 async def _cleanup_loop(storage: UploadStorage, interval: float) -> None:
+    logger.info("启动后台文件清理循环任务 (间隔时间: %.1f秒)", interval)
     while True:
         try:
             removed = await asyncio.to_thread(storage.cleanup_expired)
             if removed:
-                logger.info("Removed %s expired sandbox uploads", removed)
+                logger.info("已清理 %s 个过期的沙箱上传文件/目录", removed)
         except Exception:
-            logger.exception("Sandbox upload cleanup failed")
+            logger.exception("后台文件清理循环任务遇到未预期异常")
         await asyncio.sleep(interval)
 
 
 def create_app(settings: Settings | None = None) -> FastAPI:
     resolved_settings = settings or Settings.from_env()
+    logger.info(
+        "初始化沙箱服务配置：最大并发=%d 最大排队=%d "
+        "最大超时时间=%d秒 上传根目录=%s 数据根目录=%s",
+        resolved_settings.max_concurrent,
+        resolved_settings.max_waiting,
+        resolved_settings.max_timeout_seconds,
+        resolved_settings.upload_dir,
+        resolved_settings.data_dir,
+    )
 
     @asynccontextmanager
     async def lifespan(application: FastAPI) -> AsyncIterator[None]:
+        logger.info("正在启动沙箱服务生命周期...")
         cleanup_task = asyncio.create_task(
             _cleanup_loop(application.state.storage, resolved_settings.cleanup_interval_seconds)
         )
         try:
             yield
         finally:
+            logger.info("正在关闭沙箱服务生命周期...")
             cleanup_task.cancel()
             with suppress(asyncio.CancelledError):
                 await cleanup_task
@@ -87,17 +178,43 @@ def create_app(settings: Settings | None = None) -> FastAPI:
     async def request_context(request: Request, call_next):
         request_id = request.headers.get("X-Request-ID") or uuid.uuid4().hex
         request.state.request_id = request_id
-        response = await call_next(request)
-        response.headers["X-Request-ID"] = request_id
-        return response
+        start_time = time.monotonic()
+        client_ip = request.client.host if request.client else "unknown"
+        logger.info(
+            f"HTTP 请求开始：方法={request.method} 路径={request.url.path} "
+            f"客户端IP={client_ip} 请求ID={request_id}"
+        )
+        try:
+            response = await call_next(request)
+            elapsed_ms = (time.monotonic() - start_time) * 1000
+            response.headers["X-Request-ID"] = request_id
+            logger.info(
+                f"HTTP 请求完成：方法={request.method} 路径={request.url.path} "
+                f"状态码={response.status_code} 耗时={elapsed_ms:.2f}ms 请求ID={request_id}"
+            )
+            return response
+        except Exception as exc:
+            elapsed_ms = (time.monotonic() - start_time) * 1000
+            logger.exception(
+                f"HTTP 请求异常：方法={request.method} 路径={request.url.path} "
+                f"耗时={elapsed_ms:.2f}ms 请求ID={request_id} 错误={exc}"
+            )
+
+            raise
 
     async def require_api_key(
+        request: Request,
         provided_key: Annotated[str | None, Header(alias="X-API-Key")] = None,
     ) -> None:
         expected_key = resolved_settings.api_key
         if expected_key and (
             provided_key is None or not hmac.compare_digest(provided_key, expected_key)
         ):
+            client_ip = request.client.host if request.client else "unknown"
+            logger.warning(
+                f"API Key 鉴权失败：请求ID={request.state.request_id} "
+                f"客户端IP={client_ip}"
+            )
             raise HTTPException(
                 status_code=status.HTTP_401_UNAUTHORIZED,
                 detail="invalid API key",
@@ -107,10 +224,13 @@ def create_app(settings: Settings | None = None) -> FastAPI:
 
     @application.get("/health", status_code=status.HTTP_200_OK)
     async def health_check() -> dict[str, int | str]:
+        active = application.state.gate.active
+        waiting = application.state.gate.waiting
+        logger.debug(f"健康检查被调用：运行中={active} 排队中={waiting}")
         return {
             "status": "healthy",
-            "active_executions": application.state.gate.active,
-            "waiting_executions": application.state.gate.waiting,
+            "active_executions": active,
+            "waiting_executions": waiting,
         }
 
     @application.post("/upload", status_code=status.HTTP_201_CREATED)
@@ -119,16 +239,24 @@ def create_app(settings: Settings | None = None) -> FastAPI:
         request: Request,
         _: Annotated[None, authenticated],
     ) -> dict[str, str]:
+        req_id = request.state.request_id
+        logger.info(f"收到文件上传：原始文件名={file.filename} 请求ID={req_id}")
         try:
             saved = await application.state.storage.save(file)
+            logger.info(
+                f"文件上传成功：日期={saved.date} 保存文件名={saved.filename} 请求ID={req_id}"
+            )
         except InvalidPathError as exc:
+            logger.warning(f"上传被拒绝 (路径格式无效 400)：{exc} 请求ID={req_id}")
             raise HTTPException(status_code=400, detail=str(exc)) from exc
         except DuplicateUploadError as exc:
+            logger.warning(f"上传被拒绝 (文件重复 409)：{exc} 请求ID={req_id}")
             raise HTTPException(status_code=409, detail=str(exc)) from exc
         except UploadTooLargeError as exc:
+            logger.warning(f"上传被拒绝 (文件过大 413)：{exc} 请求ID={req_id}")
             raise HTTPException(status_code=413, detail=str(exc)) from exc
         except Exception as exc:
-            logger.exception("Upload failed request_id=%s", request.state.request_id)
+            logger.exception(f"文件上传发生未知异常 (500) 请求ID={req_id}")
             raise HTTPException(status_code=500, detail="upload failed") from exc
         finally:
             await file.close()
@@ -140,12 +268,21 @@ def create_app(settings: Settings | None = None) -> FastAPI:
         request: Request,
         _: Annotated[None, authenticated],
     ) -> ExecuteResponse:
-        timeout = (
-            body.timeout
-            if body.timeout is not None
-            else min(10, resolved_settings.max_timeout_seconds)
+        req_id = request.state.request_id
+        logger.info(
+            f"收到代码执行请求：日期={body.date} 文件名={body.filename} "
+            f"数据文件={body.data_file} 请求超时={body.timeout} 请求ID={req_id}"
         )
+
+        timeout = (
+            body.timeout if body.timeout is not None else resolved_settings.max_timeout_seconds
+        )
+
         if timeout > resolved_settings.max_timeout_seconds:
+            logger.warning(
+                f"代码执行被拒绝 (超时超出限制 400)：请求超时 {timeout:.2f}秒 > "
+                f"上限 {resolved_settings.max_timeout_seconds:.2f}秒 请求ID={req_id}"
+            )
             raise HTTPException(
                 status_code=400,
                 detail=f"timeout cannot exceed {resolved_settings.max_timeout_seconds} seconds",
@@ -153,32 +290,49 @@ def create_app(settings: Settings | None = None) -> FastAPI:
         try:
             script = application.state.storage.resolve(body.date, body.filename)
         except InvalidPathError as exc:
+            logger.warning(f"代码执行被拒绝 (路径格式无效 400)：{exc} 请求ID={req_id}")
             raise HTTPException(status_code=400, detail=str(exc)) from exc
         except FileNotFoundError as exc:
+            logger.warning(
+                f"代码执行被拒绝 (未找到脚本 404)：日期={body.date} "
+                f"文件名={body.filename} 请求ID={req_id}"
+            )
             raise HTTPException(status_code=404, detail="uploaded file not found") from exc
+
         try:
             data_file = application.state.data_files.resolve(body.data_file)
         except DataFileTooLargeError as exc:
+            logger.warning(
+                f"代码执行被拒绝 (数据文件过大 413)：{exc} 请求ID={req_id}"
+            )
             raise HTTPException(status_code=413, detail=str(exc)) from exc
         except InvalidPathError as exc:
+            logger.warning(
+                f"代码执行被拒绝 (数据文件路径无效 400)：{exc} 请求ID={req_id}"
+            )
             raise HTTPException(status_code=400, detail=str(exc)) from exc
         except FileNotFoundError as exc:
+            logger.warning(
+                f"代码执行被拒绝 (未找到数据文件 404)：数据文件={body.data_file} "
+                f"请求ID={req_id}"
+            )
             raise HTTPException(status_code=404, detail="data file not found") from exc
 
         logger.info(
-            "Execution requested request_id=%s date=%s filename=%s data_file=%s timeout=%s",
-            request.state.request_id,
-            body.date,
-            body.filename,
-            body.data_file,
-            timeout,
+            f"正在申请执行门控槽位：脚本={script.name} 数据文件={data_file.name} "
+            f"超时限制={timeout:.2f}秒 请求ID={req_id}"
         )
         try:
             async with application.state.gate.slot():
                 result = await application.state.executor.execute(script, data_file, timeout)
         except DataFileTooLargeError as exc:
+            logger.warning(f"代码执行被拒绝 (数据文件过大 413)：{exc} 请求ID={req_id}")
             raise HTTPException(status_code=413, detail=str(exc)) from exc
         except SandboxBusyError as exc:
+            logger.warning(
+                f"代码执行被拒绝 (沙箱繁忙 429)：运行中={application.state.gate.active} "
+                f"排队中={application.state.gate.waiting} 请求ID={req_id}"
+            )
             raise HTTPException(
                 status_code=429,
                 detail="sandbox is busy; retry later",
@@ -186,17 +340,13 @@ def create_app(settings: Settings | None = None) -> FastAPI:
             ) from exc
         except Exception as exc:
             logger.exception(
-                "Execution failed request_id=%s filename=%s",
-                request.state.request_id,
-                body.filename,
+                f"代码执行遭遇未预期错误 (500)：文件名={body.filename} 请求ID={req_id}"
             )
             raise HTTPException(status_code=500, detail="sandbox execution failed") from exc
+
         logger.info(
-            "Execution finished request_id=%s filename=%s status=%s exit_code=%s",
-            request.state.request_id,
-            body.filename,
-            result.status,
-            result.exit_code,
+            f"代码执行完成：请求ID={req_id} 文件名={body.filename} "
+            f"状态={result.status} 退出码={result.exit_code}"
         )
         return ExecuteResponse(
             stdout=result.stdout,

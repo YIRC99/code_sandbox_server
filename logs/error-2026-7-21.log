@@ -1,0 +1,1994 @@
+2026-07-21 13:53:44.270 | ERROR    | sandbox.main:execute_code:388 - Execution failed unexpectedly (500): filename=%s request_id=%s
+Traceback (most recent call last):
+
+  File "C:\Users\admin\AppData\Roaming\uv\python\cpython-3.12-windows-x86_64-none\Lib\threading.py", line 1032, in _bootstrap
+    self._bootstrap_inner()
+    │    └ <function Thread._bootstrap_inner at 0x000001EE28A051C0>
+    └ <Thread(asyncio-portal-1ee2d6e4230, started daemon 45724)>
+  File "C:\Users\admin\AppData\Roaming\uv\python\cpython-3.12-windows-x86_64-none\Lib\threading.py", line 1075, in _bootstrap_inner
+    self.run()
+    │    └ <function Thread.run at 0x000001EE28A04EA0>
+    └ <Thread(asyncio-portal-1ee2d6e4230, started daemon 45724)>
+  File "C:\Users\admin\AppData\Roaming\uv\python\cpython-3.12-windows-x86_64-none\Lib\threading.py", line 1012, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Thread(asyncio-portal-1ee2d6e4230, started daemon 45724)>
+    │    │        │    └ ()
+    │    │        └ <Thread(asyncio-portal-1ee2d6e4230, started daemon 45724)>
+    │    └ <function start_blocking_portal.<locals>.run_blocking_portal at 0x000001EE2D645120>
+    └ <Thread(asyncio-portal-1ee2d6e4230, started daemon 45724)>
+  File "D:\code_file\code_sandbox_service\.venv\Lib\site-packages\anyio\from_thread.py", line 536, in run_blocking_portal
+    run_eventloop(
+    └ <function run at 0x000001EE29581760>
+  File "D:\code_file\code_sandbox_service\.venv\Lib\site-packages\anyio\_core\_eventloop.py", line 83, in run
+    return async_backend.run(func, args, {}, backend_options)
+           │             │   │     │         └ {}
+           │             │   │     └ ()
+           │             │   └ <function start_blocking_portal.<locals>.run_portal at 0x000001EE2D644400>
+           │             └ <classmethod(<function AsyncIOBackend.run at 0x000001EE2B153E20>)>
+           └ <class 'anyio._backends._asyncio.AsyncIOBackend'>
+  File "D:\code_file\code_sandbox_service\.venv\Lib\site-packages\anyio\_backends\_asyncio.py", line 2481, in run
+    return runner.run(wrapper())
+           │      │   └ <function start_blocking_portal.<locals>.run_portal at 0x000001EE2D6459E0>
+           │      └ <function Runner.run at 0x000001EE2B0D2E80>
+           └ <asyncio.runners.Runner object at 0x000001EE2D6D1100>
+  File "C:\Users\admin\AppData\Roaming\uv\python\cpython-3.12-windows-x86_64-none\Lib\asyncio\runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+           │    │     │                  └ <Task pending name='anyio.from_thread.start_blocking_portal.<locals>.run_portal' coro=<start_blocking_portal.<locals>.run_por...
+           │    │     └ <function BaseEventLoop.run_until_complete at 0x000001EE2B0D0A40>
+           │    └ <ProactorEventLoop running=True closed=False debug=False>
+           └ <asyncio.runners.Runner object at 0x000001EE2D6D1100>
+  File "C:\Users\admin\AppData\Roaming\uv\python\cpython-3.12-windows-x86_64-none\Lib\asyncio\base_events.py", line 678, in run_until_complete
+    self.run_forever()
+    │    └ <function ProactorEventLoop.run_forever at 0x000001EE2B139E40>
+    └ <ProactorEventLoop running=True closed=False debug=False>
+  File "C:\Users\admin\AppData\Roaming\uv\python\cpython-3.12-windows-x86_64-none\Lib\asyncio\windows_events.py", line 322, in run_forever
+    super().run_forever()
+  File "C:\Users\admin\AppData\Roaming\uv\python\cpython-3.12-windows-x86_64-none\Lib\asyncio\base_events.py", line 645, in run_forever
+    self._run_once()
+    │    └ <function BaseEventLoop._run_once at 0x000001EE2B0D27A0>
+    └ <ProactorEventLoop running=True closed=False debug=False>
+  File "C:\Users\admin\AppData\Roaming\uv\python\cpython-3.12-windows-x86_64-none\Lib\asyncio\base_events.py", line 1999, in _run_once
+    handle._run()
+    │      └ <function Handle._run at 0x000001EE2B006A20>
+    └ <Handle Task.task_wakeup(<Future finished result=None>)>
+  File "C:\Users\admin\AppData\Roaming\uv\python\cpython-3.12-windows-x86_64-none\Lib\asyncio\events.py", line 88, in _run
+    self._context.run(self._callback, *self._args)
+    │    │            │    │           │    └ <member '_args' of 'Handle' objects>
+    │    │            │    │           └ <Handle Task.task_wakeup(<Future finished result=None>)>
+    │    │            │    └ <member '_callback' of 'Handle' objects>
+    │    │            └ <Handle Task.task_wakeup(<Future finished result=None>)>
+    │    └ <member '_context' of 'Handle' objects>
+    └ <Handle Task.task_wakeup(<Future finished result=None>)>
+  File "D:\code_file\code_sandbox_service\.venv\Lib\site-packages\anyio\_core\_tasks.py", line 275, in _run_coro
+    retval = await self._coro
+                   │    └ <member '_coro' of 'TaskHandle' objects>
+                   └ <TaskHandle pending name='starlette.middleware.base.BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.coro' coro=<corou...
+  File "D:\code_file\code_sandbox_service\.venv\Lib\site-packages\starlette\middleware\base.py", line 144, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+          │    │   │      │                      └ <function BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.send_no_error at 0x000001EE2D6467A0>
+          │    │   │      └ <function BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.receive_or_disconnect at 0x000001EE2D644E00>
+          │    │   └ {'type': 'http', 'http_version': '1.1', 'method': 'POST', 'path': '/execute', 'raw_path': b'/execute', 'root_path': '', 'sche...
+          │    └ <starlette.middleware.exceptions.ExceptionMiddleware object at 0x000001EE2D6E7AA0>
+          └ <starlette.middleware.base.BaseHTTPMiddleware object at 0x000001EE2D6E7F20>
+  File "D:\code_file\code_sandbox_service\.venv\Lib\site-packages\starlette\middleware\exceptions.py", line 63, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+          │                            │    │    │     │      │        └ <function BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.send_no_error at 0x000001EE2D6467A0>
+          │                            │    │    │     │      └ <function BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.receive_or_disconnect at 0x000001EE2D644E00>
+          │                            │    │    │     └ {'type': 'http', 'http_version': '1.1', 'method': 'POST', 'path': '/execute', 'raw_path': b'/execute', 'root_path': '', 'sche...
+          │                            │    │    └ <starlette.requests.Request object at 0x000001EE2D6D3D70>
+          │                            │    └ <fastapi.middleware.asyncexitstack.AsyncExitStackMiddleware object at 0x000001EE2D6E6780>
+          │                            └ <starlette.middleware.exceptions.ExceptionMiddleware object at 0x000001EE2D6E7AA0>
+          └ <function wrap_app_handling_exceptions at 0x000001EE2C00DD00>
+  File "D:\code_file\code_sandbox_service\.venv\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+          │   │      │        └ <function wrap_app_handling_exceptions.<locals>.wrapped_app.<locals>.sender at 0x000001EE2D645B20>
+          │   │      └ <function BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.receive_or_disconnect at 0x000001EE2D644E00>
+          │   └ {'type': 'http', 'http_version': '1.1', 'method': 'POST', 'path': '/execute', 'raw_path': b'/execute', 'root_path': '', 'sche...
+          └ <fastapi.middleware.asyncexitstack.AsyncExitStackMiddleware object at 0x000001EE2D6E6780>
+  File "D:\code_file\code_sandbox_service\.venv\Lib\site-packages\fastapi\middleware\asyncexitstack.py", line 18, in __call__
+    await self.app(scope, receive, send)
+          │    │   │      │        └ <function wrap_app_handling_exceptions.<locals>.wrapped_app.<locals>.sender at 0x000001EE2D645B20>
+          │    │   │      └ <function BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.receive_or_disconnect at 0x000001EE2D644E00>
+          │    │   └ {'type': 'http', 'http_version': '1.1', 'method': 'POST', 'path': '/execute', 'raw_path': b'/execute', 'root_path': '', 'sche...
+          │    └ <fastapi.routing.APIRouter object at 0x000001EE2D6D28D0>
+          └ <fastapi.middleware.asyncexitstack.AsyncExitStackMiddleware object at 0x000001EE2D6E6780>
+  File "D:\code_file\code_sandbox_service\.venv\Lib\site-packages\starlette\routing.py", line 660, in __call__
+    await self.middleware_stack(scope, receive, send)
+          │    │                │      │        └ <function wrap_app_handling_exceptions.<locals>.wrapped_app.<locals>.sender at 0x000001EE2D645B20>
+          │    │                │      └ <function BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.receive_or_disconnect at 0x000001EE2D644E00>
+          │    │                └ {'type': 'http', 'http_version': '1.1', 'method': 'POST', 'path': '/execute', 'raw_path': b'/execute', 'root_path': '', 'sche...
+          │    └ <bound method APIRouter.app of <fastapi.routing.APIRouter object at 0x000001EE2D6D28D0>>
+          └ <fastapi.routing.APIRouter object at 0x000001EE2D6D28D0>
+  File "D:\code_file\code_sandbox_service\.venv\Lib\site-packages\fastapi\routing.py", line 2685, in app
+    await route.handle(scope, receive, send)
+          │     │      │      │        └ <function wrap_app_handling_exceptions.<locals>.wrapped_app.<locals>.sender at 0x000001EE2D645B20>
+          │     │      │      └ <function BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.receive_or_disconnect at 0x000001EE2D644E00>
+          │     │      └ {'type': 'http', 'http_version': '1.1', 'method': 'POST', 'path': '/execute', 'raw_path': b'/execute', 'root_path': '', 'sche...
+          │     └ <function APIRoute.handle at 0x000001EE2C032660>
+          └ APIRoute(path='/execute', name='execute_code', methods=['POST'])
+  File "D:\code_file\code_sandbox_service\.venv\Lib\site-packages\fastapi\routing.py", line 1267, in handle
+    await super().handle(scope, receive, send)
+                         │      │        └ <function wrap_app_handling_exceptions.<locals>.wrapped_app.<locals>.sender at 0x000001EE2D645B20>
+                         │      └ <function BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.receive_or_disconnect at 0x000001EE2D644E00>
+                         └ {'type': 'http', 'http_version': '1.1', 'method': 'POST', 'path': '/execute', 'raw_path': b'/execute', 'root_path': '', 'sche...
+  File "D:\code_file\code_sandbox_service\.venv\Lib\site-packages\starlette\routing.py", line 276, in handle
+    await self.app(scope, receive, send)
+          │    │   │      │        └ <function wrap_app_handling_exceptions.<locals>.wrapped_app.<locals>.sender at 0x000001EE2D645B20>
+          │    │   │      └ <function BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.receive_or_disconnect at 0x000001EE2D644E00>
+          │    │   └ {'type': 'http', 'http_version': '1.1', 'method': 'POST', 'path': '/execute', 'raw_path': b'/execute', 'root_path': '', 'sche...
+          │    └ <function request_response.<locals>.app at 0x000001EE2D644D60>
+          └ APIRoute(path='/execute', name='execute_code', methods=['POST'])
+  File "D:\code_file\code_sandbox_service\.venv\Lib\site-packages\fastapi\routing.py", line 151, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+          │                            │    │        │      │        └ <function wrap_app_handling_exceptions.<locals>.wrapped_app.<locals>.sender at 0x000001EE2D645B20>
+          │                            │    │        │      └ <function BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.receive_or_disconnect at 0x000001EE2D644E00>
+          │                            │    │        └ {'type': 'http', 'http_version': '1.1', 'method': 'POST', 'path': '/execute', 'raw_path': b'/execute', 'root_path': '', 'sche...
+          │                            │    └ <starlette.requests.Request object at 0x000001EE2D615040>
+          │                            └ <function request_response.<locals>.app.<locals>.app at 0x000001EE2D644180>
+          └ <function wrap_app_handling_exceptions at 0x000001EE2C00DD00>
+  File "D:\code_file\code_sandbox_service\.venv\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+          │   │      │        └ <function wrap_app_handling_exceptions.<locals>.wrapped_app.<locals>.sender at 0x000001EE2D646DE0>
+          │   │      └ <function BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.receive_or_disconnect at 0x000001EE2D644E00>
+          │   └ {'type': 'http', 'http_version': '1.1', 'method': 'POST', 'path': '/execute', 'raw_path': b'/execute', 'root_path': '', 'sche...
+          └ <function request_response.<locals>.app.<locals>.app at 0x000001EE2D644180>
+  File "D:\code_file\code_sandbox_service\.venv\Lib\site-packages\fastapi\routing.py", line 137, in app
+    response = await f(request)
+                     │ └ <starlette.requests.Request object at 0x000001EE2D615040>
+                     └ <function get_request_handler.<locals>.app at 0x000001EE2D5F3380>
+  File "D:\code_file\code_sandbox_service\.venv\Lib\site-packages\fastapi\routing.py", line 691, in app
+    raw_response = await run_endpoint_function(
+                         └ <function run_endpoint_function at 0x000001EE2C0319E0>
+  File "D:\code_file\code_sandbox_service\.venv\Lib\site-packages\fastapi\routing.py", line 345, in run_endpoint_function
+    return await dependant.call(**values)
+                 │         │      └ {'_': None, 'body': ExecuteRequest(date='2026-07-21', filename='broken.py', data_file='input.csv', timeout=None), 'request': ...
+                 │         └ <function create_app.<locals>.execute_code at 0x000001EE2D5F2660>
+                 └ Dependant(path_params=[], query_params=[], header_params=[], cookie_params=[], body_params=[ModelField(field_info=Body(Pydant...
+
+> File "D:\code_file\code_sandbox_service\src\sandbox\main.py", line 369, in execute_code
+    result = await application.state.executor.execute(script, data_file, timeout)
+                   │           │                      │       │          └ 10
+                   │           │                      │       └ WindowsPath('C:/Users/admin/AppData/Local/Temp/pytest-of-admin/pytest-957/test_unexpected_execute_error_0/data/input.csv')
+                   │           │                      └ WindowsPath('C:/Users/admin/AppData/Local/Temp/pytest-of-admin/pytest-957/test_unexpected_execute_error_0/2026-07-21/broken.py')
+                   │           └ <starlette.datastructures.State object at 0x000001EE2D6D00E0>
+                   └ <fastapi.applications.FastAPI object at 0x000001EE2D6D1D30>
+
+  File "D:\code_file\code_sandbox_service\tests\test_api.py", line 312, in execute
+    raise RuntimeError(f"secret path: {script}")
+                                       └ WindowsPath('C:/Users/admin/AppData/Local/Temp/pytest-of-admin/pytest-957/test_unexpected_execute_error_0/2026-07-21/broken.py')
+
+RuntimeError: secret path: C:\Users\admin\AppData\Local\Temp\pytest-of-admin\pytest-957\test_unexpected_execute_error_0\2026-07-21\broken.py
+2026-07-21 13:53:44.882 | ERROR    | sandbox.executor:_execute_isolated:166 - Subprocess PID=%d timed out after %.2fs. Initiating process tree termination...
+2026-07-21 13:53:46.140 | ERROR    | sandbox.executor:_execute_isolated:166 - Subprocess PID=%d timed out after %.2fs. Initiating process tree termination...
+2026-07-21 13:54:12.300 | ERROR    | sandbox.main:execute_code:386 - Execution failed unexpectedly (500): filename=%s request_id=%s
+Traceback (most recent call last):
+
+  File "C:\Users\admin\AppData\Roaming\uv\python\cpython-3.12-windows-x86_64-none\Lib\threading.py", line 1032, in _bootstrap
+    self._bootstrap_inner()
+    │    └ <function Thread._bootstrap_inner at 0x000001DF71D251C0>
+    └ <Thread(asyncio-portal-1df768caa50, started daemon 41628)>
+  File "C:\Users\admin\AppData\Roaming\uv\python\cpython-3.12-windows-x86_64-none\Lib\threading.py", line 1075, in _bootstrap_inner
+    self.run()
+    │    └ <function Thread.run at 0x000001DF71D24EA0>
+    └ <Thread(asyncio-portal-1df768caa50, started daemon 41628)>
+  File "C:\Users\admin\AppData\Roaming\uv\python\cpython-3.12-windows-x86_64-none\Lib\threading.py", line 1012, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Thread(asyncio-portal-1df768caa50, started daemon 41628)>
+    │    │        │    └ ()
+    │    │        └ <Thread(asyncio-portal-1df768caa50, started daemon 41628)>
+    │    └ <function start_blocking_portal.<locals>.run_blocking_portal at 0x000001DF76877100>
+    └ <Thread(asyncio-portal-1df768caa50, started daemon 41628)>
+  File "D:\code_file\code_sandbox_service\.venv\Lib\site-packages\anyio\from_thread.py", line 536, in run_blocking_portal
+    run_eventloop(
+    └ <function run at 0x000001DF72801760>
+  File "D:\code_file\code_sandbox_service\.venv\Lib\site-packages\anyio\_core\_eventloop.py", line 83, in run
+    return async_backend.run(func, args, {}, backend_options)
+           │             │   │     │         └ {}
+           │             │   │     └ ()
+           │             │   └ <function start_blocking_portal.<locals>.run_portal at 0x000001DF768767A0>
+           │             └ <classmethod(<function AsyncIOBackend.run at 0x000001DF74363E20>)>
+           └ <class 'anyio._backends._asyncio.AsyncIOBackend'>
+  File "D:\code_file\code_sandbox_service\.venv\Lib\site-packages\anyio\_backends\_asyncio.py", line 2481, in run
+    return runner.run(wrapper())
+           │      │   └ <function start_blocking_portal.<locals>.run_portal at 0x000001DF76823D80>
+           │      └ <function Runner.run at 0x000001DF72CB2E80>
+           └ <asyncio.runners.Runner object at 0x000001DF769156D0>
+  File "C:\Users\admin\AppData\Roaming\uv\python\cpython-3.12-windows-x86_64-none\Lib\asyncio\runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+           │    │     │                  └ <Task pending name='anyio.from_thread.start_blocking_portal.<locals>.run_portal' coro=<start_blocking_portal.<locals>.run_por...
+           │    │     └ <function BaseEventLoop.run_until_complete at 0x000001DF72CB0A40>
+           │    └ <ProactorEventLoop running=True closed=False debug=False>
+           └ <asyncio.runners.Runner object at 0x000001DF769156D0>
+  File "C:\Users\admin\AppData\Roaming\uv\python\cpython-3.12-windows-x86_64-none\Lib\asyncio\base_events.py", line 678, in run_until_complete
+    self.run_forever()
+    │    └ <function ProactorEventLoop.run_forever at 0x000001DF74349E40>
+    └ <ProactorEventLoop running=True closed=False debug=False>
+  File "C:\Users\admin\AppData\Roaming\uv\python\cpython-3.12-windows-x86_64-none\Lib\asyncio\windows_events.py", line 322, in run_forever
+    super().run_forever()
+  File "C:\Users\admin\AppData\Roaming\uv\python\cpython-3.12-windows-x86_64-none\Lib\asyncio\base_events.py", line 645, in run_forever
+    self._run_once()
+    │    └ <function BaseEventLoop._run_once at 0x000001DF72CB27A0>
+    └ <ProactorEventLoop running=True closed=False debug=False>
+  File "C:\Users\admin\AppData\Roaming\uv\python\cpython-3.12-windows-x86_64-none\Lib\asyncio\base_events.py", line 1999, in _run_once
+    handle._run()
+    │      └ <function Handle._run at 0x000001DF72BE6A20>
+    └ <Handle Task.task_wakeup(<Future finished result=None>)>
+  File "C:\Users\admin\AppData\Roaming\uv\python\cpython-3.12-windows-x86_64-none\Lib\asyncio\events.py", line 88, in _run
+    self._context.run(self._callback, *self._args)
+    │    │            │    │           │    └ <member '_args' of 'Handle' objects>
+    │    │            │    │           └ <Handle Task.task_wakeup(<Future finished result=None>)>
+    │    │            │    └ <member '_callback' of 'Handle' objects>
+    │    │            └ <Handle Task.task_wakeup(<Future finished result=None>)>
+    │    └ <member '_context' of 'Handle' objects>
+    └ <Handle Task.task_wakeup(<Future finished result=None>)>
+  File "D:\code_file\code_sandbox_service\.venv\Lib\site-packages\anyio\_core\_tasks.py", line 275, in _run_coro
+    retval = await self._coro
+                   │    └ <member '_coro' of 'TaskHandle' objects>
+                   └ <TaskHandle pending name='starlette.middleware.base.BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.coro' coro=<corou...
+  File "D:\code_file\code_sandbox_service\.venv\Lib\site-packages\starlette\middleware\base.py", line 144, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+          │    │   │      │                      └ <function BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.send_no_error at 0x000001DF76877060>
+          │    │   │      └ <function BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.receive_or_disconnect at 0x000001DF768765C0>
+          │    │   └ {'type': 'http', 'http_version': '1.1', 'method': 'POST', 'path': '/execute', 'raw_path': b'/execute', 'root_path': '', 'sche...
+          │    └ <starlette.middleware.exceptions.ExceptionMiddleware object at 0x000001DF76915430>
+          └ <starlette.middleware.base.BaseHTTPMiddleware object at 0x000001DF769178F0>
+  File "D:\code_file\code_sandbox_service\.venv\Lib\site-packages\starlette\middleware\exceptions.py", line 63, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+          │                            │    │    │     │      │        └ <function BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.send_no_error at 0x000001DF76877060>
+          │                            │    │    │     │      └ <function BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.receive_or_disconnect at 0x000001DF768765C0>
+          │                            │    │    │     └ {'type': 'http', 'http_version': '1.1', 'method': 'POST', 'path': '/execute', 'raw_path': b'/execute', 'root_path': '', 'sche...
+          │                            │    │    └ <starlette.requests.Request object at 0x000001DF7680ABA0>
+          │                            │    └ <fastapi.middleware.asyncexitstack.AsyncExitStackMiddleware object at 0x000001DF76914F50>
+          │                            └ <starlette.middleware.exceptions.ExceptionMiddleware object at 0x000001DF76915430>
+          └ <function wrap_app_handling_exceptions at 0x000001DF75219D00>
+  File "D:\code_file\code_sandbox_service\.venv\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+          │   │      │        └ <function wrap_app_handling_exceptions.<locals>.wrapped_app.<locals>.sender at 0x000001DF76877A60>
+          │   │      └ <function BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.receive_or_disconnect at 0x000001DF768765C0>
+          │   └ {'type': 'http', 'http_version': '1.1', 'method': 'POST', 'path': '/execute', 'raw_path': b'/execute', 'root_path': '', 'sche...
+          └ <fastapi.middleware.asyncexitstack.AsyncExitStackMiddleware object at 0x000001DF76914F50>
+  File "D:\code_file\code_sandbox_service\.venv\Lib\site-packages\fastapi\middleware\asyncexitstack.py", line 18, in __call__
+    await self.app(scope, receive, send)
+          │    │   │      │        └ <function wrap_app_handling_exceptions.<locals>.wrapped_app.<locals>.sender at 0x000001DF76877A60>
+          │    │   │      └ <function BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.receive_or_disconnect at 0x000001DF768765C0>
+          │    │   └ {'type': 'http', 'http_version': '1.1', 'method': 'POST', 'path': '/execute', 'raw_path': b'/execute', 'root_path': '', 'sche...
+          │    └ <fastapi.routing.APIRouter object at 0x000001DF76900200>
+          └ <fastapi.middleware.asyncexitstack.AsyncExitStackMiddleware object at 0x000001DF76914F50>
+  File "D:\code_file\code_sandbox_service\.venv\Lib\site-packages\starlette\routing.py", line 660, in __call__
+    await self.middleware_stack(scope, receive, send)
+          │    │                │      │        └ <function wrap_app_handling_exceptions.<locals>.wrapped_app.<locals>.sender at 0x000001DF76877A60>
+          │    │                │      └ <function BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.receive_or_disconnect at 0x000001DF768765C0>
+          │    │                └ {'type': 'http', 'http_version': '1.1', 'method': 'POST', 'path': '/execute', 'raw_path': b'/execute', 'root_path': '', 'sche...
+          │    └ <bound method APIRouter.app of <fastapi.routing.APIRouter object at 0x000001DF76900200>>
+          └ <fastapi.routing.APIRouter object at 0x000001DF76900200>
+  File "D:\code_file\code_sandbox_service\.venv\Lib\site-packages\fastapi\routing.py", line 2685, in app
+    await route.handle(scope, receive, send)
+          │     │      │      │        └ <function wrap_app_handling_exceptions.<locals>.wrapped_app.<locals>.sender at 0x000001DF76877A60>
+          │     │      │      └ <function BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.receive_or_disconnect at 0x000001DF768765C0>
+          │     │      └ {'type': 'http', 'http_version': '1.1', 'method': 'POST', 'path': '/execute', 'raw_path': b'/execute', 'root_path': '', 'sche...
+          │     └ <function APIRoute.handle at 0x000001DF75242660>
+          └ APIRoute(path='/execute', name='execute_code', methods=['POST'])
+  File "D:\code_file\code_sandbox_service\.venv\Lib\site-packages\fastapi\routing.py", line 1267, in handle
+    await super().handle(scope, receive, send)
+                         │      │        └ <function wrap_app_handling_exceptions.<locals>.wrapped_app.<locals>.sender at 0x000001DF76877A60>
+                         │      └ <function BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.receive_or_disconnect at 0x000001DF768765C0>
+                         └ {'type': 'http', 'http_version': '1.1', 'method': 'POST', 'path': '/execute', 'raw_path': b'/execute', 'root_path': '', 'sche...
+  File "D:\code_file\code_sandbox_service\.venv\Lib\site-packages\starlette\routing.py", line 276, in handle
+    await self.app(scope, receive, send)
+          │    │   │      │        └ <function wrap_app_handling_exceptions.<locals>.wrapped_app.<locals>.sender at 0x000001DF76877A60>
+          │    │   │      └ <function BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.receive_or_disconnect at 0x000001DF768765C0>
+          │    │   └ {'type': 'http', 'http_version': '1.1', 'method': 'POST', 'path': '/execute', 'raw_path': b'/execute', 'root_path': '', 'sche...
+          │    └ <function request_response.<locals>.app at 0x000001DF76875300>
+          └ APIRoute(path='/execute', name='execute_code', methods=['POST'])
+  File "D:\code_file\code_sandbox_service\.venv\Lib\site-packages\fastapi\routing.py", line 151, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+          │                            │    │        │      │        └ <function wrap_app_handling_exceptions.<locals>.wrapped_app.<locals>.sender at 0x000001DF76877A60>
+          │                            │    │        │      └ <function BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.receive_or_disconnect at 0x000001DF768765C0>
+          │                            │    │        └ {'type': 'http', 'http_version': '1.1', 'method': 'POST', 'path': '/execute', 'raw_path': b'/execute', 'root_path': '', 'sche...
+          │                            │    └ <starlette.requests.Request object at 0x000001DF76846450>
+          │                            └ <function request_response.<locals>.app.<locals>.app at 0x000001DF76874D60>
+          └ <function wrap_app_handling_exceptions at 0x000001DF75219D00>
+  File "D:\code_file\code_sandbox_service\.venv\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+          │   │      │        └ <function wrap_app_handling_exceptions.<locals>.wrapped_app.<locals>.sender at 0x000001DF76877920>
+          │   │      └ <function BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.receive_or_disconnect at 0x000001DF768765C0>
+          │   └ {'type': 'http', 'http_version': '1.1', 'method': 'POST', 'path': '/execute', 'raw_path': b'/execute', 'root_path': '', 'sche...
+          └ <function request_response.<locals>.app.<locals>.app at 0x000001DF76874D60>
+  File "D:\code_file\code_sandbox_service\.venv\Lib\site-packages\fastapi\routing.py", line 137, in app
+    response = await f(request)
+                     │ └ <starlette.requests.Request object at 0x000001DF76846450>
+                     └ <function get_request_handler.<locals>.app at 0x000001DF76876A20>
+  File "D:\code_file\code_sandbox_service\.venv\Lib\site-packages\fastapi\routing.py", line 691, in app
+    raw_response = await run_endpoint_function(
+                         └ <function run_endpoint_function at 0x000001DF752419E0>
+  File "D:\code_file\code_sandbox_service\.venv\Lib\site-packages\fastapi\routing.py", line 345, in run_endpoint_function
+    return await dependant.call(**values)
+                 │         │      └ {'_': None, 'body': ExecuteRequest(date='2026-07-21', filename='broken.py', data_file='input.csv', timeout=None), 'request': ...
+                 │         └ <function create_app.<locals>.execute_code at 0x000001DF768758A0>
+                 └ Dependant(path_params=[], query_params=[], header_params=[], cookie_params=[], body_params=[ModelField(field_info=Body(Pydant...
+
+> File "D:\code_file\code_sandbox_service\src\sandbox\main.py", line 367, in execute_code
+    result = await application.state.executor.execute(script, data_file, timeout)
+                   │           │                      │       │          └ 10
+                   │           │                      │       └ WindowsPath('C:/Users/admin/AppData/Local/Temp/pytest-of-admin/pytest-958/test_unexpected_execute_error_0/data/input.csv')
+                   │           │                      └ WindowsPath('C:/Users/admin/AppData/Local/Temp/pytest-of-admin/pytest-958/test_unexpected_execute_error_0/2026-07-21/broken.py')
+                   │           └ <starlette.datastructures.State object at 0x000001DF76903E30>
+                   └ <fastapi.applications.FastAPI object at 0x000001DF769013A0>
+
+  File "D:\code_file\code_sandbox_service\tests\test_api.py", line 312, in execute
+    raise RuntimeError(f"secret path: {script}")
+                                       └ WindowsPath('C:/Users/admin/AppData/Local/Temp/pytest-of-admin/pytest-958/test_unexpected_execute_error_0/2026-07-21/broken.py')
+
+RuntimeError: secret path: C:\Users\admin\AppData\Local\Temp\pytest-of-admin\pytest-958\test_unexpected_execute_error_0\2026-07-21\broken.py
+2026-07-21 13:54:12.776 | ERROR    | sandbox.executor:_execute_isolated:165 - Subprocess PID=%d timed out after %.2fs. Initiating process tree termination...
+2026-07-21 13:54:14.004 | ERROR    | sandbox.executor:_execute_isolated:165 - Subprocess PID=%d timed out after %.2fs. Initiating process tree termination...
+2026-07-21 13:56:07.889 | ERROR    | sandbox.main:execute_code:344 - Execution failed unexpectedly (500): filename=broken.py request_id=34f67e5a60c74c70918c8b2b71077416
+Traceback (most recent call last):
+
+  File "C:\Users\admin\AppData\Roaming\uv\python\cpython-3.12-windows-x86_64-none\Lib\threading.py", line 1032, in _bootstrap
+    self._bootstrap_inner()
+    │    └ <function Thread._bootstrap_inner at 0x000001D2710151C0>
+    └ <Thread(asyncio-portal-1d275c13bf0, started daemon 37104)>
+  File "C:\Users\admin\AppData\Roaming\uv\python\cpython-3.12-windows-x86_64-none\Lib\threading.py", line 1075, in _bootstrap_inner
+    self.run()
+    │    └ <function Thread.run at 0x000001D271014EA0>
+    └ <Thread(asyncio-portal-1d275c13bf0, started daemon 37104)>
+  File "C:\Users\admin\AppData\Roaming\uv\python\cpython-3.12-windows-x86_64-none\Lib\threading.py", line 1012, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Thread(asyncio-portal-1d275c13bf0, started daemon 37104)>
+    │    │        │    └ ()
+    │    │        └ <Thread(asyncio-portal-1d275c13bf0, started daemon 37104)>
+    │    └ <function start_blocking_portal.<locals>.run_blocking_portal at 0x000001D275BC22A0>
+    └ <Thread(asyncio-portal-1d275c13bf0, started daemon 37104)>
+  File "D:\code_file\code_sandbox_service\.venv\Lib\site-packages\anyio\from_thread.py", line 536, in run_blocking_portal
+    run_eventloop(
+    └ <function run at 0x000001D271B31760>
+  File "D:\code_file\code_sandbox_service\.venv\Lib\site-packages\anyio\_core\_eventloop.py", line 83, in run
+    return async_backend.run(func, args, {}, backend_options)
+           │             │   │     │         └ {}
+           │             │   │     └ ()
+           │             │   └ <function start_blocking_portal.<locals>.run_portal at 0x000001D275BC0540>
+           │             └ <classmethod(<function AsyncIOBackend.run at 0x000001D273ED3E20>)>
+           └ <class 'anyio._backends._asyncio.AsyncIOBackend'>
+  File "D:\code_file\code_sandbox_service\.venv\Lib\site-packages\anyio\_backends\_asyncio.py", line 2481, in run
+    return runner.run(wrapper())
+           │      │   └ <function start_blocking_portal.<locals>.run_portal at 0x000001D275B6EF20>
+           │      └ <function Runner.run at 0x000001D273652E80>
+           └ <asyncio.runners.Runner object at 0x000001D275C552B0>
+  File "C:\Users\admin\AppData\Roaming\uv\python\cpython-3.12-windows-x86_64-none\Lib\asyncio\runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+           │    │     │                  └ <Task pending name='anyio.from_thread.start_blocking_portal.<locals>.run_portal' coro=<start_blocking_portal.<locals>.run_por...
+           │    │     └ <function BaseEventLoop.run_until_complete at 0x000001D273650A40>
+           │    └ <ProactorEventLoop running=True closed=False debug=False>
+           └ <asyncio.runners.Runner object at 0x000001D275C552B0>
+  File "C:\Users\admin\AppData\Roaming\uv\python\cpython-3.12-windows-x86_64-none\Lib\asyncio\base_events.py", line 678, in run_until_complete
+    self.run_forever()
+    │    └ <function ProactorEventLoop.run_forever at 0x000001D273EB9E40>
+    └ <ProactorEventLoop running=True closed=False debug=False>
+  File "C:\Users\admin\AppData\Roaming\uv\python\cpython-3.12-windows-x86_64-none\Lib\asyncio\windows_events.py", line 322, in run_forever
+    super().run_forever()
+  File "C:\Users\admin\AppData\Roaming\uv\python\cpython-3.12-windows-x86_64-none\Lib\asyncio\base_events.py", line 645, in run_forever
+    self._run_once()
+    │    └ <function BaseEventLoop._run_once at 0x000001D2736527A0>
+    └ <ProactorEventLoop running=True closed=False debug=False>
+  File "C:\Users\admin\AppData\Roaming\uv\python\cpython-3.12-windows-x86_64-none\Lib\asyncio\base_events.py", line 1999, in _run_once
+    handle._run()
+    │      └ <function Handle._run at 0x000001D273586A20>
+    └ <Handle Task.task_wakeup(<Future finished result=None>)>
+  File "C:\Users\admin\AppData\Roaming\uv\python\cpython-3.12-windows-x86_64-none\Lib\asyncio\events.py", line 88, in _run
+    self._context.run(self._callback, *self._args)
+    │    │            │    │           │    └ <member '_args' of 'Handle' objects>
+    │    │            │    │           └ <Handle Task.task_wakeup(<Future finished result=None>)>
+    │    │            │    └ <member '_callback' of 'Handle' objects>
+    │    │            └ <Handle Task.task_wakeup(<Future finished result=None>)>
+    │    └ <member '_context' of 'Handle' objects>
+    └ <Handle Task.task_wakeup(<Future finished result=None>)>
+  File "D:\code_file\code_sandbox_service\.venv\Lib\site-packages\anyio\_core\_tasks.py", line 275, in _run_coro
+    retval = await self._coro
+                   │    └ <member '_coro' of 'TaskHandle' objects>
+                   └ <TaskHandle pending name='starlette.middleware.base.BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.coro' coro=<corou...
+  File "D:\code_file\code_sandbox_service\.venv\Lib\site-packages\starlette\middleware\base.py", line 144, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+          │    │   │      │                      └ <function BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.send_no_error at 0x000001D275BC0A40>
+          │    │   │      └ <function BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.receive_or_disconnect at 0x000001D275BC1760>
+          │    │   └ {'type': 'http', 'http_version': '1.1', 'method': 'POST', 'path': '/execute', 'raw_path': b'/execute', 'root_path': '', 'sche...
+          │    └ <starlette.middleware.exceptions.ExceptionMiddleware object at 0x000001D275C66B10>
+          └ <starlette.middleware.base.BaseHTTPMiddleware object at 0x000001D275C669C0>
+  File "D:\code_file\code_sandbox_service\.venv\Lib\site-packages\starlette\middleware\exceptions.py", line 63, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+          │                            │    │    │     │      │        └ <function BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.send_no_error at 0x000001D275BC0A40>
+          │                            │    │    │     │      └ <function BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.receive_or_disconnect at 0x000001D275BC1760>
+          │                            │    │    │     └ {'type': 'http', 'http_version': '1.1', 'method': 'POST', 'path': '/execute', 'raw_path': b'/execute', 'root_path': '', 'sche...
+          │                            │    │    └ <starlette.requests.Request object at 0x000001D275C66960>
+          │                            │    └ <fastapi.middleware.asyncexitstack.AsyncExitStackMiddleware object at 0x000001D275C66C00>
+          │                            └ <starlette.middleware.exceptions.ExceptionMiddleware object at 0x000001D275C66B10>
+          └ <function wrap_app_handling_exceptions at 0x000001D274589D00>
+  File "D:\code_file\code_sandbox_service\.venv\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+          │   │      │        └ <function wrap_app_handling_exceptions.<locals>.wrapped_app.<locals>.sender at 0x000001D275BC0C20>
+          │   │      └ <function BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.receive_or_disconnect at 0x000001D275BC1760>
+          │   └ {'type': 'http', 'http_version': '1.1', 'method': 'POST', 'path': '/execute', 'raw_path': b'/execute', 'root_path': '', 'sche...
+          └ <fastapi.middleware.asyncexitstack.AsyncExitStackMiddleware object at 0x000001D275C66C00>
+  File "D:\code_file\code_sandbox_service\.venv\Lib\site-packages\fastapi\middleware\asyncexitstack.py", line 18, in __call__
+    await self.app(scope, receive, send)
+          │    │   │      │        └ <function wrap_app_handling_exceptions.<locals>.wrapped_app.<locals>.sender at 0x000001D275BC0C20>
+          │    │   │      └ <function BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.receive_or_disconnect at 0x000001D275BC1760>
+          │    │   └ {'type': 'http', 'http_version': '1.1', 'method': 'POST', 'path': '/execute', 'raw_path': b'/execute', 'root_path': '', 'sche...
+          │    └ <fastapi.routing.APIRouter object at 0x000001D275C666F0>
+          └ <fastapi.middleware.asyncexitstack.AsyncExitStackMiddleware object at 0x000001D275C66C00>
+  File "D:\code_file\code_sandbox_service\.venv\Lib\site-packages\starlette\routing.py", line 660, in __call__
+    await self.middleware_stack(scope, receive, send)
+          │    │                │      │        └ <function wrap_app_handling_exceptions.<locals>.wrapped_app.<locals>.sender at 0x000001D275BC0C20>
+          │    │                │      └ <function BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.receive_or_disconnect at 0x000001D275BC1760>
+          │    │                └ {'type': 'http', 'http_version': '1.1', 'method': 'POST', 'path': '/execute', 'raw_path': b'/execute', 'root_path': '', 'sche...
+          │    └ <bound method APIRouter.app of <fastapi.routing.APIRouter object at 0x000001D275C666F0>>
+          └ <fastapi.routing.APIRouter object at 0x000001D275C666F0>
+  File "D:\code_file\code_sandbox_service\.venv\Lib\site-packages\fastapi\routing.py", line 2685, in app
+    await route.handle(scope, receive, send)
+          │     │      │      │        └ <function wrap_app_handling_exceptions.<locals>.wrapped_app.<locals>.sender at 0x000001D275BC0C20>
+          │     │      │      └ <function BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.receive_or_disconnect at 0x000001D275BC1760>
+          │     │      └ {'type': 'http', 'http_version': '1.1', 'method': 'POST', 'path': '/execute', 'raw_path': b'/execute', 'root_path': '', 'sche...
+          │     └ <function APIRoute.handle at 0x000001D2745B2660>
+          └ APIRoute(path='/execute', name='execute_code', methods=['POST'])
+  File "D:\code_file\code_sandbox_service\.venv\Lib\site-packages\fastapi\routing.py", line 1267, in handle
+    await super().handle(scope, receive, send)
+                         │      │        └ <function wrap_app_handling_exceptions.<locals>.wrapped_app.<locals>.sender at 0x000001D275BC0C20>
+                         │      └ <function BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.receive_or_disconnect at 0x000001D275BC1760>
+                         └ {'type': 'http', 'http_version': '1.1', 'method': 'POST', 'path': '/execute', 'raw_path': b'/execute', 'root_path': '', 'sche...
+  File "D:\code_file\code_sandbox_service\.venv\Lib\site-packages\starlette\routing.py", line 276, in handle
+    await self.app(scope, receive, send)
+          │    │   │      │        └ <function wrap_app_handling_exceptions.<locals>.wrapped_app.<locals>.sender at 0x000001D275BC0C20>
+          │    │   │      └ <function BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.receive_or_disconnect at 0x000001D275BC1760>
+          │    │   └ {'type': 'http', 'http_version': '1.1', 'method': 'POST', 'path': '/execute', 'raw_path': b'/execute', 'root_path': '', 'sche...
+          │    └ <function request_response.<locals>.app at 0x000001D275BC3E20>
+          └ APIRoute(path='/execute', name='execute_code', methods=['POST'])
+  File "D:\code_file\code_sandbox_service\.venv\Lib\site-packages\fastapi\routing.py", line 151, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+          │                            │    │        │      │        └ <function wrap_app_handling_exceptions.<locals>.wrapped_app.<locals>.sender at 0x000001D275BC0C20>
+          │                            │    │        │      └ <function BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.receive_or_disconnect at 0x000001D275BC1760>
+          │                            │    │        └ {'type': 'http', 'http_version': '1.1', 'method': 'POST', 'path': '/execute', 'raw_path': b'/execute', 'root_path': '', 'sche...
+          │                            │    └ <starlette.requests.Request object at 0x000001D275B90FB0>
+          │                            └ <function request_response.<locals>.app.<locals>.app at 0x000001D275BC1A80>
+          └ <function wrap_app_handling_exceptions at 0x000001D274589D00>
+  File "D:\code_file\code_sandbox_service\.venv\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+          │   │      │        └ <function wrap_app_handling_exceptions.<locals>.wrapped_app.<locals>.sender at 0x000001D275BC2480>
+          │   │      └ <function BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.receive_or_disconnect at 0x000001D275BC1760>
+          │   └ {'type': 'http', 'http_version': '1.1', 'method': 'POST', 'path': '/execute', 'raw_path': b'/execute', 'root_path': '', 'sche...
+          └ <function request_response.<locals>.app.<locals>.app at 0x000001D275BC1A80>
+  File "D:\code_file\code_sandbox_service\.venv\Lib\site-packages\fastapi\routing.py", line 137, in app
+    response = await f(request)
+                     │ └ <starlette.requests.Request object at 0x000001D275B90FB0>
+                     └ <function get_request_handler.<locals>.app at 0x000001D275BC28E0>
+  File "D:\code_file\code_sandbox_service\.venv\Lib\site-packages\fastapi\routing.py", line 691, in app
+    raw_response = await run_endpoint_function(
+                         └ <function run_endpoint_function at 0x000001D2745B19E0>
+  File "D:\code_file\code_sandbox_service\.venv\Lib\site-packages\fastapi\routing.py", line 345, in run_endpoint_function
+    return await dependant.call(**values)
+                 │         │      └ {'_': None, 'body': ExecuteRequest(date='2026-07-21', filename='broken.py', data_file='input.csv', timeout=None), 'request': ...
+                 │         └ <function create_app.<locals>.execute_code at 0x000001D275BC1940>
+                 └ Dependant(path_params=[], query_params=[], header_params=[], cookie_params=[], body_params=[ModelField(field_info=Body(Pydant...
+
+> File "D:\code_file\code_sandbox_service\src\sandbox\main.py", line 329, in execute_code
+    result = await application.state.executor.execute(script, data_file, timeout)
+                   │           │                      │       │          └ 10
+                   │           │                      │       └ WindowsPath('C:/Users/admin/AppData/Local/Temp/pytest-of-admin/pytest-959/test_unexpected_execute_error_0/data/input.csv')
+                   │           │                      └ WindowsPath('C:/Users/admin/AppData/Local/Temp/pytest-of-admin/pytest-959/test_unexpected_execute_error_0/2026-07-21/broken.py')
+                   │           └ <starlette.datastructures.State object at 0x000001D275C66720>
+                   └ <fastapi.applications.FastAPI object at 0x000001D275C66CF0>
+
+  File "D:\code_file\code_sandbox_service\tests\test_api.py", line 312, in execute
+    raise RuntimeError(f"secret path: {script}")
+                                       └ WindowsPath('C:/Users/admin/AppData/Local/Temp/pytest-of-admin/pytest-959/test_unexpected_execute_error_0/2026-07-21/broken.py')
+
+RuntimeError: secret path: C:\Users\admin\AppData\Local\Temp\pytest-of-admin\pytest-959\test_unexpected_execute_error_0\2026-07-21\broken.py
+2026-07-21 13:56:08.351 | ERROR    | sandbox.executor:_execute_isolated:165 - Subprocess PID=%d timed out after %.2fs. Initiating process tree termination...
+2026-07-21 13:56:09.474 | ERROR    | sandbox.executor:_execute_isolated:165 - Subprocess PID=%d timed out after %.2fs. Initiating process tree termination...
+2026-07-21 13:59:40.600 | ERROR    | sandbox.main:execute_code:342 - Execution failed unexpectedly (500): filename=broken.py request_id=103fc998586a4786b06b421b66da8555
+Traceback (most recent call last):
+
+  File "C:\Users\admin\AppData\Roaming\uv\python\cpython-3.12-windows-x86_64-none\Lib\threading.py", line 1032, in _bootstrap
+    self._bootstrap_inner()
+    │    └ <function Thread._bootstrap_inner at 0x0000022D45C851C0>
+    └ <Thread(asyncio-portal-22d4a83d190, started daemon 49752)>
+  File "C:\Users\admin\AppData\Roaming\uv\python\cpython-3.12-windows-x86_64-none\Lib\threading.py", line 1075, in _bootstrap_inner
+    self.run()
+    │    └ <function Thread.run at 0x0000022D45C84EA0>
+    └ <Thread(asyncio-portal-22d4a83d190, started daemon 49752)>
+  File "C:\Users\admin\AppData\Roaming\uv\python\cpython-3.12-windows-x86_64-none\Lib\threading.py", line 1012, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Thread(asyncio-portal-22d4a83d190, started daemon 49752)>
+    │    │        │    └ ()
+    │    │        └ <Thread(asyncio-portal-22d4a83d190, started daemon 49752)>
+    │    └ <function start_blocking_portal.<locals>.run_blocking_portal at 0x0000022D4A871800>
+    └ <Thread(asyncio-portal-22d4a83d190, started daemon 49752)>
+  File "D:\code_file\code_sandbox_service\.venv\Lib\site-packages\anyio\from_thread.py", line 536, in run_blocking_portal
+    run_eventloop(
+    └ <function run at 0x0000022D46801760>
+  File "D:\code_file\code_sandbox_service\.venv\Lib\site-packages\anyio\_core\_eventloop.py", line 83, in run
+    return async_backend.run(func, args, {}, backend_options)
+           │             │   │     │         └ {}
+           │             │   │     └ ()
+           │             │   └ <function start_blocking_portal.<locals>.run_portal at 0x0000022D4A8722A0>
+           │             └ <classmethod(<function AsyncIOBackend.run at 0x0000022D48363E20>)>
+           └ <class 'anyio._backends._asyncio.AsyncIOBackend'>
+  File "D:\code_file\code_sandbox_service\.venv\Lib\site-packages\anyio\_backends\_asyncio.py", line 2481, in run
+    return runner.run(wrapper())
+           │      │   └ <function start_blocking_portal.<locals>.run_portal at 0x0000022D4A81FA60>
+           │      └ <function Runner.run at 0x0000022D46CB2E80>
+           └ <asyncio.runners.Runner object at 0x0000022D4A905E50>
+  File "C:\Users\admin\AppData\Roaming\uv\python\cpython-3.12-windows-x86_64-none\Lib\asyncio\runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+           │    │     │                  └ <Task pending name='anyio.from_thread.start_blocking_portal.<locals>.run_portal' coro=<start_blocking_portal.<locals>.run_por...
+           │    │     └ <function BaseEventLoop.run_until_complete at 0x0000022D46CB0A40>
+           │    └ <ProactorEventLoop running=True closed=False debug=False>
+           └ <asyncio.runners.Runner object at 0x0000022D4A905E50>
+  File "C:\Users\admin\AppData\Roaming\uv\python\cpython-3.12-windows-x86_64-none\Lib\asyncio\base_events.py", line 678, in run_until_complete
+    self.run_forever()
+    │    └ <function ProactorEventLoop.run_forever at 0x0000022D48349E40>
+    └ <ProactorEventLoop running=True closed=False debug=False>
+  File "C:\Users\admin\AppData\Roaming\uv\python\cpython-3.12-windows-x86_64-none\Lib\asyncio\windows_events.py", line 322, in run_forever
+    super().run_forever()
+  File "C:\Users\admin\AppData\Roaming\uv\python\cpython-3.12-windows-x86_64-none\Lib\asyncio\base_events.py", line 645, in run_forever
+    self._run_once()
+    │    └ <function BaseEventLoop._run_once at 0x0000022D46CB27A0>
+    └ <ProactorEventLoop running=True closed=False debug=False>
+  File "C:\Users\admin\AppData\Roaming\uv\python\cpython-3.12-windows-x86_64-none\Lib\asyncio\base_events.py", line 1999, in _run_once
+    handle._run()
+    │      └ <function Handle._run at 0x0000022D46BE6A20>
+    └ <Handle Task.task_wakeup(<Future finished result=None>)>
+  File "C:\Users\admin\AppData\Roaming\uv\python\cpython-3.12-windows-x86_64-none\Lib\asyncio\events.py", line 88, in _run
+    self._context.run(self._callback, *self._args)
+    │    │            │    │           │    └ <member '_args' of 'Handle' objects>
+    │    │            │    │           └ <Handle Task.task_wakeup(<Future finished result=None>)>
+    │    │            │    └ <member '_callback' of 'Handle' objects>
+    │    │            └ <Handle Task.task_wakeup(<Future finished result=None>)>
+    │    └ <member '_context' of 'Handle' objects>
+    └ <Handle Task.task_wakeup(<Future finished result=None>)>
+  File "D:\code_file\code_sandbox_service\.venv\Lib\site-packages\anyio\_core\_tasks.py", line 275, in _run_coro
+    retval = await self._coro
+                   │    └ <member '_coro' of 'TaskHandle' objects>
+                   └ <TaskHandle pending name='starlette.middleware.base.BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.coro' coro=<corou...
+  File "D:\code_file\code_sandbox_service\.venv\Lib\site-packages\starlette\middleware\base.py", line 144, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+          │    │   │      │                      └ <function BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.send_no_error at 0x0000022D4A870A40>
+          │    │   │      └ <function BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.receive_or_disconnect at 0x0000022D4A870360>
+          │    │   └ {'type': 'http', 'http_version': '1.1', 'method': 'POST', 'path': '/execute', 'raw_path': b'/execute', 'root_path': '', 'sche...
+          │    └ <starlette.middleware.exceptions.ExceptionMiddleware object at 0x0000022D4A8E67E0>
+          └ <starlette.middleware.base.BaseHTTPMiddleware object at 0x0000022D4A8E4740>
+  File "D:\code_file\code_sandbox_service\.venv\Lib\site-packages\starlette\middleware\exceptions.py", line 63, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+          │                            │    │    │     │      │        └ <function BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.send_no_error at 0x0000022D4A870A40>
+          │                            │    │    │     │      └ <function BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.receive_or_disconnect at 0x0000022D4A870360>
+          │                            │    │    │     └ {'type': 'http', 'http_version': '1.1', 'method': 'POST', 'path': '/execute', 'raw_path': b'/execute', 'root_path': '', 'sche...
+          │                            │    │    └ <starlette.requests.Request object at 0x0000022D4A83D9A0>
+          │                            │    └ <fastapi.middleware.asyncexitstack.AsyncExitStackMiddleware object at 0x0000022D4A8E5B80>
+          │                            └ <starlette.middleware.exceptions.ExceptionMiddleware object at 0x0000022D4A8E67E0>
+          └ <function wrap_app_handling_exceptions at 0x0000022D49219D00>
+  File "D:\code_file\code_sandbox_service\.venv\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+          │   │      │        └ <function wrap_app_handling_exceptions.<locals>.wrapped_app.<locals>.sender at 0x0000022D4A872020>
+          │   │      └ <function BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.receive_or_disconnect at 0x0000022D4A870360>
+          │   └ {'type': 'http', 'http_version': '1.1', 'method': 'POST', 'path': '/execute', 'raw_path': b'/execute', 'root_path': '', 'sche...
+          └ <fastapi.middleware.asyncexitstack.AsyncExitStackMiddleware object at 0x0000022D4A8E5B80>
+  File "D:\code_file\code_sandbox_service\.venv\Lib\site-packages\fastapi\middleware\asyncexitstack.py", line 18, in __call__
+    await self.app(scope, receive, send)
+          │    │   │      │        └ <function wrap_app_handling_exceptions.<locals>.wrapped_app.<locals>.sender at 0x0000022D4A872020>
+          │    │   │      └ <function BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.receive_or_disconnect at 0x0000022D4A870360>
+          │    │   └ {'type': 'http', 'http_version': '1.1', 'method': 'POST', 'path': '/execute', 'raw_path': b'/execute', 'root_path': '', 'sche...
+          │    └ <fastapi.routing.APIRouter object at 0x0000022D4A8E7D40>
+          └ <fastapi.middleware.asyncexitstack.AsyncExitStackMiddleware object at 0x0000022D4A8E5B80>
+  File "D:\code_file\code_sandbox_service\.venv\Lib\site-packages\starlette\routing.py", line 660, in __call__
+    await self.middleware_stack(scope, receive, send)
+          │    │                │      │        └ <function wrap_app_handling_exceptions.<locals>.wrapped_app.<locals>.sender at 0x0000022D4A872020>
+          │    │                │      └ <function BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.receive_or_disconnect at 0x0000022D4A870360>
+          │    │                └ {'type': 'http', 'http_version': '1.1', 'method': 'POST', 'path': '/execute', 'raw_path': b'/execute', 'root_path': '', 'sche...
+          │    └ <bound method APIRouter.app of <fastapi.routing.APIRouter object at 0x0000022D4A8E7D40>>
+          └ <fastapi.routing.APIRouter object at 0x0000022D4A8E7D40>
+  File "D:\code_file\code_sandbox_service\.venv\Lib\site-packages\fastapi\routing.py", line 2685, in app
+    await route.handle(scope, receive, send)
+          │     │      │      │        └ <function wrap_app_handling_exceptions.<locals>.wrapped_app.<locals>.sender at 0x0000022D4A872020>
+          │     │      │      └ <function BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.receive_or_disconnect at 0x0000022D4A870360>
+          │     │      └ {'type': 'http', 'http_version': '1.1', 'method': 'POST', 'path': '/execute', 'raw_path': b'/execute', 'root_path': '', 'sche...
+          │     └ <function APIRoute.handle at 0x0000022D49242660>
+          └ APIRoute(path='/execute', name='execute_code', methods=['POST'])
+  File "D:\code_file\code_sandbox_service\.venv\Lib\site-packages\fastapi\routing.py", line 1267, in handle
+    await super().handle(scope, receive, send)
+                         │      │        └ <function wrap_app_handling_exceptions.<locals>.wrapped_app.<locals>.sender at 0x0000022D4A872020>
+                         │      └ <function BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.receive_or_disconnect at 0x0000022D4A870360>
+                         └ {'type': 'http', 'http_version': '1.1', 'method': 'POST', 'path': '/execute', 'raw_path': b'/execute', 'root_path': '', 'sche...
+  File "D:\code_file\code_sandbox_service\.venv\Lib\site-packages\starlette\routing.py", line 276, in handle
+    await self.app(scope, receive, send)
+          │    │   │      │        └ <function wrap_app_handling_exceptions.<locals>.wrapped_app.<locals>.sender at 0x0000022D4A872020>
+          │    │   │      └ <function BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.receive_or_disconnect at 0x0000022D4A870360>
+          │    │   └ {'type': 'http', 'http_version': '1.1', 'method': 'POST', 'path': '/execute', 'raw_path': b'/execute', 'root_path': '', 'sche...
+          │    └ <function request_response.<locals>.app at 0x0000022D4A873060>
+          └ APIRoute(path='/execute', name='execute_code', methods=['POST'])
+  File "D:\code_file\code_sandbox_service\.venv\Lib\site-packages\fastapi\routing.py", line 151, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+          │                            │    │        │      │        └ <function wrap_app_handling_exceptions.<locals>.wrapped_app.<locals>.sender at 0x0000022D4A872020>
+          │                            │    │        │      └ <function BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.receive_or_disconnect at 0x0000022D4A870360>
+          │                            │    │        └ {'type': 'http', 'http_version': '1.1', 'method': 'POST', 'path': '/execute', 'raw_path': b'/execute', 'root_path': '', 'sche...
+          │                            │    └ <starlette.requests.Request object at 0x0000022D4A83DA00>
+          │                            └ <function request_response.<locals>.app.<locals>.app at 0x0000022D4A870680>
+          └ <function wrap_app_handling_exceptions at 0x0000022D49219D00>
+  File "D:\code_file\code_sandbox_service\.venv\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+          │   │      │        └ <function wrap_app_handling_exceptions.<locals>.wrapped_app.<locals>.sender at 0x0000022D4A870D60>
+          │   │      └ <function BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.receive_or_disconnect at 0x0000022D4A870360>
+          │   └ {'type': 'http', 'http_version': '1.1', 'method': 'POST', 'path': '/execute', 'raw_path': b'/execute', 'root_path': '', 'sche...
+          └ <function request_response.<locals>.app.<locals>.app at 0x0000022D4A870680>
+  File "D:\code_file\code_sandbox_service\.venv\Lib\site-packages\fastapi\routing.py", line 137, in app
+    response = await f(request)
+                     │ └ <starlette.requests.Request object at 0x0000022D4A83DA00>
+                     └ <function get_request_handler.<locals>.app at 0x0000022D4A872F20>
+  File "D:\code_file\code_sandbox_service\.venv\Lib\site-packages\fastapi\routing.py", line 691, in app
+    raw_response = await run_endpoint_function(
+                         └ <function run_endpoint_function at 0x0000022D492419E0>
+  File "D:\code_file\code_sandbox_service\.venv\Lib\site-packages\fastapi\routing.py", line 345, in run_endpoint_function
+    return await dependant.call(**values)
+                 │         │      └ {'_': None, 'body': ExecuteRequest(date='2026-07-21', filename='broken.py', data_file='input.csv', timeout=None), 'request': ...
+                 │         └ <function create_app.<locals>.execute_code at 0x0000022D4A8704A0>
+                 └ Dependant(path_params=[], query_params=[], header_params=[], cookie_params=[], body_params=[ModelField(field_info=Body(Pydant...
+
+> File "D:\code_file\code_sandbox_service\src\sandbox\main.py", line 327, in execute_code
+    result = await application.state.executor.execute(script, data_file, timeout)
+                   │           │                      │       │          └ 60
+                   │           │                      │       └ WindowsPath('C:/Users/admin/AppData/Local/Temp/pytest-of-admin/pytest-960/test_unexpected_execute_error_0/data/input.csv')
+                   │           │                      └ WindowsPath('C:/Users/admin/AppData/Local/Temp/pytest-of-admin/pytest-960/test_unexpected_execute_error_0/2026-07-21/broken.py')
+                   │           └ <starlette.datastructures.State object at 0x0000022D4A8E42C0>
+                   └ <fastapi.applications.FastAPI object at 0x0000022D4A8E67B0>
+
+  File "D:\code_file\code_sandbox_service\tests\test_api.py", line 312, in execute
+    raise RuntimeError(f"secret path: {script}")
+                                       └ WindowsPath('C:/Users/admin/AppData/Local/Temp/pytest-of-admin/pytest-960/test_unexpected_execute_error_0/2026-07-21/broken.py')
+
+RuntimeError: secret path: C:\Users\admin\AppData\Local\Temp\pytest-of-admin\pytest-960\test_unexpected_execute_error_0\2026-07-21\broken.py
+2026-07-21 13:59:41.146 | ERROR    | sandbox.executor:_execute_isolated:165 - Subprocess PID=%d timed out after %.2fs. Initiating process tree termination...
+2026-07-21 13:59:42.221 | ERROR    | sandbox.executor:_execute_isolated:165 - Subprocess PID=%d timed out after %.2fs. Initiating process tree termination...
+2026-07-21 14:02:27.032 | ERROR    | sandbox.main:execute_code:342 - Execution failed unexpectedly (500): filename=broken.py request_id=e1eed7b884724750acae8a59ea3acfec
+Traceback (most recent call last):
+
+  File "C:\Users\admin\AppData\Roaming\uv\python\cpython-3.12-windows-x86_64-none\Lib\threading.py", line 1032, in _bootstrap
+    self._bootstrap_inner()
+    │    └ <function Thread._bootstrap_inner at 0x000001BC2E4B51C0>
+    └ <Thread(asyncio-portal-1bc330ea480, started daemon 39080)>
+  File "C:\Users\admin\AppData\Roaming\uv\python\cpython-3.12-windows-x86_64-none\Lib\threading.py", line 1075, in _bootstrap_inner
+    self.run()
+    │    └ <function Thread.run at 0x000001BC2E4B4EA0>
+    └ <Thread(asyncio-portal-1bc330ea480, started daemon 39080)>
+  File "C:\Users\admin\AppData\Roaming\uv\python\cpython-3.12-windows-x86_64-none\Lib\threading.py", line 1012, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Thread(asyncio-portal-1bc330ea480, started daemon 39080)>
+    │    │        │    └ ()
+    │    │        └ <Thread(asyncio-portal-1bc330ea480, started daemon 39080)>
+    │    └ <function start_blocking_portal.<locals>.run_blocking_portal at 0x000001BC33052AC0>
+    └ <Thread(asyncio-portal-1bc330ea480, started daemon 39080)>
+  File "D:\code_file\code_sandbox_service\.venv\Lib\site-packages\anyio\from_thread.py", line 536, in run_blocking_portal
+    run_eventloop(
+    └ <function run at 0x000001BC2EFE1760>
+  File "D:\code_file\code_sandbox_service\.venv\Lib\site-packages\anyio\_core\_eventloop.py", line 83, in run
+    return async_backend.run(func, args, {}, backend_options)
+           │             │   │     │         └ {}
+           │             │   │     └ ()
+           │             │   └ <function start_blocking_portal.<locals>.run_portal at 0x000001BC33051260>
+           │             └ <classmethod(<function AsyncIOBackend.run at 0x000001BC30B13E20>)>
+           └ <class 'anyio._backends._asyncio.AsyncIOBackend'>
+  File "D:\code_file\code_sandbox_service\.venv\Lib\site-packages\anyio\_backends\_asyncio.py", line 2481, in run
+    return runner.run(wrapper())
+           │      │   └ <function start_blocking_portal.<locals>.run_portal at 0x000001BC32FFED40>
+           │      └ <function Runner.run at 0x000001BC30A92E80>
+           └ <asyncio.runners.Runner object at 0x000001BC330EBCB0>
+  File "C:\Users\admin\AppData\Roaming\uv\python\cpython-3.12-windows-x86_64-none\Lib\asyncio\runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+           │    │     │                  └ <Task pending name='anyio.from_thread.start_blocking_portal.<locals>.run_portal' coro=<start_blocking_portal.<locals>.run_por...
+           │    │     └ <function BaseEventLoop.run_until_complete at 0x000001BC30A90A40>
+           │    └ <ProactorEventLoop running=True closed=False debug=False>
+           └ <asyncio.runners.Runner object at 0x000001BC330EBCB0>
+  File "C:\Users\admin\AppData\Roaming\uv\python\cpython-3.12-windows-x86_64-none\Lib\asyncio\base_events.py", line 678, in run_until_complete
+    self.run_forever()
+    │    └ <function ProactorEventLoop.run_forever at 0x000001BC30AF9E40>
+    └ <ProactorEventLoop running=True closed=False debug=False>
+  File "C:\Users\admin\AppData\Roaming\uv\python\cpython-3.12-windows-x86_64-none\Lib\asyncio\windows_events.py", line 322, in run_forever
+    super().run_forever()
+  File "C:\Users\admin\AppData\Roaming\uv\python\cpython-3.12-windows-x86_64-none\Lib\asyncio\base_events.py", line 645, in run_forever
+    self._run_once()
+    │    └ <function BaseEventLoop._run_once at 0x000001BC30A927A0>
+    └ <ProactorEventLoop running=True closed=False debug=False>
+  File "C:\Users\admin\AppData\Roaming\uv\python\cpython-3.12-windows-x86_64-none\Lib\asyncio\base_events.py", line 1999, in _run_once
+    handle._run()
+    │      └ <function Handle._run at 0x000001BC309C6A20>
+    └ <Handle Task.task_wakeup(<Future finished result=None>)>
+  File "C:\Users\admin\AppData\Roaming\uv\python\cpython-3.12-windows-x86_64-none\Lib\asyncio\events.py", line 88, in _run
+    self._context.run(self._callback, *self._args)
+    │    │            │    │           │    └ <member '_args' of 'Handle' objects>
+    │    │            │    │           └ <Handle Task.task_wakeup(<Future finished result=None>)>
+    │    │            │    └ <member '_callback' of 'Handle' objects>
+    │    │            └ <Handle Task.task_wakeup(<Future finished result=None>)>
+    │    └ <member '_context' of 'Handle' objects>
+    └ <Handle Task.task_wakeup(<Future finished result=None>)>
+  File "D:\code_file\code_sandbox_service\.venv\Lib\site-packages\anyio\_core\_tasks.py", line 275, in _run_coro
+    retval = await self._coro
+                   │    └ <member '_coro' of 'TaskHandle' objects>
+                   └ <TaskHandle pending name='starlette.middleware.base.BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.coro' coro=<corou...
+  File "D:\code_file\code_sandbox_service\.venv\Lib\site-packages\starlette\middleware\base.py", line 144, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+          │    │   │      │                      └ <function BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.send_no_error at 0x000001BC33052CA0>
+          │    │   │      └ <function BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.receive_or_disconnect at 0x000001BC330504A0>
+          │    │   └ {'type': 'http', 'http_version': '1.1', 'method': 'POST', 'path': '/execute', 'raw_path': b'/execute', 'root_path': '', 'sche...
+          │    └ <starlette.middleware.exceptions.ExceptionMiddleware object at 0x000001BC330C7110>
+          └ <starlette.middleware.base.BaseHTTPMiddleware object at 0x000001BC330C5CA0>
+  File "D:\code_file\code_sandbox_service\.venv\Lib\site-packages\starlette\middleware\exceptions.py", line 63, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+          │                            │    │    │     │      │        └ <function BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.send_no_error at 0x000001BC33052CA0>
+          │                            │    │    │     │      └ <function BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.receive_or_disconnect at 0x000001BC330504A0>
+          │                            │    │    │     └ {'type': 'http', 'http_version': '1.1', 'method': 'POST', 'path': '/execute', 'raw_path': b'/execute', 'root_path': '', 'sche...
+          │                            │    │    └ <starlette.requests.Request object at 0x000001BC330E9E20>
+          │                            │    └ <fastapi.middleware.asyncexitstack.AsyncExitStackMiddleware object at 0x000001BC330C47A0>
+          │                            └ <starlette.middleware.exceptions.ExceptionMiddleware object at 0x000001BC330C7110>
+          └ <function wrap_app_handling_exceptions at 0x000001BC319D9D00>
+  File "D:\code_file\code_sandbox_service\.venv\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+          │   │      │        └ <function wrap_app_handling_exceptions.<locals>.wrapped_app.<locals>.sender at 0x000001BC33052DE0>
+          │   │      └ <function BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.receive_or_disconnect at 0x000001BC330504A0>
+          │   └ {'type': 'http', 'http_version': '1.1', 'method': 'POST', 'path': '/execute', 'raw_path': b'/execute', 'root_path': '', 'sche...
+          └ <fastapi.middleware.asyncexitstack.AsyncExitStackMiddleware object at 0x000001BC330C47A0>
+  File "D:\code_file\code_sandbox_service\.venv\Lib\site-packages\fastapi\middleware\asyncexitstack.py", line 18, in __call__
+    await self.app(scope, receive, send)
+          │    │   │      │        └ <function wrap_app_handling_exceptions.<locals>.wrapped_app.<locals>.sender at 0x000001BC33052DE0>
+          │    │   │      └ <function BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.receive_or_disconnect at 0x000001BC330504A0>
+          │    │   └ {'type': 'http', 'http_version': '1.1', 'method': 'POST', 'path': '/execute', 'raw_path': b'/execute', 'root_path': '', 'sche...
+          │    └ <fastapi.routing.APIRouter object at 0x000001BC330C47D0>
+          └ <fastapi.middleware.asyncexitstack.AsyncExitStackMiddleware object at 0x000001BC330C47A0>
+  File "D:\code_file\code_sandbox_service\.venv\Lib\site-packages\starlette\routing.py", line 660, in __call__
+    await self.middleware_stack(scope, receive, send)
+          │    │                │      │        └ <function wrap_app_handling_exceptions.<locals>.wrapped_app.<locals>.sender at 0x000001BC33052DE0>
+          │    │                │      └ <function BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.receive_or_disconnect at 0x000001BC330504A0>
+          │    │                └ {'type': 'http', 'http_version': '1.1', 'method': 'POST', 'path': '/execute', 'raw_path': b'/execute', 'root_path': '', 'sche...
+          │    └ <bound method APIRouter.app of <fastapi.routing.APIRouter object at 0x000001BC330C47D0>>
+          └ <fastapi.routing.APIRouter object at 0x000001BC330C47D0>
+  File "D:\code_file\code_sandbox_service\.venv\Lib\site-packages\fastapi\routing.py", line 2685, in app
+    await route.handle(scope, receive, send)
+          │     │      │      │        └ <function wrap_app_handling_exceptions.<locals>.wrapped_app.<locals>.sender at 0x000001BC33052DE0>
+          │     │      │      └ <function BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.receive_or_disconnect at 0x000001BC330504A0>
+          │     │      └ {'type': 'http', 'http_version': '1.1', 'method': 'POST', 'path': '/execute', 'raw_path': b'/execute', 'root_path': '', 'sche...
+          │     └ <function APIRoute.handle at 0x000001BC31A02660>
+          └ APIRoute(path='/execute', name='execute_code', methods=['POST'])
+  File "D:\code_file\code_sandbox_service\.venv\Lib\site-packages\fastapi\routing.py", line 1267, in handle
+    await super().handle(scope, receive, send)
+                         │      │        └ <function wrap_app_handling_exceptions.<locals>.wrapped_app.<locals>.sender at 0x000001BC33052DE0>
+                         │      └ <function BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.receive_or_disconnect at 0x000001BC330504A0>
+                         └ {'type': 'http', 'http_version': '1.1', 'method': 'POST', 'path': '/execute', 'raw_path': b'/execute', 'root_path': '', 'sche...
+  File "D:\code_file\code_sandbox_service\.venv\Lib\site-packages\starlette\routing.py", line 276, in handle
+    await self.app(scope, receive, send)
+          │    │   │      │        └ <function wrap_app_handling_exceptions.<locals>.wrapped_app.<locals>.sender at 0x000001BC33052DE0>
+          │    │   │      └ <function BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.receive_or_disconnect at 0x000001BC330504A0>
+          │    │   └ {'type': 'http', 'http_version': '1.1', 'method': 'POST', 'path': '/execute', 'raw_path': b'/execute', 'root_path': '', 'sche...
+          │    └ <function request_response.<locals>.app at 0x000001BC33052FC0>
+          └ APIRoute(path='/execute', name='execute_code', methods=['POST'])
+  File "D:\code_file\code_sandbox_service\.venv\Lib\site-packages\fastapi\routing.py", line 151, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+          │                            │    │        │      │        └ <function wrap_app_handling_exceptions.<locals>.wrapped_app.<locals>.sender at 0x000001BC33052DE0>
+          │                            │    │        │      └ <function BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.receive_or_disconnect at 0x000001BC330504A0>
+          │                            │    │        └ {'type': 'http', 'http_version': '1.1', 'method': 'POST', 'path': '/execute', 'raw_path': b'/execute', 'root_path': '', 'sche...
+          │                            │    └ <starlette.requests.Request object at 0x000001BC32FE6CF0>
+          │                            └ <function request_response.<locals>.app.<locals>.app at 0x000001BC33052F20>
+          └ <function wrap_app_handling_exceptions at 0x000001BC319D9D00>
+  File "D:\code_file\code_sandbox_service\.venv\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+          │   │      │        └ <function wrap_app_handling_exceptions.<locals>.wrapped_app.<locals>.sender at 0x000001BC33050180>
+          │   │      └ <function BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.receive_or_disconnect at 0x000001BC330504A0>
+          │   └ {'type': 'http', 'http_version': '1.1', 'method': 'POST', 'path': '/execute', 'raw_path': b'/execute', 'root_path': '', 'sche...
+          └ <function request_response.<locals>.app.<locals>.app at 0x000001BC33052F20>
+  File "D:\code_file\code_sandbox_service\.venv\Lib\site-packages\fastapi\routing.py", line 137, in app
+    response = await f(request)
+                     │ └ <starlette.requests.Request object at 0x000001BC32FE6CF0>
+                     └ <function get_request_handler.<locals>.app at 0x000001BC33051440>
+  File "D:\code_file\code_sandbox_service\.venv\Lib\site-packages\fastapi\routing.py", line 691, in app
+    raw_response = await run_endpoint_function(
+                         └ <function run_endpoint_function at 0x000001BC31A019E0>
+  File "D:\code_file\code_sandbox_service\.venv\Lib\site-packages\fastapi\routing.py", line 345, in run_endpoint_function
+    return await dependant.call(**values)
+                 │         │      └ {'_': None, 'body': ExecuteRequest(date='2026-07-21', filename='broken.py', data_file='input.csv', timeout=None), 'request': ...
+                 │         └ <function create_app.<locals>.execute_code at 0x000001BC33053BA0>
+                 └ Dependant(path_params=[], query_params=[], header_params=[], cookie_params=[], body_params=[ModelField(field_info=Body(Pydant...
+
+> File "D:\code_file\code_sandbox_service\src\sandbox\main.py", line 327, in execute_code
+    result = await application.state.executor.execute(script, data_file, timeout)
+                   │           │                      │       │          └ 60
+                   │           │                      │       └ WindowsPath('C:/Users/admin/AppData/Local/Temp/pytest-of-admin/pytest-961/test_unexpected_execute_error_0/data/input.csv')
+                   │           │                      └ WindowsPath('C:/Users/admin/AppData/Local/Temp/pytest-of-admin/pytest-961/test_unexpected_execute_error_0/2026-07-21/broken.py')
+                   │           └ <starlette.datastructures.State object at 0x000001BC330C79E0>
+                   └ <fastapi.applications.FastAPI object at 0x000001BC330C7FB0>
+
+  File "D:\code_file\code_sandbox_service\tests\test_api.py", line 312, in execute
+    raise RuntimeError(f"secret path: {script}")
+                                       └ WindowsPath('C:/Users/admin/AppData/Local/Temp/pytest-of-admin/pytest-961/test_unexpected_execute_error_0/2026-07-21/broken.py')
+
+RuntimeError: secret path: C:\Users\admin\AppData\Local\Temp\pytest-of-admin\pytest-961\test_unexpected_execute_error_0\2026-07-21\broken.py
+2026-07-21 14:02:27.516 | ERROR    | sandbox.executor:_execute_isolated:165 - Subprocess PID=%d timed out after %.2fs. Initiating process tree termination...
+2026-07-21 14:02:28.623 | ERROR    | sandbox.executor:_execute_isolated:165 - Subprocess PID=%d timed out after %.2fs. Initiating process tree termination...
+2026-07-21 14:04:50.570 | ERROR    | sandbox.main:execute_code:342 - Execution failed unexpectedly (500): filename=broken.py request_id=9a407f7e87e7438fa0b671d02b542506
+Traceback (most recent call last):
+
+  File "C:\Users\admin\AppData\Roaming\uv\python\cpython-3.12-windows-x86_64-none\Lib\threading.py", line 1032, in _bootstrap
+    self._bootstrap_inner()
+    │    └ <function Thread._bootstrap_inner at 0x00000265317151C0>
+    └ <Thread(asyncio-portal-26536344230, started daemon 9576)>
+  File "C:\Users\admin\AppData\Roaming\uv\python\cpython-3.12-windows-x86_64-none\Lib\threading.py", line 1075, in _bootstrap_inner
+    self.run()
+    │    └ <function Thread.run at 0x0000026531714EA0>
+    └ <Thread(asyncio-portal-26536344230, started daemon 9576)>
+  File "C:\Users\admin\AppData\Roaming\uv\python\cpython-3.12-windows-x86_64-none\Lib\threading.py", line 1012, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Thread(asyncio-portal-26536344230, started daemon 9576)>
+    │    │        │    └ ()
+    │    │        └ <Thread(asyncio-portal-26536344230, started daemon 9576)>
+    │    └ <function start_blocking_portal.<locals>.run_blocking_portal at 0x00000265362A2520>
+    └ <Thread(asyncio-portal-26536344230, started daemon 9576)>
+  File "D:\code_file\code_sandbox_service\.venv\Lib\site-packages\anyio\from_thread.py", line 536, in run_blocking_portal
+    run_eventloop(
+    └ <function run at 0x0000026532231760>
+  File "D:\code_file\code_sandbox_service\.venv\Lib\site-packages\anyio\_core\_eventloop.py", line 83, in run
+    return async_backend.run(func, args, {}, backend_options)
+           │             │   │     │         └ {}
+           │             │   │     └ ()
+           │             │   └ <function start_blocking_portal.<locals>.run_portal at 0x00000265362A2660>
+           │             └ <classmethod(<function AsyncIOBackend.run at 0x0000026533D73E20>)>
+           └ <class 'anyio._backends._asyncio.AsyncIOBackend'>
+  File "D:\code_file\code_sandbox_service\.venv\Lib\site-packages\anyio\_backends\_asyncio.py", line 2481, in run
+    return runner.run(wrapper())
+           │      │   └ <function start_blocking_portal.<locals>.run_portal at 0x00000265362A3E20>
+           │      └ <function Runner.run at 0x0000026533CF2E80>
+           └ <asyncio.runners.Runner object at 0x00000265363471D0>
+  File "C:\Users\admin\AppData\Roaming\uv\python\cpython-3.12-windows-x86_64-none\Lib\asyncio\runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+           │    │     │                  └ <Task pending name='anyio.from_thread.start_blocking_portal.<locals>.run_portal' coro=<start_blocking_portal.<locals>.run_por...
+           │    │     └ <function BaseEventLoop.run_until_complete at 0x0000026533CF0A40>
+           │    └ <ProactorEventLoop running=True closed=False debug=False>
+           └ <asyncio.runners.Runner object at 0x00000265363471D0>
+  File "C:\Users\admin\AppData\Roaming\uv\python\cpython-3.12-windows-x86_64-none\Lib\asyncio\base_events.py", line 678, in run_until_complete
+    self.run_forever()
+    │    └ <function ProactorEventLoop.run_forever at 0x0000026533D59E40>
+    └ <ProactorEventLoop running=True closed=False debug=False>
+  File "C:\Users\admin\AppData\Roaming\uv\python\cpython-3.12-windows-x86_64-none\Lib\asyncio\windows_events.py", line 322, in run_forever
+    super().run_forever()
+  File "C:\Users\admin\AppData\Roaming\uv\python\cpython-3.12-windows-x86_64-none\Lib\asyncio\base_events.py", line 645, in run_forever
+    self._run_once()
+    │    └ <function BaseEventLoop._run_once at 0x0000026533CF27A0>
+    └ <ProactorEventLoop running=True closed=False debug=False>
+  File "C:\Users\admin\AppData\Roaming\uv\python\cpython-3.12-windows-x86_64-none\Lib\asyncio\base_events.py", line 1999, in _run_once
+    handle._run()
+    │      └ <function Handle._run at 0x0000026533C26A20>
+    └ <Handle Task.task_wakeup(<Future finished result=None>)>
+  File "C:\Users\admin\AppData\Roaming\uv\python\cpython-3.12-windows-x86_64-none\Lib\asyncio\events.py", line 88, in _run
+    self._context.run(self._callback, *self._args)
+    │    │            │    │           │    └ <member '_args' of 'Handle' objects>
+    │    │            │    │           └ <Handle Task.task_wakeup(<Future finished result=None>)>
+    │    │            │    └ <member '_callback' of 'Handle' objects>
+    │    │            └ <Handle Task.task_wakeup(<Future finished result=None>)>
+    │    └ <member '_context' of 'Handle' objects>
+    └ <Handle Task.task_wakeup(<Future finished result=None>)>
+  File "D:\code_file\code_sandbox_service\.venv\Lib\site-packages\anyio\_core\_tasks.py", line 275, in _run_coro
+    retval = await self._coro
+                   │    └ <member '_coro' of 'TaskHandle' objects>
+                   └ <TaskHandle pending name='starlette.middleware.base.BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.coro' coro=<corou...
+  File "D:\code_file\code_sandbox_service\.venv\Lib\site-packages\starlette\middleware\base.py", line 144, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+          │    │   │      │                      └ <function BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.send_no_error at 0x00000265362A18A0>
+          │    │   │      └ <function BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.receive_or_disconnect at 0x00000265362A16C0>
+          │    │   └ {'type': 'http', 'http_version': '1.1', 'method': 'POST', 'path': '/execute', 'raw_path': b'/execute', 'root_path': '', 'sche...
+          │    └ <starlette.middleware.exceptions.ExceptionMiddleware object at 0x000002653620A4E0>
+          └ <starlette.middleware.base.BaseHTTPMiddleware object at 0x000002653620A9C0>
+  File "D:\code_file\code_sandbox_service\.venv\Lib\site-packages\starlette\middleware\exceptions.py", line 63, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+          │                            │    │    │     │      │        └ <function BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.send_no_error at 0x00000265362A18A0>
+          │                            │    │    │     │      └ <function BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.receive_or_disconnect at 0x00000265362A16C0>
+          │                            │    │    │     └ {'type': 'http', 'http_version': '1.1', 'method': 'POST', 'path': '/execute', 'raw_path': b'/execute', 'root_path': '', 'sche...
+          │                            │    │    └ <starlette.requests.Request object at 0x00000265362739B0>
+          │                            │    └ <fastapi.middleware.asyncexitstack.AsyncExitStackMiddleware object at 0x000002653620A990>
+          │                            └ <starlette.middleware.exceptions.ExceptionMiddleware object at 0x000002653620A4E0>
+          └ <function wrap_app_handling_exceptions at 0x0000026534C29D00>
+  File "D:\code_file\code_sandbox_service\.venv\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+          │   │      │        └ <function wrap_app_handling_exceptions.<locals>.wrapped_app.<locals>.sender at 0x00000265362A34C0>
+          │   │      └ <function BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.receive_or_disconnect at 0x00000265362A16C0>
+          │   └ {'type': 'http', 'http_version': '1.1', 'method': 'POST', 'path': '/execute', 'raw_path': b'/execute', 'root_path': '', 'sche...
+          └ <fastapi.middleware.asyncexitstack.AsyncExitStackMiddleware object at 0x000002653620A990>
+  File "D:\code_file\code_sandbox_service\.venv\Lib\site-packages\fastapi\middleware\asyncexitstack.py", line 18, in __call__
+    await self.app(scope, receive, send)
+          │    │   │      │        └ <function wrap_app_handling_exceptions.<locals>.wrapped_app.<locals>.sender at 0x00000265362A34C0>
+          │    │   │      └ <function BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.receive_or_disconnect at 0x00000265362A16C0>
+          │    │   └ {'type': 'http', 'http_version': '1.1', 'method': 'POST', 'path': '/execute', 'raw_path': b'/execute', 'root_path': '', 'sche...
+          │    └ <fastapi.routing.APIRouter object at 0x0000026536330C50>
+          └ <fastapi.middleware.asyncexitstack.AsyncExitStackMiddleware object at 0x000002653620A990>
+  File "D:\code_file\code_sandbox_service\.venv\Lib\site-packages\starlette\routing.py", line 660, in __call__
+    await self.middleware_stack(scope, receive, send)
+          │    │                │      │        └ <function wrap_app_handling_exceptions.<locals>.wrapped_app.<locals>.sender at 0x00000265362A34C0>
+          │    │                │      └ <function BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.receive_or_disconnect at 0x00000265362A16C0>
+          │    │                └ {'type': 'http', 'http_version': '1.1', 'method': 'POST', 'path': '/execute', 'raw_path': b'/execute', 'root_path': '', 'sche...
+          │    └ <bound method APIRouter.app of <fastapi.routing.APIRouter object at 0x0000026536330C50>>
+          └ <fastapi.routing.APIRouter object at 0x0000026536330C50>
+  File "D:\code_file\code_sandbox_service\.venv\Lib\site-packages\fastapi\routing.py", line 2685, in app
+    await route.handle(scope, receive, send)
+          │     │      │      │        └ <function wrap_app_handling_exceptions.<locals>.wrapped_app.<locals>.sender at 0x00000265362A34C0>
+          │     │      │      └ <function BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.receive_or_disconnect at 0x00000265362A16C0>
+          │     │      └ {'type': 'http', 'http_version': '1.1', 'method': 'POST', 'path': '/execute', 'raw_path': b'/execute', 'root_path': '', 'sche...
+          │     └ <function APIRoute.handle at 0x0000026534C52660>
+          └ APIRoute(path='/execute', name='execute_code', methods=['POST'])
+  File "D:\code_file\code_sandbox_service\.venv\Lib\site-packages\fastapi\routing.py", line 1267, in handle
+    await super().handle(scope, receive, send)
+                         │      │        └ <function wrap_app_handling_exceptions.<locals>.wrapped_app.<locals>.sender at 0x00000265362A34C0>
+                         │      └ <function BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.receive_or_disconnect at 0x00000265362A16C0>
+                         └ {'type': 'http', 'http_version': '1.1', 'method': 'POST', 'path': '/execute', 'raw_path': b'/execute', 'root_path': '', 'sche...
+  File "D:\code_file\code_sandbox_service\.venv\Lib\site-packages\starlette\routing.py", line 276, in handle
+    await self.app(scope, receive, send)
+          │    │   │      │        └ <function wrap_app_handling_exceptions.<locals>.wrapped_app.<locals>.sender at 0x00000265362A34C0>
+          │    │   │      └ <function BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.receive_or_disconnect at 0x00000265362A16C0>
+          │    │   └ {'type': 'http', 'http_version': '1.1', 'method': 'POST', 'path': '/execute', 'raw_path': b'/execute', 'root_path': '', 'sche...
+          │    └ <function request_response.<locals>.app at 0x00000265362A2020>
+          └ APIRoute(path='/execute', name='execute_code', methods=['POST'])
+  File "D:\code_file\code_sandbox_service\.venv\Lib\site-packages\fastapi\routing.py", line 151, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+          │                            │    │        │      │        └ <function wrap_app_handling_exceptions.<locals>.wrapped_app.<locals>.sender at 0x00000265362A34C0>
+          │                            │    │        │      └ <function BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.receive_or_disconnect at 0x00000265362A16C0>
+          │                            │    │        └ {'type': 'http', 'http_version': '1.1', 'method': 'POST', 'path': '/execute', 'raw_path': b'/execute', 'root_path': '', 'sche...
+          │                            │    └ <starlette.requests.Request object at 0x00000265362734D0>
+          │                            └ <function request_response.<locals>.app.<locals>.app at 0x00000265362A0CC0>
+          └ <function wrap_app_handling_exceptions at 0x0000026534C29D00>
+  File "D:\code_file\code_sandbox_service\.venv\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+          │   │      │        └ <function wrap_app_handling_exceptions.<locals>.wrapped_app.<locals>.sender at 0x00000265362A0360>
+          │   │      └ <function BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.receive_or_disconnect at 0x00000265362A16C0>
+          │   └ {'type': 'http', 'http_version': '1.1', 'method': 'POST', 'path': '/execute', 'raw_path': b'/execute', 'root_path': '', 'sche...
+          └ <function request_response.<locals>.app.<locals>.app at 0x00000265362A0CC0>
+  File "D:\code_file\code_sandbox_service\.venv\Lib\site-packages\fastapi\routing.py", line 137, in app
+    response = await f(request)
+                     │ └ <starlette.requests.Request object at 0x00000265362734D0>
+                     └ <function get_request_handler.<locals>.app at 0x00000265362A1D00>
+  File "D:\code_file\code_sandbox_service\.venv\Lib\site-packages\fastapi\routing.py", line 691, in app
+    raw_response = await run_endpoint_function(
+                         └ <function run_endpoint_function at 0x0000026534C519E0>
+  File "D:\code_file\code_sandbox_service\.venv\Lib\site-packages\fastapi\routing.py", line 345, in run_endpoint_function
+    return await dependant.call(**values)
+                 │         │      └ {'_': None, 'body': ExecuteRequest(date='2026-07-21', filename='broken.py', data_file='input.csv', timeout=None), 'request': ...
+                 │         └ <function create_app.<locals>.execute_code at 0x00000265362A0040>
+                 └ Dependant(path_params=[], query_params=[], header_params=[], cookie_params=[], body_params=[ModelField(field_info=Body(Pydant...
+
+> File "D:\code_file\code_sandbox_service\src\sandbox\main.py", line 327, in execute_code
+    result = await application.state.executor.execute(script, data_file, timeout)
+                   │           │                      │       │          └ 60
+                   │           │                      │       └ WindowsPath('C:/Users/admin/AppData/Local/Temp/pytest-of-admin/pytest-962/test_unexpected_execute_error_0/data/input.csv')
+                   │           │                      └ WindowsPath('C:/Users/admin/AppData/Local/Temp/pytest-of-admin/pytest-962/test_unexpected_execute_error_0/2026-07-21/broken.py')
+                   │           └ <starlette.datastructures.State object at 0x0000026536331490>
+                   └ <fastapi.applications.FastAPI object at 0x0000026536333A10>
+
+  File "D:\code_file\code_sandbox_service\tests\test_api.py", line 312, in execute
+    raise RuntimeError(f"secret path: {script}")
+                                       └ WindowsPath('C:/Users/admin/AppData/Local/Temp/pytest-of-admin/pytest-962/test_unexpected_execute_error_0/2026-07-21/broken.py')
+
+RuntimeError: secret path: C:\Users\admin\AppData\Local\Temp\pytest-of-admin\pytest-962\test_unexpected_execute_error_0\2026-07-21\broken.py
+2026-07-21 14:04:51.166 | ERROR    | sandbox.executor:_execute_isolated:159 - Subprocess PID=%d timed out after %.2fs. Initiating process tree termination...
+2026-07-21 14:04:52.287 | ERROR    | sandbox.executor:_execute_isolated:159 - Subprocess PID=%d timed out after %.2fs. Initiating process tree termination...
+2026-07-21 14:05:20.821 | ERROR    | sandbox.main:execute_code:342 - Execution failed unexpectedly (500): filename=broken.py request_id=916aa38da2b84ac6a61497b77557cc42
+Traceback (most recent call last):
+
+  File "C:\Users\admin\AppData\Roaming\uv\python\cpython-3.12-windows-x86_64-none\Lib\threading.py", line 1032, in _bootstrap
+    self._bootstrap_inner()
+    │    └ <function Thread._bootstrap_inner at 0x00000202316551C0>
+    └ <Thread(asyncio-portal-2023620be00, started daemon 49252)>
+  File "C:\Users\admin\AppData\Roaming\uv\python\cpython-3.12-windows-x86_64-none\Lib\threading.py", line 1075, in _bootstrap_inner
+    self.run()
+    │    └ <function Thread.run at 0x0000020231654EA0>
+    └ <Thread(asyncio-portal-2023620be00, started daemon 49252)>
+  File "C:\Users\admin\AppData\Roaming\uv\python\cpython-3.12-windows-x86_64-none\Lib\threading.py", line 1012, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Thread(asyncio-portal-2023620be00, started daemon 49252)>
+    │    │        │    └ ()
+    │    │        └ <Thread(asyncio-portal-2023620be00, started daemon 49252)>
+    │    └ <function start_blocking_portal.<locals>.run_blocking_portal at 0x0000020236240AE0>
+    └ <Thread(asyncio-portal-2023620be00, started daemon 49252)>
+  File "D:\code_file\code_sandbox_service\.venv\Lib\site-packages\anyio\from_thread.py", line 536, in run_blocking_portal
+    run_eventloop(
+    └ <function run at 0x00000202321D1760>
+  File "D:\code_file\code_sandbox_service\.venv\Lib\site-packages\anyio\_core\_eventloop.py", line 83, in run
+    return async_backend.run(func, args, {}, backend_options)
+           │             │   │     │         └ {}
+           │             │   │     └ ()
+           │             │   └ <function start_blocking_portal.<locals>.run_portal at 0x0000020236242E80>
+           │             └ <classmethod(<function AsyncIOBackend.run at 0x0000020233D03E20>)>
+           └ <class 'anyio._backends._asyncio.AsyncIOBackend'>
+  File "D:\code_file\code_sandbox_service\.venv\Lib\site-packages\anyio\_backends\_asyncio.py", line 2481, in run
+    return runner.run(wrapper())
+           │      │   └ <function start_blocking_portal.<locals>.run_portal at 0x00000202361EBF60>
+           │      └ <function Runner.run at 0x0000020233C82E80>
+           └ <asyncio.runners.Runner object at 0x00000202362CC9B0>
+  File "C:\Users\admin\AppData\Roaming\uv\python\cpython-3.12-windows-x86_64-none\Lib\asyncio\runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+           │    │     │                  └ <Task pending name='anyio.from_thread.start_blocking_portal.<locals>.run_portal' coro=<start_blocking_portal.<locals>.run_por...
+           │    │     └ <function BaseEventLoop.run_until_complete at 0x0000020233C80A40>
+           │    └ <ProactorEventLoop running=True closed=False debug=False>
+           └ <asyncio.runners.Runner object at 0x00000202362CC9B0>
+  File "C:\Users\admin\AppData\Roaming\uv\python\cpython-3.12-windows-x86_64-none\Lib\asyncio\base_events.py", line 678, in run_until_complete
+    self.run_forever()
+    │    └ <function ProactorEventLoop.run_forever at 0x0000020233CE9E40>
+    └ <ProactorEventLoop running=True closed=False debug=False>
+  File "C:\Users\admin\AppData\Roaming\uv\python\cpython-3.12-windows-x86_64-none\Lib\asyncio\windows_events.py", line 322, in run_forever
+    super().run_forever()
+  File "C:\Users\admin\AppData\Roaming\uv\python\cpython-3.12-windows-x86_64-none\Lib\asyncio\base_events.py", line 645, in run_forever
+    self._run_once()
+    │    └ <function BaseEventLoop._run_once at 0x0000020233C827A0>
+    └ <ProactorEventLoop running=True closed=False debug=False>
+  File "C:\Users\admin\AppData\Roaming\uv\python\cpython-3.12-windows-x86_64-none\Lib\asyncio\base_events.py", line 1999, in _run_once
+    handle._run()
+    │      └ <function Handle._run at 0x0000020233BB6A20>
+    └ <Handle Task.task_wakeup(<Future finished result=None>)>
+  File "C:\Users\admin\AppData\Roaming\uv\python\cpython-3.12-windows-x86_64-none\Lib\asyncio\events.py", line 88, in _run
+    self._context.run(self._callback, *self._args)
+    │    │            │    │           │    └ <member '_args' of 'Handle' objects>
+    │    │            │    │           └ <Handle Task.task_wakeup(<Future finished result=None>)>
+    │    │            │    └ <member '_callback' of 'Handle' objects>
+    │    │            └ <Handle Task.task_wakeup(<Future finished result=None>)>
+    │    └ <member '_context' of 'Handle' objects>
+    └ <Handle Task.task_wakeup(<Future finished result=None>)>
+  File "D:\code_file\code_sandbox_service\.venv\Lib\site-packages\anyio\_core\_tasks.py", line 275, in _run_coro
+    retval = await self._coro
+                   │    └ <member '_coro' of 'TaskHandle' objects>
+                   └ <TaskHandle pending name='starlette.middleware.base.BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.coro' coro=<corou...
+  File "D:\code_file\code_sandbox_service\.venv\Lib\site-packages\starlette\middleware\base.py", line 144, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+          │    │   │      │                      └ <function BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.send_no_error at 0x0000020236241A80>
+          │    │   │      └ <function BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.receive_or_disconnect at 0x00000202362437E0>
+          │    │   └ {'type': 'http', 'http_version': '1.1', 'method': 'POST', 'path': '/execute', 'raw_path': b'/execute', 'root_path': '', 'sche...
+          │    └ <starlette.middleware.exceptions.ExceptionMiddleware object at 0x00000202361A6BA0>
+          └ <starlette.middleware.base.BaseHTTPMiddleware object at 0x00000202361A65D0>
+  File "D:\code_file\code_sandbox_service\.venv\Lib\site-packages\starlette\middleware\exceptions.py", line 63, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+          │                            │    │    │     │      │        └ <function BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.send_no_error at 0x0000020236241A80>
+          │                            │    │    │     │      └ <function BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.receive_or_disconnect at 0x00000202362437E0>
+          │                            │    │    │     └ {'type': 'http', 'http_version': '1.1', 'method': 'POST', 'path': '/execute', 'raw_path': b'/execute', 'root_path': '', 'sche...
+          │                            │    │    └ <starlette.requests.Request object at 0x000002023620A120>
+          │                            │    └ <fastapi.middleware.asyncexitstack.AsyncExitStackMiddleware object at 0x00000202361A6B70>
+          │                            └ <starlette.middleware.exceptions.ExceptionMiddleware object at 0x00000202361A6BA0>
+          └ <function wrap_app_handling_exceptions at 0x0000020234BC9D00>
+  File "D:\code_file\code_sandbox_service\.venv\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+          │   │      │        └ <function wrap_app_handling_exceptions.<locals>.wrapped_app.<locals>.sender at 0x0000020236243D80>
+          │   │      └ <function BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.receive_or_disconnect at 0x00000202362437E0>
+          │   └ {'type': 'http', 'http_version': '1.1', 'method': 'POST', 'path': '/execute', 'raw_path': b'/execute', 'root_path': '', 'sche...
+          └ <fastapi.middleware.asyncexitstack.AsyncExitStackMiddleware object at 0x00000202361A6B70>
+  File "D:\code_file\code_sandbox_service\.venv\Lib\site-packages\fastapi\middleware\asyncexitstack.py", line 18, in __call__
+    await self.app(scope, receive, send)
+          │    │   │      │        └ <function wrap_app_handling_exceptions.<locals>.wrapped_app.<locals>.sender at 0x0000020236243D80>
+          │    │   │      └ <function BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.receive_or_disconnect at 0x00000202362437E0>
+          │    │   └ {'type': 'http', 'http_version': '1.1', 'method': 'POST', 'path': '/execute', 'raw_path': b'/execute', 'root_path': '', 'sche...
+          │    └ <fastapi.routing.APIRouter object at 0x00000202362CC440>
+          └ <fastapi.middleware.asyncexitstack.AsyncExitStackMiddleware object at 0x00000202361A6B70>
+  File "D:\code_file\code_sandbox_service\.venv\Lib\site-packages\starlette\routing.py", line 660, in __call__
+    await self.middleware_stack(scope, receive, send)
+          │    │                │      │        └ <function wrap_app_handling_exceptions.<locals>.wrapped_app.<locals>.sender at 0x0000020236243D80>
+          │    │                │      └ <function BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.receive_or_disconnect at 0x00000202362437E0>
+          │    │                └ {'type': 'http', 'http_version': '1.1', 'method': 'POST', 'path': '/execute', 'raw_path': b'/execute', 'root_path': '', 'sche...
+          │    └ <bound method APIRouter.app of <fastapi.routing.APIRouter object at 0x00000202362CC440>>
+          └ <fastapi.routing.APIRouter object at 0x00000202362CC440>
+  File "D:\code_file\code_sandbox_service\.venv\Lib\site-packages\fastapi\routing.py", line 2685, in app
+    await route.handle(scope, receive, send)
+          │     │      │      │        └ <function wrap_app_handling_exceptions.<locals>.wrapped_app.<locals>.sender at 0x0000020236243D80>
+          │     │      │      └ <function BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.receive_or_disconnect at 0x00000202362437E0>
+          │     │      └ {'type': 'http', 'http_version': '1.1', 'method': 'POST', 'path': '/execute', 'raw_path': b'/execute', 'root_path': '', 'sche...
+          │     └ <function APIRoute.handle at 0x0000020234BF2660>
+          └ APIRoute(path='/execute', name='execute_code', methods=['POST'])
+  File "D:\code_file\code_sandbox_service\.venv\Lib\site-packages\fastapi\routing.py", line 1267, in handle
+    await super().handle(scope, receive, send)
+                         │      │        └ <function wrap_app_handling_exceptions.<locals>.wrapped_app.<locals>.sender at 0x0000020236243D80>
+                         │      └ <function BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.receive_or_disconnect at 0x00000202362437E0>
+                         └ {'type': 'http', 'http_version': '1.1', 'method': 'POST', 'path': '/execute', 'raw_path': b'/execute', 'root_path': '', 'sche...
+  File "D:\code_file\code_sandbox_service\.venv\Lib\site-packages\starlette\routing.py", line 276, in handle
+    await self.app(scope, receive, send)
+          │    │   │      │        └ <function wrap_app_handling_exceptions.<locals>.wrapped_app.<locals>.sender at 0x0000020236243D80>
+          │    │   │      └ <function BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.receive_or_disconnect at 0x00000202362437E0>
+          │    │   └ {'type': 'http', 'http_version': '1.1', 'method': 'POST', 'path': '/execute', 'raw_path': b'/execute', 'root_path': '', 'sche...
+          │    └ <function request_response.<locals>.app at 0x0000020236241B20>
+          └ APIRoute(path='/execute', name='execute_code', methods=['POST'])
+  File "D:\code_file\code_sandbox_service\.venv\Lib\site-packages\fastapi\routing.py", line 151, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+          │                            │    │        │      │        └ <function wrap_app_handling_exceptions.<locals>.wrapped_app.<locals>.sender at 0x0000020236243D80>
+          │                            │    │        │      └ <function BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.receive_or_disconnect at 0x00000202362437E0>
+          │                            │    │        └ {'type': 'http', 'http_version': '1.1', 'method': 'POST', 'path': '/execute', 'raw_path': b'/execute', 'root_path': '', 'sche...
+          │                            │    └ <starlette.requests.Request object at 0x0000020236208A70>
+          │                            └ <function request_response.<locals>.app.<locals>.app at 0x00000202362407C0>
+          └ <function wrap_app_handling_exceptions at 0x0000020234BC9D00>
+  File "D:\code_file\code_sandbox_service\.venv\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+          │   │      │        └ <function wrap_app_handling_exceptions.<locals>.wrapped_app.<locals>.sender at 0x0000020236243420>
+          │   │      └ <function BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.receive_or_disconnect at 0x00000202362437E0>
+          │   └ {'type': 'http', 'http_version': '1.1', 'method': 'POST', 'path': '/execute', 'raw_path': b'/execute', 'root_path': '', 'sche...
+          └ <function request_response.<locals>.app.<locals>.app at 0x00000202362407C0>
+  File "D:\code_file\code_sandbox_service\.venv\Lib\site-packages\fastapi\routing.py", line 137, in app
+    response = await f(request)
+                     │ └ <starlette.requests.Request object at 0x0000020236208A70>
+                     └ <function get_request_handler.<locals>.app at 0x0000020236241D00>
+  File "D:\code_file\code_sandbox_service\.venv\Lib\site-packages\fastapi\routing.py", line 691, in app
+    raw_response = await run_endpoint_function(
+                         └ <function run_endpoint_function at 0x0000020234BF19E0>
+  File "D:\code_file\code_sandbox_service\.venv\Lib\site-packages\fastapi\routing.py", line 345, in run_endpoint_function
+    return await dependant.call(**values)
+                 │         │      └ {'_': None, 'body': ExecuteRequest(date='2026-07-21', filename='broken.py', data_file='input.csv', timeout=None), 'request': ...
+                 │         └ <function create_app.<locals>.execute_code at 0x00000202362428E0>
+                 └ Dependant(path_params=[], query_params=[], header_params=[], cookie_params=[], body_params=[ModelField(field_info=Body(Pydant...
+
+> File "D:\code_file\code_sandbox_service\src\sandbox\main.py", line 327, in execute_code
+    result = await application.state.executor.execute(script, data_file, timeout)
+                   │           │                      │       │          └ 60
+                   │           │                      │       └ WindowsPath('C:/Users/admin/AppData/Local/Temp/pytest-of-admin/pytest-963/test_unexpected_execute_error_0/data/input.csv')
+                   │           │                      └ WindowsPath('C:/Users/admin/AppData/Local/Temp/pytest-of-admin/pytest-963/test_unexpected_execute_error_0/2026-07-21/broken.py')
+                   │           └ <starlette.datastructures.State object at 0x00000202362CDF10>
+                   └ <fastapi.applications.FastAPI object at 0x00000202362CC560>
+
+  File "D:\code_file\code_sandbox_service\tests\test_api.py", line 312, in execute
+    raise RuntimeError(f"secret path: {script}")
+                                       └ WindowsPath('C:/Users/admin/AppData/Local/Temp/pytest-of-admin/pytest-963/test_unexpected_execute_error_0/2026-07-21/broken.py')
+
+RuntimeError: secret path: C:\Users\admin\AppData\Local\Temp\pytest-of-admin\pytest-963\test_unexpected_execute_error_0\2026-07-21\broken.py
+2026-07-21 14:05:21.318 | ERROR    | sandbox.executor:_execute_isolated:159 - Subprocess PID=%d timed out after %.2fs. Initiating process tree termination...
+2026-07-21 14:05:22.427 | ERROR    | sandbox.executor:_execute_isolated:159 - Subprocess PID=%d timed out after %.2fs. Initiating process tree termination...
+2026-07-21 14:18:49.908 | ERROR    | sandbox.main:execute_code:342 - Execution failed unexpectedly (500): filename=broken.py request_id=741d84e078c14e039be5bcff0c25e15b
+Traceback (most recent call last):
+
+  File "C:\Users\admin\AppData\Roaming\uv\python\cpython-3.12-windows-x86_64-none\Lib\threading.py", line 1032, in _bootstrap
+    self._bootstrap_inner()
+    │    └ <function Thread._bootstrap_inner at 0x0000021C138B51C0>
+    └ <Thread(asyncio-portal-21c183ee180, started daemon 42244)>
+  File "C:\Users\admin\AppData\Roaming\uv\python\cpython-3.12-windows-x86_64-none\Lib\threading.py", line 1075, in _bootstrap_inner
+    self.run()
+    │    └ <function Thread.run at 0x0000021C138B4EA0>
+    └ <Thread(asyncio-portal-21c183ee180, started daemon 42244)>
+  File "C:\Users\admin\AppData\Roaming\uv\python\cpython-3.12-windows-x86_64-none\Lib\threading.py", line 1012, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Thread(asyncio-portal-21c183ee180, started daemon 42244)>
+    │    │        │    └ ()
+    │    │        └ <Thread(asyncio-portal-21c183ee180, started daemon 42244)>
+    │    └ <function start_blocking_portal.<locals>.run_blocking_portal at 0x0000021C184CE5C0>
+    └ <Thread(asyncio-portal-21c183ee180, started daemon 42244)>
+  File "D:\code_file\code_sandbox_service\.venv\Lib\site-packages\anyio\from_thread.py", line 536, in run_blocking_portal
+    run_eventloop(
+    └ <function run at 0x0000021C143C1760>
+  File "D:\code_file\code_sandbox_service\.venv\Lib\site-packages\anyio\_core\_eventloop.py", line 83, in run
+    return async_backend.run(func, args, {}, backend_options)
+           │             │   │     │         └ {}
+           │             │   │     └ ()
+           │             │   └ <function start_blocking_portal.<locals>.run_portal at 0x0000021C184CFF60>
+           │             └ <classmethod(<function AsyncIOBackend.run at 0x0000021C15EB3E20>)>
+           └ <class 'anyio._backends._asyncio.AsyncIOBackend'>
+  File "D:\code_file\code_sandbox_service\.venv\Lib\site-packages\anyio\_backends\_asyncio.py", line 2481, in run
+    return runner.run(wrapper())
+           │      │   └ <function start_blocking_portal.<locals>.run_portal at 0x0000021C184CF880>
+           │      └ <function Runner.run at 0x0000021C14872E80>
+           └ <asyncio.runners.Runner object at 0x0000021C18517DA0>
+  File "C:\Users\admin\AppData\Roaming\uv\python\cpython-3.12-windows-x86_64-none\Lib\asyncio\runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+           │    │     │                  └ <Task pending name='anyio.from_thread.start_blocking_portal.<locals>.run_portal' coro=<start_blocking_portal.<locals>.run_por...
+           │    │     └ <function BaseEventLoop.run_until_complete at 0x0000021C14870A40>
+           │    └ <ProactorEventLoop running=True closed=False debug=False>
+           └ <asyncio.runners.Runner object at 0x0000021C18517DA0>
+  File "C:\Users\admin\AppData\Roaming\uv\python\cpython-3.12-windows-x86_64-none\Lib\asyncio\base_events.py", line 678, in run_until_complete
+    self.run_forever()
+    │    └ <function ProactorEventLoop.run_forever at 0x0000021C15E99E40>
+    └ <ProactorEventLoop running=True closed=False debug=False>
+  File "C:\Users\admin\AppData\Roaming\uv\python\cpython-3.12-windows-x86_64-none\Lib\asyncio\windows_events.py", line 322, in run_forever
+    super().run_forever()
+  File "C:\Users\admin\AppData\Roaming\uv\python\cpython-3.12-windows-x86_64-none\Lib\asyncio\base_events.py", line 645, in run_forever
+    self._run_once()
+    │    └ <function BaseEventLoop._run_once at 0x0000021C148727A0>
+    └ <ProactorEventLoop running=True closed=False debug=False>
+  File "C:\Users\admin\AppData\Roaming\uv\python\cpython-3.12-windows-x86_64-none\Lib\asyncio\base_events.py", line 1999, in _run_once
+    handle._run()
+    │      └ <function Handle._run at 0x0000021C147A6A20>
+    └ <Handle Task.task_wakeup(<Future finished result=None>)>
+  File "C:\Users\admin\AppData\Roaming\uv\python\cpython-3.12-windows-x86_64-none\Lib\asyncio\events.py", line 88, in _run
+    self._context.run(self._callback, *self._args)
+    │    │            │    │           │    └ <member '_args' of 'Handle' objects>
+    │    │            │    │           └ <Handle Task.task_wakeup(<Future finished result=None>)>
+    │    │            │    └ <member '_callback' of 'Handle' objects>
+    │    │            └ <Handle Task.task_wakeup(<Future finished result=None>)>
+    │    └ <member '_context' of 'Handle' objects>
+    └ <Handle Task.task_wakeup(<Future finished result=None>)>
+  File "D:\code_file\code_sandbox_service\.venv\Lib\site-packages\anyio\_core\_tasks.py", line 275, in _run_coro
+    retval = await self._coro
+                   │    └ <member '_coro' of 'TaskHandle' objects>
+                   └ <TaskHandle pending name='starlette.middleware.base.BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.coro' coro=<corou...
+  File "D:\code_file\code_sandbox_service\.venv\Lib\site-packages\starlette\middleware\base.py", line 144, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+          │    │   │      │                      └ <function BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.send_no_error at 0x0000021C184CC040>
+          │    │   │      └ <function BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.receive_or_disconnect at 0x0000021C184CE3E0>
+          │    │   └ {'type': 'http', 'http_version': '1.1', 'method': 'POST', 'path': '/execute', 'raw_path': b'/execute', 'root_path': '', 'sche...
+          │    └ <starlette.middleware.exceptions.ExceptionMiddleware object at 0x0000021C18517140>
+          └ <starlette.middleware.base.BaseHTTPMiddleware object at 0x0000021C18515A90>
+  File "D:\code_file\code_sandbox_service\.venv\Lib\site-packages\starlette\middleware\exceptions.py", line 63, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+          │                            │    │    │     │      │        └ <function BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.send_no_error at 0x0000021C184CC040>
+          │                            │    │    │     │      └ <function BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.receive_or_disconnect at 0x0000021C184CE3E0>
+          │                            │    │    │     └ {'type': 'http', 'http_version': '1.1', 'method': 'POST', 'path': '/execute', 'raw_path': b'/execute', 'root_path': '', 'sche...
+          │                            │    │    └ <starlette.requests.Request object at 0x0000021C1850B5F0>
+          │                            │    └ <fastapi.middleware.asyncexitstack.AsyncExitStackMiddleware object at 0x0000021C18516570>
+          │                            └ <starlette.middleware.exceptions.ExceptionMiddleware object at 0x0000021C18517140>
+          └ <function wrap_app_handling_exceptions at 0x0000021C16DB9D00>
+  File "D:\code_file\code_sandbox_service\.venv\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+          │   │      │        └ <function wrap_app_handling_exceptions.<locals>.wrapped_app.<locals>.sender at 0x0000021C184CE0C0>
+          │   │      └ <function BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.receive_or_disconnect at 0x0000021C184CE3E0>
+          │   └ {'type': 'http', 'http_version': '1.1', 'method': 'POST', 'path': '/execute', 'raw_path': b'/execute', 'root_path': '', 'sche...
+          └ <fastapi.middleware.asyncexitstack.AsyncExitStackMiddleware object at 0x0000021C18516570>
+  File "D:\code_file\code_sandbox_service\.venv\Lib\site-packages\fastapi\middleware\asyncexitstack.py", line 18, in __call__
+    await self.app(scope, receive, send)
+          │    │   │      │        └ <function wrap_app_handling_exceptions.<locals>.wrapped_app.<locals>.sender at 0x0000021C184CE0C0>
+          │    │   │      └ <function BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.receive_or_disconnect at 0x0000021C184CE3E0>
+          │    │   └ {'type': 'http', 'http_version': '1.1', 'method': 'POST', 'path': '/execute', 'raw_path': b'/execute', 'root_path': '', 'sche...
+          │    └ <fastapi.routing.APIRouter object at 0x0000021C18508860>
+          └ <fastapi.middleware.asyncexitstack.AsyncExitStackMiddleware object at 0x0000021C18516570>
+  File "D:\code_file\code_sandbox_service\.venv\Lib\site-packages\starlette\routing.py", line 660, in __call__
+    await self.middleware_stack(scope, receive, send)
+          │    │                │      │        └ <function wrap_app_handling_exceptions.<locals>.wrapped_app.<locals>.sender at 0x0000021C184CE0C0>
+          │    │                │      └ <function BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.receive_or_disconnect at 0x0000021C184CE3E0>
+          │    │                └ {'type': 'http', 'http_version': '1.1', 'method': 'POST', 'path': '/execute', 'raw_path': b'/execute', 'root_path': '', 'sche...
+          │    └ <bound method APIRouter.app of <fastapi.routing.APIRouter object at 0x0000021C18508860>>
+          └ <fastapi.routing.APIRouter object at 0x0000021C18508860>
+  File "D:\code_file\code_sandbox_service\.venv\Lib\site-packages\fastapi\routing.py", line 2685, in app
+    await route.handle(scope, receive, send)
+          │     │      │      │        └ <function wrap_app_handling_exceptions.<locals>.wrapped_app.<locals>.sender at 0x0000021C184CE0C0>
+          │     │      │      └ <function BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.receive_or_disconnect at 0x0000021C184CE3E0>
+          │     │      └ {'type': 'http', 'http_version': '1.1', 'method': 'POST', 'path': '/execute', 'raw_path': b'/execute', 'root_path': '', 'sche...
+          │     └ <function APIRoute.handle at 0x0000021C16DE2660>
+          └ APIRoute(path='/execute', name='execute_code', methods=['POST'])
+  File "D:\code_file\code_sandbox_service\.venv\Lib\site-packages\fastapi\routing.py", line 1267, in handle
+    await super().handle(scope, receive, send)
+                         │      │        └ <function wrap_app_handling_exceptions.<locals>.wrapped_app.<locals>.sender at 0x0000021C184CE0C0>
+                         │      └ <function BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.receive_or_disconnect at 0x0000021C184CE3E0>
+                         └ {'type': 'http', 'http_version': '1.1', 'method': 'POST', 'path': '/execute', 'raw_path': b'/execute', 'root_path': '', 'sche...
+  File "D:\code_file\code_sandbox_service\.venv\Lib\site-packages\starlette\routing.py", line 276, in handle
+    await self.app(scope, receive, send)
+          │    │   │      │        └ <function wrap_app_handling_exceptions.<locals>.wrapped_app.<locals>.sender at 0x0000021C184CE0C0>
+          │    │   │      └ <function BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.receive_or_disconnect at 0x0000021C184CE3E0>
+          │    │   └ {'type': 'http', 'http_version': '1.1', 'method': 'POST', 'path': '/execute', 'raw_path': b'/execute', 'root_path': '', 'sche...
+          │    └ <function request_response.<locals>.app at 0x0000021C184CE840>
+          └ APIRoute(path='/execute', name='execute_code', methods=['POST'])
+  File "D:\code_file\code_sandbox_service\.venv\Lib\site-packages\fastapi\routing.py", line 151, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+          │                            │    │        │      │        └ <function wrap_app_handling_exceptions.<locals>.wrapped_app.<locals>.sender at 0x0000021C184CE0C0>
+          │                            │    │        │      └ <function BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.receive_or_disconnect at 0x0000021C184CE3E0>
+          │                            │    │        └ {'type': 'http', 'http_version': '1.1', 'method': 'POST', 'path': '/execute', 'raw_path': b'/execute', 'root_path': '', 'sche...
+          │                            │    └ <starlette.requests.Request object at 0x0000021C1850BB60>
+          │                            └ <function request_response.<locals>.app.<locals>.app at 0x0000021C184CC0E0>
+          └ <function wrap_app_handling_exceptions at 0x0000021C16DB9D00>
+  File "D:\code_file\code_sandbox_service\.venv\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+          │   │      │        └ <function wrap_app_handling_exceptions.<locals>.wrapped_app.<locals>.sender at 0x0000021C184CC2C0>
+          │   │      └ <function BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.receive_or_disconnect at 0x0000021C184CE3E0>
+          │   └ {'type': 'http', 'http_version': '1.1', 'method': 'POST', 'path': '/execute', 'raw_path': b'/execute', 'root_path': '', 'sche...
+          └ <function request_response.<locals>.app.<locals>.app at 0x0000021C184CC0E0>
+  File "D:\code_file\code_sandbox_service\.venv\Lib\site-packages\fastapi\routing.py", line 137, in app
+    response = await f(request)
+                     │ └ <starlette.requests.Request object at 0x0000021C1850BB60>
+                     └ <function get_request_handler.<locals>.app at 0x0000021C184CF920>
+  File "D:\code_file\code_sandbox_service\.venv\Lib\site-packages\fastapi\routing.py", line 691, in app
+    raw_response = await run_endpoint_function(
+                         └ <function run_endpoint_function at 0x0000021C16DE19E0>
+  File "D:\code_file\code_sandbox_service\.venv\Lib\site-packages\fastapi\routing.py", line 345, in run_endpoint_function
+    return await dependant.call(**values)
+                 │         │      └ {'_': None, 'body': ExecuteRequest(date='2026-07-21', filename='broken.py', data_file='input.csv', timeout=None), 'request': ...
+                 │         └ <function create_app.<locals>.execute_code at 0x0000021C184CDF80>
+                 └ Dependant(path_params=[], query_params=[], header_params=[], cookie_params=[], body_params=[ModelField(field_info=Body(Pydant...
+
+> File "D:\code_file\code_sandbox_service\src\sandbox\main.py", line 327, in execute_code
+    result = await application.state.executor.execute(script, data_file, timeout)
+                   │           │                      │       │          └ 60
+                   │           │                      │       └ WindowsPath('C:/Users/admin/AppData/Local/Temp/pytest-of-admin/pytest-966/test_unexpected_execute_error_0/data/input.csv')
+                   │           │                      └ WindowsPath('C:/Users/admin/AppData/Local/Temp/pytest-of-admin/pytest-966/test_unexpected_execute_error_0/2026-07-21/broken.py')
+                   │           └ <starlette.datastructures.State object at 0x0000021C18509550>
+                   └ <fastapi.applications.FastAPI object at 0x0000021C18509850>
+
+  File "D:\code_file\code_sandbox_service\tests\test_api.py", line 312, in execute
+    raise RuntimeError(f"secret path: {script}")
+                                       └ WindowsPath('C:/Users/admin/AppData/Local/Temp/pytest-of-admin/pytest-966/test_unexpected_execute_error_0/2026-07-21/broken.py')
+
+RuntimeError: secret path: C:\Users\admin\AppData\Local\Temp\pytest-of-admin\pytest-966\test_unexpected_execute_error_0\2026-07-21\broken.py
+2026-07-21 14:18:50.350 | ERROR    | sandbox.executor:_execute_isolated:159 - Subprocess PID=%d timed out after %.2fs. Initiating process tree termination...
+2026-07-21 14:18:51.686 | ERROR    | sandbox.executor:_execute_isolated:159 - Subprocess PID=%d timed out after %.2fs. Initiating process tree termination...
+2026-07-21 14:19:09.628 | ERROR    | sandbox.main:execute_code:342 - Execution failed unexpectedly (500): filename=broken.py request_id=c2c7fcab812f4c07ab389c69b6996137
+Traceback (most recent call last):
+
+  File "C:\Users\admin\AppData\Roaming\uv\python\cpython-3.12-windows-x86_64-none\Lib\threading.py", line 1032, in _bootstrap
+    self._bootstrap_inner()
+    │    └ <function Thread._bootstrap_inner at 0x000002571AE151C0>
+    └ <Thread(asyncio-portal-2571fa3f770, started daemon 23288)>
+  File "C:\Users\admin\AppData\Roaming\uv\python\cpython-3.12-windows-x86_64-none\Lib\threading.py", line 1075, in _bootstrap_inner
+    self.run()
+    │    └ <function Thread.run at 0x000002571AE14EA0>
+    └ <Thread(asyncio-portal-2571fa3f770, started daemon 23288)>
+  File "C:\Users\admin\AppData\Roaming\uv\python\cpython-3.12-windows-x86_64-none\Lib\threading.py", line 1012, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Thread(asyncio-portal-2571fa3f770, started daemon 23288)>
+    │    │        │    └ ()
+    │    │        └ <Thread(asyncio-portal-2571fa3f770, started daemon 23288)>
+    │    └ <function start_blocking_portal.<locals>.run_blocking_portal at 0x000002571F9B6DE0>
+    └ <Thread(asyncio-portal-2571fa3f770, started daemon 23288)>
+  File "D:\code_file\code_sandbox_service\.venv\Lib\site-packages\anyio\from_thread.py", line 536, in run_blocking_portal
+    run_eventloop(
+    └ <function run at 0x000002571B941760>
+  File "D:\code_file\code_sandbox_service\.venv\Lib\site-packages\anyio\_core\_eventloop.py", line 83, in run
+    return async_backend.run(func, args, {}, backend_options)
+           │             │   │     │         └ {}
+           │             │   │     └ ()
+           │             │   └ <function start_blocking_portal.<locals>.run_portal at 0x000002571F9B6520>
+           │             └ <classmethod(<function AsyncIOBackend.run at 0x000002571D483E20>)>
+           └ <class 'anyio._backends._asyncio.AsyncIOBackend'>
+  File "D:\code_file\code_sandbox_service\.venv\Lib\site-packages\anyio\_backends\_asyncio.py", line 2481, in run
+    return runner.run(wrapper())
+           │      │   └ <function start_blocking_portal.<locals>.run_portal at 0x000002571F9677E0>
+           │      └ <function Runner.run at 0x000002571D402E80>
+           └ <asyncio.runners.Runner object at 0x000002571F947440>
+  File "C:\Users\admin\AppData\Roaming\uv\python\cpython-3.12-windows-x86_64-none\Lib\asyncio\runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+           │    │     │                  └ <Task pending name='anyio.from_thread.start_blocking_portal.<locals>.run_portal' coro=<start_blocking_portal.<locals>.run_por...
+           │    │     └ <function BaseEventLoop.run_until_complete at 0x000002571D400A40>
+           │    └ <ProactorEventLoop running=True closed=False debug=False>
+           └ <asyncio.runners.Runner object at 0x000002571F947440>
+  File "C:\Users\admin\AppData\Roaming\uv\python\cpython-3.12-windows-x86_64-none\Lib\asyncio\base_events.py", line 678, in run_until_complete
+    self.run_forever()
+    │    └ <function ProactorEventLoop.run_forever at 0x000002571D469E40>
+    └ <ProactorEventLoop running=True closed=False debug=False>
+  File "C:\Users\admin\AppData\Roaming\uv\python\cpython-3.12-windows-x86_64-none\Lib\asyncio\windows_events.py", line 322, in run_forever
+    super().run_forever()
+  File "C:\Users\admin\AppData\Roaming\uv\python\cpython-3.12-windows-x86_64-none\Lib\asyncio\base_events.py", line 645, in run_forever
+    self._run_once()
+    │    └ <function BaseEventLoop._run_once at 0x000002571D4027A0>
+    └ <ProactorEventLoop running=True closed=False debug=False>
+  File "C:\Users\admin\AppData\Roaming\uv\python\cpython-3.12-windows-x86_64-none\Lib\asyncio\base_events.py", line 1999, in _run_once
+    handle._run()
+    │      └ <function Handle._run at 0x000002571D336A20>
+    └ <Handle Task.task_wakeup(<Future finished result=None>)>
+  File "C:\Users\admin\AppData\Roaming\uv\python\cpython-3.12-windows-x86_64-none\Lib\asyncio\events.py", line 88, in _run
+    self._context.run(self._callback, *self._args)
+    │    │            │    │           │    └ <member '_args' of 'Handle' objects>
+    │    │            │    │           └ <Handle Task.task_wakeup(<Future finished result=None>)>
+    │    │            │    └ <member '_callback' of 'Handle' objects>
+    │    │            └ <Handle Task.task_wakeup(<Future finished result=None>)>
+    │    └ <member '_context' of 'Handle' objects>
+    └ <Handle Task.task_wakeup(<Future finished result=None>)>
+  File "D:\code_file\code_sandbox_service\.venv\Lib\site-packages\anyio\_core\_tasks.py", line 275, in _run_coro
+    retval = await self._coro
+                   │    └ <member '_coro' of 'TaskHandle' objects>
+                   └ <TaskHandle pending name='starlette.middleware.base.BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.coro' coro=<corou...
+  File "D:\code_file\code_sandbox_service\.venv\Lib\site-packages\starlette\middleware\base.py", line 144, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+          │    │   │      │                      └ <function BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.send_no_error at 0x000002571F9B7B00>
+          │    │   │      └ <function BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.receive_or_disconnect at 0x000002571F9B5DA0>
+          │    │   └ {'type': 'http', 'http_version': '1.1', 'method': 'POST', 'path': '/execute', 'raw_path': b'/execute', 'root_path': '', 'sche...
+          │    └ <starlette.middleware.exceptions.ExceptionMiddleware object at 0x000002571FA57560>
+          └ <starlette.middleware.base.BaseHTTPMiddleware object at 0x000002571FA546E0>
+  File "D:\code_file\code_sandbox_service\.venv\Lib\site-packages\starlette\middleware\exceptions.py", line 63, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+          │                            │    │    │     │      │        └ <function BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.send_no_error at 0x000002571F9B7B00>
+          │                            │    │    │     │      └ <function BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.receive_or_disconnect at 0x000002571F9B5DA0>
+          │                            │    │    │     └ {'type': 'http', 'http_version': '1.1', 'method': 'POST', 'path': '/execute', 'raw_path': b'/execute', 'root_path': '', 'sche...
+          │                            │    │    └ <starlette.requests.Request object at 0x000002571F980CB0>
+          │                            │    └ <fastapi.middleware.asyncexitstack.AsyncExitStackMiddleware object at 0x000002571FA55340>
+          │                            └ <starlette.middleware.exceptions.ExceptionMiddleware object at 0x000002571FA57560>
+          └ <function wrap_app_handling_exceptions at 0x000002571E339D00>
+  File "D:\code_file\code_sandbox_service\.venv\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+          │   │      │        └ <function wrap_app_handling_exceptions.<locals>.wrapped_app.<locals>.sender at 0x000002571F9B4CC0>
+          │   │      └ <function BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.receive_or_disconnect at 0x000002571F9B5DA0>
+          │   └ {'type': 'http', 'http_version': '1.1', 'method': 'POST', 'path': '/execute', 'raw_path': b'/execute', 'root_path': '', 'sche...
+          └ <fastapi.middleware.asyncexitstack.AsyncExitStackMiddleware object at 0x000002571FA55340>
+  File "D:\code_file\code_sandbox_service\.venv\Lib\site-packages\fastapi\middleware\asyncexitstack.py", line 18, in __call__
+    await self.app(scope, receive, send)
+          │    │   │      │        └ <function wrap_app_handling_exceptions.<locals>.wrapped_app.<locals>.sender at 0x000002571F9B4CC0>
+          │    │   │      └ <function BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.receive_or_disconnect at 0x000002571F9B5DA0>
+          │    │   └ {'type': 'http', 'http_version': '1.1', 'method': 'POST', 'path': '/execute', 'raw_path': b'/execute', 'root_path': '', 'sche...
+          │    └ <fastapi.routing.APIRouter object at 0x000002571FA3E000>
+          └ <fastapi.middleware.asyncexitstack.AsyncExitStackMiddleware object at 0x000002571FA55340>
+  File "D:\code_file\code_sandbox_service\.venv\Lib\site-packages\starlette\routing.py", line 660, in __call__
+    await self.middleware_stack(scope, receive, send)
+          │    │                │      │        └ <function wrap_app_handling_exceptions.<locals>.wrapped_app.<locals>.sender at 0x000002571F9B4CC0>
+          │    │                │      └ <function BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.receive_or_disconnect at 0x000002571F9B5DA0>
+          │    │                └ {'type': 'http', 'http_version': '1.1', 'method': 'POST', 'path': '/execute', 'raw_path': b'/execute', 'root_path': '', 'sche...
+          │    └ <bound method APIRouter.app of <fastapi.routing.APIRouter object at 0x000002571FA3E000>>
+          └ <fastapi.routing.APIRouter object at 0x000002571FA3E000>
+  File "D:\code_file\code_sandbox_service\.venv\Lib\site-packages\fastapi\routing.py", line 2685, in app
+    await route.handle(scope, receive, send)
+          │     │      │      │        └ <function wrap_app_handling_exceptions.<locals>.wrapped_app.<locals>.sender at 0x000002571F9B4CC0>
+          │     │      │      └ <function BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.receive_or_disconnect at 0x000002571F9B5DA0>
+          │     │      └ {'type': 'http', 'http_version': '1.1', 'method': 'POST', 'path': '/execute', 'raw_path': b'/execute', 'root_path': '', 'sche...
+          │     └ <function APIRoute.handle at 0x000002571E362660>
+          └ APIRoute(path='/execute', name='execute_code', methods=['POST'])
+  File "D:\code_file\code_sandbox_service\.venv\Lib\site-packages\fastapi\routing.py", line 1267, in handle
+    await super().handle(scope, receive, send)
+                         │      │        └ <function wrap_app_handling_exceptions.<locals>.wrapped_app.<locals>.sender at 0x000002571F9B4CC0>
+                         │      └ <function BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.receive_or_disconnect at 0x000002571F9B5DA0>
+                         └ {'type': 'http', 'http_version': '1.1', 'method': 'POST', 'path': '/execute', 'raw_path': b'/execute', 'root_path': '', 'sche...
+  File "D:\code_file\code_sandbox_service\.venv\Lib\site-packages\starlette\routing.py", line 276, in handle
+    await self.app(scope, receive, send)
+          │    │   │      │        └ <function wrap_app_handling_exceptions.<locals>.wrapped_app.<locals>.sender at 0x000002571F9B4CC0>
+          │    │   │      └ <function BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.receive_or_disconnect at 0x000002571F9B5DA0>
+          │    │   └ {'type': 'http', 'http_version': '1.1', 'method': 'POST', 'path': '/execute', 'raw_path': b'/execute', 'root_path': '', 'sche...
+          │    └ <function request_response.<locals>.app at 0x000002571F9B47C0>
+          └ APIRoute(path='/execute', name='execute_code', methods=['POST'])
+  File "D:\code_file\code_sandbox_service\.venv\Lib\site-packages\fastapi\routing.py", line 151, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+          │                            │    │        │      │        └ <function wrap_app_handling_exceptions.<locals>.wrapped_app.<locals>.sender at 0x000002571F9B4CC0>
+          │                            │    │        │      └ <function BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.receive_or_disconnect at 0x000002571F9B5DA0>
+          │                            │    │        └ {'type': 'http', 'http_version': '1.1', 'method': 'POST', 'path': '/execute', 'raw_path': b'/execute', 'root_path': '', 'sche...
+          │                            │    └ <starlette.requests.Request object at 0x000002571F9A7560>
+          │                            └ <function request_response.<locals>.app.<locals>.app at 0x000002571F9B5800>
+          └ <function wrap_app_handling_exceptions at 0x000002571E339D00>
+  File "D:\code_file\code_sandbox_service\.venv\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+          │   │      │        └ <function wrap_app_handling_exceptions.<locals>.wrapped_app.<locals>.sender at 0x000002571F9B7600>
+          │   │      └ <function BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.receive_or_disconnect at 0x000002571F9B5DA0>
+          │   └ {'type': 'http', 'http_version': '1.1', 'method': 'POST', 'path': '/execute', 'raw_path': b'/execute', 'root_path': '', 'sche...
+          └ <function request_response.<locals>.app.<locals>.app at 0x000002571F9B5800>
+  File "D:\code_file\code_sandbox_service\.venv\Lib\site-packages\fastapi\routing.py", line 137, in app
+    response = await f(request)
+                     │ └ <starlette.requests.Request object at 0x000002571F9A7560>
+                     └ <function get_request_handler.<locals>.app at 0x000002571F9B49A0>
+  File "D:\code_file\code_sandbox_service\.venv\Lib\site-packages\fastapi\routing.py", line 691, in app
+    raw_response = await run_endpoint_function(
+                         └ <function run_endpoint_function at 0x000002571E3619E0>
+  File "D:\code_file\code_sandbox_service\.venv\Lib\site-packages\fastapi\routing.py", line 345, in run_endpoint_function
+    return await dependant.call(**values)
+                 │         │      └ {'_': None, 'body': ExecuteRequest(date='2026-07-21', filename='broken.py', data_file='input.csv', timeout=None), 'request': ...
+                 │         └ <function create_app.<locals>.execute_code at 0x000002571F967420>
+                 └ Dependant(path_params=[], query_params=[], header_params=[], cookie_params=[], body_params=[ModelField(field_info=Body(Pydant...
+
+> File "D:\code_file\code_sandbox_service\src\sandbox\main.py", line 327, in execute_code
+    result = await application.state.executor.execute(script, data_file, timeout)
+                   │           │                      │       │          └ 60
+                   │           │                      │       └ WindowsPath('C:/Users/admin/AppData/Local/Temp/pytest-of-admin/pytest-967/test_unexpected_execute_error_0/data/input.csv')
+                   │           │                      └ WindowsPath('C:/Users/admin/AppData/Local/Temp/pytest-of-admin/pytest-967/test_unexpected_execute_error_0/2026-07-21/broken.py')
+                   │           └ <starlette.datastructures.State object at 0x000002571FA3CF20>
+                   └ <fastapi.applications.FastAPI object at 0x000002571FA3F470>
+
+  File "D:\code_file\code_sandbox_service\tests\test_api.py", line 312, in execute
+    raise RuntimeError(f"secret path: {script}")
+                                       └ WindowsPath('C:/Users/admin/AppData/Local/Temp/pytest-of-admin/pytest-967/test_unexpected_execute_error_0/2026-07-21/broken.py')
+
+RuntimeError: secret path: C:\Users\admin\AppData\Local\Temp\pytest-of-admin\pytest-967\test_unexpected_execute_error_0\2026-07-21\broken.py
+2026-07-21 14:19:10.142 | ERROR    | sandbox.executor:_execute_isolated:159 - Subprocess PID=%d timed out after %.2fs. Initiating process tree termination...
+2026-07-21 14:19:11.384 | ERROR    | sandbox.executor:_execute_isolated:159 - Subprocess PID=%d timed out after %.2fs. Initiating process tree termination...
+2026-07-21 14:21:39.490 | ERROR    | logging:callHandlers:1762 - Traceback (most recent call last):
+  File "C:\Users\admin\AppData\Roaming\uv\python\cpython-3.12-windows-x86_64-none\Lib\asyncio\runners.py", line 195, in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+  File "C:\Users\admin\AppData\Roaming\uv\python\cpython-3.12-windows-x86_64-none\Lib\asyncio\runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\admin\AppData\Roaming\uv\python\cpython-3.12-windows-x86_64-none\Lib\asyncio\base_events.py", line 678, in run_until_complete
+    self.run_forever()
+  File "C:\Users\admin\AppData\Roaming\uv\python\cpython-3.12-windows-x86_64-none\Lib\asyncio\base_events.py", line 645, in run_forever
+    self._run_once()
+  File "C:\Users\admin\AppData\Roaming\uv\python\cpython-3.12-windows-x86_64-none\Lib\asyncio\base_events.py", line 1999, in _run_once
+    handle._run()
+  File "C:\Users\admin\AppData\Roaming\uv\python\cpython-3.12-windows-x86_64-none\Lib\asyncio\events.py", line 88, in _run
+    self._context.run(self._callback, *self._args)
+  File "D:\code_file\code_sandbox_service\.venv\Lib\site-packages\uvicorn\server.py", line 77, in serve
+    with self.capture_signals():
+         ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\admin\AppData\Roaming\uv\python\cpython-3.12-windows-x86_64-none\Lib\contextlib.py", line 144, in __exit__
+    next(self.gen)
+  File "D:\code_file\code_sandbox_service\.venv\Lib\site-packages\uvicorn\server.py", line 337, in capture_signals
+    signal.raise_signal(captured_signal)
+  File "C:\Users\admin\AppData\Roaming\uv\python\cpython-3.12-windows-x86_64-none\Lib\asyncio\runners.py", line 157, in _on_sigint
+    raise KeyboardInterrupt()
+KeyboardInterrupt
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\code_file\code_sandbox_service\.venv\Lib\site-packages\starlette\routing.py", line 645, in lifespan
+    await receive()
+  File "D:\code_file\code_sandbox_service\.venv\Lib\site-packages\uvicorn\lifespan\on.py", line 137, in receive
+    return await self.receive_queue.get()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\admin\AppData\Roaming\uv\python\cpython-3.12-windows-x86_64-none\Lib\asyncio\queues.py", line 158, in get
+    await getter
+asyncio.exceptions.CancelledError
+
+2026-07-21 14:22:47.308 | ERROR    | sandbox.main:execute_code:342 - Execution failed unexpectedly (500): filename=broken.py request_id=671c238f76bf4db7ab4dfdef98ad5f5e
+Traceback (most recent call last):
+
+  File "C:\Users\admin\AppData\Roaming\uv\python\cpython-3.12-windows-x86_64-none\Lib\threading.py", line 1032, in _bootstrap
+    self._bootstrap_inner()
+    │    └ <function Thread._bootstrap_inner at 0x0000026ECF1B51C0>
+    └ <Thread(asyncio-portal-26ed3e78f80, started daemon 44056)>
+  File "C:\Users\admin\AppData\Roaming\uv\python\cpython-3.12-windows-x86_64-none\Lib\threading.py", line 1075, in _bootstrap_inner
+    self.run()
+    │    └ <function Thread.run at 0x0000026ECF1B4EA0>
+    └ <Thread(asyncio-portal-26ed3e78f80, started daemon 44056)>
+  File "C:\Users\admin\AppData\Roaming\uv\python\cpython-3.12-windows-x86_64-none\Lib\threading.py", line 1012, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Thread(asyncio-portal-26ed3e78f80, started daemon 44056)>
+    │    │        │    └ ()
+    │    │        └ <Thread(asyncio-portal-26ed3e78f80, started daemon 44056)>
+    │    └ <function start_blocking_portal.<locals>.run_blocking_portal at 0x0000026ED3E35580>
+    └ <Thread(asyncio-portal-26ed3e78f80, started daemon 44056)>
+  File "D:\code_file\code_sandbox_service\.venv\Lib\site-packages\anyio\from_thread.py", line 536, in run_blocking_portal
+    run_eventloop(
+    └ <function run at 0x0000026ECFD21760>
+  File "D:\code_file\code_sandbox_service\.venv\Lib\site-packages\anyio\_core\_eventloop.py", line 83, in run
+    return async_backend.run(func, args, {}, backend_options)
+           │             │   │     │         └ {}
+           │             │   │     └ ()
+           │             │   └ <function start_blocking_portal.<locals>.run_portal at 0x0000026ED3E35620>
+           │             └ <classmethod(<function AsyncIOBackend.run at 0x0000026ED1863E20>)>
+           └ <class 'anyio._backends._asyncio.AsyncIOBackend'>
+  File "D:\code_file\code_sandbox_service\.venv\Lib\site-packages\anyio\_backends\_asyncio.py", line 2481, in run
+    return runner.run(wrapper())
+           │      │   └ <function start_blocking_portal.<locals>.run_portal at 0x0000026ED3E37E20>
+           │      └ <function Runner.run at 0x0000026ED01D2E80>
+           └ <asyncio.runners.Runner object at 0x0000026ED3E6B590>
+  File "C:\Users\admin\AppData\Roaming\uv\python\cpython-3.12-windows-x86_64-none\Lib\asyncio\runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+           │    │     │                  └ <Task pending name='anyio.from_thread.start_blocking_portal.<locals>.run_portal' coro=<start_blocking_portal.<locals>.run_por...
+           │    │     └ <function BaseEventLoop.run_until_complete at 0x0000026ED01D0A40>
+           │    └ <ProactorEventLoop running=True closed=False debug=False>
+           └ <asyncio.runners.Runner object at 0x0000026ED3E6B590>
+  File "C:\Users\admin\AppData\Roaming\uv\python\cpython-3.12-windows-x86_64-none\Lib\asyncio\base_events.py", line 678, in run_until_complete
+    self.run_forever()
+    │    └ <function ProactorEventLoop.run_forever at 0x0000026ED1849E40>
+    └ <ProactorEventLoop running=True closed=False debug=False>
+  File "C:\Users\admin\AppData\Roaming\uv\python\cpython-3.12-windows-x86_64-none\Lib\asyncio\windows_events.py", line 322, in run_forever
+    super().run_forever()
+  File "C:\Users\admin\AppData\Roaming\uv\python\cpython-3.12-windows-x86_64-none\Lib\asyncio\base_events.py", line 645, in run_forever
+    self._run_once()
+    │    └ <function BaseEventLoop._run_once at 0x0000026ED01D27A0>
+    └ <ProactorEventLoop running=True closed=False debug=False>
+  File "C:\Users\admin\AppData\Roaming\uv\python\cpython-3.12-windows-x86_64-none\Lib\asyncio\base_events.py", line 1999, in _run_once
+    handle._run()
+    │      └ <function Handle._run at 0x0000026ED0106A20>
+    └ <Handle Task.task_wakeup(<Future finished result=None>)>
+  File "C:\Users\admin\AppData\Roaming\uv\python\cpython-3.12-windows-x86_64-none\Lib\asyncio\events.py", line 88, in _run
+    self._context.run(self._callback, *self._args)
+    │    │            │    │           │    └ <member '_args' of 'Handle' objects>
+    │    │            │    │           └ <Handle Task.task_wakeup(<Future finished result=None>)>
+    │    │            │    └ <member '_callback' of 'Handle' objects>
+    │    │            └ <Handle Task.task_wakeup(<Future finished result=None>)>
+    │    └ <member '_context' of 'Handle' objects>
+    └ <Handle Task.task_wakeup(<Future finished result=None>)>
+  File "D:\code_file\code_sandbox_service\.venv\Lib\site-packages\anyio\_core\_tasks.py", line 275, in _run_coro
+    retval = await self._coro
+                   │    └ <member '_coro' of 'TaskHandle' objects>
+                   └ <TaskHandle pending name='starlette.middleware.base.BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.coro' coro=<corou...
+  File "D:\code_file\code_sandbox_service\.venv\Lib\site-packages\starlette\middleware\base.py", line 144, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+          │    │   │      │                      └ <function BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.send_no_error at 0x0000026ED3D0FF60>
+          │    │   │      └ <function BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.receive_or_disconnect at 0x0000026ED3E35B20>
+          │    │   └ {'type': 'http', 'http_version': '1.1', 'method': 'POST', 'path': '/execute', 'raw_path': b'/execute', 'root_path': '', 'sche...
+          │    └ <starlette.middleware.exceptions.ExceptionMiddleware object at 0x0000026ED3E7A6F0>
+          └ <starlette.middleware.base.BaseHTTPMiddleware object at 0x0000026ED3E7AD20>
+  File "D:\code_file\code_sandbox_service\.venv\Lib\site-packages\starlette\middleware\exceptions.py", line 63, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+          │                            │    │    │     │      │        └ <function BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.send_no_error at 0x0000026ED3D0FF60>
+          │                            │    │    │     │      └ <function BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.receive_or_disconnect at 0x0000026ED3E35B20>
+          │                            │    │    │     └ {'type': 'http', 'http_version': '1.1', 'method': 'POST', 'path': '/execute', 'raw_path': b'/execute', 'root_path': '', 'sche...
+          │                            │    │    └ <starlette.requests.Request object at 0x0000026ED3E7BFE0>
+          │                            │    └ <fastapi.middleware.asyncexitstack.AsyncExitStackMiddleware object at 0x0000026ED3E7BA10>
+          │                            └ <starlette.middleware.exceptions.ExceptionMiddleware object at 0x0000026ED3E7A6F0>
+          └ <function wrap_app_handling_exceptions at 0x0000026ED271DD00>
+  File "D:\code_file\code_sandbox_service\.venv\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+          │   │      │        └ <function wrap_app_handling_exceptions.<locals>.wrapped_app.<locals>.sender at 0x0000026ED3D0F9C0>
+          │   │      └ <function BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.receive_or_disconnect at 0x0000026ED3E35B20>
+          │   └ {'type': 'http', 'http_version': '1.1', 'method': 'POST', 'path': '/execute', 'raw_path': b'/execute', 'root_path': '', 'sche...
+          └ <fastapi.middleware.asyncexitstack.AsyncExitStackMiddleware object at 0x0000026ED3E7BA10>
+  File "D:\code_file\code_sandbox_service\.venv\Lib\site-packages\fastapi\middleware\asyncexitstack.py", line 18, in __call__
+    await self.app(scope, receive, send)
+          │    │   │      │        └ <function wrap_app_handling_exceptions.<locals>.wrapped_app.<locals>.sender at 0x0000026ED3D0F9C0>
+          │    │   │      └ <function BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.receive_or_disconnect at 0x0000026ED3E35B20>
+          │    │   └ {'type': 'http', 'http_version': '1.1', 'method': 'POST', 'path': '/execute', 'raw_path': b'/execute', 'root_path': '', 'sche...
+          │    └ <fastapi.routing.APIRouter object at 0x0000026ED3E78E00>
+          └ <fastapi.middleware.asyncexitstack.AsyncExitStackMiddleware object at 0x0000026ED3E7BA10>
+  File "D:\code_file\code_sandbox_service\.venv\Lib\site-packages\starlette\routing.py", line 660, in __call__
+    await self.middleware_stack(scope, receive, send)
+          │    │                │      │        └ <function wrap_app_handling_exceptions.<locals>.wrapped_app.<locals>.sender at 0x0000026ED3D0F9C0>
+          │    │                │      └ <function BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.receive_or_disconnect at 0x0000026ED3E35B20>
+          │    │                └ {'type': 'http', 'http_version': '1.1', 'method': 'POST', 'path': '/execute', 'raw_path': b'/execute', 'root_path': '', 'sche...
+          │    └ <bound method APIRouter.app of <fastapi.routing.APIRouter object at 0x0000026ED3E78E00>>
+          └ <fastapi.routing.APIRouter object at 0x0000026ED3E78E00>
+  File "D:\code_file\code_sandbox_service\.venv\Lib\site-packages\fastapi\routing.py", line 2685, in app
+    await route.handle(scope, receive, send)
+          │     │      │      │        └ <function wrap_app_handling_exceptions.<locals>.wrapped_app.<locals>.sender at 0x0000026ED3D0F9C0>
+          │     │      │      └ <function BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.receive_or_disconnect at 0x0000026ED3E35B20>
+          │     │      └ {'type': 'http', 'http_version': '1.1', 'method': 'POST', 'path': '/execute', 'raw_path': b'/execute', 'root_path': '', 'sche...
+          │     └ <function APIRoute.handle at 0x0000026ED2742660>
+          └ APIRoute(path='/execute', name='execute_code', methods=['POST'])
+  File "D:\code_file\code_sandbox_service\.venv\Lib\site-packages\fastapi\routing.py", line 1267, in handle
+    await super().handle(scope, receive, send)
+                         │      │        └ <function wrap_app_handling_exceptions.<locals>.wrapped_app.<locals>.sender at 0x0000026ED3D0F9C0>
+                         │      └ <function BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.receive_or_disconnect at 0x0000026ED3E35B20>
+                         └ {'type': 'http', 'http_version': '1.1', 'method': 'POST', 'path': '/execute', 'raw_path': b'/execute', 'root_path': '', 'sche...
+  File "D:\code_file\code_sandbox_service\.venv\Lib\site-packages\starlette\routing.py", line 276, in handle
+    await self.app(scope, receive, send)
+          │    │   │      │        └ <function wrap_app_handling_exceptions.<locals>.wrapped_app.<locals>.sender at 0x0000026ED3D0F9C0>
+          │    │   │      └ <function BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.receive_or_disconnect at 0x0000026ED3E35B20>
+          │    │   └ {'type': 'http', 'http_version': '1.1', 'method': 'POST', 'path': '/execute', 'raw_path': b'/execute', 'root_path': '', 'sche...
+          │    └ <function request_response.<locals>.app at 0x0000026ED3E37380>
+          └ APIRoute(path='/execute', name='execute_code', methods=['POST'])
+  File "D:\code_file\code_sandbox_service\.venv\Lib\site-packages\fastapi\routing.py", line 151, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+          │                            │    │        │      │        └ <function wrap_app_handling_exceptions.<locals>.wrapped_app.<locals>.sender at 0x0000026ED3D0F9C0>
+          │                            │    │        │      └ <function BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.receive_or_disconnect at 0x0000026ED3E35B20>
+          │                            │    │        └ {'type': 'http', 'http_version': '1.1', 'method': 'POST', 'path': '/execute', 'raw_path': b'/execute', 'root_path': '', 'sche...
+          │                            │    └ <starlette.requests.Request object at 0x0000026ED3D48B00>
+          │                            └ <function request_response.<locals>.app.<locals>.app at 0x0000026ED3D0F920>
+          └ <function wrap_app_handling_exceptions at 0x0000026ED271DD00>
+  File "D:\code_file\code_sandbox_service\.venv\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+          │   │      │        └ <function wrap_app_handling_exceptions.<locals>.wrapped_app.<locals>.sender at 0x0000026ED3D0F740>
+          │   │      └ <function BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.receive_or_disconnect at 0x0000026ED3E35B20>
+          │   └ {'type': 'http', 'http_version': '1.1', 'method': 'POST', 'path': '/execute', 'raw_path': b'/execute', 'root_path': '', 'sche...
+          └ <function request_response.<locals>.app.<locals>.app at 0x0000026ED3D0F920>
+  File "D:\code_file\code_sandbox_service\.venv\Lib\site-packages\fastapi\routing.py", line 137, in app
+    response = await f(request)
+                     │ └ <starlette.requests.Request object at 0x0000026ED3D48B00>
+                     └ <function get_request_handler.<locals>.app at 0x0000026ED3E376A0>
+  File "D:\code_file\code_sandbox_service\.venv\Lib\site-packages\fastapi\routing.py", line 691, in app
+    raw_response = await run_endpoint_function(
+                         └ <function run_endpoint_function at 0x0000026ED27419E0>
+  File "D:\code_file\code_sandbox_service\.venv\Lib\site-packages\fastapi\routing.py", line 345, in run_endpoint_function
+    return await dependant.call(**values)
+                 │         │      └ {'_': None, 'body': ExecuteRequest(date='2026-07-21', filename='broken.py', data_file='input.csv', timeout=None), 'request': ...
+                 │         └ <function create_app.<locals>.execute_code at 0x0000026ED3E368E0>
+                 └ Dependant(path_params=[], query_params=[], header_params=[], cookie_params=[], body_params=[ModelField(field_info=Body(Pydant...
+
+> File "D:\code_file\code_sandbox_service\src\sandbox\main.py", line 327, in execute_code
+    result = await application.state.executor.execute(script, data_file, timeout)
+                   │           │                      │       │          └ 60
+                   │           │                      │       └ WindowsPath('C:/Users/admin/AppData/Local/Temp/pytest-of-admin/pytest-968/test_unexpected_execute_error_0/data/input.csv')
+                   │           │                      └ WindowsPath('C:/Users/admin/AppData/Local/Temp/pytest-of-admin/pytest-968/test_unexpected_execute_error_0/2026-07-21/broken.py')
+                   │           └ <starlette.datastructures.State object at 0x0000026ED3E78A40>
+                   └ <fastapi.applications.FastAPI object at 0x0000026ED3E7B1D0>
+
+  File "D:\code_file\code_sandbox_service\tests\test_api.py", line 312, in execute
+    raise RuntimeError(f"secret path: {script}")
+                                       └ WindowsPath('C:/Users/admin/AppData/Local/Temp/pytest-of-admin/pytest-968/test_unexpected_execute_error_0/2026-07-21/broken.py')
+
+RuntimeError: secret path: C:\Users\admin\AppData\Local\Temp\pytest-of-admin\pytest-968\test_unexpected_execute_error_0\2026-07-21\broken.py
+2026-07-21 14:22:47.701 | ERROR    | sandbox.executor:_execute_isolated:159 - Subprocess PID=%d timed out after %.2fs. Initiating process tree termination...
+2026-07-21 14:22:48.923 | ERROR    | sandbox.executor:_execute_isolated:159 - Subprocess PID=%d timed out after %.2fs. Initiating process tree termination...
+2026-07-21 14:24:50.729 | ERROR    | sandbox.main:execute_code:342 - 代码执行遭遇未预期错误 (500)：文件名=broken.py 请求ID=e7810b9a1bee4c95b5a374045a55b0d6
+Traceback (most recent call last):
+
+  File "C:\Users\admin\AppData\Roaming\uv\python\cpython-3.12-windows-x86_64-none\Lib\threading.py", line 1032, in _bootstrap
+    self._bootstrap_inner()
+    │    └ <function Thread._bootstrap_inner at 0x0000022CFDAB51C0>
+    └ <Thread(asyncio-portal-22c82721b20, started daemon 33348)>
+  File "C:\Users\admin\AppData\Roaming\uv\python\cpython-3.12-windows-x86_64-none\Lib\threading.py", line 1075, in _bootstrap_inner
+    self.run()
+    │    └ <function Thread.run at 0x0000022CFDAB4EA0>
+    └ <Thread(asyncio-portal-22c82721b20, started daemon 33348)>
+  File "C:\Users\admin\AppData\Roaming\uv\python\cpython-3.12-windows-x86_64-none\Lib\threading.py", line 1012, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Thread(asyncio-portal-22c82721b20, started daemon 33348)>
+    │    │        │    └ ()
+    │    │        └ <Thread(asyncio-portal-22c82721b20, started daemon 33348)>
+    │    └ <function start_blocking_portal.<locals>.run_blocking_portal at 0x0000022C82669BC0>
+    └ <Thread(asyncio-portal-22c82721b20, started daemon 33348)>
+  File "D:\code_file\code_sandbox_service\.venv\Lib\site-packages\anyio\from_thread.py", line 536, in run_blocking_portal
+    run_eventloop(
+    └ <function run at 0x0000022CFE5C1760>
+  File "D:\code_file\code_sandbox_service\.venv\Lib\site-packages\anyio\_core\_eventloop.py", line 83, in run
+    return async_backend.run(func, args, {}, backend_options)
+           │             │   │     │         └ {}
+           │             │   │     └ ()
+           │             │   └ <function start_blocking_portal.<locals>.run_portal at 0x0000022C826680E0>
+           │             └ <classmethod(<function AsyncIOBackend.run at 0x0000022CFED03E20>)>
+           └ <class 'anyio._backends._asyncio.AsyncIOBackend'>
+  File "D:\code_file\code_sandbox_service\.venv\Lib\site-packages\anyio\_backends\_asyncio.py", line 2481, in run
+    return runner.run(wrapper())
+           │      │   └ <function start_blocking_portal.<locals>.run_portal at 0x0000022C82669DA0>
+           │      └ <function Runner.run at 0x0000022CFEA72E80>
+           └ <asyncio.runners.Runner object at 0x0000022C8273B320>
+  File "C:\Users\admin\AppData\Roaming\uv\python\cpython-3.12-windows-x86_64-none\Lib\asyncio\runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+           │    │     │                  └ <Task pending name='anyio.from_thread.start_blocking_portal.<locals>.run_portal' coro=<start_blocking_portal.<locals>.run_por...
+           │    │     └ <function BaseEventLoop.run_until_complete at 0x0000022CFEA70A40>
+           │    └ <ProactorEventLoop running=True closed=False debug=False>
+           └ <asyncio.runners.Runner object at 0x0000022C8273B320>
+  File "C:\Users\admin\AppData\Roaming\uv\python\cpython-3.12-windows-x86_64-none\Lib\asyncio\base_events.py", line 678, in run_until_complete
+    self.run_forever()
+    │    └ <function ProactorEventLoop.run_forever at 0x0000022CFECE9E40>
+    └ <ProactorEventLoop running=True closed=False debug=False>
+  File "C:\Users\admin\AppData\Roaming\uv\python\cpython-3.12-windows-x86_64-none\Lib\asyncio\windows_events.py", line 322, in run_forever
+    super().run_forever()
+  File "C:\Users\admin\AppData\Roaming\uv\python\cpython-3.12-windows-x86_64-none\Lib\asyncio\base_events.py", line 645, in run_forever
+    self._run_once()
+    │    └ <function BaseEventLoop._run_once at 0x0000022CFEA727A0>
+    └ <ProactorEventLoop running=True closed=False debug=False>
+  File "C:\Users\admin\AppData\Roaming\uv\python\cpython-3.12-windows-x86_64-none\Lib\asyncio\base_events.py", line 1999, in _run_once
+    handle._run()
+    │      └ <function Handle._run at 0x0000022CFE9A6A20>
+    └ <Handle Task.task_wakeup(<Future finished result=None>)>
+  File "C:\Users\admin\AppData\Roaming\uv\python\cpython-3.12-windows-x86_64-none\Lib\asyncio\events.py", line 88, in _run
+    self._context.run(self._callback, *self._args)
+    │    │            │    │           │    └ <member '_args' of 'Handle' objects>
+    │    │            │    │           └ <Handle Task.task_wakeup(<Future finished result=None>)>
+    │    │            │    └ <member '_callback' of 'Handle' objects>
+    │    │            └ <Handle Task.task_wakeup(<Future finished result=None>)>
+    │    └ <member '_context' of 'Handle' objects>
+    └ <Handle Task.task_wakeup(<Future finished result=None>)>
+  File "D:\code_file\code_sandbox_service\.venv\Lib\site-packages\anyio\_core\_tasks.py", line 275, in _run_coro
+    retval = await self._coro
+                   │    └ <member '_coro' of 'TaskHandle' objects>
+                   └ <TaskHandle pending name='starlette.middleware.base.BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.coro' coro=<corou...
+  File "D:\code_file\code_sandbox_service\.venv\Lib\site-packages\starlette\middleware\base.py", line 144, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+          │    │   │      │                      └ <function BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.send_no_error at 0x0000022C826699E0>
+          │    │   │      └ <function BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.receive_or_disconnect at 0x0000022C82669800>
+          │    │   └ {'type': 'http', 'http_version': '1.1', 'method': 'POST', 'path': '/execute', 'raw_path': b'/execute', 'root_path': '', 'sche...
+          │    └ <starlette.middleware.exceptions.ExceptionMiddleware object at 0x0000022C8273B140>
+          └ <starlette.middleware.base.BaseHTTPMiddleware object at 0x0000022C82738DD0>
+  File "D:\code_file\code_sandbox_service\.venv\Lib\site-packages\starlette\middleware\exceptions.py", line 63, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+          │                            │    │    │     │      │        └ <function BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.send_no_error at 0x0000022C826699E0>
+          │                            │    │    │     │      └ <function BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.receive_or_disconnect at 0x0000022C82669800>
+          │                            │    │    │     └ {'type': 'http', 'http_version': '1.1', 'method': 'POST', 'path': '/execute', 'raw_path': b'/execute', 'root_path': '', 'sche...
+          │                            │    │    └ <starlette.requests.Request object at 0x0000022C8263E690>
+          │                            │    └ <fastapi.middleware.asyncexitstack.AsyncExitStackMiddleware object at 0x0000022C82738140>
+          │                            └ <starlette.middleware.exceptions.ExceptionMiddleware object at 0x0000022C8273B140>
+          └ <function wrap_app_handling_exceptions at 0x0000022CFFBB9DA0>
+  File "D:\code_file\code_sandbox_service\.venv\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+          │   │      │        └ <function wrap_app_handling_exceptions.<locals>.wrapped_app.<locals>.sender at 0x0000022C82669F80>
+          │   │      └ <function BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.receive_or_disconnect at 0x0000022C82669800>
+          │   └ {'type': 'http', 'http_version': '1.1', 'method': 'POST', 'path': '/execute', 'raw_path': b'/execute', 'root_path': '', 'sche...
+          └ <fastapi.middleware.asyncexitstack.AsyncExitStackMiddleware object at 0x0000022C82738140>
+  File "D:\code_file\code_sandbox_service\.venv\Lib\site-packages\fastapi\middleware\asyncexitstack.py", line 18, in __call__
+    await self.app(scope, receive, send)
+          │    │   │      │        └ <function wrap_app_handling_exceptions.<locals>.wrapped_app.<locals>.sender at 0x0000022C82669F80>
+          │    │   │      └ <function BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.receive_or_disconnect at 0x0000022C82669800>
+          │    │   └ {'type': 'http', 'http_version': '1.1', 'method': 'POST', 'path': '/execute', 'raw_path': b'/execute', 'root_path': '', 'sche...
+          │    └ <fastapi.routing.APIRouter object at 0x0000022C827211F0>
+          └ <fastapi.middleware.asyncexitstack.AsyncExitStackMiddleware object at 0x0000022C82738140>
+  File "D:\code_file\code_sandbox_service\.venv\Lib\site-packages\starlette\routing.py", line 660, in __call__
+    await self.middleware_stack(scope, receive, send)
+          │    │                │      │        └ <function wrap_app_handling_exceptions.<locals>.wrapped_app.<locals>.sender at 0x0000022C82669F80>
+          │    │                │      └ <function BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.receive_or_disconnect at 0x0000022C82669800>
+          │    │                └ {'type': 'http', 'http_version': '1.1', 'method': 'POST', 'path': '/execute', 'raw_path': b'/execute', 'root_path': '', 'sche...
+          │    └ <bound method APIRouter.app of <fastapi.routing.APIRouter object at 0x0000022C827211F0>>
+          └ <fastapi.routing.APIRouter object at 0x0000022C827211F0>
+  File "D:\code_file\code_sandbox_service\.venv\Lib\site-packages\fastapi\routing.py", line 2685, in app
+    await route.handle(scope, receive, send)
+          │     │      │      │        └ <function wrap_app_handling_exceptions.<locals>.wrapped_app.<locals>.sender at 0x0000022C82669F80>
+          │     │      │      └ <function BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.receive_or_disconnect at 0x0000022C82669800>
+          │     │      └ {'type': 'http', 'http_version': '1.1', 'method': 'POST', 'path': '/execute', 'raw_path': b'/execute', 'root_path': '', 'sche...
+          │     └ <function APIRoute.handle at 0x0000022CFFBE2700>
+          └ APIRoute(path='/execute', name='execute_code', methods=['POST'])
+  File "D:\code_file\code_sandbox_service\.venv\Lib\site-packages\fastapi\routing.py", line 1267, in handle
+    await super().handle(scope, receive, send)
+                         │      │        └ <function wrap_app_handling_exceptions.<locals>.wrapped_app.<locals>.sender at 0x0000022C82669F80>
+                         │      └ <function BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.receive_or_disconnect at 0x0000022C82669800>
+                         └ {'type': 'http', 'http_version': '1.1', 'method': 'POST', 'path': '/execute', 'raw_path': b'/execute', 'root_path': '', 'sche...
+  File "D:\code_file\code_sandbox_service\.venv\Lib\site-packages\starlette\routing.py", line 276, in handle
+    await self.app(scope, receive, send)
+          │    │   │      │        └ <function wrap_app_handling_exceptions.<locals>.wrapped_app.<locals>.sender at 0x0000022C82669F80>
+          │    │   │      └ <function BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.receive_or_disconnect at 0x0000022C82669800>
+          │    │   └ {'type': 'http', 'http_version': '1.1', 'method': 'POST', 'path': '/execute', 'raw_path': b'/execute', 'root_path': '', 'sche...
+          │    └ <function request_response.<locals>.app at 0x0000022C82627BA0>
+          └ APIRoute(path='/execute', name='execute_code', methods=['POST'])
+  File "D:\code_file\code_sandbox_service\.venv\Lib\site-packages\fastapi\routing.py", line 151, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+          │                            │    │        │      │        └ <function wrap_app_handling_exceptions.<locals>.wrapped_app.<locals>.sender at 0x0000022C82669F80>
+          │                            │    │        │      └ <function BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.receive_or_disconnect at 0x0000022C82669800>
+          │                            │    │        └ {'type': 'http', 'http_version': '1.1', 'method': 'POST', 'path': '/execute', 'raw_path': b'/execute', 'root_path': '', 'sche...
+          │                            │    └ <starlette.requests.Request object at 0x0000022C826679B0>
+          │                            └ <function request_response.<locals>.app.<locals>.app at 0x0000022C826693A0>
+          └ <function wrap_app_handling_exceptions at 0x0000022CFFBB9DA0>
+  File "D:\code_file\code_sandbox_service\.venv\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+          │   │      │        └ <function wrap_app_handling_exceptions.<locals>.wrapped_app.<locals>.sender at 0x0000022C82668EA0>
+          │   │      └ <function BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.receive_or_disconnect at 0x0000022C82669800>
+          │   └ {'type': 'http', 'http_version': '1.1', 'method': 'POST', 'path': '/execute', 'raw_path': b'/execute', 'root_path': '', 'sche...
+          └ <function request_response.<locals>.app.<locals>.app at 0x0000022C826693A0>
+  File "D:\code_file\code_sandbox_service\.venv\Lib\site-packages\fastapi\routing.py", line 137, in app
+    response = await f(request)
+                     │ └ <starlette.requests.Request object at 0x0000022C826679B0>
+                     └ <function get_request_handler.<locals>.app at 0x0000022C82624F40>
+  File "D:\code_file\code_sandbox_service\.venv\Lib\site-packages\fastapi\routing.py", line 691, in app
+    raw_response = await run_endpoint_function(
+                         └ <function run_endpoint_function at 0x0000022CFFBE1A80>
+  File "D:\code_file\code_sandbox_service\.venv\Lib\site-packages\fastapi\routing.py", line 345, in run_endpoint_function
+    return await dependant.call(**values)
+                 │         │      └ {'_': None, 'body': ExecuteRequest(date='2026-07-21', filename='broken.py', data_file='input.csv', timeout=None), 'request': ...
+                 │         └ <function create_app.<locals>.execute_code at 0x0000022C82627EC0>
+                 └ Dependant(path_params=[], query_params=[], header_params=[], cookie_params=[], body_params=[ModelField(field_info=Body(Pydant...
+
+> File "D:\code_file\code_sandbox_service\src\sandbox\main.py", line 327, in execute_code
+    result = await application.state.executor.execute(script, data_file, timeout)
+                   │           │                      │       │          └ 60
+                   │           │                      │       └ WindowsPath('C:/Users/admin/AppData/Local/Temp/pytest-of-admin/pytest-969/test_unexpected_execute_error_0/data/input.csv')
+                   │           │                      └ WindowsPath('C:/Users/admin/AppData/Local/Temp/pytest-of-admin/pytest-969/test_unexpected_execute_error_0/2026-07-21/broken.py')
+                   │           └ <starlette.datastructures.State object at 0x0000022C827209E0>
+                   └ <fastapi.applications.FastAPI object at 0x0000022C827238F0>
+
+  File "D:\code_file\code_sandbox_service\tests\test_api.py", line 312, in execute
+    raise RuntimeError(f"secret path: {script}")
+                                       └ WindowsPath('C:/Users/admin/AppData/Local/Temp/pytest-of-admin/pytest-969/test_unexpected_execute_error_0/2026-07-21/broken.py')
+
+RuntimeError: secret path: C:\Users\admin\AppData\Local\Temp\pytest-of-admin\pytest-969\test_unexpected_execute_error_0\2026-07-21\broken.py
+2026-07-21 14:24:51.152 | ERROR    | sandbox.executor:_execute_isolated:159 - 子进程 PID=%d 执行超时 (%.2f秒)。正在强制终止进程树...
+2026-07-21 14:24:52.283 | ERROR    | sandbox.executor:_execute_isolated:159 - 子进程 PID=%d 执行超时 (%.2f秒)。正在强制终止进程树...
+2026-07-21 14:25:28.191 | ERROR    | sandbox.main:execute_code:342 - 代码执行遭遇未预期错误 (500)：文件名=broken.py 请求ID=ad3bcace478647918095eff2509af3e6
+Traceback (most recent call last):
+
+  File "C:\Users\admin\AppData\Roaming\uv\python\cpython-3.12-windows-x86_64-none\Lib\threading.py", line 1032, in _bootstrap
+    self._bootstrap_inner()
+    │    └ <function Thread._bootstrap_inner at 0x000002858C6851C0>
+    └ <Thread(asyncio-portal-285902543b0, started daemon 15308)>
+  File "C:\Users\admin\AppData\Roaming\uv\python\cpython-3.12-windows-x86_64-none\Lib\threading.py", line 1075, in _bootstrap_inner
+    self.run()
+    │    └ <function Thread.run at 0x000002858C684EA0>
+    └ <Thread(asyncio-portal-285902543b0, started daemon 15308)>
+  File "C:\Users\admin\AppData\Roaming\uv\python\cpython-3.12-windows-x86_64-none\Lib\threading.py", line 1012, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Thread(asyncio-portal-285902543b0, started daemon 15308)>
+    │    │        │    └ ()
+    │    │        └ <Thread(asyncio-portal-285902543b0, started daemon 15308)>
+    │    └ <function start_blocking_portal.<locals>.run_blocking_portal at 0x000002859025A840>
+    └ <Thread(asyncio-portal-285902543b0, started daemon 15308)>
+  File "D:\code_file\code_sandbox_service\.venv\Lib\site-packages\anyio\from_thread.py", line 536, in run_blocking_portal
+    run_eventloop(
+    └ <function run at 0x000002858D1C1760>
+  File "D:\code_file\code_sandbox_service\.venv\Lib\site-packages\anyio\_core\_eventloop.py", line 83, in run
+    return async_backend.run(func, args, {}, backend_options)
+           │             │   │     │         └ {}
+           │             │   │     └ ()
+           │             │   └ <function start_blocking_portal.<locals>.run_portal at 0x0000028590259300>
+           │             └ <classmethod(<function AsyncIOBackend.run at 0x000002858ECB3E20>)>
+           └ <class 'anyio._backends._asyncio.AsyncIOBackend'>
+  File "D:\code_file\code_sandbox_service\.venv\Lib\site-packages\anyio\_backends\_asyncio.py", line 2481, in run
+    return runner.run(wrapper())
+           │      │   └ <function start_blocking_portal.<locals>.run_portal at 0x000002859025AD40>
+           │      └ <function Runner.run at 0x000002858D672E80>
+           └ <asyncio.runners.Runner object at 0x00000285902546B0>
+  File "C:\Users\admin\AppData\Roaming\uv\python\cpython-3.12-windows-x86_64-none\Lib\asyncio\runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+           │    │     │                  └ <Task pending name='anyio.from_thread.start_blocking_portal.<locals>.run_portal' coro=<start_blocking_portal.<locals>.run_por...
+           │    │     └ <function BaseEventLoop.run_until_complete at 0x000002858D670A40>
+           │    └ <ProactorEventLoop running=True closed=False debug=False>
+           └ <asyncio.runners.Runner object at 0x00000285902546B0>
+  File "C:\Users\admin\AppData\Roaming\uv\python\cpython-3.12-windows-x86_64-none\Lib\asyncio\base_events.py", line 678, in run_until_complete
+    self.run_forever()
+    │    └ <function ProactorEventLoop.run_forever at 0x000002858EC99E40>
+    └ <ProactorEventLoop running=True closed=False debug=False>
+  File "C:\Users\admin\AppData\Roaming\uv\python\cpython-3.12-windows-x86_64-none\Lib\asyncio\windows_events.py", line 322, in run_forever
+    super().run_forever()
+  File "C:\Users\admin\AppData\Roaming\uv\python\cpython-3.12-windows-x86_64-none\Lib\asyncio\base_events.py", line 645, in run_forever
+    self._run_once()
+    │    └ <function BaseEventLoop._run_once at 0x000002858D6727A0>
+    └ <ProactorEventLoop running=True closed=False debug=False>
+  File "C:\Users\admin\AppData\Roaming\uv\python\cpython-3.12-windows-x86_64-none\Lib\asyncio\base_events.py", line 1999, in _run_once
+    handle._run()
+    │      └ <function Handle._run at 0x000002858D5A6A20>
+    └ <Handle Task.task_wakeup(<Future finished result=None>)>
+  File "C:\Users\admin\AppData\Roaming\uv\python\cpython-3.12-windows-x86_64-none\Lib\asyncio\events.py", line 88, in _run
+    self._context.run(self._callback, *self._args)
+    │    │            │    │           │    └ <member '_args' of 'Handle' objects>
+    │    │            │    │           └ <Handle Task.task_wakeup(<Future finished result=None>)>
+    │    │            │    └ <member '_callback' of 'Handle' objects>
+    │    │            └ <Handle Task.task_wakeup(<Future finished result=None>)>
+    │    └ <member '_context' of 'Handle' objects>
+    └ <Handle Task.task_wakeup(<Future finished result=None>)>
+  File "D:\code_file\code_sandbox_service\.venv\Lib\site-packages\anyio\_core\_tasks.py", line 275, in _run_coro
+    retval = await self._coro
+                   │    └ <member '_coro' of 'TaskHandle' objects>
+                   └ <TaskHandle pending name='starlette.middleware.base.BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.coro' coro=<corou...
+  File "D:\code_file\code_sandbox_service\.venv\Lib\site-packages\starlette\middleware\base.py", line 144, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+          │    │   │      │                      └ <function BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.send_no_error at 0x000002859025AC00>
+          │    │   │      └ <function BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.receive_or_disconnect at 0x000002859025A980>
+          │    │   └ {'type': 'http', 'http_version': '1.1', 'method': 'POST', 'path': '/execute', 'raw_path': b'/execute', 'root_path': '', 'sche...
+          │    └ <starlette.middleware.exceptions.ExceptionMiddleware object at 0x00000285912E3C20>
+          └ <starlette.middleware.base.BaseHTTPMiddleware object at 0x00000285912E2150>
+  File "D:\code_file\code_sandbox_service\.venv\Lib\site-packages\starlette\middleware\exceptions.py", line 63, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+          │                            │    │    │     │      │        └ <function BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.send_no_error at 0x000002859025AC00>
+          │                            │    │    │     │      └ <function BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.receive_or_disconnect at 0x000002859025A980>
+          │                            │    │    │     └ {'type': 'http', 'http_version': '1.1', 'method': 'POST', 'path': '/execute', 'raw_path': b'/execute', 'root_path': '', 'sche...
+          │                            │    │    └ <starlette.requests.Request object at 0x0000028590269010>
+          │                            │    └ <fastapi.middleware.asyncexitstack.AsyncExitStackMiddleware object at 0x00000285912E3AA0>
+          │                            └ <starlette.middleware.exceptions.ExceptionMiddleware object at 0x00000285912E3C20>
+          └ <function wrap_app_handling_exceptions at 0x000002858FBB9DA0>
+  File "D:\code_file\code_sandbox_service\.venv\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+          │   │      │        └ <function wrap_app_handling_exceptions.<locals>.wrapped_app.<locals>.sender at 0x0000028590259580>
+          │   │      └ <function BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.receive_or_disconnect at 0x000002859025A980>
+          │   └ {'type': 'http', 'http_version': '1.1', 'method': 'POST', 'path': '/execute', 'raw_path': b'/execute', 'root_path': '', 'sche...
+          └ <fastapi.middleware.asyncexitstack.AsyncExitStackMiddleware object at 0x00000285912E3AA0>
+  File "D:\code_file\code_sandbox_service\.venv\Lib\site-packages\fastapi\middleware\asyncexitstack.py", line 18, in __call__
+    await self.app(scope, receive, send)
+          │    │   │      │        └ <function wrap_app_handling_exceptions.<locals>.wrapped_app.<locals>.sender at 0x0000028590259580>
+          │    │   │      └ <function BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.receive_or_disconnect at 0x000002859025A980>
+          │    │   └ {'type': 'http', 'http_version': '1.1', 'method': 'POST', 'path': '/execute', 'raw_path': b'/execute', 'root_path': '', 'sche...
+          │    └ <fastapi.routing.APIRouter object at 0x000002859022E570>
+          └ <fastapi.middleware.asyncexitstack.AsyncExitStackMiddleware object at 0x00000285912E3AA0>
+  File "D:\code_file\code_sandbox_service\.venv\Lib\site-packages\starlette\routing.py", line 660, in __call__
+    await self.middleware_stack(scope, receive, send)
+          │    │                │      │        └ <function wrap_app_handling_exceptions.<locals>.wrapped_app.<locals>.sender at 0x0000028590259580>
+          │    │                │      └ <function BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.receive_or_disconnect at 0x000002859025A980>
+          │    │                └ {'type': 'http', 'http_version': '1.1', 'method': 'POST', 'path': '/execute', 'raw_path': b'/execute', 'root_path': '', 'sche...
+          │    └ <bound method APIRouter.app of <fastapi.routing.APIRouter object at 0x000002859022E570>>
+          └ <fastapi.routing.APIRouter object at 0x000002859022E570>
+  File "D:\code_file\code_sandbox_service\.venv\Lib\site-packages\fastapi\routing.py", line 2685, in app
+    await route.handle(scope, receive, send)
+          │     │      │      │        └ <function wrap_app_handling_exceptions.<locals>.wrapped_app.<locals>.sender at 0x0000028590259580>
+          │     │      │      └ <function BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.receive_or_disconnect at 0x000002859025A980>
+          │     │      └ {'type': 'http', 'http_version': '1.1', 'method': 'POST', 'path': '/execute', 'raw_path': b'/execute', 'root_path': '', 'sche...
+          │     └ <function APIRoute.handle at 0x000002858FBE2700>
+          └ APIRoute(path='/execute', name='execute_code', methods=['POST'])
+  File "D:\code_file\code_sandbox_service\.venv\Lib\site-packages\fastapi\routing.py", line 1267, in handle
+    await super().handle(scope, receive, send)
+                         │      │        └ <function wrap_app_handling_exceptions.<locals>.wrapped_app.<locals>.sender at 0x0000028590259580>
+                         │      └ <function BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.receive_or_disconnect at 0x000002859025A980>
+                         └ {'type': 'http', 'http_version': '1.1', 'method': 'POST', 'path': '/execute', 'raw_path': b'/execute', 'root_path': '', 'sche...
+  File "D:\code_file\code_sandbox_service\.venv\Lib\site-packages\starlette\routing.py", line 276, in handle
+    await self.app(scope, receive, send)
+          │    │   │      │        └ <function wrap_app_handling_exceptions.<locals>.wrapped_app.<locals>.sender at 0x0000028590259580>
+          │    │   │      └ <function BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.receive_or_disconnect at 0x000002859025A980>
+          │    │   └ {'type': 'http', 'http_version': '1.1', 'method': 'POST', 'path': '/execute', 'raw_path': b'/execute', 'root_path': '', 'sche...
+          │    └ <function request_response.<locals>.app at 0x0000028590216F20>
+          └ APIRoute(path='/execute', name='execute_code', methods=['POST'])
+  File "D:\code_file\code_sandbox_service\.venv\Lib\site-packages\fastapi\routing.py", line 151, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+          │                            │    │        │      │        └ <function wrap_app_handling_exceptions.<locals>.wrapped_app.<locals>.sender at 0x0000028590259580>
+          │                            │    │        │      └ <function BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.receive_or_disconnect at 0x000002859025A980>
+          │                            │    │        └ {'type': 'http', 'http_version': '1.1', 'method': 'POST', 'path': '/execute', 'raw_path': b'/execute', 'root_path': '', 'sche...
+          │                            │    └ <starlette.requests.Request object at 0x0000028590269700>
+          │                            └ <function request_response.<locals>.app.<locals>.app at 0x00000285902599E0>
+          └ <function wrap_app_handling_exceptions at 0x000002858FBB9DA0>
+  File "D:\code_file\code_sandbox_service\.venv\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+          │   │      │        └ <function wrap_app_handling_exceptions.<locals>.wrapped_app.<locals>.sender at 0x0000028590259800>
+          │   │      └ <function BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.receive_or_disconnect at 0x000002859025A980>
+          │   └ {'type': 'http', 'http_version': '1.1', 'method': 'POST', 'path': '/execute', 'raw_path': b'/execute', 'root_path': '', 'sche...
+          └ <function request_response.<locals>.app.<locals>.app at 0x00000285902599E0>
+  File "D:\code_file\code_sandbox_service\.venv\Lib\site-packages\fastapi\routing.py", line 137, in app
+    response = await f(request)
+                     │ └ <starlette.requests.Request object at 0x0000028590269700>
+                     └ <function get_request_handler.<locals>.app at 0x0000028590216B60>
+  File "D:\code_file\code_sandbox_service\.venv\Lib\site-packages\fastapi\routing.py", line 691, in app
+    raw_response = await run_endpoint_function(
+                         └ <function run_endpoint_function at 0x000002858FBE1A80>
+  File "D:\code_file\code_sandbox_service\.venv\Lib\site-packages\fastapi\routing.py", line 345, in run_endpoint_function
+    return await dependant.call(**values)
+                 │         │      └ {'_': None, 'body': ExecuteRequest(date='2026-07-21', filename='broken.py', data_file='input.csv', timeout=None), 'request': ...
+                 │         └ <function create_app.<locals>.execute_code at 0x0000028590214720>
+                 └ Dependant(path_params=[], query_params=[], header_params=[], cookie_params=[], body_params=[ModelField(field_info=Body(Pydant...
+
+> File "D:\code_file\code_sandbox_service\src\sandbox\main.py", line 327, in execute_code
+    result = await application.state.executor.execute(script, data_file, timeout)
+                   │           │                      │       │          └ 60
+                   │           │                      │       └ WindowsPath('C:/Users/admin/AppData/Local/Temp/pytest-of-admin/pytest-970/test_unexpected_execute_error_0/data/input.csv')
+                   │           │                      └ WindowsPath('C:/Users/admin/AppData/Local/Temp/pytest-of-admin/pytest-970/test_unexpected_execute_error_0/2026-07-21/broken.py')
+                   │           └ <starlette.datastructures.State object at 0x000002859022E720>
+                   └ <fastapi.applications.FastAPI object at 0x000002859022CB30>
+
+  File "D:\code_file\code_sandbox_service\tests\test_api.py", line 312, in execute
+    raise RuntimeError(f"secret path: {script}")
+                                       └ WindowsPath('C:/Users/admin/AppData/Local/Temp/pytest-of-admin/pytest-970/test_unexpected_execute_error_0/2026-07-21/broken.py')
+
+RuntimeError: secret path: C:\Users\admin\AppData\Local\Temp\pytest-of-admin\pytest-970\test_unexpected_execute_error_0\2026-07-21\broken.py
+2026-07-21 14:25:28.601 | ERROR    | sandbox.executor:_execute_isolated:159 - 子进程 PID=%d 执行超时 (%.2f秒)。正在强制终止进程树...
+2026-07-21 14:25:29.865 | ERROR    | sandbox.executor:_execute_isolated:159 - 子进程 PID=%d 执行超时 (%.2f秒)。正在强制终止进程树...

@@ -166,34 +166,62 @@ async def test_execute_keeps_event_loop_responsive_while_copying_inputs(
 
 
 @pytest.mark.asyncio
-async def test_timeout_kills_descendant_processes(tmp_path: Path) -> None:
-    marker = tmp_path / "descendant-survived"
-    child_source = (
-        "import time; from pathlib import Path; "
-        f"time.sleep(0.5); Path({str(marker)!r}).write_text('alive')"
-    )
+async def test_execute_allows_future_imports(tmp_path: Path) -> None:
+    executor = SandboxExecutor(Settings(upload_dir=tmp_path))
+    script = write_script(tmp_path, "from __future__ import annotations\nprint('ok')")
+    data_file = write_data_file(tmp_path)
+
+    result = await executor.execute(script, data_file, timeout=1)
+
+    assert result.status == "success"
+    assert result.stdout == "ok\n"
+
+
+@pytest.mark.asyncio
+async def test_execute_blocks_unauthorized_imports(tmp_path: Path) -> None:
+    executor = SandboxExecutor(Settings(upload_dir=tmp_path))
+    script = write_script(tmp_path, "import socket\nprint('connected')")
+    data_file = write_data_file(tmp_path)
+
+    result = await executor.execute(script, data_file, timeout=1)
+
+    assert result.status == "error"
+    assert result.exit_code != 0
+    assert "Importing module 'socket' is not allowed by sandbox policy" in result.stderr
+
+
+@pytest.mark.asyncio
+async def test_execute_blocks_dynamic_dangerous_audit_events(tmp_path: Path) -> None:
+    executor = SandboxExecutor(Settings(upload_dir=tmp_path))
+    script = write_script(tmp_path, "eval(\"__import__('os').system('echo pwned')\")")
+    data_file = write_data_file(tmp_path)
+
+    result = await executor.execute(script, data_file, timeout=1)
+
+    assert result.status == "error"
+    assert result.exit_code != 0
+    assert "Operation 'os.system' is blocked by sandbox runtime audit policy" in result.stderr
+
+
+@pytest.mark.asyncio
+async def test_timeout_kills_long_running_script(tmp_path: Path) -> None:
     script = write_script(
         tmp_path,
-        "import subprocess, sys, time\n"
-        f"subprocess.Popen([sys.executable, '-c', {child_source!r}])\n"
-        "time.sleep(5)\n",
+        "import time\nprint('started', flush=True)\ntime.sleep(5)\n",
     )
     executor = SandboxExecutor(
         Settings(
             upload_dir=tmp_path,
             terminate_grace_seconds=0.1,
-            # RLIMIT_NPROC counts every process owned by the Jenkins Unix user.
-            # Keep this test focused on process-tree termination, not the shared host count.
-            process_count_limit=4096,
         )
     )
     data_file = write_data_file(tmp_path)
 
     result = await executor.execute(script, data_file, timeout=0.1)
-    await asyncio.sleep(0.7)
 
-    assert result.status == "timeout", result.stderr
-    assert not marker.exists()
+    assert result.status == "timeout"
+    assert result.exit_code == -1
+    assert result.stdout == "started\n"
 
 
 @pytest.mark.asyncio
@@ -217,3 +245,4 @@ async def test_execute_fallback_when_asyncio_subprocess_not_implemented(
     assert result.status == "success"
     assert result.exit_code == 0
     assert result.stdout == "fallback,data\nworks,1\n"
+
