@@ -58,6 +58,7 @@ ALLOWED_IMPORTS: frozenset[str] = frozenset(
         "seaborn",
         "sklearn",
         "yfinance",
+        "statistics",
     }
 )
 
