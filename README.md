@@ -68,6 +68,23 @@ curl -X POST http://127.0.0.1:32004/execute \
 
 `data_file` 必填，只能是相对于数据根目录的 `.csv` 路径，不支持通过接口上传 CSV。绝对路径、越界路径和非 CSV 路径返回 HTTP 400；CSV 或代码文件不存在返回 404。`status` 可能为 `success`、`error` 或 `timeout`。脚本非零退出时返回 `error` 和实际退出码；超时返回 `timeout` 和 `-1`。重复上传为 409，文件过大为 413，执行队列繁忙为 429。
 
+上传或执行请求在进入脚本运行前失败时，统一返回稳定错误码：
+
+```json
+{
+  "error": {
+    "code": "data_file_not_found",
+    "message": "data file not found"
+  }
+}
+```
+
+上游服务应依据 `error.code` 分类，不能依赖 `message` 文案。常用错误码包括
+`invalid_api_key`、`upload_filename_invalid`、`upload_duplicate`、
+`upload_too_large`、`execution_timeout_invalid`、`uploaded_code_path_invalid`、
+`uploaded_code_not_found`、`data_file_path_invalid`、`data_file_not_found`、
+`data_file_too_large`、`sandbox_busy` 和 `sandbox_execution_failed`。
+
 ## 配置
 
 | 环境变量 | 默认值 | 说明 |

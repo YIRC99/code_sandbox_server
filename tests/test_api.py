@@ -42,6 +42,15 @@ def execution_body(identity: dict[str, str], **overrides: object) -> dict[str, o
     return body
 
 
+def assert_error(response, code: str) -> None:
+    payload = response.json()
+    assert set(payload) == {"error"}
+    assert set(payload["error"]) == {"code", "message"}
+    assert payload["error"]["code"] == code
+    assert isinstance(payload["error"]["message"], str)
+    assert payload["error"]["message"]
+
+
 def test_health_does_not_require_authentication(tmp_path: Path) -> None:
     with make_client(tmp_path) as client:
         response = client.get("/health")
@@ -61,7 +70,8 @@ def test_business_endpoints_require_valid_api_key(tmp_path: Path) -> None:
 
     assert missing.status_code == 401
     assert wrong.status_code == 401
-    assert missing.json() == {"detail": "invalid API key"}
+    assert_error(missing, "invalid_api_key")
+    assert_error(wrong, "invalid_api_key")
 
 
 def test_upload_and_execute_preserve_date_filename_contract(tmp_path: Path) -> None:
@@ -102,6 +112,9 @@ def test_upload_rejects_invalid_duplicate_and_large_files(tmp_path: Path) -> Non
     assert first.status_code == 201
     assert duplicate.status_code == 409
     assert large.status_code == 413
+    assert_error(invalid, "upload_filename_invalid")
+    assert_error(duplicate, "upload_duplicate")
+    assert_error(large, "upload_too_large")
 
 
 def test_execute_rejects_invalid_missing_and_excessive_timeout(tmp_path: Path) -> None:
@@ -128,6 +141,9 @@ def test_execute_rejects_invalid_missing_and_excessive_timeout(tmp_path: Path) -
     assert invalid.status_code == 400
     assert missing.status_code == 404
     assert excessive.status_code == 400
+    assert_error(invalid, "uploaded_code_path_invalid")
+    assert_error(missing, "uploaded_code_not_found")
+    assert_error(excessive, "execution_timeout_invalid")
 
 
 def test_execute_rejects_unsafe_or_missing_data_paths_without_leaking_root(
@@ -163,8 +179,11 @@ def test_execute_rejects_unsafe_or_missing_data_paths_without_leaking_root(
     assert traversal.status_code == 400
     assert non_csv.status_code == 400
     assert missing.status_code == 404
-    for response in (absolute, traversal, non_csv, missing):
+    for response in (absolute, traversal, non_csv):
+        assert_error(response, "data_file_path_invalid")
         assert str(tmp_path) not in response.text
+    assert_error(missing, "data_file_not_found")
+    assert str(tmp_path) not in missing.text
 
 
 def test_execute_rejects_windows_unsafe_data_path_segments(tmp_path: Path) -> None:
@@ -201,7 +220,7 @@ def test_execute_rejects_windows_unsafe_data_path_segments(tmp_path: Path) -> No
 
     for data_file, response in zip(unsafe_paths, responses, strict=True):
         assert response.status_code == 400, data_file
-        assert response.json() == {"detail": "data_file contains an unsafe path segment"}
+        assert_error(response, "data_file_path_invalid")
         assert str(tmp_path) not in response.text
 
 
@@ -235,7 +254,7 @@ def test_execute_rejects_oversized_data_file_without_leaking_root(tmp_path: Path
         )
 
     assert response.status_code == 413
-    assert response.json() == {"detail": "data file exceeds configured size limit"}
+    assert_error(response, "data_file_too_large")
     assert str(tmp_path) not in response.text
 
 
@@ -303,7 +322,7 @@ def test_execute_returns_429_when_execution_queue_is_full(tmp_path: Path) -> Non
             assert first.result().status_code == 200
 
     assert second.status_code == 429
-    assert second.json() == {"detail": "sandbox is busy; retry later"}
+    assert_error(second, "sandbox_busy")
 
 
 def test_unexpected_execute_error_does_not_leak_traceback(tmp_path: Path) -> None:
@@ -328,7 +347,7 @@ def test_unexpected_execute_error_does_not_leak_traceback(tmp_path: Path) -> Non
         response = client.post("/execute", headers=auth_headers(), json=execution_body(identity))
 
     assert response.status_code == 500
-    assert response.json() == {"detail": "sandbox execution failed"}
+    assert_error(response, "sandbox_execution_failed")
     assert str(tmp_path) not in response.text
     assert "Traceback" not in response.text
     assert (tmp_path / identity["date"] / identity["filename"]).exists()

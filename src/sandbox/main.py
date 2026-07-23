@@ -13,9 +13,10 @@ from typing import Annotated
 if sys.platform == "win32":
     asyncio.set_event_loop_policy(asyncio.WindowsProactorEventLoopPolicy())
 
-from fastapi import Depends, FastAPI, File, Header, HTTPException, Request, UploadFile, status
+from fastapi import Depends, FastAPI, File, Header, Request, UploadFile, status
 from loguru import logger
 from pydantic import BaseModel, Field
+from starlette.responses import JSONResponse
 
 from .admission import ExecutionGate, SandboxBusyError
 from .config import Settings
@@ -140,6 +141,31 @@ class ExecuteResponse(BaseModel):
     status: str
 
 
+class SandboxErrorDetail(BaseModel):
+    code: str = Field(description="Stable machine-readable sandbox error code")
+    message: str = Field(description="Safe human-readable error message")
+
+
+class SandboxErrorResponse(BaseModel):
+    error: SandboxErrorDetail
+
+
+class SandboxHTTPError(Exception):
+    def __init__(
+        self,
+        *,
+        status_code: int,
+        code: str,
+        message: str,
+        headers: dict[str, str] | None = None,
+    ) -> None:
+        super().__init__(message)
+        self.status_code = status_code
+        self.code = code
+        self.message = message
+        self.headers = headers
+
+
 async def _cleanup_loop(storage: UploadStorage, interval: float) -> None:
     logger.info("启动后台文件清理循环任务 (间隔时间: %.1f秒)", interval)
     while True:
@@ -192,6 +218,18 @@ def create_app(settings: Settings | None = None) -> FastAPI:
         wait_timeout=resolved_settings.queue_wait_seconds,
     )
 
+    @application.exception_handler(SandboxHTTPError)
+    async def sandbox_error_response(
+        _request: Request,
+        exc: SandboxHTTPError,
+    ) -> JSONResponse:
+        payload = SandboxErrorResponse(error=SandboxErrorDetail(code=exc.code, message=exc.message))
+        return JSONResponse(
+            status_code=exc.status_code,
+            content=payload.model_dump(),
+            headers=exc.headers,
+        )
+
     @application.middleware("http")
     async def request_context(request: Request, call_next):
         request_id = request.headers.get("X-Request-ID") or uuid.uuid4().hex
@@ -232,9 +270,10 @@ def create_app(settings: Settings | None = None) -> FastAPI:
             logger.warning(
                 f"API Key 鉴权失败：请求ID={request.state.request_id} 客户端IP={client_ip}"
             )
-            raise HTTPException(
+            raise SandboxHTTPError(
                 status_code=status.HTTP_401_UNAUTHORIZED,
-                detail="invalid API key",
+                code="invalid_api_key",
+                message="invalid API key",
             )
 
     authenticated = Depends(require_api_key)
@@ -250,7 +289,17 @@ def create_app(settings: Settings | None = None) -> FastAPI:
             "waiting_executions": waiting,
         }
 
-    @application.post("/upload", status_code=status.HTTP_201_CREATED)
+    @application.post(
+        "/upload",
+        status_code=status.HTTP_201_CREATED,
+        responses={
+            400: {"model": SandboxErrorResponse},
+            401: {"model": SandboxErrorResponse},
+            409: {"model": SandboxErrorResponse},
+            413: {"model": SandboxErrorResponse},
+            500: {"model": SandboxErrorResponse},
+        },
+    )
     async def upload_file(
         file: Annotated[UploadFile, File()],
         request: Request,
@@ -265,21 +314,48 @@ def create_app(settings: Settings | None = None) -> FastAPI:
             )
         except InvalidPathError as exc:
             logger.warning(f"上传被拒绝 (路径格式无效 400)：{exc} 请求ID={req_id}")
-            raise HTTPException(status_code=400, detail=str(exc)) from exc
+            raise SandboxHTTPError(
+                status_code=400,
+                code="upload_filename_invalid",
+                message=str(exc),
+            ) from exc
         except DuplicateUploadError as exc:
             logger.warning(f"上传被拒绝 (文件重复 409)：{exc} 请求ID={req_id}")
-            raise HTTPException(status_code=409, detail=str(exc)) from exc
+            raise SandboxHTTPError(
+                status_code=409,
+                code="upload_duplicate",
+                message=str(exc),
+            ) from exc
         except UploadTooLargeError as exc:
             logger.warning(f"上传被拒绝 (文件过大 413)：{exc} 请求ID={req_id}")
-            raise HTTPException(status_code=413, detail=str(exc)) from exc
+            raise SandboxHTTPError(
+                status_code=413,
+                code="upload_too_large",
+                message=str(exc),
+            ) from exc
         except Exception as exc:
             logger.exception(f"文件上传发生未知异常 (500) 请求ID={req_id}")
-            raise HTTPException(status_code=500, detail="upload failed") from exc
+            raise SandboxHTTPError(
+                status_code=500,
+                code="upload_failed",
+                message="upload failed",
+            ) from exc
         finally:
             await file.close()
         return {"date": saved.date, "filename": saved.filename}
 
-    @application.post("/execute", response_model=ExecuteResponse)
+    @application.post(
+        "/execute",
+        response_model=ExecuteResponse,
+        responses={
+            400: {"model": SandboxErrorResponse},
+            401: {"model": SandboxErrorResponse},
+            404: {"model": SandboxErrorResponse},
+            413: {"model": SandboxErrorResponse},
+            429: {"model": SandboxErrorResponse},
+            500: {"model": SandboxErrorResponse},
+        },
+    )
     async def execute_code(
         body: ExecuteRequest,
         request: Request,
@@ -300,35 +376,56 @@ def create_app(settings: Settings | None = None) -> FastAPI:
                 f"代码执行被拒绝 (超时超出限制 400)：请求超时 {timeout:.2f}秒 > "
                 f"上限 {resolved_settings.max_timeout_seconds:.2f}秒 请求ID={req_id}"
             )
-            raise HTTPException(
+            raise SandboxHTTPError(
                 status_code=400,
-                detail=f"timeout cannot exceed {resolved_settings.max_timeout_seconds} seconds",
+                code="execution_timeout_invalid",
+                message=(f"timeout cannot exceed {resolved_settings.max_timeout_seconds} seconds"),
             )
         try:
             script = application.state.storage.resolve(body.date, body.filename)
         except InvalidPathError as exc:
             logger.warning(f"代码执行被拒绝 (路径格式无效 400)：{exc} 请求ID={req_id}")
-            raise HTTPException(status_code=400, detail=str(exc)) from exc
+            raise SandboxHTTPError(
+                status_code=400,
+                code="uploaded_code_path_invalid",
+                message=str(exc),
+            ) from exc
         except FileNotFoundError as exc:
             logger.warning(
                 f"代码执行被拒绝 (未找到脚本 404)：日期={body.date} "
                 f"文件名={body.filename} 请求ID={req_id}"
             )
-            raise HTTPException(status_code=404, detail="uploaded file not found") from exc
+            raise SandboxHTTPError(
+                status_code=404,
+                code="uploaded_code_not_found",
+                message="uploaded file not found",
+            ) from exc
 
         try:
             data_file = application.state.data_files.resolve(body.data_file)
         except DataFileTooLargeError as exc:
             logger.warning(f"代码执行被拒绝 (数据文件过大 413)：{exc} 请求ID={req_id}")
-            raise HTTPException(status_code=413, detail=str(exc)) from exc
+            raise SandboxHTTPError(
+                status_code=413,
+                code="data_file_too_large",
+                message=str(exc),
+            ) from exc
         except InvalidPathError as exc:
             logger.warning(f"代码执行被拒绝 (数据文件路径无效 400)：{exc} 请求ID={req_id}")
-            raise HTTPException(status_code=400, detail=str(exc)) from exc
+            raise SandboxHTTPError(
+                status_code=400,
+                code="data_file_path_invalid",
+                message=str(exc),
+            ) from exc
         except FileNotFoundError as exc:
             logger.warning(
                 f"代码执行被拒绝 (未找到数据文件 404)：数据文件={body.data_file} 请求ID={req_id}"
             )
-            raise HTTPException(status_code=404, detail="data file not found") from exc
+            raise SandboxHTTPError(
+                status_code=404,
+                code="data_file_not_found",
+                message="data file not found",
+            ) from exc
 
         logger.info(
             f"正在申请执行门控槽位：脚本={script.name} 数据文件={data_file.name} "
@@ -339,22 +436,31 @@ def create_app(settings: Settings | None = None) -> FastAPI:
                 result = await application.state.executor.execute(script, data_file, timeout)
         except DataFileTooLargeError as exc:
             logger.warning(f"代码执行被拒绝 (数据文件过大 413)：{exc} 请求ID={req_id}")
-            raise HTTPException(status_code=413, detail=str(exc)) from exc
+            raise SandboxHTTPError(
+                status_code=413,
+                code="data_file_too_large",
+                message=str(exc),
+            ) from exc
         except SandboxBusyError as exc:
             logger.warning(
                 f"代码执行被拒绝 (沙箱繁忙 429)：运行中={application.state.gate.active} "
                 f"排队中={application.state.gate.waiting} 请求ID={req_id}"
             )
-            raise HTTPException(
+            raise SandboxHTTPError(
                 status_code=429,
-                detail="sandbox is busy; retry later",
+                code="sandbox_busy",
+                message="sandbox is busy; retry later",
                 headers={"Retry-After": "1"},
             ) from exc
         except Exception as exc:
             logger.exception(
                 f"代码执行遭遇未预期错误 (500)：文件名={body.filename} 请求ID={req_id}"
             )
-            raise HTTPException(status_code=500, detail="sandbox execution failed") from exc
+            raise SandboxHTTPError(
+                status_code=500,
+                code="sandbox_execution_failed",
+                message="sandbox execution failed",
+            ) from exc
 
         logger.info(
             f"代码执行完成：请求ID={req_id} 文件名={body.filename} "
