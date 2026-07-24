@@ -7,4 +7,4 @@ spec:
     - name: http
       port: 32004
       targetPort: http
-      nodePort: 32015
+      nodePort: 32014

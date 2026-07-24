@@ -113,9 +113,9 @@ curl -X POST http://127.0.0.1:32004/execute \
 
 ## Kubernetes 部署
 
-生产清单位于 `k8s/overlays/prod`。部署前需要：
+dev 和 test 清单分别位于 `k8s/overlays/dev` 与 `k8s/overlays/test`。服务直接通过节点 IP 和 NodePort 访问，不部署 Ingress。部署前需要：
 
-- Nginx Ingress Controller。
+- 确保 dev 使用的 `32004` 和 test 使用的 `32014` 未被其他 Service 占用。
 - 能拉取 `harbor.internal.net` 私有镜像的节点或 `imagePullSecret`。
 
 Deployment 固定为一个副本并采用 `Recreate` 更新策略。上传目录和执行临时目录均使用带容量限制的 `emptyDir`，不需要 PVC；Pod 重启或重新部署后，尚未执行的上传文件会丢失，这是预期行为。`Recreate` 会让更新过程出现短暂中断，但能避免新旧 Pod 同时存在时上传和执行请求落到不同 Pod。
@@ -127,10 +127,10 @@ kubectl create namespace yntrust-dev --dry-run=client -o yaml | kubectl apply -f
 kubectl create secret generic code-sandbox-secret \
   --from-literal=api-key='replace-with-a-long-random-value' \
   -n yntrust-dev
-kubectl apply -k k8s/overlays/prod
+kubectl apply -k k8s/overlays/dev
 ```
 
-部署前需要按实际域名修改 `k8s/base/ingress.yaml`。Kubernetes 清单默认禁止 Pod 主动访问外网；如果回测代码需要通过 `yfinance` 或 HTTP 获取行情，必须由运维按允许的目标地址调整或移除 `network-policy.yaml`，不能直接开放任意出口。
+Kubernetes 清单默认禁止 Pod 主动访问外网；如果回测代码需要通过 `yfinance` 或 HTTP 获取行情，必须由运维按允许的目标地址调整或移除 `network-policy.yaml`，不能直接开放任意出口。
 
 ## Jenkins
 
