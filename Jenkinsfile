@@ -38,8 +38,10 @@ pipeline {
         stage('Setup Environment') {
             steps {
                 script {
-                    def branch = (env.BRANCH_NAME ?: env.GIT_BRANCH ?: 'dev').replaceAll('^origin/', '')
-                    if (branch == 'test') {
+                    def branch = (env.BRANCH_NAME ?: env.GIT_BRANCH ?: '').replaceAll('^origin/', '')
+                    def jobName = env.JOB_NAME ?: ''
+                    
+                    if (branch == 'test' || jobName.endsWith('-test')) {
                         env.TARGET_ENV = 'test'
                         env.K8S_NAMESPACE = 'yntrust-test'
                         env.IMAGE_NAME = 'yntrust-test/code-sandbox'
