@@ -128,7 +128,7 @@ def test_kubernetes_uses_one_ephemeral_pod_without_scaling_resources() -> None:
     assert "kind: PodDisruptionBudget" not in manifests
     assert "kind: Service" in manifests
     assert "nodePort: 32004" in manifests
-    assert "nodePort: 32005" in manifests
+    assert "nodePort: 32015" in manifests
 
 
 def test_kubernetes_service_exposes_environment_node_ports() -> None:
@@ -136,7 +136,7 @@ def test_kubernetes_service_exposes_environment_node_ports() -> None:
     test_patch = read("k8s/overlays/test/service-patch.yaml")
 
     assert "nodePort: 32004" in dev_patch
-    assert "nodePort: 32005" in test_patch
+    assert "nodePort: 32015" in test_patch
 
 
 def test_network_policy_denies_egress_by_default() -> None:
