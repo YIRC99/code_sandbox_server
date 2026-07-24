@@ -934,3 +934,157 @@
 2026-07-21 14:30:04.050 | WARNING  | src.sandbox.executor:_execute_isolated:137 - 当前事件循环/操作系统不支持 asyncio 子进程创建；自动回退降级为同步进程执行模式
 2026-07-21 14:30:09.337 | WARNING  | src.sandbox.executor:_execute_isolated:137 - 当前事件循环/操作系统不支持 asyncio 子进程创建；自动回退降级为同步进程执行模式
 2026-07-21 14:52:48.637 | WARNING  | src.sandbox.executor:_execute_isolated:137 - 当前事件循环/操作系统不支持 asyncio 子进程创建；自动回退降级为同步进程执行模式
+2026-07-21 15:27:26.942 | WARNING  | sandbox.admission:_acquire:48 - 执行门控等待队列已满！拒绝请求：运行中=1/1 排队中=1/1
+2026-07-21 15:27:26.970 | WARNING  | sandbox.admission:_acquire:79 - 排队等待超时 (0.01秒)：运行中=1/1 排队中=1/1
+2026-07-21 15:27:27.024 | WARNING  | sandbox.main:require_api_key:232 - API Key 鉴权失败：请求ID=1a337050221c4f18b78005999bf0f29c 客户端IP=testclient
+2026-07-21 15:27:27.026 | WARNING  | sandbox.main:require_api_key:232 - API Key 鉴权失败：请求ID=c2ea442f61484cd288a91c095d547a5e 客户端IP=testclient
+2026-07-21 15:27:27.194 | WARNING  | sandbox.storage:validate_filename:63 - 尝试使用不安全或无效的 Python 文件名：../unsafe.py
+2026-07-21 15:27:27.194 | WARNING  | sandbox.main:upload_file:267 - 上传被拒绝 (路径格式无效 400)：filename must be a safe Python basename 请求ID=988edd9a7a6b4670bd5160b54871d788
+2026-07-21 15:27:27.199 | WARNING  | sandbox.storage:save:116 - 重复上传被拒绝：文件已存在于 C:\Users\admin\AppData\Local\Temp\pytest-of-admin\pytest-971\test_upload_rejects_invalid_du0\2026-07-21\same.py
+2026-07-21 15:27:27.199 | WARNING  | sandbox.main:upload_file:270 - 上传被拒绝 (文件重复 409)：a file with this name already exists today 请求ID=9bed04787f974c61a65009fb8aec5700
+2026-07-21 15:27:27.202 | WARNING  | sandbox.storage:save:109 - 上传文件大小超出限制 (5 > 4 字节)：large.py
+2026-07-21 15:27:27.202 | WARNING  | sandbox.main:upload_file:273 - 上传被拒绝 (文件过大 413)：upload exceeds 4 bytes 请求ID=2aa5c631b2fe4c24bbeafaa9a5e8320a
+2026-07-21 15:27:27.213 | WARNING  | sandbox.storage:validate_date:53 - 提供了无效的日期格式：../2026-07-17
+2026-07-21 15:27:27.213 | WARNING  | sandbox.main:execute_code:310 - 代码执行被拒绝 (路径格式无效 400)：date must use YYYY-MM-DD format 请求ID=e4a6203edbc5487da1828831b472abf2
+2026-07-21 15:27:27.216 | WARNING  | sandbox.storage:resolve:135 - 未找到上传脚本：日期=2026-07-17 文件名=missing.py 路径=C:\Users\admin\AppData\Local\Temp\pytest-of-admin\pytest-971\test_execute_rejects_invalid_m0\2026-07-17\missing.py
+2026-07-21 15:27:27.216 | WARNING  | sandbox.main:execute_code:313 - 代码执行被拒绝 (未找到脚本 404)：日期=2026-07-17 文件名=missing.py 请求ID=aede7a05aeca43028e359134526842b2
+2026-07-21 15:27:27.221 | WARNING  | sandbox.main:execute_code:299 - 代码执行被拒绝 (超时超出限制 400)：请求超时 3.00秒 > 上限 2.00秒 请求ID=907be6fc28a64834b6b1e25016b58e06
+2026-07-21 15:27:27.236 | WARNING  | sandbox.storage:validate_data_path_segments:77 - data_file 路径段中包含不安全的 Windows 字符：C:
+2026-07-21 15:27:27.236 | WARNING  | sandbox.main:execute_code:325 - 代码执行被拒绝 (数据文件路径无效 400)：data_file contains an unsafe path segment 请求ID=5119e3d9b52a4baa93a8100292397554
+2026-07-21 15:27:27.239 | WARNING  | sandbox.storage:validate_data_path_segments:80 - data_file 路径段包含末尾点号或空格：..
+2026-07-21 15:27:27.240 | WARNING  | sandbox.main:execute_code:325 - 代码执行被拒绝 (数据文件路径无效 400)：data_file contains an unsafe path segment 请求ID=cbcd5cefaaaa4680b0f8afdffc208c56
+2026-07-21 15:27:27.242 | WARNING  | sandbox.storage:resolve:194 - 请求的数据文件路径结构无效：input.txt
+2026-07-21 15:27:27.242 | WARNING  | sandbox.main:execute_code:325 - 代码执行被拒绝 (数据文件路径无效 400)：data_file must be a relative CSV path 请求ID=2ccc4a508ac04742adb0fe8b6ba9788e
+2026-07-21 15:27:27.245 | WARNING  | sandbox.storage:resolve:206 - 在解析路径处未找到 CSV 数据文件：C:\Users\admin\AppData\Local\Temp\pytest-of-admin\pytest-971\test_execute_rejects_unsafe_or0\data\missing.csv
+2026-07-21 15:27:27.245 | WARNING  | sandbox.main:execute_code:328 - 代码执行被拒绝 (未找到数据文件 404)：数据文件=missing.csv 请求ID=1ff3a87b5c3f4e4e9889190854b1c701
+2026-07-21 15:27:27.261 | WARNING  | sandbox.storage:validate_data_path_segments:77 - data_file 路径段中包含不安全的 Windows 字符：data:secret.csv
+2026-07-21 15:27:27.261 | WARNING  | sandbox.main:execute_code:325 - 代码执行被拒绝 (数据文件路径无效 400)：data_file contains an unsafe path segment 请求ID=defc0947cea84d5ca6740f7ac7ad7415
+2026-07-21 15:27:27.264 | WARNING  | sandbox.storage:validate_data_path_segments:84 - data_file 路径段包含保留设备名：NUL
+2026-07-21 15:27:27.264 | WARNING  | sandbox.main:execute_code:325 - 代码执行被拒绝 (数据文件路径无效 400)：data_file contains an unsafe path segment 请求ID=e97b32ae0ef145b0bfbf8853c04933cd
+2026-07-21 15:27:27.266 | WARNING  | sandbox.storage:validate_data_path_segments:84 - data_file 路径段包含保留设备名：COM1
+2026-07-21 15:27:27.267 | WARNING  | sandbox.main:execute_code:325 - 代码执行被拒绝 (数据文件路径无效 400)：data_file contains an unsafe path segment 请求ID=f11372d44aa14197afea53e7d0343bc4
+2026-07-21 15:27:27.269 | WARNING  | sandbox.storage:validate_data_path_segments:84 - data_file 路径段包含保留设备名：AUX
+2026-07-21 15:27:27.269 | WARNING  | sandbox.main:execute_code:325 - 代码执行被拒绝 (数据文件路径无效 400)：data_file contains an unsafe path segment 请求ID=3c3858831a704011a43613a95a2bdb3c
+2026-07-21 15:27:27.271 | WARNING  | sandbox.storage:validate_data_path_segments:84 - data_file 路径段包含保留设备名：NUL
+2026-07-21 15:27:27.272 | WARNING  | sandbox.main:execute_code:325 - 代码执行被拒绝 (数据文件路径无效 400)：data_file contains an unsafe path segment 请求ID=0f07f153a6474970801acc0a8258e66b
+2026-07-21 15:27:27.274 | WARNING  | sandbox.storage:validate_data_path_segments:84 - data_file 路径段包含保留设备名：COM1
+2026-07-21 15:27:27.274 | WARNING  | sandbox.main:execute_code:325 - 代码执行被拒绝 (数据文件路径无效 400)：data_file contains an unsafe path segment 请求ID=73fda1e98afd4a559b57b2ea6622f897
+2026-07-21 15:27:27.277 | WARNING  | sandbox.storage:validate_data_path_segments:84 - data_file 路径段包含保留设备名：CONIN$
+2026-07-21 15:27:27.277 | WARNING  | sandbox.main:execute_code:325 - 代码执行被拒绝 (数据文件路径无效 400)：data_file contains an unsafe path segment 请求ID=6610ceb151d9464b8475cb5d3e0bcad3
+2026-07-21 15:27:27.279 | WARNING  | sandbox.storage:validate_data_path_segments:84 - data_file 路径段包含保留设备名：CONOUT$
+2026-07-21 15:27:27.279 | WARNING  | sandbox.main:execute_code:325 - 代码执行被拒绝 (数据文件路径无效 400)：data_file contains an unsafe path segment 请求ID=64c2462f03614b4fb8d8561b517f8a36
+2026-07-21 15:27:27.281 | WARNING  | sandbox.storage:validate_data_path_segments:84 - data_file 路径段包含保留设备名：COM¹
+2026-07-21 15:27:27.281 | WARNING  | sandbox.main:execute_code:325 - 代码执行被拒绝 (数据文件路径无效 400)：data_file contains an unsafe path segment 请求ID=64c2f0b56f48406a84ec53600d8fd70f
+2026-07-21 15:27:27.284 | WARNING  | sandbox.storage:validate_data_path_segments:84 - data_file 路径段包含保留设备名：COM²
+2026-07-21 15:27:27.284 | WARNING  | sandbox.main:execute_code:325 - 代码执行被拒绝 (数据文件路径无效 400)：data_file contains an unsafe path segment 请求ID=c927a007a1e4441182e120b8db166686
+2026-07-21 15:27:27.286 | WARNING  | sandbox.storage:validate_data_path_segments:84 - data_file 路径段包含保留设备名：COM³
+2026-07-21 15:27:27.286 | WARNING  | sandbox.main:execute_code:325 - 代码执行被拒绝 (数据文件路径无效 400)：data_file contains an unsafe path segment 请求ID=67eef30a005545b5bf036a75b0e3eadb
+2026-07-21 15:27:27.288 | WARNING  | sandbox.storage:validate_data_path_segments:84 - data_file 路径段包含保留设备名：LPT¹
+2026-07-21 15:27:27.288 | WARNING  | sandbox.main:execute_code:325 - 代码执行被拒绝 (数据文件路径无效 400)：data_file contains an unsafe path segment 请求ID=634affc3d5ec4e90a47d71e14abee750
+2026-07-21 15:27:27.290 | WARNING  | sandbox.storage:validate_data_path_segments:84 - data_file 路径段包含保留设备名：LPT²
+2026-07-21 15:27:27.290 | WARNING  | sandbox.main:execute_code:325 - 代码执行被拒绝 (数据文件路径无效 400)：data_file contains an unsafe path segment 请求ID=bb914b7aeb3e45cdb9e88a8c46cf9297
+2026-07-21 15:27:27.292 | WARNING  | sandbox.storage:validate_data_path_segments:84 - data_file 路径段包含保留设备名：LPT³
+2026-07-21 15:27:27.292 | WARNING  | sandbox.main:execute_code:325 - 代码执行被拒绝 (数据文件路径无效 400)：data_file contains an unsafe path segment 请求ID=03a6833f20844e288dfb294627ba9391
+2026-07-21 15:27:27.295 | WARNING  | sandbox.storage:validate_data_path_segments:77 - data_file 路径段中包含不安全的 Windows 字符：bad?.csv
+2026-07-21 15:27:27.295 | WARNING  | sandbox.main:execute_code:325 - 代码执行被拒绝 (数据文件路径无效 400)：data_file contains an unsafe path segment 请求ID=594a0e25d2ed4099b637ef229adb0dcc
+2026-07-21 15:27:27.297 | WARNING  | sandbox.storage:validate_data_path_segments:70 - data_file 中包含不安全的控制字符：'market/control\x1f.csv'
+2026-07-21 15:27:27.297 | WARNING  | sandbox.main:execute_code:325 - 代码执行被拒绝 (数据文件路径无效 400)：data_file contains an unsafe path segment 请求ID=e5f2ffbb134f4f749917656f60b7977b
+2026-07-21 15:27:27.299 | WARNING  | sandbox.storage:validate_data_path_segments:70 - data_file 中包含不安全的控制字符：'market/delete\x7f.csv'
+2026-07-21 15:27:27.299 | WARNING  | sandbox.main:execute_code:325 - 代码执行被拒绝 (数据文件路径无效 400)：data_file contains an unsafe path segment 请求ID=1704f78e89df42c786685b21b24e8d80
+2026-07-21 15:27:27.303 | WARNING  | sandbox.storage:validate_data_path_segments:70 - data_file 中包含不安全的控制字符：'market/nul\x00.csv'
+2026-07-21 15:27:27.303 | WARNING  | sandbox.main:execute_code:325 - 代码执行被拒绝 (数据文件路径无效 400)：data_file contains an unsafe path segment 请求ID=23699266b9164ec399605ad7c7c16d7a
+2026-07-21 15:27:27.408 | WARNING  | sandbox.storage:resolve:214 - 数据文件大小超过限制 (30 > 8 字节)：C:\Users\admin\AppData\Local\Temp\pytest-of-admin\pytest-971\test_execute_rejects_oversized0\data\input.csv
+2026-07-21 15:27:27.408 | WARNING  | sandbox.main:execute_code:322 - 代码执行被拒绝 (数据文件过大 413)：data file exceeds configured size limit 请求ID=617814df9e9545c0a0362718ca45dd3b
+2026-07-21 15:27:27.918 | WARNING  | sandbox.admission:_acquire:48 - 执行门控等待队列已满！拒绝请求：运行中=1/1 排队中=0/0
+2026-07-21 15:27:27.918 | WARNING  | sandbox.main:execute_code:344 - 代码执行被拒绝 (沙箱繁忙 429)：运行中=1 排队中=0 请求ID=be63b7a3aaa74973bc30e3736fd0f065
+2026-07-21 15:27:30.510 | WARNING  | sandbox.executor:_execute_isolated:133 - 当前事件循环/操作系统不支持 asyncio 子进程创建；自动回退降级为同步进程执行模式
+2026-07-21 15:27:30.578 | WARNING  | sandbox.storage:validate_date:53 - 提供了无效的日期格式：../2026-07-17
+2026-07-21 15:27:30.580 | WARNING  | sandbox.storage:validate_date:53 - 提供了无效的日期格式：2026-7-1
+2026-07-21 15:27:30.581 | WARNING  | sandbox.storage:validate_date:53 - 提供了无效的日期格式：not-a-date
+2026-07-21 15:27:30.582 | WARNING  | sandbox.storage:validate_date:53 - 提供了无效的日期格式：2026-02-30
+2026-07-21 15:27:30.584 | WARNING  | sandbox.storage:validate_filename:63 - 尝试使用不安全或无效的 Python 文件名：../code.py
+2026-07-21 15:27:30.585 | WARNING  | sandbox.storage:validate_filename:63 - 尝试使用不安全或无效的 Python 文件名：folder/code.py
+2026-07-21 15:27:30.586 | WARNING  | sandbox.storage:validate_filename:63 - 尝试使用不安全或无效的 Python 文件名：folder\code.py
+2026-07-21 15:27:30.587 | WARNING  | sandbox.storage:validate_filename:63 - 尝试使用不安全或无效的 Python 文件名：.hidden.py
+2026-07-21 15:27:30.588 | WARNING  | sandbox.storage:validate_filename:63 - 尝试使用不安全或无效的 Python 文件名：code.txt
+2026-07-21 15:27:30.589 | WARNING  | sandbox.storage:validate_filename:63 - 尝试使用不安全或无效的 Python 文件名：a b.py
+2026-07-21 15:27:30.606 | WARNING  | sandbox.storage:save:116 - 重复上传被拒绝：文件已存在于 C:\Users\admin\AppData\Local\Temp\pytest-of-admin\pytest-971\test_save_rejects_duplicate_wi0\2026-07-21\same.py
+2026-07-21 15:27:30.614 | WARNING  | sandbox.storage:save:109 - 上传文件大小超出限制 (5 > 4 字节)：large.py
+2026-07-21 15:27:30.618 | WARNING  | sandbox.storage:resolve:135 - 未找到上传脚本：日期=2026-07-17 文件名=missing.py 路径=C:\Users\admin\AppData\Local\Temp\pytest-of-admin\pytest-971\test_resolve_rejects_missing_f0\2026-07-17\missing.py
+2026-07-21 15:57:05.084 | WARNING  | sandbox.admission:_acquire:48 - 执行门控等待队列已满！拒绝请求：运行中=1/1 排队中=1/1
+2026-07-21 15:57:05.101 | WARNING  | sandbox.admission:_acquire:79 - 排队等待超时 (0.01秒)：运行中=1/1 排队中=1/1
+2026-07-21 15:57:05.154 | WARNING  | sandbox.main:require_api_key:232 - API Key 鉴权失败：请求ID=f3ef5fe7d2a740d093745d74f0829206 客户端IP=testclient
+2026-07-21 15:57:05.156 | WARNING  | sandbox.main:require_api_key:232 - API Key 鉴权失败：请求ID=592b37604bf04b5c9a3b30f72a2dbad8 客户端IP=testclient
+2026-07-21 15:57:05.340 | WARNING  | sandbox.storage:validate_filename:63 - 尝试使用不安全或无效的 Python 文件名：../unsafe.py
+2026-07-21 15:57:05.340 | WARNING  | sandbox.main:upload_file:267 - 上传被拒绝 (路径格式无效 400)：filename must be a safe Python basename 请求ID=cda69078426e42249dc8c9a983e07c1b
+2026-07-21 15:57:05.346 | WARNING  | sandbox.storage:save:116 - 重复上传被拒绝：文件已存在于 C:\Users\admin\AppData\Local\Temp\pytest-of-admin\pytest-972\test_upload_rejects_invalid_du0\2026-07-21\same.py
+2026-07-21 15:57:05.346 | WARNING  | sandbox.main:upload_file:270 - 上传被拒绝 (文件重复 409)：a file with this name already exists today 请求ID=ff336e91d73741178d331c2ab7f07519
+2026-07-21 15:57:05.349 | WARNING  | sandbox.storage:save:109 - 上传文件大小超出限制 (5 > 4 字节)：large.py
+2026-07-21 15:57:05.349 | WARNING  | sandbox.main:upload_file:273 - 上传被拒绝 (文件过大 413)：upload exceeds 4 bytes 请求ID=cf434aa0ee2f456db37d491da81c737c
+2026-07-21 15:57:05.362 | WARNING  | sandbox.storage:validate_date:53 - 提供了无效的日期格式：../2026-07-17
+2026-07-21 15:57:05.362 | WARNING  | sandbox.main:execute_code:310 - 代码执行被拒绝 (路径格式无效 400)：date must use YYYY-MM-DD format 请求ID=669a0239b32b4ac1b4b28ab999771ef7
+2026-07-21 15:57:05.364 | WARNING  | sandbox.storage:resolve:135 - 未找到上传脚本：日期=2026-07-17 文件名=missing.py 路径=C:\Users\admin\AppData\Local\Temp\pytest-of-admin\pytest-972\test_execute_rejects_invalid_m0\2026-07-17\missing.py
+2026-07-21 15:57:05.364 | WARNING  | sandbox.main:execute_code:313 - 代码执行被拒绝 (未找到脚本 404)：日期=2026-07-17 文件名=missing.py 请求ID=cef7755044d648faa92c4c4d075a63f6
+2026-07-21 15:57:05.370 | WARNING  | sandbox.main:execute_code:299 - 代码执行被拒绝 (超时超出限制 400)：请求超时 3.00秒 > 上限 2.00秒 请求ID=24aff154057c42819ef67fe707e86953
+2026-07-21 15:57:05.387 | WARNING  | sandbox.storage:validate_data_path_segments:77 - data_file 路径段中包含不安全的 Windows 字符：C:
+2026-07-21 15:57:05.387 | WARNING  | sandbox.main:execute_code:325 - 代码执行被拒绝 (数据文件路径无效 400)：data_file contains an unsafe path segment 请求ID=93bdf0c3948e410b8d05e9e501aa17a0
+2026-07-21 15:57:05.389 | WARNING  | sandbox.storage:validate_data_path_segments:80 - data_file 路径段包含末尾点号或空格：..
+2026-07-21 15:57:05.389 | WARNING  | sandbox.main:execute_code:325 - 代码执行被拒绝 (数据文件路径无效 400)：data_file contains an unsafe path segment 请求ID=69271601a00240f8a7a2b81be229e62c
+2026-07-21 15:57:05.392 | WARNING  | sandbox.storage:resolve:194 - 请求的数据文件路径结构无效：input.txt
+2026-07-21 15:57:05.392 | WARNING  | sandbox.main:execute_code:325 - 代码执行被拒绝 (数据文件路径无效 400)：data_file must be a relative CSV path 请求ID=2ca7837b5d4d4abc99993187e0b10ca8
+2026-07-21 15:57:05.395 | WARNING  | sandbox.storage:resolve:206 - 在解析路径处未找到 CSV 数据文件：C:\Users\admin\AppData\Local\Temp\pytest-of-admin\pytest-972\test_execute_rejects_unsafe_or0\data\missing.csv
+2026-07-21 15:57:05.395 | WARNING  | sandbox.main:execute_code:328 - 代码执行被拒绝 (未找到数据文件 404)：数据文件=missing.csv 请求ID=4a19edbb78d545c7899de4904bd18c1c
+2026-07-21 15:57:05.412 | WARNING  | sandbox.storage:validate_data_path_segments:77 - data_file 路径段中包含不安全的 Windows 字符：data:secret.csv
+2026-07-21 15:57:05.413 | WARNING  | sandbox.main:execute_code:325 - 代码执行被拒绝 (数据文件路径无效 400)：data_file contains an unsafe path segment 请求ID=75438b7e9ffc4737aa1399a984679768
+2026-07-21 15:57:05.415 | WARNING  | sandbox.storage:validate_data_path_segments:84 - data_file 路径段包含保留设备名：NUL
+2026-07-21 15:57:05.415 | WARNING  | sandbox.main:execute_code:325 - 代码执行被拒绝 (数据文件路径无效 400)：data_file contains an unsafe path segment 请求ID=44811074f82945afb3d0fb7ad7895820
+2026-07-21 15:57:05.418 | WARNING  | sandbox.storage:validate_data_path_segments:84 - data_file 路径段包含保留设备名：COM1
+2026-07-21 15:57:05.418 | WARNING  | sandbox.main:execute_code:325 - 代码执行被拒绝 (数据文件路径无效 400)：data_file contains an unsafe path segment 请求ID=b095a9d2e46d46d3a6b7078119ea5d18
+2026-07-21 15:57:05.420 | WARNING  | sandbox.storage:validate_data_path_segments:84 - data_file 路径段包含保留设备名：AUX
+2026-07-21 15:57:05.420 | WARNING  | sandbox.main:execute_code:325 - 代码执行被拒绝 (数据文件路径无效 400)：data_file contains an unsafe path segment 请求ID=29670706a00e406184ffafca060553c3
+2026-07-21 15:57:05.422 | WARNING  | sandbox.storage:validate_data_path_segments:84 - data_file 路径段包含保留设备名：NUL
+2026-07-21 15:57:05.422 | WARNING  | sandbox.main:execute_code:325 - 代码执行被拒绝 (数据文件路径无效 400)：data_file contains an unsafe path segment 请求ID=4be547d3914c4600b8a8385a2af893aa
+2026-07-21 15:57:05.425 | WARNING  | sandbox.storage:validate_data_path_segments:84 - data_file 路径段包含保留设备名：COM1
+2026-07-21 15:57:05.425 | WARNING  | sandbox.main:execute_code:325 - 代码执行被拒绝 (数据文件路径无效 400)：data_file contains an unsafe path segment 请求ID=86839b43ee0c496d84986023e21db1f6
+2026-07-21 15:57:05.427 | WARNING  | sandbox.storage:validate_data_path_segments:84 - data_file 路径段包含保留设备名：CONIN$
+2026-07-21 15:57:05.427 | WARNING  | sandbox.main:execute_code:325 - 代码执行被拒绝 (数据文件路径无效 400)：data_file contains an unsafe path segment 请求ID=5588712ee3bf4ac7b7dee374dced8866
+2026-07-21 15:57:05.429 | WARNING  | sandbox.storage:validate_data_path_segments:84 - data_file 路径段包含保留设备名：CONOUT$
+2026-07-21 15:57:05.430 | WARNING  | sandbox.main:execute_code:325 - 代码执行被拒绝 (数据文件路径无效 400)：data_file contains an unsafe path segment 请求ID=fcec5c0ec30144ac81466710102552e0
+2026-07-21 15:57:05.432 | WARNING  | sandbox.storage:validate_data_path_segments:84 - data_file 路径段包含保留设备名：COM¹
+2026-07-21 15:57:05.432 | WARNING  | sandbox.main:execute_code:325 - 代码执行被拒绝 (数据文件路径无效 400)：data_file contains an unsafe path segment 请求ID=04568fd37c364df3bc1bcf902dde0240
+2026-07-21 15:57:05.435 | WARNING  | sandbox.storage:validate_data_path_segments:84 - data_file 路径段包含保留设备名：COM²
+2026-07-21 15:57:05.435 | WARNING  | sandbox.main:execute_code:325 - 代码执行被拒绝 (数据文件路径无效 400)：data_file contains an unsafe path segment 请求ID=b514d6dc898e4409bba1431500f3df92
+2026-07-21 15:57:05.437 | WARNING  | sandbox.storage:validate_data_path_segments:84 - data_file 路径段包含保留设备名：COM³
+2026-07-21 15:57:05.437 | WARNING  | sandbox.main:execute_code:325 - 代码执行被拒绝 (数据文件路径无效 400)：data_file contains an unsafe path segment 请求ID=7dd4f7c0f6f64ea381d60de592e63857
+2026-07-21 15:57:05.439 | WARNING  | sandbox.storage:validate_data_path_segments:84 - data_file 路径段包含保留设备名：LPT¹
+2026-07-21 15:57:05.439 | WARNING  | sandbox.main:execute_code:325 - 代码执行被拒绝 (数据文件路径无效 400)：data_file contains an unsafe path segment 请求ID=76b9f05a5cb14cb2857d87c306e59acb
+2026-07-21 15:57:05.442 | WARNING  | sandbox.storage:validate_data_path_segments:84 - data_file 路径段包含保留设备名：LPT²
+2026-07-21 15:57:05.442 | WARNING  | sandbox.main:execute_code:325 - 代码执行被拒绝 (数据文件路径无效 400)：data_file contains an unsafe path segment 请求ID=8911460824614e1b963f269c399a8a24
+2026-07-21 15:57:05.445 | WARNING  | sandbox.storage:validate_data_path_segments:84 - data_file 路径段包含保留设备名：LPT³
+2026-07-21 15:57:05.445 | WARNING  | sandbox.main:execute_code:325 - 代码执行被拒绝 (数据文件路径无效 400)：data_file contains an unsafe path segment 请求ID=41bbd4d8845e43d8a804e05dcf8c5c27
+2026-07-21 15:57:05.447 | WARNING  | sandbox.storage:validate_data_path_segments:77 - data_file 路径段中包含不安全的 Windows 字符：bad?.csv
+2026-07-21 15:57:05.447 | WARNING  | sandbox.main:execute_code:325 - 代码执行被拒绝 (数据文件路径无效 400)：data_file contains an unsafe path segment 请求ID=89dc575fcc564cecbb5b7c96cdb32006
+2026-07-21 15:57:05.449 | WARNING  | sandbox.storage:validate_data_path_segments:70 - data_file 中包含不安全的控制字符：'market/control\x1f.csv'
+2026-07-21 15:57:05.449 | WARNING  | sandbox.main:execute_code:325 - 代码执行被拒绝 (数据文件路径无效 400)：data_file contains an unsafe path segment 请求ID=285abdf6fed24f559a4dffb91329add1
+2026-07-21 15:57:05.451 | WARNING  | sandbox.storage:validate_data_path_segments:70 - data_file 中包含不安全的控制字符：'market/delete\x7f.csv'
+2026-07-21 15:57:05.451 | WARNING  | sandbox.main:execute_code:325 - 代码执行被拒绝 (数据文件路径无效 400)：data_file contains an unsafe path segment 请求ID=e788296f71ca48869d9c5c9ec8d27e56
+2026-07-21 15:57:05.453 | WARNING  | sandbox.storage:validate_data_path_segments:70 - data_file 中包含不安全的控制字符：'market/nul\x00.csv'
+2026-07-21 15:57:05.453 | WARNING  | sandbox.main:execute_code:325 - 代码执行被拒绝 (数据文件路径无效 400)：data_file contains an unsafe path segment 请求ID=ad92bc319e794a6093f165bee3a7c491
+2026-07-21 15:57:05.555 | WARNING  | sandbox.storage:resolve:214 - 数据文件大小超过限制 (30 > 8 字节)：C:\Users\admin\AppData\Local\Temp\pytest-of-admin\pytest-972\test_execute_rejects_oversized0\data\input.csv
+2026-07-21 15:57:05.556 | WARNING  | sandbox.main:execute_code:322 - 代码执行被拒绝 (数据文件过大 413)：data file exceeds configured size limit 请求ID=5d6cfb615ed7489bac6416cc53b4cba9
+2026-07-21 15:57:06.085 | WARNING  | sandbox.admission:_acquire:48 - 执行门控等待队列已满！拒绝请求：运行中=1/1 排队中=0/0
+2026-07-21 15:57:06.085 | WARNING  | sandbox.main:execute_code:344 - 代码执行被拒绝 (沙箱繁忙 429)：运行中=1 排队中=0 请求ID=8777ed0f5b2345ccb281de8d6bc9d106
+2026-07-21 15:57:08.570 | WARNING  | sandbox.executor:_execute_isolated:133 - 当前事件循环/操作系统不支持 asyncio 子进程创建；自动回退降级为同步进程执行模式
+2026-07-21 15:57:08.641 | WARNING  | sandbox.storage:validate_date:53 - 提供了无效的日期格式：../2026-07-17
+2026-07-21 15:57:08.642 | WARNING  | sandbox.storage:validate_date:53 - 提供了无效的日期格式：2026-7-1
+2026-07-21 15:57:08.644 | WARNING  | sandbox.storage:validate_date:53 - 提供了无效的日期格式：not-a-date
+2026-07-21 15:57:08.645 | WARNING  | sandbox.storage:validate_date:53 - 提供了无效的日期格式：2026-02-30
+2026-07-21 15:57:08.647 | WARNING  | sandbox.storage:validate_filename:63 - 尝试使用不安全或无效的 Python 文件名：../code.py
+2026-07-21 15:57:08.648 | WARNING  | sandbox.storage:validate_filename:63 - 尝试使用不安全或无效的 Python 文件名：folder/code.py
+2026-07-21 15:57:08.649 | WARNING  | sandbox.storage:validate_filename:63 - 尝试使用不安全或无效的 Python 文件名：folder\code.py
+2026-07-21 15:57:08.651 | WARNING  | sandbox.storage:validate_filename:63 - 尝试使用不安全或无效的 Python 文件名：.hidden.py
+2026-07-21 15:57:08.652 | WARNING  | sandbox.storage:validate_filename:63 - 尝试使用不安全或无效的 Python 文件名：code.txt
+2026-07-21 15:57:08.653 | WARNING  | sandbox.storage:validate_filename:63 - 尝试使用不安全或无效的 Python 文件名：a b.py
+2026-07-21 15:57:08.668 | WARNING  | sandbox.storage:save:116 - 重复上传被拒绝：文件已存在于 C:\Users\admin\AppData\Local\Temp\pytest-of-admin\pytest-972\test_save_rejects_duplicate_wi0\2026-07-21\same.py
+2026-07-21 15:57:08.675 | WARNING  | sandbox.storage:save:109 - 上传文件大小超出限制 (5 > 4 字节)：large.py
+2026-07-21 15:57:08.680 | WARNING  | sandbox.storage:resolve:135 - 未找到上传脚本：日期=2026-07-17 文件名=missing.py 路径=C:\Users\admin\AppData\Local\Temp\pytest-of-admin\pytest-972\test_resolve_rejects_missing_f0\2026-07-17\missing.py
