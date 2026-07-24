@@ -1,10 +1,10 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: code-sandbox-service
+  name: code-sandbox
 spec:
   ports:
     - name: http
-      port: 8080
-      targetPort: 8080
+      port: 32004
+      targetPort: http
       nodePort: 32005
