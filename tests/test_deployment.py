@@ -43,13 +43,14 @@ def test_jenkins_uses_installed_credentials_binding_steps() -> None:
     assert "withCredentials([usernamePassword(" in jenkinsfile
     assert "withCredentials([file(" in jenkinsfile
     assert "172.16.10.17:7747" in jenkinsfile
+    assert "yntrust-test/code-sandbox" in jenkinsfile
     assert "yntrust-dev/code-sandbox" in jenkinsfile
 
 
 def test_jenkins_validates_one_rendered_image_and_prints_rollout_diagnostics() -> None:
     jenkinsfile = read("Jenkinsfile")
 
-    render_position = jenkinsfile.index("kube kustomize k8s/overlays/prod")
+    render_position = jenkinsfile.index('kube kustomize "$OVERLAY_PATH"')
     source_check_position = jenkinsfile.index(
         'SOURCE_MATCH_COUNT=$(grep -Fc "image: $SOURCE_IMAGE" "$RENDERED_MANIFEST" || true)'
     )
@@ -126,14 +127,16 @@ def test_kubernetes_uses_one_ephemeral_pod_without_scaling_resources() -> None:
     assert "kind: HorizontalPodAutoscaler" not in manifests
     assert "kind: PodDisruptionBudget" not in manifests
     assert "kind: Service" in manifests
-    assert "port: 32004" in manifests
+    assert "nodePort: 32004" in manifests
+    assert "nodePort: 32005" in manifests
 
 
-def test_kubernetes_service_exposes_fixed_node_port() -> None:
-    service = read("k8s/base/service.yaml")
+def test_kubernetes_service_exposes_environment_node_ports() -> None:
+    dev_patch = read("k8s/overlays/dev/service-patch.yaml")
+    test_patch = read("k8s/overlays/test/service-patch.yaml")
 
-    assert "type: NodePort" in service
-    assert "nodePort: 32004" in service
+    assert "nodePort: 32004" in dev_patch
+    assert "nodePort: 32005" in test_patch
 
 
 def test_network_policy_denies_egress_by_default() -> None:

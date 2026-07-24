@@ -3,11 +3,7 @@ pipeline {
 
     environment {
         HARBOR_REGISTRY = '172.16.10.17:7747'
-        IMAGE_NAME = 'yntrust-dev/code-sandbox'
         IMAGE_TAG = "${env.BUILD_NUMBER}"
-        IMAGE_REF = "${HARBOR_REGISTRY}/${IMAGE_NAME}:${IMAGE_TAG}"
-        LATEST_REF = "${HARBOR_REGISTRY}/${IMAGE_NAME}:latest"
-        K8S_NAMESPACE = 'yntrust-dev'
         DOCKER_CREDENTIAL_ID = '144a6a6f-3dd5-4513-b577-9e1536ad83e3'
         K8S_CREDENTIAL_ID = 'd99fffce-86d2-4ba7-be11-44bcc2232924'
         DOCKER_BUILDKIT = '1'
@@ -36,6 +32,26 @@ pipeline {
                     uv run ruff check .
                     uv run ruff format --check .
                 '''
+            }
+        }
+
+        stage('Setup Environment') {
+            steps {
+                script {
+                    def branch = (env.BRANCH_NAME ?: env.GIT_BRANCH ?: 'dev').replaceAll('^origin/', '')
+                    if (branch == 'test') {
+                        env.TARGET_ENV = 'test'
+                        env.K8S_NAMESPACE = 'yntrust-test'
+                        env.IMAGE_NAME = 'yntrust-test/code-sandbox'
+                    } else {
+                        env.TARGET_ENV = 'dev'
+                        env.K8S_NAMESPACE = 'yntrust-dev'
+                        env.IMAGE_NAME = 'yntrust-dev/code-sandbox'
+                    }
+                    env.IMAGE_REF = "${env.HARBOR_REGISTRY}/${env.IMAGE_NAME}:${env.IMAGE_TAG}"
+                    env.LATEST_REF = "${env.HARBOR_REGISTRY}/${env.IMAGE_NAME}:latest"
+                    env.OVERLAY_PATH = "k8s/overlays/${env.TARGET_ENV}"
+                }
             }
         }
 
@@ -71,7 +87,7 @@ pipeline {
                         trap cleanup EXIT
 
                         SOURCE_IMAGE="$HARBOR_REGISTRY/$IMAGE_NAME:latest"
-                        kube kustomize k8s/overlays/prod > "$RENDERED_MANIFEST"
+                        kube kustomize "$OVERLAY_PATH" > "$RENDERED_MANIFEST"
                         SOURCE_MATCH_COUNT=$(grep -Fc "image: $SOURCE_IMAGE" "$RENDERED_MANIFEST" || true)
                         if [ "$SOURCE_MATCH_COUNT" -ne 1 ]; then
                             echo "Expected one rendered source image, found $SOURCE_MATCH_COUNT: $SOURCE_IMAGE" >&2
@@ -115,7 +131,7 @@ pipeline {
 
     post {
         success {
-            echo "Code Sandbox ${IMAGE_TAG} deployed successfully."
+            echo "Code Sandbox ${IMAGE_TAG} deployed successfully to ${K8S_NAMESPACE}."
         }
         failure {
             echo 'Build or deployment failed. Check the failing stage output.'

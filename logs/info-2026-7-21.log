@@ -5699,3 +5699,881 @@
 2026-07-21 14:54:04.021 | INFO     | src.sandbox.main:lifespan:157 - 正在关闭沙箱服务生命周期...
 2026-07-21 14:54:04.021 | INFO     | logging:callHandlers:1762 - Application shutdown complete.
 2026-07-21 14:54:04.021 | INFO     | logging:callHandlers:1762 - Finished server process [50212]
+2026-07-21 15:27:26.888 | INFO     | sandbox.main:create_app:157 - 初始化沙箱服务配置：最大并发=%d 最大排队=%d 最大超时时间=%d秒 上传根目录=%s 数据根目录=%s
+2026-07-21 15:27:26.888 | INFO     | sandbox.executor:__init__:34 - SandboxExecutor 初始化完成，执行器脚本路径：%s
+2026-07-21 15:27:26.889 | INFO     | sandbox.admission:__init__:20 - 执行门控初始化完成：最大并发槽位=4 最大等待队列=20 排队超时时间=5.00秒
+2026-07-21 15:27:26.937 | INFO     | sandbox.admission:__init__:20 - 执行门控初始化完成：最大并发槽位=1 最大等待队列=1 排队超时时间=0.10秒
+2026-07-21 15:27:26.939 | INFO     | sandbox.admission:__init__:20 - 执行门控初始化完成：最大并发槽位=1 最大等待队列=1 排队超时时间=0.20秒
+2026-07-21 15:27:26.939 | INFO     | sandbox.admission:_acquire:58 - 执行门控并发槽位已满 (1/1)。请求已进入队列，当前排队位置 1/1。
+2026-07-21 15:27:26.939 | INFO     | sandbox.admission:_acquire:71 - 从队列中成功获取执行槽位：运行中=1/1 排队中=1/1
+2026-07-21 15:27:26.942 | INFO     | sandbox.admission:__init__:20 - 执行门控初始化完成：最大并发槽位=1 最大等待队列=1 排队超时时间=0.20秒
+2026-07-21 15:27:26.942 | INFO     | sandbox.admission:_acquire:58 - 执行门控并发槽位已满 (1/1)。请求已进入队列，当前排队位置 1/1。
+2026-07-21 15:27:26.942 | INFO     | sandbox.admission:_acquire:71 - 从队列中成功获取执行槽位：运行中=1/1 排队中=1/1
+2026-07-21 15:27:26.944 | INFO     | sandbox.admission:__init__:20 - 执行门控初始化完成：最大并发槽位=1 最大等待队列=1 排队超时时间=0.01秒
+2026-07-21 15:27:26.945 | INFO     | sandbox.admission:_acquire:58 - 执行门控并发槽位已满 (1/1)。请求已进入队列，当前排队位置 1/1。
+2026-07-21 15:27:26.978 | INFO     | sandbox.main:create_app:157 - 初始化沙箱服务配置：最大并发=%d 最大排队=%d 最大超时时间=%d秒 上传根目录=%s 数据根目录=%s
+2026-07-21 15:27:26.978 | INFO     | sandbox.executor:__init__:34 - SandboxExecutor 初始化完成，执行器脚本路径：%s
+2026-07-21 15:27:26.978 | INFO     | sandbox.admission:__init__:20 - 执行门控初始化完成：最大并发槽位=4 最大等待队列=20 排队超时时间=5.00秒
+2026-07-21 15:27:26.983 | INFO     | sandbox.main:lifespan:168 - 正在启动沙箱服务生命周期...
+2026-07-21 15:27:26.983 | INFO     | sandbox.main:_cleanup_loop:144 - 启动后台文件清理循环任务 (间隔时间: %.1f秒)
+2026-07-21 15:27:26.984 | INFO     | sandbox.main:request_context:201 - HTTP 请求开始：方法=GET 路径=/health 客户端IP=testclient 请求ID=26a8c9e55eb54988b32127aee34601fc
+2026-07-21 15:27:26.986 | INFO     | sandbox.main:request_context:209 - HTTP 请求完成：方法=GET 路径=/health 状态码=200 耗时=0.00ms 请求ID=26a8c9e55eb54988b32127aee34601fc
+2026-07-21 15:27:26.986 | INFO     | logging:callHandlers:1762 - HTTP Request: GET http://testserver/health "HTTP/1.1 200 OK"
+2026-07-21 15:27:26.987 | INFO     | sandbox.main:lifespan:175 - 正在关闭沙箱服务生命周期...
+2026-07-21 15:27:26.991 | INFO     | sandbox.main:create_app:157 - 初始化沙箱服务配置：最大并发=%d 最大排队=%d 最大超时时间=%d秒 上传根目录=%s 数据根目录=%s
+2026-07-21 15:27:26.991 | INFO     | sandbox.executor:__init__:34 - SandboxExecutor 初始化完成，执行器脚本路径：%s
+2026-07-21 15:27:26.991 | INFO     | sandbox.admission:__init__:20 - 执行门控初始化完成：最大并发槽位=4 最大等待队列=20 排队超时时间=5.00秒
+2026-07-21 15:27:26.996 | INFO     | sandbox.main:lifespan:168 - 正在启动沙箱服务生命周期...
+2026-07-21 15:27:26.996 | INFO     | sandbox.main:_cleanup_loop:144 - 启动后台文件清理循环任务 (间隔时间: %.1f秒)
+2026-07-21 15:27:27.022 | INFO     | sandbox.main:request_context:201 - HTTP 请求开始：方法=POST 路径=/upload 客户端IP=testclient 请求ID=1a337050221c4f18b78005999bf0f29c
+2026-07-21 15:27:27.024 | INFO     | sandbox.main:request_context:209 - HTTP 请求完成：方法=POST 路径=/upload 状态码=401 耗时=0.00ms 请求ID=1a337050221c4f18b78005999bf0f29c
+2026-07-21 15:27:27.024 | INFO     | logging:callHandlers:1762 - HTTP Request: POST http://testserver/upload "HTTP/1.1 401 Unauthorized"
+2026-07-21 15:27:27.025 | INFO     | sandbox.main:request_context:201 - HTTP 请求开始：方法=POST 路径=/upload 客户端IP=testclient 请求ID=c2ea442f61484cd288a91c095d547a5e
+2026-07-21 15:27:27.026 | INFO     | sandbox.main:request_context:209 - HTTP 请求完成：方法=POST 路径=/upload 状态码=401 耗时=0.00ms 请求ID=c2ea442f61484cd288a91c095d547a5e
+2026-07-21 15:27:27.026 | INFO     | logging:callHandlers:1762 - HTTP Request: POST http://testserver/upload "HTTP/1.1 401 Unauthorized"
+2026-07-21 15:27:27.027 | INFO     | sandbox.main:lifespan:175 - 正在关闭沙箱服务生命周期...
+2026-07-21 15:27:27.030 | INFO     | sandbox.main:create_app:157 - 初始化沙箱服务配置：最大并发=%d 最大排队=%d 最大超时时间=%d秒 上传根目录=%s 数据根目录=%s
+2026-07-21 15:27:27.030 | INFO     | sandbox.executor:__init__:34 - SandboxExecutor 初始化完成，执行器脚本路径：%s
+2026-07-21 15:27:27.030 | INFO     | sandbox.admission:__init__:20 - 执行门控初始化完成：最大并发槽位=4 最大等待队列=20 排队超时时间=5.00秒
+2026-07-21 15:27:27.035 | INFO     | sandbox.main:lifespan:168 - 正在启动沙箱服务生命周期...
+2026-07-21 15:27:27.035 | INFO     | sandbox.main:_cleanup_loop:144 - 启动后台文件清理循环任务 (间隔时间: %.1f秒)
+2026-07-21 15:27:27.036 | INFO     | sandbox.main:request_context:201 - HTTP 请求开始：方法=POST 路径=/upload 客户端IP=testclient 请求ID=6295ea89d61a453889977f005637a7d4
+2026-07-21 15:27:27.037 | INFO     | sandbox.main:upload_file:260 - 收到文件上传：原始文件名=random_123.py 请求ID=6295ea89d61a453889977f005637a7d4
+2026-07-21 15:27:27.037 | INFO     | sandbox.storage:save:101 - 保存上传文件：文件名=random_123.py 日期=2026-07-21 目标路径=C:\Users\admin\AppData\Local\Temp\pytest-of-admin\pytest-971\test_upload_and_execute_preser0\2026-07-21\random_123.py
+2026-07-21 15:27:27.038 | INFO     | sandbox.storage:save:122 - 文件上传保存成功：C:\Users\admin\AppData\Local\Temp\pytest-of-admin\pytest-971\test_upload_and_execute_preser0\2026-07-21\random_123.py (80 字节)
+2026-07-21 15:27:27.038 | INFO     | sandbox.main:upload_file:263 - 文件上传成功：日期=2026-07-21 保存文件名=random_123.py 请求ID=6295ea89d61a453889977f005637a7d4
+2026-07-21 15:27:27.038 | INFO     | sandbox.main:request_context:209 - HTTP 请求完成：方法=POST 路径=/upload 状态码=201 耗时=0.00ms 请求ID=6295ea89d61a453889977f005637a7d4
+2026-07-21 15:27:27.038 | INFO     | logging:callHandlers:1762 - HTTP Request: POST http://testserver/upload "HTTP/1.1 201 Created"
+2026-07-21 15:27:27.039 | INFO     | sandbox.main:request_context:201 - HTTP 请求开始：方法=POST 路径=/execute 客户端IP=testclient 请求ID=a20ed2d50a8a41d987f44d9267e8f99f
+2026-07-21 15:27:27.039 | INFO     | sandbox.main:execute_code:289 - 收到代码执行请求：日期=2026-07-21 文件名=random_123.py 数据文件=input.csv 请求超时=None 请求ID=a20ed2d50a8a41d987f44d9267e8f99f
+2026-07-21 15:27:27.040 | INFO     | sandbox.main:execute_code:333 - 正在申请执行门控槽位：脚本=random_123.py 数据文件=input.csv 超时限制=2.00秒 请求ID=a20ed2d50a8a41d987f44d9267e8f99f
+2026-07-21 15:27:27.050 | INFO     | sandbox.executor:_execute_isolated:111 - 启动隔离子进程：脚本=random_123.py 数据文件=input.csv 超时=2.00s 限制=(CPU:60s, 内存:1610612736B, 进程:32)
+2026-07-21 15:27:27.056 | INFO     | sandbox.executor:_execute_isolated:131 - 子进程已成功启动，PID=8168
+2026-07-21 15:27:27.112 | INFO     | sandbox.executor:execute:62 - 脚本执行结束：脚本=random_123.py 状态=success 退出码=0 耗时=0.063秒 标准输出字节=28 标准错误字节=0
+2026-07-21 15:27:27.113 | INFO     | sandbox.main:execute_code:359 - 代码执行完成：请求ID=a20ed2d50a8a41d987f44d9267e8f99f 文件名=random_123.py 状态=success 退出码=0
+2026-07-21 15:27:27.114 | INFO     | sandbox.main:request_context:209 - HTTP 请求完成：方法=POST 路径=/execute 状态码=200 耗时=78.00ms 请求ID=a20ed2d50a8a41d987f44d9267e8f99f
+2026-07-21 15:27:27.114 | INFO     | logging:callHandlers:1762 - HTTP Request: POST http://testserver/execute "HTTP/1.1 200 OK"
+2026-07-21 15:27:27.115 | INFO     | sandbox.main:request_context:201 - HTTP 请求开始：方法=POST 路径=/execute 客户端IP=testclient 请求ID=78b61c151c6f425a8b0e277939bc8142
+2026-07-21 15:27:27.115 | INFO     | sandbox.main:execute_code:289 - 收到代码执行请求：日期=2026-07-21 文件名=random_123.py 数据文件=input.csv 请求超时=None 请求ID=78b61c151c6f425a8b0e277939bc8142
+2026-07-21 15:27:27.116 | INFO     | sandbox.main:execute_code:333 - 正在申请执行门控槽位：脚本=random_123.py 数据文件=input.csv 超时限制=2.00秒 请求ID=78b61c151c6f425a8b0e277939bc8142
+2026-07-21 15:27:27.118 | INFO     | sandbox.executor:_execute_isolated:111 - 启动隔离子进程：脚本=random_123.py 数据文件=input.csv 超时=2.00s 限制=(CPU:60s, 内存:1610612736B, 进程:32)
+2026-07-21 15:27:27.123 | INFO     | sandbox.executor:_execute_isolated:131 - 子进程已成功启动，PID=16064
+2026-07-21 15:27:27.180 | INFO     | sandbox.executor:execute:62 - 脚本执行结束：脚本=random_123.py 状态=success 退出码=0 耗时=0.063秒 标准输出字节=28 标准错误字节=0
+2026-07-21 15:27:27.181 | INFO     | sandbox.main:execute_code:359 - 代码执行完成：请求ID=78b61c151c6f425a8b0e277939bc8142 文件名=random_123.py 状态=success 退出码=0
+2026-07-21 15:27:27.181 | INFO     | sandbox.main:request_context:209 - HTTP 请求完成：方法=POST 路径=/execute 状态码=200 耗时=63.00ms 请求ID=78b61c151c6f425a8b0e277939bc8142
+2026-07-21 15:27:27.182 | INFO     | logging:callHandlers:1762 - HTTP Request: POST http://testserver/execute "HTTP/1.1 200 OK"
+2026-07-21 15:27:27.182 | INFO     | sandbox.main:lifespan:175 - 正在关闭沙箱服务生命周期...
+2026-07-21 15:27:27.186 | INFO     | sandbox.main:create_app:157 - 初始化沙箱服务配置：最大并发=%d 最大排队=%d 最大超时时间=%d秒 上传根目录=%s 数据根目录=%s
+2026-07-21 15:27:27.187 | INFO     | sandbox.executor:__init__:34 - SandboxExecutor 初始化完成，执行器脚本路径：%s
+2026-07-21 15:27:27.187 | INFO     | sandbox.admission:__init__:20 - 执行门控初始化完成：最大并发槽位=4 最大等待队列=20 排队超时时间=5.00秒
+2026-07-21 15:27:27.191 | INFO     | sandbox.main:lifespan:168 - 正在启动沙箱服务生命周期...
+2026-07-21 15:27:27.191 | INFO     | sandbox.main:_cleanup_loop:144 - 启动后台文件清理循环任务 (间隔时间: %.1f秒)
+2026-07-21 15:27:27.193 | INFO     | sandbox.main:request_context:201 - HTTP 请求开始：方法=POST 路径=/upload 客户端IP=testclient 请求ID=988edd9a7a6b4670bd5160b54871d788
+2026-07-21 15:27:27.194 | INFO     | sandbox.main:upload_file:260 - 收到文件上传：原始文件名=../unsafe.py 请求ID=988edd9a7a6b4670bd5160b54871d788
+2026-07-21 15:27:27.194 | INFO     | sandbox.main:request_context:209 - HTTP 请求完成：方法=POST 路径=/upload 状态码=400 耗时=0.00ms 请求ID=988edd9a7a6b4670bd5160b54871d788
+2026-07-21 15:27:27.195 | INFO     | logging:callHandlers:1762 - HTTP Request: POST http://testserver/upload "HTTP/1.1 400 Bad Request"
+2026-07-21 15:27:27.196 | INFO     | sandbox.main:request_context:201 - HTTP 请求开始：方法=POST 路径=/upload 客户端IP=testclient 请求ID=4b07985166104d069fb4e41b187ae509
+2026-07-21 15:27:27.196 | INFO     | sandbox.main:upload_file:260 - 收到文件上传：原始文件名=same.py 请求ID=4b07985166104d069fb4e41b187ae509
+2026-07-21 15:27:27.196 | INFO     | sandbox.storage:save:101 - 保存上传文件：文件名=same.py 日期=2026-07-21 目标路径=C:\Users\admin\AppData\Local\Temp\pytest-of-admin\pytest-971\test_upload_rejects_invalid_du0\2026-07-21\same.py
+2026-07-21 15:27:27.197 | INFO     | sandbox.storage:save:122 - 文件上传保存成功：C:\Users\admin\AppData\Local\Temp\pytest-of-admin\pytest-971\test_upload_rejects_invalid_du0\2026-07-21\same.py (4 字节)
+2026-07-21 15:27:27.197 | INFO     | sandbox.main:upload_file:263 - 文件上传成功：日期=2026-07-21 保存文件名=same.py 请求ID=4b07985166104d069fb4e41b187ae509
+2026-07-21 15:27:27.197 | INFO     | sandbox.main:request_context:209 - HTTP 请求完成：方法=POST 路径=/upload 状态码=201 耗时=0.00ms 请求ID=4b07985166104d069fb4e41b187ae509
+2026-07-21 15:27:27.198 | INFO     | logging:callHandlers:1762 - HTTP Request: POST http://testserver/upload "HTTP/1.1 201 Created"
+2026-07-21 15:27:27.198 | INFO     | sandbox.main:request_context:201 - HTTP 请求开始：方法=POST 路径=/upload 客户端IP=testclient 请求ID=9bed04787f974c61a65009fb8aec5700
+2026-07-21 15:27:27.199 | INFO     | sandbox.main:upload_file:260 - 收到文件上传：原始文件名=same.py 请求ID=9bed04787f974c61a65009fb8aec5700
+2026-07-21 15:27:27.199 | INFO     | sandbox.storage:save:101 - 保存上传文件：文件名=same.py 日期=2026-07-21 目标路径=C:\Users\admin\AppData\Local\Temp\pytest-of-admin\pytest-971\test_upload_rejects_invalid_du0\2026-07-21\same.py
+2026-07-21 15:27:27.200 | INFO     | sandbox.main:request_context:209 - HTTP 请求完成：方法=POST 路径=/upload 状态码=409 耗时=0.00ms 请求ID=9bed04787f974c61a65009fb8aec5700
+2026-07-21 15:27:27.200 | INFO     | logging:callHandlers:1762 - HTTP Request: POST http://testserver/upload "HTTP/1.1 409 Conflict"
+2026-07-21 15:27:27.201 | INFO     | sandbox.main:request_context:201 - HTTP 请求开始：方法=POST 路径=/upload 客户端IP=testclient 请求ID=2aa5c631b2fe4c24bbeafaa9a5e8320a
+2026-07-21 15:27:27.201 | INFO     | sandbox.main:upload_file:260 - 收到文件上传：原始文件名=large.py 请求ID=2aa5c631b2fe4c24bbeafaa9a5e8320a
+2026-07-21 15:27:27.201 | INFO     | sandbox.storage:save:101 - 保存上传文件：文件名=large.py 日期=2026-07-21 目标路径=C:\Users\admin\AppData\Local\Temp\pytest-of-admin\pytest-971\test_upload_rejects_invalid_du0\2026-07-21\large.py
+2026-07-21 15:27:27.202 | INFO     | sandbox.main:request_context:209 - HTTP 请求完成：方法=POST 路径=/upload 状态码=413 耗时=0.00ms 请求ID=2aa5c631b2fe4c24bbeafaa9a5e8320a
+2026-07-21 15:27:27.202 | INFO     | logging:callHandlers:1762 - HTTP Request: POST http://testserver/upload "HTTP/1.1 413 Request Entity Too Large"
+2026-07-21 15:27:27.203 | INFO     | sandbox.main:lifespan:175 - 正在关闭沙箱服务生命周期...
+2026-07-21 15:27:27.207 | INFO     | sandbox.main:create_app:157 - 初始化沙箱服务配置：最大并发=%d 最大排队=%d 最大超时时间=%d秒 上传根目录=%s 数据根目录=%s
+2026-07-21 15:27:27.207 | INFO     | sandbox.executor:__init__:34 - SandboxExecutor 初始化完成，执行器脚本路径：%s
+2026-07-21 15:27:27.207 | INFO     | sandbox.admission:__init__:20 - 执行门控初始化完成：最大并发槽位=4 最大等待队列=20 排队超时时间=5.00秒
+2026-07-21 15:27:27.211 | INFO     | sandbox.main:lifespan:168 - 正在启动沙箱服务生命周期...
+2026-07-21 15:27:27.211 | INFO     | sandbox.main:_cleanup_loop:144 - 启动后台文件清理循环任务 (间隔时间: %.1f秒)
+2026-07-21 15:27:27.212 | INFO     | sandbox.main:request_context:201 - HTTP 请求开始：方法=POST 路径=/execute 客户端IP=testclient 请求ID=e4a6203edbc5487da1828831b472abf2
+2026-07-21 15:27:27.213 | INFO     | sandbox.main:execute_code:289 - 收到代码执行请求：日期=../2026-07-17 文件名=x.py 数据文件=input.csv 请求超时=None 请求ID=e4a6203edbc5487da1828831b472abf2
+2026-07-21 15:27:27.214 | INFO     | sandbox.main:request_context:209 - HTTP 请求完成：方法=POST 路径=/execute 状态码=400 耗时=0.00ms 请求ID=e4a6203edbc5487da1828831b472abf2
+2026-07-21 15:27:27.214 | INFO     | logging:callHandlers:1762 - HTTP Request: POST http://testserver/execute "HTTP/1.1 400 Bad Request"
+2026-07-21 15:27:27.215 | INFO     | sandbox.main:request_context:201 - HTTP 请求开始：方法=POST 路径=/execute 客户端IP=testclient 请求ID=aede7a05aeca43028e359134526842b2
+2026-07-21 15:27:27.215 | INFO     | sandbox.main:execute_code:289 - 收到代码执行请求：日期=2026-07-17 文件名=missing.py 数据文件=input.csv 请求超时=None 请求ID=aede7a05aeca43028e359134526842b2
+2026-07-21 15:27:27.216 | INFO     | sandbox.main:request_context:209 - HTTP 请求完成：方法=POST 路径=/execute 状态码=404 耗时=0.00ms 请求ID=aede7a05aeca43028e359134526842b2
+2026-07-21 15:27:27.217 | INFO     | logging:callHandlers:1762 - HTTP Request: POST http://testserver/execute "HTTP/1.1 404 Not Found"
+2026-07-21 15:27:27.217 | INFO     | sandbox.main:request_context:201 - HTTP 请求开始：方法=POST 路径=/upload 客户端IP=testclient 请求ID=acdb6bd376cb43a4bd30c953e4b87354
+2026-07-21 15:27:27.218 | INFO     | sandbox.main:upload_file:260 - 收到文件上传：原始文件名=slow.py 请求ID=acdb6bd376cb43a4bd30c953e4b87354
+2026-07-21 15:27:27.218 | INFO     | sandbox.storage:save:101 - 保存上传文件：文件名=slow.py 日期=2026-07-21 目标路径=C:\Users\admin\AppData\Local\Temp\pytest-of-admin\pytest-971\test_execute_rejects_invalid_m0\2026-07-21\slow.py
+2026-07-21 15:27:27.219 | INFO     | sandbox.storage:save:122 - 文件上传保存成功：C:\Users\admin\AppData\Local\Temp\pytest-of-admin\pytest-971\test_execute_rejects_invalid_m0\2026-07-21\slow.py (4 字节)
+2026-07-21 15:27:27.219 | INFO     | sandbox.main:upload_file:263 - 文件上传成功：日期=2026-07-21 保存文件名=slow.py 请求ID=acdb6bd376cb43a4bd30c953e4b87354
+2026-07-21 15:27:27.219 | INFO     | sandbox.main:request_context:209 - HTTP 请求完成：方法=POST 路径=/upload 状态码=201 耗时=0.00ms 请求ID=acdb6bd376cb43a4bd30c953e4b87354
+2026-07-21 15:27:27.219 | INFO     | logging:callHandlers:1762 - HTTP Request: POST http://testserver/upload "HTTP/1.1 201 Created"
+2026-07-21 15:27:27.220 | INFO     | sandbox.main:request_context:201 - HTTP 请求开始：方法=POST 路径=/execute 客户端IP=testclient 请求ID=907be6fc28a64834b6b1e25016b58e06
+2026-07-21 15:27:27.220 | INFO     | sandbox.main:execute_code:289 - 收到代码执行请求：日期=2026-07-21 文件名=slow.py 数据文件=input.csv 请求超时=3.0 请求ID=907be6fc28a64834b6b1e25016b58e06
+2026-07-21 15:27:27.221 | INFO     | sandbox.main:request_context:209 - HTTP 请求完成：方法=POST 路径=/execute 状态码=400 耗时=0.00ms 请求ID=907be6fc28a64834b6b1e25016b58e06
+2026-07-21 15:27:27.221 | INFO     | logging:callHandlers:1762 - HTTP Request: POST http://testserver/execute "HTTP/1.1 400 Bad Request"
+2026-07-21 15:27:27.221 | INFO     | sandbox.main:lifespan:175 - 正在关闭沙箱服务生命周期...
+2026-07-21 15:27:27.225 | INFO     | sandbox.main:create_app:157 - 初始化沙箱服务配置：最大并发=%d 最大排队=%d 最大超时时间=%d秒 上传根目录=%s 数据根目录=%s
+2026-07-21 15:27:27.226 | INFO     | sandbox.executor:__init__:34 - SandboxExecutor 初始化完成，执行器脚本路径：%s
+2026-07-21 15:27:27.226 | INFO     | sandbox.admission:__init__:20 - 执行门控初始化完成：最大并发槽位=4 最大等待队列=20 排队超时时间=5.00秒
+2026-07-21 15:27:27.230 | INFO     | sandbox.main:lifespan:168 - 正在启动沙箱服务生命周期...
+2026-07-21 15:27:27.230 | INFO     | sandbox.main:_cleanup_loop:144 - 启动后台文件清理循环任务 (间隔时间: %.1f秒)
+2026-07-21 15:27:27.231 | INFO     | sandbox.main:request_context:201 - HTTP 请求开始：方法=POST 路径=/upload 客户端IP=testclient 请求ID=7a2ebaeed1864663bc2aee81e15e76ef
+2026-07-21 15:27:27.232 | INFO     | sandbox.main:upload_file:260 - 收到文件上传：原始文件名=data_paths.py 请求ID=7a2ebaeed1864663bc2aee81e15e76ef
+2026-07-21 15:27:27.232 | INFO     | sandbox.storage:save:101 - 保存上传文件：文件名=data_paths.py 日期=2026-07-21 目标路径=C:\Users\admin\AppData\Local\Temp\pytest-of-admin\pytest-971\test_execute_rejects_unsafe_or0\2026-07-21\data_paths.py
+2026-07-21 15:27:27.233 | INFO     | sandbox.storage:save:122 - 文件上传保存成功：C:\Users\admin\AppData\Local\Temp\pytest-of-admin\pytest-971\test_execute_rejects_unsafe_or0\2026-07-21\data_paths.py (4 字节)
+2026-07-21 15:27:27.233 | INFO     | sandbox.main:upload_file:263 - 文件上传成功：日期=2026-07-21 保存文件名=data_paths.py 请求ID=7a2ebaeed1864663bc2aee81e15e76ef
+2026-07-21 15:27:27.233 | INFO     | sandbox.main:request_context:209 - HTTP 请求完成：方法=POST 路径=/upload 状态码=201 耗时=0.00ms 请求ID=7a2ebaeed1864663bc2aee81e15e76ef
+2026-07-21 15:27:27.234 | INFO     | logging:callHandlers:1762 - HTTP Request: POST http://testserver/upload "HTTP/1.1 201 Created"
+2026-07-21 15:27:27.235 | INFO     | sandbox.main:request_context:201 - HTTP 请求开始：方法=POST 路径=/execute 客户端IP=testclient 请求ID=5119e3d9b52a4baa93a8100292397554
+2026-07-21 15:27:27.235 | INFO     | sandbox.main:execute_code:289 - 收到代码执行请求：日期=2026-07-21 文件名=data_paths.py 数据文件=C:\Users\admin\AppData\Local\Temp\pytest-of-admin\pytest-971\test_execute_rejects_unsafe_or0\data\input.csv 请求超时=None 请求ID=5119e3d9b52a4baa93a8100292397554
+2026-07-21 15:27:27.236 | INFO     | sandbox.main:request_context:209 - HTTP 请求完成：方法=POST 路径=/execute 状态码=400 耗时=0.00ms 请求ID=5119e3d9b52a4baa93a8100292397554
+2026-07-21 15:27:27.236 | INFO     | logging:callHandlers:1762 - HTTP Request: POST http://testserver/execute "HTTP/1.1 400 Bad Request"
+2026-07-21 15:27:27.238 | INFO     | sandbox.main:request_context:201 - HTTP 请求开始：方法=POST 路径=/execute 客户端IP=testclient 请求ID=cbcd5cefaaaa4680b0f8afdffc208c56
+2026-07-21 15:27:27.239 | INFO     | sandbox.main:execute_code:289 - 收到代码执行请求：日期=2026-07-21 文件名=data_paths.py 数据文件=../input.csv 请求超时=None 请求ID=cbcd5cefaaaa4680b0f8afdffc208c56
+2026-07-21 15:27:27.240 | INFO     | sandbox.main:request_context:209 - HTTP 请求完成：方法=POST 路径=/execute 状态码=400 耗时=0.00ms 请求ID=cbcd5cefaaaa4680b0f8afdffc208c56
+2026-07-21 15:27:27.240 | INFO     | logging:callHandlers:1762 - HTTP Request: POST http://testserver/execute "HTTP/1.1 400 Bad Request"
+2026-07-21 15:27:27.241 | INFO     | sandbox.main:request_context:201 - HTTP 请求开始：方法=POST 路径=/execute 客户端IP=testclient 请求ID=2ccc4a508ac04742adb0fe8b6ba9788e
+2026-07-21 15:27:27.241 | INFO     | sandbox.main:execute_code:289 - 收到代码执行请求：日期=2026-07-21 文件名=data_paths.py 数据文件=input.txt 请求超时=None 请求ID=2ccc4a508ac04742adb0fe8b6ba9788e
+2026-07-21 15:27:27.242 | INFO     | sandbox.main:request_context:209 - HTTP 请求完成：方法=POST 路径=/execute 状态码=400 耗时=0.00ms 请求ID=2ccc4a508ac04742adb0fe8b6ba9788e
+2026-07-21 15:27:27.243 | INFO     | logging:callHandlers:1762 - HTTP Request: POST http://testserver/execute "HTTP/1.1 400 Bad Request"
+2026-07-21 15:27:27.244 | INFO     | sandbox.main:request_context:201 - HTTP 请求开始：方法=POST 路径=/execute 客户端IP=testclient 请求ID=1ff3a87b5c3f4e4e9889190854b1c701
+2026-07-21 15:27:27.244 | INFO     | sandbox.main:execute_code:289 - 收到代码执行请求：日期=2026-07-21 文件名=data_paths.py 数据文件=missing.csv 请求超时=None 请求ID=1ff3a87b5c3f4e4e9889190854b1c701
+2026-07-21 15:27:27.245 | INFO     | sandbox.main:request_context:209 - HTTP 请求完成：方法=POST 路径=/execute 状态码=404 耗时=0.00ms 请求ID=1ff3a87b5c3f4e4e9889190854b1c701
+2026-07-21 15:27:27.245 | INFO     | logging:callHandlers:1762 - HTTP Request: POST http://testserver/execute "HTTP/1.1 404 Not Found"
+2026-07-21 15:27:27.246 | INFO     | sandbox.main:lifespan:175 - 正在关闭沙箱服务生命周期...
+2026-07-21 15:27:27.249 | INFO     | sandbox.main:create_app:157 - 初始化沙箱服务配置：最大并发=%d 最大排队=%d 最大超时时间=%d秒 上传根目录=%s 数据根目录=%s
+2026-07-21 15:27:27.251 | INFO     | sandbox.executor:__init__:34 - SandboxExecutor 初始化完成，执行器脚本路径：%s
+2026-07-21 15:27:27.251 | INFO     | sandbox.admission:__init__:20 - 执行门控初始化完成：最大并发槽位=4 最大等待队列=20 排队超时时间=5.00秒
+2026-07-21 15:27:27.254 | INFO     | sandbox.main:lifespan:168 - 正在启动沙箱服务生命周期...
+2026-07-21 15:27:27.254 | INFO     | sandbox.main:_cleanup_loop:144 - 启动后台文件清理循环任务 (间隔时间: %.1f秒)
+2026-07-21 15:27:27.255 | INFO     | sandbox.main:request_context:201 - HTTP 请求开始：方法=POST 路径=/upload 客户端IP=testclient 请求ID=fc36dcbba7b944c4a80c4689a9b7025c
+2026-07-21 15:27:27.256 | INFO     | sandbox.main:upload_file:260 - 收到文件上传：原始文件名=unsafe_windows_paths.py 请求ID=fc36dcbba7b944c4a80c4689a9b7025c
+2026-07-21 15:27:27.257 | INFO     | sandbox.storage:save:101 - 保存上传文件：文件名=unsafe_windows_paths.py 日期=2026-07-21 目标路径=C:\Users\admin\AppData\Local\Temp\pytest-of-admin\pytest-971\test_execute_rejects_windows_u0\2026-07-21\unsafe_windows_paths.py
+2026-07-21 15:27:27.257 | INFO     | sandbox.storage:save:122 - 文件上传保存成功：C:\Users\admin\AppData\Local\Temp\pytest-of-admin\pytest-971\test_execute_rejects_windows_u0\2026-07-21\unsafe_windows_paths.py (4 字节)
+2026-07-21 15:27:27.258 | INFO     | sandbox.main:upload_file:263 - 文件上传成功：日期=2026-07-21 保存文件名=unsafe_windows_paths.py 请求ID=fc36dcbba7b944c4a80c4689a9b7025c
+2026-07-21 15:27:27.258 | INFO     | sandbox.main:request_context:209 - HTTP 请求完成：方法=POST 路径=/upload 状态码=201 耗时=0.00ms 请求ID=fc36dcbba7b944c4a80c4689a9b7025c
+2026-07-21 15:27:27.258 | INFO     | logging:callHandlers:1762 - HTTP Request: POST http://testserver/upload "HTTP/1.1 201 Created"
+2026-07-21 15:27:27.260 | INFO     | sandbox.main:request_context:201 - HTTP 请求开始：方法=POST 路径=/execute 客户端IP=testclient 请求ID=defc0947cea84d5ca6740f7ac7ad7415
+2026-07-21 15:27:27.260 | INFO     | sandbox.main:execute_code:289 - 收到代码执行请求：日期=2026-07-21 文件名=unsafe_windows_paths.py 数据文件=market/data:secret.csv 请求超时=None 请求ID=defc0947cea84d5ca6740f7ac7ad7415
+2026-07-21 15:27:27.261 | INFO     | sandbox.main:request_context:209 - HTTP 请求完成：方法=POST 路径=/execute 状态码=400 耗时=0.00ms 请求ID=defc0947cea84d5ca6740f7ac7ad7415
+2026-07-21 15:27:27.262 | INFO     | logging:callHandlers:1762 - HTTP Request: POST http://testserver/execute "HTTP/1.1 400 Bad Request"
+2026-07-21 15:27:27.262 | INFO     | sandbox.main:request_context:201 - HTTP 请求开始：方法=POST 路径=/execute 客户端IP=testclient 请求ID=e97b32ae0ef145b0bfbf8853c04933cd
+2026-07-21 15:27:27.263 | INFO     | sandbox.main:execute_code:289 - 收到代码执行请求：日期=2026-07-21 文件名=unsafe_windows_paths.py 数据文件=NUL.csv 请求超时=None 请求ID=e97b32ae0ef145b0bfbf8853c04933cd
+2026-07-21 15:27:27.264 | INFO     | sandbox.main:request_context:209 - HTTP 请求完成：方法=POST 路径=/execute 状态码=400 耗时=0.00ms 请求ID=e97b32ae0ef145b0bfbf8853c04933cd
+2026-07-21 15:27:27.264 | INFO     | logging:callHandlers:1762 - HTTP Request: POST http://testserver/execute "HTTP/1.1 400 Bad Request"
+2026-07-21 15:27:27.265 | INFO     | sandbox.main:request_context:201 - HTTP 请求开始：方法=POST 路径=/execute 客户端IP=testclient 请求ID=f11372d44aa14197afea53e7d0343bc4
+2026-07-21 15:27:27.266 | INFO     | sandbox.main:execute_code:289 - 收到代码执行请求：日期=2026-07-21 文件名=unsafe_windows_paths.py 数据文件=nested/COM1.csv 请求超时=None 请求ID=f11372d44aa14197afea53e7d0343bc4
+2026-07-21 15:27:27.267 | INFO     | sandbox.main:request_context:209 - HTTP 请求完成：方法=POST 路径=/execute 状态码=400 耗时=0.00ms 请求ID=f11372d44aa14197afea53e7d0343bc4
+2026-07-21 15:27:27.267 | INFO     | logging:callHandlers:1762 - HTTP Request: POST http://testserver/execute "HTTP/1.1 400 Bad Request"
+2026-07-21 15:27:27.268 | INFO     | sandbox.main:request_context:201 - HTTP 请求开始：方法=POST 路径=/execute 客户端IP=testclient 请求ID=3c3858831a704011a43613a95a2bdb3c
+2026-07-21 15:27:27.269 | INFO     | sandbox.main:execute_code:289 - 收到代码执行请求：日期=2026-07-21 文件名=unsafe_windows_paths.py 数据文件=nested/AUX.report.csv 请求超时=None 请求ID=3c3858831a704011a43613a95a2bdb3c
+2026-07-21 15:27:27.269 | INFO     | sandbox.main:request_context:209 - HTTP 请求完成：方法=POST 路径=/execute 状态码=400 耗时=15.00ms 请求ID=3c3858831a704011a43613a95a2bdb3c
+2026-07-21 15:27:27.270 | INFO     | logging:callHandlers:1762 - HTTP Request: POST http://testserver/execute "HTTP/1.1 400 Bad Request"
+2026-07-21 15:27:27.271 | INFO     | sandbox.main:request_context:201 - HTTP 请求开始：方法=POST 路径=/execute 客户端IP=testclient 请求ID=0f07f153a6474970801acc0a8258e66b
+2026-07-21 15:27:27.271 | INFO     | sandbox.main:execute_code:289 - 收到代码执行请求：日期=2026-07-21 文件名=unsafe_windows_paths.py 数据文件=nested/NUL .csv 请求超时=None 请求ID=0f07f153a6474970801acc0a8258e66b
+2026-07-21 15:27:27.272 | INFO     | sandbox.main:request_context:209 - HTTP 请求完成：方法=POST 路径=/execute 状态码=400 耗时=0.00ms 请求ID=0f07f153a6474970801acc0a8258e66b
+2026-07-21 15:27:27.272 | INFO     | logging:callHandlers:1762 - HTTP Request: POST http://testserver/execute "HTTP/1.1 400 Bad Request"
+2026-07-21 15:27:27.273 | INFO     | sandbox.main:request_context:201 - HTTP 请求开始：方法=POST 路径=/execute 客户端IP=testclient 请求ID=73fda1e98afd4a559b57b2ea6622f897
+2026-07-21 15:27:27.273 | INFO     | sandbox.main:execute_code:289 - 收到代码执行请求：日期=2026-07-21 文件名=unsafe_windows_paths.py 数据文件=nested/COM1..csv 请求超时=None 请求ID=73fda1e98afd4a559b57b2ea6622f897
+2026-07-21 15:27:27.274 | INFO     | sandbox.main:request_context:209 - HTTP 请求完成：方法=POST 路径=/execute 状态码=400 耗时=0.00ms 请求ID=73fda1e98afd4a559b57b2ea6622f897
+2026-07-21 15:27:27.274 | INFO     | logging:callHandlers:1762 - HTTP Request: POST http://testserver/execute "HTTP/1.1 400 Bad Request"
+2026-07-21 15:27:27.275 | INFO     | sandbox.main:request_context:201 - HTTP 请求开始：方法=POST 路径=/execute 客户端IP=testclient 请求ID=6610ceb151d9464b8475cb5d3e0bcad3
+2026-07-21 15:27:27.276 | INFO     | sandbox.main:execute_code:289 - 收到代码执行请求：日期=2026-07-21 文件名=unsafe_windows_paths.py 数据文件=nested/conin$.csv 请求超时=None 请求ID=6610ceb151d9464b8475cb5d3e0bcad3
+2026-07-21 15:27:27.277 | INFO     | sandbox.main:request_context:209 - HTTP 请求完成：方法=POST 路径=/execute 状态码=400 耗时=0.00ms 请求ID=6610ceb151d9464b8475cb5d3e0bcad3
+2026-07-21 15:27:27.277 | INFO     | logging:callHandlers:1762 - HTTP Request: POST http://testserver/execute "HTTP/1.1 400 Bad Request"
+2026-07-21 15:27:27.278 | INFO     | sandbox.main:request_context:201 - HTTP 请求开始：方法=POST 路径=/execute 客户端IP=testclient 请求ID=64c2462f03614b4fb8d8561b517f8a36
+2026-07-21 15:27:27.279 | INFO     | sandbox.main:execute_code:289 - 收到代码执行请求：日期=2026-07-21 文件名=unsafe_windows_paths.py 数据文件=CONOUT$.report.csv 请求超时=None 请求ID=64c2462f03614b4fb8d8561b517f8a36
+2026-07-21 15:27:27.279 | INFO     | sandbox.main:request_context:209 - HTTP 请求完成：方法=POST 路径=/execute 状态码=400 耗时=0.00ms 请求ID=64c2462f03614b4fb8d8561b517f8a36
+2026-07-21 15:27:27.280 | INFO     | logging:callHandlers:1762 - HTTP Request: POST http://testserver/execute "HTTP/1.1 400 Bad Request"
+2026-07-21 15:27:27.280 | INFO     | sandbox.main:request_context:201 - HTTP 请求开始：方法=POST 路径=/execute 客户端IP=testclient 请求ID=64c2f0b56f48406a84ec53600d8fd70f
+2026-07-21 15:27:27.281 | INFO     | sandbox.main:execute_code:289 - 收到代码执行请求：日期=2026-07-21 文件名=unsafe_windows_paths.py 数据文件=nested/COM¹.csv 请求超时=None 请求ID=64c2f0b56f48406a84ec53600d8fd70f
+2026-07-21 15:27:27.282 | INFO     | sandbox.main:request_context:209 - HTTP 请求完成：方法=POST 路径=/execute 状态码=400 耗时=0.00ms 请求ID=64c2f0b56f48406a84ec53600d8fd70f
+2026-07-21 15:27:27.282 | INFO     | logging:callHandlers:1762 - HTTP Request: POST http://testserver/execute "HTTP/1.1 400 Bad Request"
+2026-07-21 15:27:27.283 | INFO     | sandbox.main:request_context:201 - HTTP 请求开始：方法=POST 路径=/execute 客户端IP=testclient 请求ID=c927a007a1e4441182e120b8db166686
+2026-07-21 15:27:27.283 | INFO     | sandbox.main:execute_code:289 - 收到代码执行请求：日期=2026-07-21 文件名=unsafe_windows_paths.py 数据文件=market/com².report.csv 请求超时=None 请求ID=c927a007a1e4441182e120b8db166686
+2026-07-21 15:27:27.284 | INFO     | sandbox.main:request_context:209 - HTTP 请求完成：方法=POST 路径=/execute 状态码=400 耗时=0.00ms 请求ID=c927a007a1e4441182e120b8db166686
+2026-07-21 15:27:27.284 | INFO     | logging:callHandlers:1762 - HTTP Request: POST http://testserver/execute "HTTP/1.1 400 Bad Request"
+2026-07-21 15:27:27.285 | INFO     | sandbox.main:request_context:201 - HTTP 请求开始：方法=POST 路径=/execute 客户端IP=testclient 请求ID=67eef30a005545b5bf036a75b0e3eadb
+2026-07-21 15:27:27.285 | INFO     | sandbox.main:execute_code:289 - 收到代码执行请求：日期=2026-07-21 文件名=unsafe_windows_paths.py 数据文件=nested/COM³.csv 请求超时=None 请求ID=67eef30a005545b5bf036a75b0e3eadb
+2026-07-21 15:27:27.286 | INFO     | sandbox.main:request_context:209 - HTTP 请求完成：方法=POST 路径=/execute 状态码=400 耗时=0.00ms 请求ID=67eef30a005545b5bf036a75b0e3eadb
+2026-07-21 15:27:27.286 | INFO     | logging:callHandlers:1762 - HTTP Request: POST http://testserver/execute "HTTP/1.1 400 Bad Request"
+2026-07-21 15:27:27.287 | INFO     | sandbox.main:request_context:201 - HTTP 请求开始：方法=POST 路径=/execute 客户端IP=testclient 请求ID=634affc3d5ec4e90a47d71e14abee750
+2026-07-21 15:27:27.287 | INFO     | sandbox.main:execute_code:289 - 收到代码执行请求：日期=2026-07-21 文件名=unsafe_windows_paths.py 数据文件=market/LPT¹.csv 请求超时=None 请求ID=634affc3d5ec4e90a47d71e14abee750
+2026-07-21 15:27:27.288 | INFO     | sandbox.main:request_context:209 - HTTP 请求完成：方法=POST 路径=/execute 状态码=400 耗时=0.00ms 请求ID=634affc3d5ec4e90a47d71e14abee750
+2026-07-21 15:27:27.289 | INFO     | logging:callHandlers:1762 - HTTP Request: POST http://testserver/execute "HTTP/1.1 400 Bad Request"
+2026-07-21 15:27:27.289 | INFO     | sandbox.main:request_context:201 - HTTP 请求开始：方法=POST 路径=/execute 客户端IP=testclient 请求ID=bb914b7aeb3e45cdb9e88a8c46cf9297
+2026-07-21 15:27:27.290 | INFO     | sandbox.main:execute_code:289 - 收到代码执行请求：日期=2026-07-21 文件名=unsafe_windows_paths.py 数据文件=nested/lpt².report.csv 请求超时=None 请求ID=bb914b7aeb3e45cdb9e88a8c46cf9297
+2026-07-21 15:27:27.290 | INFO     | sandbox.main:request_context:209 - HTTP 请求完成：方法=POST 路径=/execute 状态码=400 耗时=0.00ms 请求ID=bb914b7aeb3e45cdb9e88a8c46cf9297
+2026-07-21 15:27:27.290 | INFO     | logging:callHandlers:1762 - HTTP Request: POST http://testserver/execute "HTTP/1.1 400 Bad Request"
+2026-07-21 15:27:27.291 | INFO     | sandbox.main:request_context:201 - HTTP 请求开始：方法=POST 路径=/execute 客户端IP=testclient 请求ID=03a6833f20844e288dfb294627ba9391
+2026-07-21 15:27:27.292 | INFO     | sandbox.main:execute_code:289 - 收到代码执行请求：日期=2026-07-21 文件名=unsafe_windows_paths.py 数据文件=nested/LPT³ .csv 请求超时=None 请求ID=03a6833f20844e288dfb294627ba9391
+2026-07-21 15:27:27.292 | INFO     | sandbox.main:request_context:209 - HTTP 请求完成：方法=POST 路径=/execute 状态码=400 耗时=0.00ms 请求ID=03a6833f20844e288dfb294627ba9391
+2026-07-21 15:27:27.292 | INFO     | logging:callHandlers:1762 - HTTP Request: POST http://testserver/execute "HTTP/1.1 400 Bad Request"
+2026-07-21 15:27:27.294 | INFO     | sandbox.main:request_context:201 - HTTP 请求开始：方法=POST 路径=/execute 客户端IP=testclient 请求ID=594a0e25d2ed4099b637ef229adb0dcc
+2026-07-21 15:27:27.294 | INFO     | sandbox.main:execute_code:289 - 收到代码执行请求：日期=2026-07-21 文件名=unsafe_windows_paths.py 数据文件=market/bad?.csv 请求超时=None 请求ID=594a0e25d2ed4099b637ef229adb0dcc
+2026-07-21 15:27:27.295 | INFO     | sandbox.main:request_context:209 - HTTP 请求完成：方法=POST 路径=/execute 状态码=400 耗时=0.00ms 请求ID=594a0e25d2ed4099b637ef229adb0dcc
+2026-07-21 15:27:27.296 | INFO     | logging:callHandlers:1762 - HTTP Request: POST http://testserver/execute "HTTP/1.1 400 Bad Request"
+2026-07-21 15:27:27.296 | INFO     | sandbox.main:request_context:201 - HTTP 请求开始：方法=POST 路径=/execute 客户端IP=testclient 请求ID=e5f2ffbb134f4f749917656f60b7977b
+2026-07-21 15:27:27.296 | INFO     | sandbox.main:execute_code:289 - 收到代码执行请求：日期=2026-07-21 文件名=unsafe_windows_paths.py 数据文件=market/control.csv 请求超时=None 请求ID=e5f2ffbb134f4f749917656f60b7977b
+2026-07-21 15:27:27.297 | INFO     | sandbox.main:request_context:209 - HTTP 请求完成：方法=POST 路径=/execute 状态码=400 耗时=0.00ms 请求ID=e5f2ffbb134f4f749917656f60b7977b
+2026-07-21 15:27:27.297 | INFO     | logging:callHandlers:1762 - HTTP Request: POST http://testserver/execute "HTTP/1.1 400 Bad Request"
+2026-07-21 15:27:27.298 | INFO     | sandbox.main:request_context:201 - HTTP 请求开始：方法=POST 路径=/execute 客户端IP=testclient 请求ID=1704f78e89df42c786685b21b24e8d80
+2026-07-21 15:27:27.298 | INFO     | sandbox.main:execute_code:289 - 收到代码执行请求：日期=2026-07-21 文件名=unsafe_windows_paths.py 数据文件=market/delete.csv 请求超时=None 请求ID=1704f78e89df42c786685b21b24e8d80
+2026-07-21 15:27:27.299 | INFO     | sandbox.main:request_context:209 - HTTP 请求完成：方法=POST 路径=/execute 状态码=400 耗时=0.00ms 请求ID=1704f78e89df42c786685b21b24e8d80
+2026-07-21 15:27:27.300 | INFO     | logging:callHandlers:1762 - HTTP Request: POST http://testserver/execute "HTTP/1.1 400 Bad Request"
+2026-07-21 15:27:27.301 | INFO     | sandbox.main:request_context:201 - HTTP 请求开始：方法=POST 路径=/execute 客户端IP=testclient 请求ID=23699266b9164ec399605ad7c7c16d7a
+2026-07-21 15:27:27.302 | INFO     | sandbox.main:execute_code:289 - 收到代码执行请求：日期=2026-07-21 文件名=unsafe_windows_paths.py 数据文件=market/nul .csv 请求超时=None 请求ID=23699266b9164ec399605ad7c7c16d7a
+2026-07-21 15:27:27.303 | INFO     | sandbox.main:request_context:209 - HTTP 请求完成：方法=POST 路径=/execute 状态码=400 耗时=0.00ms 请求ID=23699266b9164ec399605ad7c7c16d7a
+2026-07-21 15:27:27.303 | INFO     | logging:callHandlers:1762 - HTTP Request: POST http://testserver/execute "HTTP/1.1 400 Bad Request"
+2026-07-21 15:27:27.304 | INFO     | sandbox.main:lifespan:175 - 正在关闭沙箱服务生命周期...
+2026-07-21 15:27:27.307 | INFO     | sandbox.main:create_app:157 - 初始化沙箱服务配置：最大并发=%d 最大排队=%d 最大超时时间=%d秒 上传根目录=%s 数据根目录=%s
+2026-07-21 15:27:27.308 | INFO     | sandbox.executor:__init__:34 - SandboxExecutor 初始化完成，执行器脚本路径：%s
+2026-07-21 15:27:27.308 | INFO     | sandbox.admission:__init__:20 - 执行门控初始化完成：最大并发槽位=4 最大等待队列=20 排队超时时间=5.00秒
+2026-07-21 15:27:27.311 | INFO     | sandbox.main:lifespan:168 - 正在启动沙箱服务生命周期...
+2026-07-21 15:27:27.311 | INFO     | sandbox.main:_cleanup_loop:144 - 启动后台文件清理循环任务 (间隔时间: %.1f秒)
+2026-07-21 15:27:27.313 | INFO     | sandbox.main:request_context:201 - HTTP 请求开始：方法=POST 路径=/upload 客户端IP=testclient 请求ID=b96493dd6b954affa675bd7b49554baf
+2026-07-21 15:27:27.314 | INFO     | sandbox.main:upload_file:260 - 收到文件上传：原始文件名=unicode_data.py 请求ID=b96493dd6b954affa675bd7b49554baf
+2026-07-21 15:27:27.315 | INFO     | sandbox.storage:save:101 - 保存上传文件：文件名=unicode_data.py 日期=2026-07-21 目标路径=C:\Users\admin\AppData\Local\Temp\pytest-of-admin\pytest-971\test_execute_accepts_safe_unic0\2026-07-21\unicode_data.py
+2026-07-21 15:27:27.315 | INFO     | sandbox.storage:save:122 - 文件上传保存成功：C:\Users\admin\AppData\Local\Temp\pytest-of-admin\pytest-971\test_execute_accepts_safe_unic0\2026-07-21\unicode_data.py (80 字节)
+2026-07-21 15:27:27.315 | INFO     | sandbox.main:upload_file:263 - 文件上传成功：日期=2026-07-21 保存文件名=unicode_data.py 请求ID=b96493dd6b954affa675bd7b49554baf
+2026-07-21 15:27:27.315 | INFO     | sandbox.main:request_context:209 - HTTP 请求完成：方法=POST 路径=/upload 状态码=201 耗时=0.00ms 请求ID=b96493dd6b954affa675bd7b49554baf
+2026-07-21 15:27:27.316 | INFO     | logging:callHandlers:1762 - HTTP Request: POST http://testserver/upload "HTTP/1.1 201 Created"
+2026-07-21 15:27:27.316 | INFO     | sandbox.main:request_context:201 - HTTP 请求开始：方法=POST 路径=/execute 客户端IP=testclient 请求ID=a789b9d2763d4614a6f7b305ab214280
+2026-07-21 15:27:27.317 | INFO     | sandbox.main:execute_code:289 - 收到代码执行请求：日期=2026-07-21 文件名=unicode_data.py 数据文件=行情/日线.csv 请求超时=None 请求ID=a789b9d2763d4614a6f7b305ab214280
+2026-07-21 15:27:27.318 | INFO     | sandbox.main:execute_code:333 - 正在申请执行门控槽位：脚本=unicode_data.py 数据文件=日线.csv 超时限制=2.00秒 请求ID=a789b9d2763d4614a6f7b305ab214280
+2026-07-21 15:27:27.326 | INFO     | sandbox.executor:_execute_isolated:111 - 启动隔离子进程：脚本=unicode_data.py 数据文件=日线.csv 超时=2.00s 限制=(CPU:60s, 内存:1610612736B, 进程:32)
+2026-07-21 15:27:27.332 | INFO     | sandbox.executor:_execute_isolated:131 - 子进程已成功启动，PID=39644
+2026-07-21 15:27:27.391 | INFO     | sandbox.executor:execute:62 - 脚本执行结束：脚本=unicode_data.py 状态=success 退出码=0 耗时=0.063秒 标准输出字节=31 标准错误字节=0
+2026-07-21 15:27:27.392 | INFO     | sandbox.main:execute_code:359 - 代码执行完成：请求ID=a789b9d2763d4614a6f7b305ab214280 文件名=unicode_data.py 状态=success 退出码=0
+2026-07-21 15:27:27.392 | INFO     | sandbox.main:request_context:209 - HTTP 请求完成：方法=POST 路径=/execute 状态码=200 耗时=63.00ms 请求ID=a789b9d2763d4614a6f7b305ab214280
+2026-07-21 15:27:27.393 | INFO     | logging:callHandlers:1762 - HTTP Request: POST http://testserver/execute "HTTP/1.1 200 OK"
+2026-07-21 15:27:27.393 | INFO     | sandbox.main:lifespan:175 - 正在关闭沙箱服务生命周期...
+2026-07-21 15:27:27.397 | INFO     | sandbox.main:create_app:157 - 初始化沙箱服务配置：最大并发=%d 最大排队=%d 最大超时时间=%d秒 上传根目录=%s 数据根目录=%s
+2026-07-21 15:27:27.397 | INFO     | sandbox.executor:__init__:34 - SandboxExecutor 初始化完成，执行器脚本路径：%s
+2026-07-21 15:27:27.397 | INFO     | sandbox.admission:__init__:20 - 执行门控初始化完成：最大并发槽位=4 最大等待队列=20 排队超时时间=5.00秒
+2026-07-21 15:27:27.401 | INFO     | sandbox.main:lifespan:168 - 正在启动沙箱服务生命周期...
+2026-07-21 15:27:27.401 | INFO     | sandbox.main:_cleanup_loop:144 - 启动后台文件清理循环任务 (间隔时间: %.1f秒)
+2026-07-21 15:27:27.402 | INFO     | sandbox.main:request_context:201 - HTTP 请求开始：方法=POST 路径=/upload 客户端IP=testclient 请求ID=de20ed02ee574a7b8ade4a2dd064e7fe
+2026-07-21 15:27:27.403 | INFO     | sandbox.main:upload_file:260 - 收到文件上传：原始文件名=oversized_data.py 请求ID=de20ed02ee574a7b8ade4a2dd064e7fe
+2026-07-21 15:27:27.404 | INFO     | sandbox.storage:save:101 - 保存上传文件：文件名=oversized_data.py 日期=2026-07-21 目标路径=C:\Users\admin\AppData\Local\Temp\pytest-of-admin\pytest-971\test_execute_rejects_oversized0\2026-07-21\oversized_data.py
+2026-07-21 15:27:27.404 | INFO     | sandbox.storage:save:122 - 文件上传保存成功：C:\Users\admin\AppData\Local\Temp\pytest-of-admin\pytest-971\test_execute_rejects_oversized0\2026-07-21\oversized_data.py (4 字节)
+2026-07-21 15:27:27.404 | INFO     | sandbox.main:upload_file:263 - 文件上传成功：日期=2026-07-21 保存文件名=oversized_data.py 请求ID=de20ed02ee574a7b8ade4a2dd064e7fe
+2026-07-21 15:27:27.404 | INFO     | sandbox.main:request_context:209 - HTTP 请求完成：方法=POST 路径=/upload 状态码=201 耗时=0.00ms 请求ID=de20ed02ee574a7b8ade4a2dd064e7fe
+2026-07-21 15:27:27.405 | INFO     | logging:callHandlers:1762 - HTTP Request: POST http://testserver/upload "HTTP/1.1 201 Created"
+2026-07-21 15:27:27.406 | INFO     | sandbox.main:request_context:201 - HTTP 请求开始：方法=POST 路径=/execute 客户端IP=testclient 请求ID=617814df9e9545c0a0362718ca45dd3b
+2026-07-21 15:27:27.407 | INFO     | sandbox.main:execute_code:289 - 收到代码执行请求：日期=2026-07-21 文件名=oversized_data.py 数据文件=input.csv 请求超时=None 请求ID=617814df9e9545c0a0362718ca45dd3b
+2026-07-21 15:27:27.408 | INFO     | sandbox.main:request_context:209 - HTTP 请求完成：方法=POST 路径=/execute 状态码=413 耗时=0.00ms 请求ID=617814df9e9545c0a0362718ca45dd3b
+2026-07-21 15:27:27.409 | INFO     | logging:callHandlers:1762 - HTTP Request: POST http://testserver/execute "HTTP/1.1 413 Request Entity Too Large"
+2026-07-21 15:27:27.409 | INFO     | sandbox.main:lifespan:175 - 正在关闭沙箱服务生命周期...
+2026-07-21 15:27:27.413 | INFO     | sandbox.main:create_app:157 - 初始化沙箱服务配置：最大并发=%d 最大排队=%d 最大超时时间=%d秒 上传根目录=%s 数据根目录=%s
+2026-07-21 15:27:27.413 | INFO     | sandbox.executor:__init__:34 - SandboxExecutor 初始化完成，执行器脚本路径：%s
+2026-07-21 15:27:27.414 | INFO     | sandbox.admission:__init__:20 - 执行门控初始化完成：最大并发槽位=4 最大等待队列=20 排队超时时间=5.00秒
+2026-07-21 15:27:27.418 | INFO     | sandbox.main:lifespan:168 - 正在启动沙箱服务生命周期...
+2026-07-21 15:27:27.418 | INFO     | sandbox.main:_cleanup_loop:144 - 启动后台文件清理循环任务 (间隔时间: %.1f秒)
+2026-07-21 15:27:27.420 | INFO     | sandbox.main:request_context:201 - HTTP 请求开始：方法=POST 路径=/upload 客户端IP=testclient 请求ID=f986462a42ee4eeb95ec67343589e7eb
+2026-07-21 15:27:27.421 | INFO     | sandbox.main:upload_file:260 - 收到文件上传：原始文件名=error.py 请求ID=f986462a42ee4eeb95ec67343589e7eb
+2026-07-21 15:27:27.422 | INFO     | sandbox.storage:save:101 - 保存上传文件：文件名=error.py 日期=2026-07-21 目标路径=C:\Users\admin\AppData\Local\Temp\pytest-of-admin\pytest-971\test_execute_reports_nonzero_e0\2026-07-21\error.py
+2026-07-21 15:27:27.422 | INFO     | sandbox.storage:save:122 - 文件上传保存成功：C:\Users\admin\AppData\Local\Temp\pytest-of-admin\pytest-971\test_execute_reports_nonzero_e0\2026-07-21\error.py (25 字节)
+2026-07-21 15:27:27.422 | INFO     | sandbox.main:upload_file:263 - 文件上传成功：日期=2026-07-21 保存文件名=error.py 请求ID=f986462a42ee4eeb95ec67343589e7eb
+2026-07-21 15:27:27.423 | INFO     | sandbox.main:request_context:209 - HTTP 请求完成：方法=POST 路径=/upload 状态码=201 耗时=0.00ms 请求ID=f986462a42ee4eeb95ec67343589e7eb
+2026-07-21 15:27:27.423 | INFO     | logging:callHandlers:1762 - HTTP Request: POST http://testserver/upload "HTTP/1.1 201 Created"
+2026-07-21 15:27:27.424 | INFO     | sandbox.main:request_context:201 - HTTP 请求开始：方法=POST 路径=/execute 客户端IP=testclient 请求ID=eeb0cbc55da6407aaee1c75661ffacde
+2026-07-21 15:27:27.425 | INFO     | sandbox.main:execute_code:289 - 收到代码执行请求：日期=2026-07-21 文件名=error.py 数据文件=input.csv 请求超时=None 请求ID=eeb0cbc55da6407aaee1c75661ffacde
+2026-07-21 15:27:27.426 | INFO     | sandbox.main:execute_code:333 - 正在申请执行门控槽位：脚本=error.py 数据文件=input.csv 超时限制=2.00秒 请求ID=eeb0cbc55da6407aaee1c75661ffacde
+2026-07-21 15:27:27.429 | INFO     | sandbox.executor:_execute_isolated:111 - 启动隔离子进程：脚本=error.py 数据文件=input.csv 超时=2.00s 限制=(CPU:60s, 内存:1610612736B, 进程:32)
+2026-07-21 15:27:27.434 | INFO     | sandbox.executor:_execute_isolated:131 - 子进程已成功启动，PID=50760
+2026-07-21 15:27:27.496 | INFO     | sandbox.executor:execute:62 - 脚本执行结束：脚本=error.py 状态=error 退出码=1 耗时=0.062秒 标准输出字节=0 标准错误字节=414
+2026-07-21 15:27:27.496 | INFO     | sandbox.main:execute_code:359 - 代码执行完成：请求ID=eeb0cbc55da6407aaee1c75661ffacde 文件名=error.py 状态=error 退出码=1
+2026-07-21 15:27:27.497 | INFO     | sandbox.main:request_context:209 - HTTP 请求完成：方法=POST 路径=/execute 状态码=200 耗时=78.00ms 请求ID=eeb0cbc55da6407aaee1c75661ffacde
+2026-07-21 15:27:27.497 | INFO     | logging:callHandlers:1762 - HTTP Request: POST http://testserver/execute "HTTP/1.1 200 OK"
+2026-07-21 15:27:27.497 | INFO     | sandbox.main:lifespan:175 - 正在关闭沙箱服务生命周期...
+2026-07-21 15:27:27.501 | INFO     | sandbox.main:create_app:157 - 初始化沙箱服务配置：最大并发=%d 最大排队=%d 最大超时时间=%d秒 上传根目录=%s 数据根目录=%s
+2026-07-21 15:27:27.501 | INFO     | sandbox.executor:__init__:34 - SandboxExecutor 初始化完成，执行器脚本路径：%s
+2026-07-21 15:27:27.502 | INFO     | sandbox.admission:__init__:20 - 执行门控初始化完成：最大并发槽位=2 最大等待队列=20 排队超时时间=5.00秒
+2026-07-21 15:27:27.505 | INFO     | sandbox.main:lifespan:168 - 正在启动沙箱服务生命周期...
+2026-07-21 15:27:27.506 | INFO     | sandbox.main:_cleanup_loop:144 - 启动后台文件清理循环任务 (间隔时间: %.1f秒)
+2026-07-21 15:27:27.507 | INFO     | sandbox.main:request_context:201 - HTTP 请求开始：方法=POST 路径=/upload 客户端IP=testclient 请求ID=319e491004a54bd9b28fb6fc73abee31
+2026-07-21 15:27:27.508 | INFO     | sandbox.main:upload_file:260 - 收到文件上传：原始文件名=repeatable.py 请求ID=319e491004a54bd9b28fb6fc73abee31
+2026-07-21 15:27:27.509 | INFO     | sandbox.storage:save:101 - 保存上传文件：文件名=repeatable.py 日期=2026-07-21 目标路径=C:\Users\admin\AppData\Local\Temp\pytest-of-admin\pytest-971\test_upload_can_be_executed_tw0\2026-07-21\repeatable.py
+2026-07-21 15:27:27.509 | INFO     | sandbox.storage:save:122 - 文件上传保存成功：C:\Users\admin\AppData\Local\Temp\pytest-of-admin\pytest-971\test_upload_can_be_executed_tw0\2026-07-21\repeatable.py (27 字节)
+2026-07-21 15:27:27.509 | INFO     | sandbox.main:upload_file:263 - 文件上传成功：日期=2026-07-21 保存文件名=repeatable.py 请求ID=319e491004a54bd9b28fb6fc73abee31
+2026-07-21 15:27:27.510 | INFO     | sandbox.main:request_context:209 - HTTP 请求完成：方法=POST 路径=/upload 状态码=201 耗时=0.00ms 请求ID=319e491004a54bd9b28fb6fc73abee31
+2026-07-21 15:27:27.510 | INFO     | logging:callHandlers:1762 - HTTP Request: POST http://testserver/upload "HTTP/1.1 201 Created"
+2026-07-21 15:27:27.511 | INFO     | sandbox.main:request_context:201 - HTTP 请求开始：方法=POST 路径=/execute 客户端IP=testclient 请求ID=18cc35da1e724c69baa7144b2f5e9c89
+2026-07-21 15:27:27.512 | INFO     | sandbox.main:execute_code:289 - 收到代码执行请求：日期=2026-07-21 文件名=repeatable.py 数据文件=input.csv 请求超时=None 请求ID=18cc35da1e724c69baa7144b2f5e9c89
+2026-07-21 15:27:27.513 | INFO     | sandbox.main:execute_code:333 - 正在申请执行门控槽位：脚本=repeatable.py 数据文件=input.csv 超时限制=2.00秒 请求ID=18cc35da1e724c69baa7144b2f5e9c89
+2026-07-21 15:27:27.517 | INFO     | sandbox.main:request_context:201 - HTTP 请求开始：方法=POST 路径=/execute 客户端IP=testclient 请求ID=ec221190b32348faae97f0853d1e2a9d
+2026-07-21 15:27:27.518 | INFO     | sandbox.main:execute_code:289 - 收到代码执行请求：日期=2026-07-21 文件名=repeatable.py 数据文件=input.csv 请求超时=None 请求ID=ec221190b32348faae97f0853d1e2a9d
+2026-07-21 15:27:27.519 | INFO     | sandbox.main:execute_code:333 - 正在申请执行门控槽位：脚本=repeatable.py 数据文件=input.csv 超时限制=2.00秒 请求ID=ec221190b32348faae97f0853d1e2a9d
+2026-07-21 15:27:27.525 | INFO     | sandbox.executor:_execute_isolated:111 - 启动隔离子进程：脚本=repeatable.py 数据文件=input.csv 超时=2.00s 限制=(CPU:60s, 内存:1610612736B, 进程:32)
+2026-07-21 15:27:27.530 | INFO     | sandbox.executor:_execute_isolated:111 - 启动隔离子进程：脚本=repeatable.py 数据文件=input.csv 超时=2.00s 限制=(CPU:60s, 内存:1610612736B, 进程:32)
+2026-07-21 15:27:27.535 | INFO     | sandbox.executor:_execute_isolated:131 - 子进程已成功启动，PID=3716
+2026-07-21 15:27:27.536 | INFO     | sandbox.executor:_execute_isolated:131 - 子进程已成功启动，PID=33980
+2026-07-21 15:27:27.893 | INFO     | sandbox.executor:execute:62 - 脚本执行结束：脚本=repeatable.py 状态=success 退出码=0 耗时=0.375秒 标准输出字节=0 标准错误字节=0
+2026-07-21 15:27:27.893 | INFO     | sandbox.main:execute_code:359 - 代码执行完成：请求ID=18cc35da1e724c69baa7144b2f5e9c89 文件名=repeatable.py 状态=success 退出码=0
+2026-07-21 15:27:27.894 | INFO     | sandbox.main:request_context:209 - HTTP 请求完成：方法=POST 路径=/execute 状态码=200 耗时=390.00ms 请求ID=18cc35da1e724c69baa7144b2f5e9c89
+2026-07-21 15:27:27.894 | INFO     | sandbox.executor:execute:62 - 脚本执行结束：脚本=repeatable.py 状态=success 退出码=0 耗时=0.375秒 标准输出字节=0 标准错误字节=0
+2026-07-21 15:27:27.895 | INFO     | sandbox.main:execute_code:359 - 代码执行完成：请求ID=ec221190b32348faae97f0853d1e2a9d 文件名=repeatable.py 状态=success 退出码=0
+2026-07-21 15:27:27.895 | INFO     | sandbox.main:request_context:209 - HTTP 请求完成：方法=POST 路径=/execute 状态码=200 耗时=390.00ms 请求ID=ec221190b32348faae97f0853d1e2a9d
+2026-07-21 15:27:27.895 | INFO     | logging:callHandlers:1762 - HTTP Request: POST http://testserver/execute "HTTP/1.1 200 OK"
+2026-07-21 15:27:27.895 | INFO     | logging:callHandlers:1762 - HTTP Request: POST http://testserver/execute "HTTP/1.1 200 OK"
+2026-07-21 15:27:27.896 | INFO     | sandbox.main:lifespan:175 - 正在关闭沙箱服务生命周期...
+2026-07-21 15:27:27.899 | INFO     | sandbox.main:create_app:157 - 初始化沙箱服务配置：最大并发=%d 最大排队=%d 最大超时时间=%d秒 上传根目录=%s 数据根目录=%s
+2026-07-21 15:27:27.899 | INFO     | sandbox.executor:__init__:34 - SandboxExecutor 初始化完成，执行器脚本路径：%s
+2026-07-21 15:27:27.899 | INFO     | sandbox.admission:__init__:20 - 执行门控初始化完成：最大并发槽位=1 最大等待队列=0 排队超时时间=0.10秒
+2026-07-21 15:27:27.904 | INFO     | sandbox.main:lifespan:168 - 正在启动沙箱服务生命周期...
+2026-07-21 15:27:27.904 | INFO     | sandbox.main:_cleanup_loop:144 - 启动后台文件清理循环任务 (间隔时间: %.1f秒)
+2026-07-21 15:27:27.905 | INFO     | sandbox.main:request_context:201 - HTTP 请求开始：方法=POST 路径=/upload 客户端IP=testclient 请求ID=efcea4886efe467cb98d6f804cbf3be2
+2026-07-21 15:27:27.906 | INFO     | sandbox.main:upload_file:260 - 收到文件上传：原始文件名=slow.py 请求ID=efcea4886efe467cb98d6f804cbf3be2
+2026-07-21 15:27:27.906 | INFO     | sandbox.storage:save:101 - 保存上传文件：文件名=slow.py 日期=2026-07-21 目标路径=C:\Users\admin\AppData\Local\Temp\pytest-of-admin\pytest-971\test_execute_returns_429_when_0\2026-07-21\slow.py
+2026-07-21 15:27:27.906 | INFO     | sandbox.storage:save:122 - 文件上传保存成功：C:\Users\admin\AppData\Local\Temp\pytest-of-admin\pytest-971\test_execute_returns_429_when_0\2026-07-21\slow.py (27 字节)
+2026-07-21 15:27:27.907 | INFO     | sandbox.main:upload_file:263 - 文件上传成功：日期=2026-07-21 保存文件名=slow.py 请求ID=efcea4886efe467cb98d6f804cbf3be2
+2026-07-21 15:27:27.907 | INFO     | sandbox.main:request_context:209 - HTTP 请求完成：方法=POST 路径=/upload 状态码=201 耗时=0.00ms 请求ID=efcea4886efe467cb98d6f804cbf3be2
+2026-07-21 15:27:27.907 | INFO     | logging:callHandlers:1762 - HTTP Request: POST http://testserver/upload "HTTP/1.1 201 Created"
+2026-07-21 15:27:27.908 | INFO     | sandbox.main:request_context:201 - HTTP 请求开始：方法=POST 路径=/upload 客户端IP=testclient 请求ID=8c39993c73ba4513adc417d65c1e44e9
+2026-07-21 15:27:27.908 | INFO     | sandbox.main:upload_file:260 - 收到文件上传：原始文件名=queued.py 请求ID=8c39993c73ba4513adc417d65c1e44e9
+2026-07-21 15:27:27.909 | INFO     | sandbox.storage:save:101 - 保存上传文件：文件名=queued.py 日期=2026-07-21 目标路径=C:\Users\admin\AppData\Local\Temp\pytest-of-admin\pytest-971\test_execute_returns_429_when_0\2026-07-21\queued.py
+2026-07-21 15:27:27.909 | INFO     | sandbox.storage:save:122 - 文件上传保存成功：C:\Users\admin\AppData\Local\Temp\pytest-of-admin\pytest-971\test_execute_returns_429_when_0\2026-07-21\queued.py (4 字节)
+2026-07-21 15:27:27.909 | INFO     | sandbox.main:upload_file:263 - 文件上传成功：日期=2026-07-21 保存文件名=queued.py 请求ID=8c39993c73ba4513adc417d65c1e44e9
+2026-07-21 15:27:27.909 | INFO     | sandbox.main:request_context:209 - HTTP 请求完成：方法=POST 路径=/upload 状态码=201 耗时=16.00ms 请求ID=8c39993c73ba4513adc417d65c1e44e9
+2026-07-21 15:27:27.910 | INFO     | logging:callHandlers:1762 - HTTP Request: POST http://testserver/upload "HTTP/1.1 201 Created"
+2026-07-21 15:27:27.911 | INFO     | sandbox.main:request_context:201 - HTTP 请求开始：方法=POST 路径=/execute 客户端IP=testclient 请求ID=7cfeb6affb6f4f409379ed1b04151c58
+2026-07-21 15:27:27.912 | INFO     | sandbox.main:execute_code:289 - 收到代码执行请求：日期=2026-07-21 文件名=slow.py 数据文件=input.csv 请求超时=1.0 请求ID=7cfeb6affb6f4f409379ed1b04151c58
+2026-07-21 15:27:27.912 | INFO     | sandbox.main:execute_code:333 - 正在申请执行门控槽位：脚本=slow.py 数据文件=input.csv 超时限制=1.00秒 请求ID=7cfeb6affb6f4f409379ed1b04151c58
+2026-07-21 15:27:27.917 | INFO     | sandbox.main:request_context:201 - HTTP 请求开始：方法=POST 路径=/execute 客户端IP=testclient 请求ID=be63b7a3aaa74973bc30e3736fd0f065
+2026-07-21 15:27:27.917 | INFO     | sandbox.main:execute_code:289 - 收到代码执行请求：日期=2026-07-21 文件名=queued.py 数据文件=input.csv 请求超时=1.0 请求ID=be63b7a3aaa74973bc30e3736fd0f065
+2026-07-21 15:27:27.918 | INFO     | sandbox.main:execute_code:333 - 正在申请执行门控槽位：脚本=queued.py 数据文件=input.csv 超时限制=1.00秒 请求ID=be63b7a3aaa74973bc30e3736fd0f065
+2026-07-21 15:27:27.918 | INFO     | sandbox.main:request_context:209 - HTTP 请求完成：方法=POST 路径=/execute 状态码=429 耗时=0.00ms 请求ID=be63b7a3aaa74973bc30e3736fd0f065
+2026-07-21 15:27:27.919 | INFO     | logging:callHandlers:1762 - HTTP Request: POST http://testserver/execute "HTTP/1.1 429 Too Many Requests"
+2026-07-21 15:27:27.925 | INFO     | sandbox.executor:_execute_isolated:111 - 启动隔离子进程：脚本=slow.py 数据文件=input.csv 超时=1.00s 限制=(CPU:60s, 内存:1610612736B, 进程:32)
+2026-07-21 15:27:27.930 | INFO     | sandbox.executor:_execute_isolated:131 - 子进程已成功启动，PID=25192
+2026-07-21 15:27:28.487 | INFO     | sandbox.executor:execute:62 - 脚本执行结束：脚本=slow.py 状态=success 退出码=0 耗时=0.563秒 标准输出字节=0 标准错误字节=0
+2026-07-21 15:27:28.488 | INFO     | sandbox.main:execute_code:359 - 代码执行完成：请求ID=7cfeb6affb6f4f409379ed1b04151c58 文件名=slow.py 状态=success 退出码=0
+2026-07-21 15:27:28.488 | INFO     | sandbox.main:request_context:209 - HTTP 请求完成：方法=POST 路径=/execute 状态码=200 耗时=578.00ms 请求ID=7cfeb6affb6f4f409379ed1b04151c58
+2026-07-21 15:27:28.489 | INFO     | logging:callHandlers:1762 - HTTP Request: POST http://testserver/execute "HTTP/1.1 200 OK"
+2026-07-21 15:27:28.490 | INFO     | sandbox.main:lifespan:175 - 正在关闭沙箱服务生命周期...
+2026-07-21 15:27:28.494 | INFO     | sandbox.main:create_app:157 - 初始化沙箱服务配置：最大并发=%d 最大排队=%d 最大超时时间=%d秒 上传根目录=%s 数据根目录=%s
+2026-07-21 15:27:28.495 | INFO     | sandbox.executor:__init__:34 - SandboxExecutor 初始化完成，执行器脚本路径：%s
+2026-07-21 15:27:28.495 | INFO     | sandbox.admission:__init__:20 - 执行门控初始化完成：最大并发槽位=4 最大等待队列=20 排队超时时间=5.00秒
+2026-07-21 15:27:28.499 | INFO     | sandbox.main:lifespan:168 - 正在启动沙箱服务生命周期...
+2026-07-21 15:27:28.499 | INFO     | sandbox.main:_cleanup_loop:144 - 启动后台文件清理循环任务 (间隔时间: %.1f秒)
+2026-07-21 15:27:28.500 | INFO     | sandbox.main:request_context:201 - HTTP 请求开始：方法=POST 路径=/upload 客户端IP=testclient 请求ID=a91f27a9c1084296ae9ac14581db7217
+2026-07-21 15:27:28.501 | INFO     | sandbox.main:upload_file:260 - 收到文件上传：原始文件名=broken.py 请求ID=a91f27a9c1084296ae9ac14581db7217
+2026-07-21 15:27:28.501 | INFO     | sandbox.storage:save:101 - 保存上传文件：文件名=broken.py 日期=2026-07-21 目标路径=C:\Users\admin\AppData\Local\Temp\pytest-of-admin\pytest-971\test_unexpected_execute_error_0\2026-07-21\broken.py
+2026-07-21 15:27:28.502 | INFO     | sandbox.storage:save:122 - 文件上传保存成功：C:\Users\admin\AppData\Local\Temp\pytest-of-admin\pytest-971\test_unexpected_execute_error_0\2026-07-21\broken.py (4 字节)
+2026-07-21 15:27:28.502 | INFO     | sandbox.main:upload_file:263 - 文件上传成功：日期=2026-07-21 保存文件名=broken.py 请求ID=a91f27a9c1084296ae9ac14581db7217
+2026-07-21 15:27:28.502 | INFO     | sandbox.main:request_context:209 - HTTP 请求完成：方法=POST 路径=/upload 状态码=201 耗时=0.00ms 请求ID=a91f27a9c1084296ae9ac14581db7217
+2026-07-21 15:27:28.502 | INFO     | logging:callHandlers:1762 - HTTP Request: POST http://testserver/upload "HTTP/1.1 201 Created"
+2026-07-21 15:27:28.503 | INFO     | sandbox.main:request_context:201 - HTTP 请求开始：方法=POST 路径=/execute 客户端IP=testclient 请求ID=495af3c1e06548e3bc5dac46cbe0b71a
+2026-07-21 15:27:28.503 | INFO     | sandbox.main:execute_code:289 - 收到代码执行请求：日期=2026-07-21 文件名=broken.py 数据文件=input.csv 请求超时=None 请求ID=495af3c1e06548e3bc5dac46cbe0b71a
+2026-07-21 15:27:28.504 | INFO     | sandbox.main:execute_code:333 - 正在申请执行门控槽位：脚本=broken.py 数据文件=input.csv 超时限制=60.00秒 请求ID=495af3c1e06548e3bc5dac46cbe0b71a
+2026-07-21 15:27:28.510 | INFO     | sandbox.main:request_context:209 - HTTP 请求完成：方法=POST 路径=/execute 状态码=500 耗时=16.00ms 请求ID=495af3c1e06548e3bc5dac46cbe0b71a
+2026-07-21 15:27:28.510 | INFO     | logging:callHandlers:1762 - HTTP Request: POST http://testserver/execute "HTTP/1.1 500 Internal Server Error"
+2026-07-21 15:27:28.512 | INFO     | sandbox.main:lifespan:175 - 正在关闭沙箱服务生命周期...
+2026-07-21 15:27:28.534 | INFO     | sandbox.executor:__init__:34 - SandboxExecutor 初始化完成，执行器脚本路径：%s
+2026-07-21 15:27:28.545 | INFO     | sandbox.executor:_execute_isolated:111 - 启动隔离子进程：脚本=script.py 数据文件=market.csv 超时=1.00s 限制=(CPU:60s, 内存:1610612736B, 进程:32)
+2026-07-21 15:27:28.553 | INFO     | sandbox.executor:_execute_isolated:131 - 子进程已成功启动，PID=760
+2026-07-21 15:27:28.608 | INFO     | sandbox.executor:execute:62 - 脚本执行结束：脚本=script.py 状态=success 退出码=0 耗时=0.063秒 标准输出字节=28 标准错误字节=0
+2026-07-21 15:27:28.613 | INFO     | sandbox.executor:__init__:34 - SandboxExecutor 初始化完成，执行器脚本路径：%s
+2026-07-21 15:27:28.622 | INFO     | sandbox.executor:_execute_isolated:111 - 启动隔离子进程：脚本=script.py 数据文件=market.csv 超时=1.00s 限制=(CPU:60s, 内存:1610612736B, 进程:32)
+2026-07-21 15:27:28.627 | INFO     | sandbox.executor:_execute_isolated:131 - 子进程已成功启动，PID=23192
+2026-07-21 15:27:28.682 | INFO     | sandbox.executor:execute:62 - 脚本执行结束：脚本=script.py 状态=error 退出码=7 耗时=0.063秒 标准输出字节=0 标准错误字节=4
+2026-07-21 15:27:28.686 | INFO     | sandbox.executor:__init__:34 - SandboxExecutor 初始化完成，执行器脚本路径：%s
+2026-07-21 15:27:28.690 | INFO     | sandbox.executor:_execute_isolated:111 - 启动隔离子进程：脚本=script.py 数据文件=market.csv 超时=1.00s 限制=(CPU:60s, 内存:1610612736B, 进程:32)
+2026-07-21 15:27:28.695 | INFO     | sandbox.executor:_execute_isolated:131 - 子进程已成功启动，PID=3268
+2026-07-21 15:27:28.750 | INFO     | sandbox.executor:execute:62 - 脚本执行结束：脚本=script.py 状态=error 退出码=1 耗时=0.062秒 标准输出字节=0 标准错误字节=415
+2026-07-21 15:27:28.754 | INFO     | sandbox.executor:__init__:34 - SandboxExecutor 初始化完成，执行器脚本路径：%s
+2026-07-21 15:27:28.766 | INFO     | sandbox.executor:_execute_isolated:111 - 启动隔离子进程：脚本=script.py 数据文件=market.csv 超时=0.10s 限制=(CPU:60s, 内存:1610612736B, 进程:32)
+2026-07-21 15:27:28.771 | INFO     | sandbox.executor:_execute_isolated:131 - 子进程已成功启动，PID=20732
+2026-07-21 15:27:29.206 | INFO     | sandbox.executor:execute:62 - 脚本执行结束：脚本=script.py 状态=timeout 退出码=-1 耗时=0.437秒 标准输出字节=8 标准错误字节=0
+2026-07-21 15:27:29.210 | INFO     | sandbox.executor:__init__:34 - SandboxExecutor 初始化完成，执行器脚本路径：%s
+2026-07-21 15:27:29.220 | INFO     | sandbox.executor:_execute_isolated:111 - 启动隔离子进程：脚本=script.py 数据文件=market.csv 超时=2.00s 限制=(CPU:60s, 内存:1610612736B, 进程:32)
+2026-07-21 15:27:29.225 | INFO     | sandbox.executor:_execute_isolated:131 - 子进程已成功启动，PID=33404
+2026-07-21 15:27:29.388 | INFO     | sandbox.executor:execute:62 - 脚本执行结束：脚本=script.py 状态=success 退出码=0 耗时=0.172秒 标准输出字节=28 标准错误字节=0
+2026-07-21 15:27:29.394 | INFO     | sandbox.executor:__init__:34 - SandboxExecutor 初始化完成，执行器脚本路径：%s
+2026-07-21 15:27:29.405 | INFO     | sandbox.executor:_execute_isolated:111 - 启动隔离子进程：脚本=script.py 数据文件=market.csv 超时=1.00s 限制=(CPU:60s, 内存:1610612736B, 进程:32)
+2026-07-21 15:27:29.411 | INFO     | sandbox.executor:_execute_isolated:131 - 子进程已成功启动，PID=31004
+2026-07-21 15:27:29.474 | INFO     | sandbox.executor:execute:62 - 脚本执行结束：脚本=script.py 状态=success 退出码=0 耗时=0.079秒 标准输出字节=3 标准错误字节=0
+2026-07-21 15:27:29.478 | INFO     | sandbox.executor:__init__:34 - SandboxExecutor 初始化完成，执行器脚本路径：%s
+2026-07-21 15:27:29.487 | INFO     | sandbox.executor:_execute_isolated:111 - 启动隔离子进程：脚本=script.py 数据文件=market.csv 超时=1.00s 限制=(CPU:60s, 内存:1610612736B, 进程:32)
+2026-07-21 15:27:29.491 | INFO     | sandbox.executor:_execute_isolated:131 - 子进程已成功启动，PID=49836
+2026-07-21 15:27:29.549 | INFO     | sandbox.executor:execute:62 - 脚本执行结束：脚本=script.py 状态=success 退出码=0 耗时=0.062秒 标准输出字节=8 标准错误字节=0
+2026-07-21 15:27:29.555 | INFO     | sandbox.executor:__init__:34 - SandboxExecutor 初始化完成，执行器脚本路径：%s
+2026-07-21 15:27:29.567 | INFO     | sandbox.executor:_execute_isolated:111 - 启动隔离子进程：脚本=script.py 数据文件=market.csv 超时=1.00s 限制=(CPU:60s, 内存:1610612736B, 进程:32)
+2026-07-21 15:27:29.573 | INFO     | sandbox.executor:_execute_isolated:131 - 子进程已成功启动，PID=1956
+2026-07-21 15:27:29.631 | INFO     | sandbox.executor:execute:62 - 脚本执行结束：脚本=script.py 状态=success 退出码=0 耗时=0.078秒 标准输出字节=0 标准错误字节=0
+2026-07-21 15:27:29.639 | INFO     | sandbox.executor:__init__:34 - SandboxExecutor 初始化完成，执行器脚本路径：%s
+2026-07-21 15:27:29.701 | INFO     | sandbox.executor:_execute_isolated:111 - 启动隔离子进程：脚本=script.py 数据文件=market.csv 超时=1.00s 限制=(CPU:60s, 内存:1610612736B, 进程:32)
+2026-07-21 15:27:29.706 | INFO     | sandbox.executor:_execute_isolated:131 - 子进程已成功启动，PID=48176
+2026-07-21 15:27:29.766 | INFO     | sandbox.executor:execute:62 - 脚本执行结束：脚本=script.py 状态=success 退出码=0 耗时=0.125秒 标准输出字节=7 标准错误字节=0
+2026-07-21 15:27:29.771 | INFO     | sandbox.executor:__init__:34 - SandboxExecutor 初始化完成，执行器脚本路径：%s
+2026-07-21 15:27:29.777 | INFO     | sandbox.executor:_execute_isolated:111 - 启动隔离子进程：脚本=script.py 数据文件=market.csv 超时=1.00s 限制=(CPU:60s, 内存:1610612736B, 进程:32)
+2026-07-21 15:27:29.782 | INFO     | sandbox.executor:_execute_isolated:131 - 子进程已成功启动，PID=41976
+2026-07-21 15:27:29.838 | INFO     | sandbox.executor:execute:62 - 脚本执行结束：脚本=script.py 状态=success 退出码=0 耗时=0.063秒 标准输出字节=3 标准错误字节=0
+2026-07-21 15:27:29.879 | INFO     | sandbox.executor:__init__:34 - SandboxExecutor 初始化完成，执行器脚本路径：%s
+2026-07-21 15:27:29.890 | INFO     | sandbox.executor:_execute_isolated:111 - 启动隔离子进程：脚本=script.py 数据文件=market.csv 超时=1.00s 限制=(CPU:60s, 内存:1610612736B, 进程:32)
+2026-07-21 15:27:29.896 | INFO     | sandbox.executor:_execute_isolated:131 - 子进程已成功启动，PID=44492
+2026-07-21 15:27:29.944 | INFO     | sandbox.executor:execute:62 - 脚本执行结束：脚本=script.py 状态=error 退出码=1 耗时=0.062秒 标准输出字节=0 标准错误字节=309
+2026-07-21 15:27:29.949 | INFO     | sandbox.executor:__init__:34 - SandboxExecutor 初始化完成，执行器脚本路径：%s
+2026-07-21 15:27:29.953 | INFO     | sandbox.executor:_execute_isolated:111 - 启动隔离子进程：脚本=script.py 数据文件=market.csv 超时=1.00s 限制=(CPU:60s, 内存:1610612736B, 进程:32)
+2026-07-21 15:27:29.983 | INFO     | sandbox.executor:_execute_isolated:131 - 子进程已成功启动，PID=45820
+2026-07-21 15:27:30.036 | INFO     | sandbox.executor:execute:62 - 脚本执行结束：脚本=script.py 状态=error 退出码=1 耗时=0.094秒 标准输出字节=0 标准错误字节=672
+2026-07-21 15:27:30.040 | INFO     | sandbox.executor:__init__:34 - SandboxExecutor 初始化完成，执行器脚本路径：%s
+2026-07-21 15:27:30.049 | INFO     | sandbox.executor:_execute_isolated:111 - 启动隔离子进程：脚本=script.py 数据文件=market.csv 超时=0.10s 限制=(CPU:60s, 内存:1610612736B, 进程:32)
+2026-07-21 15:27:30.055 | INFO     | sandbox.executor:_execute_isolated:131 - 子进程已成功启动，PID=26880
+2026-07-21 15:27:30.498 | INFO     | sandbox.executor:execute:62 - 脚本执行结束：脚本=script.py 状态=timeout 退出码=-1 耗时=0.453秒 标准输出字节=8 标准错误字节=0
+2026-07-21 15:27:30.504 | INFO     | sandbox.executor:__init__:34 - SandboxExecutor 初始化完成，执行器脚本路径：%s
+2026-07-21 15:27:30.510 | INFO     | sandbox.executor:_execute_isolated:111 - 启动隔离子进程：脚本=script.py 数据文件=market.csv 超时=1.00s 限制=(CPU:60s, 内存:1610612736B, 进程:32)
+2026-07-21 15:27:30.575 | INFO     | sandbox.executor:execute:62 - 脚本执行结束：脚本=script.py 状态=success 退出码=0 耗时=0.062秒 标准输出字节=22 标准错误字节=0
+2026-07-21 15:27:30.592 | INFO     | sandbox.storage:save:101 - 保存上传文件：文件名=random123.py 日期=2026-07-21 目标路径=C:\Users\admin\AppData\Local\Temp\pytest-of-admin\pytest-971\test_save_preserves_filename_a0\2026-07-21\random123.py
+2026-07-21 15:27:30.593 | INFO     | sandbox.storage:save:122 - 文件上传保存成功：C:\Users\admin\AppData\Local\Temp\pytest-of-admin\pytest-971\test_save_preserves_filename_a0\2026-07-21\random123.py (12 字节)
+2026-07-21 15:27:30.604 | INFO     | sandbox.storage:save:101 - 保存上传文件：文件名=same.py 日期=2026-07-21 目标路径=C:\Users\admin\AppData\Local\Temp\pytest-of-admin\pytest-971\test_save_rejects_duplicate_wi0\2026-07-21\same.py
+2026-07-21 15:27:30.605 | INFO     | sandbox.storage:save:122 - 文件上传保存成功：C:\Users\admin\AppData\Local\Temp\pytest-of-admin\pytest-971\test_save_rejects_duplicate_wi0\2026-07-21\same.py (5 字节)
+2026-07-21 15:27:30.606 | INFO     | sandbox.storage:save:101 - 保存上传文件：文件名=same.py 日期=2026-07-21 目标路径=C:\Users\admin\AppData\Local\Temp\pytest-of-admin\pytest-971\test_save_rejects_duplicate_wi0\2026-07-21\same.py
+2026-07-21 15:27:30.613 | INFO     | sandbox.storage:save:101 - 保存上传文件：文件名=large.py 日期=2026-07-21 目标路径=C:\Users\admin\AppData\Local\Temp\pytest-of-admin\pytest-971\test_save_removes_partial_file0\2026-07-21\large.py
+2026-07-21 15:27:30.623 | INFO     | sandbox.storage:cleanup_expired:151 - 已清理过期上传脚本：C:\Users\admin\AppData\Local\Temp\pytest-of-admin\pytest-971\test_cleanup_expired_removes_o0\2026-07-01\old.py (修改时间: 2026-07-13 15:27:30.622539)
+2026-07-21 15:27:30.623 | INFO     | sandbox.storage:cleanup_expired:168 - 已清理过期的空上传目录：C:\Users\admin\AppData\Local\Temp\pytest-of-admin\pytest-971\test_cleanup_expired_removes_o0\2026-07-01
+2026-07-21 15:27:30.624 | INFO     | sandbox.storage:cleanup_expired:172 - 文件清理周期完成。共计清理文件数：1
+2026-07-21 15:27:30.627 | INFO     | sandbox.storage:cleanup_expired:168 - 已清理过期的空上传目录：C:\Users\admin\AppData\Local\Temp\pytest-of-admin\pytest-971\test_cleanup_expired_only_remo0\2026-07-13
+2026-07-21 15:57:05.039 | INFO     | sandbox.main:create_app:157 - 初始化沙箱服务配置：最大并发=%d 最大排队=%d 最大超时时间=%d秒 上传根目录=%s 数据根目录=%s
+2026-07-21 15:57:05.040 | INFO     | sandbox.executor:__init__:34 - SandboxExecutor 初始化完成，执行器脚本路径：%s
+2026-07-21 15:57:05.041 | INFO     | sandbox.admission:__init__:20 - 执行门控初始化完成：最大并发槽位=4 最大等待队列=20 排队超时时间=5.00秒
+2026-07-21 15:57:05.078 | INFO     | sandbox.admission:__init__:20 - 执行门控初始化完成：最大并发槽位=1 最大等待队列=1 排队超时时间=0.10秒
+2026-07-21 15:57:05.081 | INFO     | sandbox.admission:__init__:20 - 执行门控初始化完成：最大并发槽位=1 最大等待队列=1 排队超时时间=0.20秒
+2026-07-21 15:57:05.081 | INFO     | sandbox.admission:_acquire:58 - 执行门控并发槽位已满 (1/1)。请求已进入队列，当前排队位置 1/1。
+2026-07-21 15:57:05.081 | INFO     | sandbox.admission:_acquire:71 - 从队列中成功获取执行槽位：运行中=1/1 排队中=1/1
+2026-07-21 15:57:05.084 | INFO     | sandbox.admission:__init__:20 - 执行门控初始化完成：最大并发槽位=1 最大等待队列=1 排队超时时间=0.20秒
+2026-07-21 15:57:05.084 | INFO     | sandbox.admission:_acquire:58 - 执行门控并发槽位已满 (1/1)。请求已进入队列，当前排队位置 1/1。
+2026-07-21 15:57:05.085 | INFO     | sandbox.admission:_acquire:71 - 从队列中成功获取执行槽位：运行中=1/1 排队中=1/1
+2026-07-21 15:57:05.088 | INFO     | sandbox.admission:__init__:20 - 执行门控初始化完成：最大并发槽位=1 最大等待队列=1 排队超时时间=0.01秒
+2026-07-21 15:57:05.088 | INFO     | sandbox.admission:_acquire:58 - 执行门控并发槽位已满 (1/1)。请求已进入队列，当前排队位置 1/1。
+2026-07-21 15:57:05.109 | INFO     | sandbox.main:create_app:157 - 初始化沙箱服务配置：最大并发=%d 最大排队=%d 最大超时时间=%d秒 上传根目录=%s 数据根目录=%s
+2026-07-21 15:57:05.109 | INFO     | sandbox.executor:__init__:34 - SandboxExecutor 初始化完成，执行器脚本路径：%s
+2026-07-21 15:57:05.109 | INFO     | sandbox.admission:__init__:20 - 执行门控初始化完成：最大并发槽位=4 最大等待队列=20 排队超时时间=5.00秒
+2026-07-21 15:57:05.115 | INFO     | sandbox.main:lifespan:168 - 正在启动沙箱服务生命周期...
+2026-07-21 15:57:05.115 | INFO     | sandbox.main:_cleanup_loop:144 - 启动后台文件清理循环任务 (间隔时间: %.1f秒)
+2026-07-21 15:57:05.116 | INFO     | sandbox.main:request_context:201 - HTTP 请求开始：方法=GET 路径=/health 客户端IP=testclient 请求ID=28107c90594946e2a702bdf3fd8300f1
+2026-07-21 15:57:05.118 | INFO     | sandbox.main:request_context:209 - HTTP 请求完成：方法=GET 路径=/health 状态码=200 耗时=0.00ms 请求ID=28107c90594946e2a702bdf3fd8300f1
+2026-07-21 15:57:05.118 | INFO     | logging:callHandlers:1762 - HTTP Request: GET http://testserver/health "HTTP/1.1 200 OK"
+2026-07-21 15:57:05.119 | INFO     | sandbox.main:lifespan:175 - 正在关闭沙箱服务生命周期...
+2026-07-21 15:57:05.123 | INFO     | sandbox.main:create_app:157 - 初始化沙箱服务配置：最大并发=%d 最大排队=%d 最大超时时间=%d秒 上传根目录=%s 数据根目录=%s
+2026-07-21 15:57:05.123 | INFO     | sandbox.executor:__init__:34 - SandboxExecutor 初始化完成，执行器脚本路径：%s
+2026-07-21 15:57:05.124 | INFO     | sandbox.admission:__init__:20 - 执行门控初始化完成：最大并发槽位=4 最大等待队列=20 排队超时时间=5.00秒
+2026-07-21 15:57:05.128 | INFO     | sandbox.main:lifespan:168 - 正在启动沙箱服务生命周期...
+2026-07-21 15:57:05.128 | INFO     | sandbox.main:_cleanup_loop:144 - 启动后台文件清理循环任务 (间隔时间: %.1f秒)
+2026-07-21 15:57:05.153 | INFO     | sandbox.main:request_context:201 - HTTP 请求开始：方法=POST 路径=/upload 客户端IP=testclient 请求ID=f3ef5fe7d2a740d093745d74f0829206
+2026-07-21 15:57:05.154 | INFO     | sandbox.main:request_context:209 - HTTP 请求完成：方法=POST 路径=/upload 状态码=401 耗时=0.00ms 请求ID=f3ef5fe7d2a740d093745d74f0829206
+2026-07-21 15:57:05.155 | INFO     | logging:callHandlers:1762 - HTTP Request: POST http://testserver/upload "HTTP/1.1 401 Unauthorized"
+2026-07-21 15:57:05.156 | INFO     | sandbox.main:request_context:201 - HTTP 请求开始：方法=POST 路径=/upload 客户端IP=testclient 请求ID=592b37604bf04b5c9a3b30f72a2dbad8
+2026-07-21 15:57:05.157 | INFO     | sandbox.main:request_context:209 - HTTP 请求完成：方法=POST 路径=/upload 状态码=401 耗时=0.00ms 请求ID=592b37604bf04b5c9a3b30f72a2dbad8
+2026-07-21 15:57:05.157 | INFO     | logging:callHandlers:1762 - HTTP Request: POST http://testserver/upload "HTTP/1.1 401 Unauthorized"
+2026-07-21 15:57:05.158 | INFO     | sandbox.main:lifespan:175 - 正在关闭沙箱服务生命周期...
+2026-07-21 15:57:05.162 | INFO     | sandbox.main:create_app:157 - 初始化沙箱服务配置：最大并发=%d 最大排队=%d 最大超时时间=%d秒 上传根目录=%s 数据根目录=%s
+2026-07-21 15:57:05.162 | INFO     | sandbox.executor:__init__:34 - SandboxExecutor 初始化完成，执行器脚本路径：%s
+2026-07-21 15:57:05.162 | INFO     | sandbox.admission:__init__:20 - 执行门控初始化完成：最大并发槽位=4 最大等待队列=20 排队超时时间=5.00秒
+2026-07-21 15:57:05.167 | INFO     | sandbox.main:lifespan:168 - 正在启动沙箱服务生命周期...
+2026-07-21 15:57:05.167 | INFO     | sandbox.main:_cleanup_loop:144 - 启动后台文件清理循环任务 (间隔时间: %.1f秒)
+2026-07-21 15:57:05.168 | INFO     | sandbox.main:request_context:201 - HTTP 请求开始：方法=POST 路径=/upload 客户端IP=testclient 请求ID=1f63278b33e14b3ba658fc04b79be1d1
+2026-07-21 15:57:05.170 | INFO     | sandbox.main:upload_file:260 - 收到文件上传：原始文件名=random_123.py 请求ID=1f63278b33e14b3ba658fc04b79be1d1
+2026-07-21 15:57:05.170 | INFO     | sandbox.storage:save:101 - 保存上传文件：文件名=random_123.py 日期=2026-07-21 目标路径=C:\Users\admin\AppData\Local\Temp\pytest-of-admin\pytest-972\test_upload_and_execute_preser0\2026-07-21\random_123.py
+2026-07-21 15:57:05.170 | INFO     | sandbox.storage:save:122 - 文件上传保存成功：C:\Users\admin\AppData\Local\Temp\pytest-of-admin\pytest-972\test_upload_and_execute_preser0\2026-07-21\random_123.py (80 字节)
+2026-07-21 15:57:05.170 | INFO     | sandbox.main:upload_file:263 - 文件上传成功：日期=2026-07-21 保存文件名=random_123.py 请求ID=1f63278b33e14b3ba658fc04b79be1d1
+2026-07-21 15:57:05.171 | INFO     | sandbox.main:request_context:209 - HTTP 请求完成：方法=POST 路径=/upload 状态码=201 耗时=0.00ms 请求ID=1f63278b33e14b3ba658fc04b79be1d1
+2026-07-21 15:57:05.171 | INFO     | logging:callHandlers:1762 - HTTP Request: POST http://testserver/upload "HTTP/1.1 201 Created"
+2026-07-21 15:57:05.172 | INFO     | sandbox.main:request_context:201 - HTTP 请求开始：方法=POST 路径=/execute 客户端IP=testclient 请求ID=e5051be7df014deeb281c28c67b5457f
+2026-07-21 15:57:05.173 | INFO     | sandbox.main:execute_code:289 - 收到代码执行请求：日期=2026-07-21 文件名=random_123.py 数据文件=input.csv 请求超时=None 请求ID=e5051be7df014deeb281c28c67b5457f
+2026-07-21 15:57:05.173 | INFO     | sandbox.main:execute_code:333 - 正在申请执行门控槽位：脚本=random_123.py 数据文件=input.csv 超时限制=2.00秒 请求ID=e5051be7df014deeb281c28c67b5457f
+2026-07-21 15:57:05.187 | INFO     | sandbox.executor:_execute_isolated:111 - 启动隔离子进程：脚本=random_123.py 数据文件=input.csv 超时=2.00s 限制=(CPU:60s, 内存:1610612736B, 进程:32)
+2026-07-21 15:57:05.193 | INFO     | sandbox.executor:_execute_isolated:131 - 子进程已成功启动，PID=40520
+2026-07-21 15:57:05.256 | INFO     | sandbox.executor:execute:62 - 脚本执行结束：脚本=random_123.py 状态=success 退出码=0 耗时=0.094秒 标准输出字节=28 标准错误字节=0
+2026-07-21 15:57:05.257 | INFO     | sandbox.main:execute_code:359 - 代码执行完成：请求ID=e5051be7df014deeb281c28c67b5457f 文件名=random_123.py 状态=success 退出码=0
+2026-07-21 15:57:05.258 | INFO     | sandbox.main:request_context:209 - HTTP 请求完成：方法=POST 路径=/execute 状态码=200 耗时=94.00ms 请求ID=e5051be7df014deeb281c28c67b5457f
+2026-07-21 15:57:05.258 | INFO     | logging:callHandlers:1762 - HTTP Request: POST http://testserver/execute "HTTP/1.1 200 OK"
+2026-07-21 15:57:05.259 | INFO     | sandbox.main:request_context:201 - HTTP 请求开始：方法=POST 路径=/execute 客户端IP=testclient 请求ID=16468524de36485c821eb0073165cb05
+2026-07-21 15:57:05.260 | INFO     | sandbox.main:execute_code:289 - 收到代码执行请求：日期=2026-07-21 文件名=random_123.py 数据文件=input.csv 请求超时=None 请求ID=16468524de36485c821eb0073165cb05
+2026-07-21 15:57:05.261 | INFO     | sandbox.main:execute_code:333 - 正在申请执行门控槽位：脚本=random_123.py 数据文件=input.csv 超时限制=2.00秒 请求ID=16468524de36485c821eb0073165cb05
+2026-07-21 15:57:05.263 | INFO     | sandbox.executor:_execute_isolated:111 - 启动隔离子进程：脚本=random_123.py 数据文件=input.csv 超时=2.00s 限制=(CPU:60s, 内存:1610612736B, 进程:32)
+2026-07-21 15:57:05.268 | INFO     | sandbox.executor:_execute_isolated:131 - 子进程已成功启动，PID=48284
+2026-07-21 15:57:05.327 | INFO     | sandbox.executor:execute:62 - 脚本执行结束：脚本=random_123.py 状态=success 退出码=0 耗时=0.062秒 标准输出字节=28 标准错误字节=0
+2026-07-21 15:57:05.328 | INFO     | sandbox.main:execute_code:359 - 代码执行完成：请求ID=16468524de36485c821eb0073165cb05 文件名=random_123.py 状态=success 退出码=0
+2026-07-21 15:57:05.328 | INFO     | sandbox.main:request_context:209 - HTTP 请求完成：方法=POST 路径=/execute 状态码=200 耗时=62.00ms 请求ID=16468524de36485c821eb0073165cb05
+2026-07-21 15:57:05.329 | INFO     | logging:callHandlers:1762 - HTTP Request: POST http://testserver/execute "HTTP/1.1 200 OK"
+2026-07-21 15:57:05.329 | INFO     | sandbox.main:lifespan:175 - 正在关闭沙箱服务生命周期...
+2026-07-21 15:57:05.333 | INFO     | sandbox.main:create_app:157 - 初始化沙箱服务配置：最大并发=%d 最大排队=%d 最大超时时间=%d秒 上传根目录=%s 数据根目录=%s
+2026-07-21 15:57:05.334 | INFO     | sandbox.executor:__init__:34 - SandboxExecutor 初始化完成，执行器脚本路径：%s
+2026-07-21 15:57:05.334 | INFO     | sandbox.admission:__init__:20 - 执行门控初始化完成：最大并发槽位=4 最大等待队列=20 排队超时时间=5.00秒
+2026-07-21 15:57:05.338 | INFO     | sandbox.main:lifespan:168 - 正在启动沙箱服务生命周期...
+2026-07-21 15:57:05.338 | INFO     | sandbox.main:_cleanup_loop:144 - 启动后台文件清理循环任务 (间隔时间: %.1f秒)
+2026-07-21 15:57:05.339 | INFO     | sandbox.main:request_context:201 - HTTP 请求开始：方法=POST 路径=/upload 客户端IP=testclient 请求ID=cda69078426e42249dc8c9a983e07c1b
+2026-07-21 15:57:05.340 | INFO     | sandbox.main:upload_file:260 - 收到文件上传：原始文件名=../unsafe.py 请求ID=cda69078426e42249dc8c9a983e07c1b
+2026-07-21 15:57:05.341 | INFO     | sandbox.main:request_context:209 - HTTP 请求完成：方法=POST 路径=/upload 状态码=400 耗时=0.00ms 请求ID=cda69078426e42249dc8c9a983e07c1b
+2026-07-21 15:57:05.342 | INFO     | logging:callHandlers:1762 - HTTP Request: POST http://testserver/upload "HTTP/1.1 400 Bad Request"
+2026-07-21 15:57:05.342 | INFO     | sandbox.main:request_context:201 - HTTP 请求开始：方法=POST 路径=/upload 客户端IP=testclient 请求ID=afe12a9d692c4afdb2437165a11722f2
+2026-07-21 15:57:05.343 | INFO     | sandbox.main:upload_file:260 - 收到文件上传：原始文件名=same.py 请求ID=afe12a9d692c4afdb2437165a11722f2
+2026-07-21 15:57:05.343 | INFO     | sandbox.storage:save:101 - 保存上传文件：文件名=same.py 日期=2026-07-21 目标路径=C:\Users\admin\AppData\Local\Temp\pytest-of-admin\pytest-972\test_upload_rejects_invalid_du0\2026-07-21\same.py
+2026-07-21 15:57:05.344 | INFO     | sandbox.storage:save:122 - 文件上传保存成功：C:\Users\admin\AppData\Local\Temp\pytest-of-admin\pytest-972\test_upload_rejects_invalid_du0\2026-07-21\same.py (4 字节)
+2026-07-21 15:57:05.344 | INFO     | sandbox.main:upload_file:263 - 文件上传成功：日期=2026-07-21 保存文件名=same.py 请求ID=afe12a9d692c4afdb2437165a11722f2
+2026-07-21 15:57:05.344 | INFO     | sandbox.main:request_context:209 - HTTP 请求完成：方法=POST 路径=/upload 状态码=201 耗时=0.00ms 请求ID=afe12a9d692c4afdb2437165a11722f2
+2026-07-21 15:57:05.344 | INFO     | logging:callHandlers:1762 - HTTP Request: POST http://testserver/upload "HTTP/1.1 201 Created"
+2026-07-21 15:57:05.345 | INFO     | sandbox.main:request_context:201 - HTTP 请求开始：方法=POST 路径=/upload 客户端IP=testclient 请求ID=ff336e91d73741178d331c2ab7f07519
+2026-07-21 15:57:05.346 | INFO     | sandbox.main:upload_file:260 - 收到文件上传：原始文件名=same.py 请求ID=ff336e91d73741178d331c2ab7f07519
+2026-07-21 15:57:05.346 | INFO     | sandbox.storage:save:101 - 保存上传文件：文件名=same.py 日期=2026-07-21 目标路径=C:\Users\admin\AppData\Local\Temp\pytest-of-admin\pytest-972\test_upload_rejects_invalid_du0\2026-07-21\same.py
+2026-07-21 15:57:05.346 | INFO     | sandbox.main:request_context:209 - HTTP 请求完成：方法=POST 路径=/upload 状态码=409 耗时=0.00ms 请求ID=ff336e91d73741178d331c2ab7f07519
+2026-07-21 15:57:05.347 | INFO     | logging:callHandlers:1762 - HTTP Request: POST http://testserver/upload "HTTP/1.1 409 Conflict"
+2026-07-21 15:57:05.347 | INFO     | sandbox.main:request_context:201 - HTTP 请求开始：方法=POST 路径=/upload 客户端IP=testclient 请求ID=cf434aa0ee2f456db37d491da81c737c
+2026-07-21 15:57:05.348 | INFO     | sandbox.main:upload_file:260 - 收到文件上传：原始文件名=large.py 请求ID=cf434aa0ee2f456db37d491da81c737c
+2026-07-21 15:57:05.348 | INFO     | sandbox.storage:save:101 - 保存上传文件：文件名=large.py 日期=2026-07-21 目标路径=C:\Users\admin\AppData\Local\Temp\pytest-of-admin\pytest-972\test_upload_rejects_invalid_du0\2026-07-21\large.py
+2026-07-21 15:57:05.349 | INFO     | sandbox.main:request_context:209 - HTTP 请求完成：方法=POST 路径=/upload 状态码=413 耗时=0.00ms 请求ID=cf434aa0ee2f456db37d491da81c737c
+2026-07-21 15:57:05.350 | INFO     | logging:callHandlers:1762 - HTTP Request: POST http://testserver/upload "HTTP/1.1 413 Request Entity Too Large"
+2026-07-21 15:57:05.350 | INFO     | sandbox.main:lifespan:175 - 正在关闭沙箱服务生命周期...
+2026-07-21 15:57:05.354 | INFO     | sandbox.main:create_app:157 - 初始化沙箱服务配置：最大并发=%d 最大排队=%d 最大超时时间=%d秒 上传根目录=%s 数据根目录=%s
+2026-07-21 15:57:05.355 | INFO     | sandbox.executor:__init__:34 - SandboxExecutor 初始化完成，执行器脚本路径：%s
+2026-07-21 15:57:05.355 | INFO     | sandbox.admission:__init__:20 - 执行门控初始化完成：最大并发槽位=4 最大等待队列=20 排队超时时间=5.00秒
+2026-07-21 15:57:05.359 | INFO     | sandbox.main:lifespan:168 - 正在启动沙箱服务生命周期...
+2026-07-21 15:57:05.360 | INFO     | sandbox.main:_cleanup_loop:144 - 启动后台文件清理循环任务 (间隔时间: %.1f秒)
+2026-07-21 15:57:05.361 | INFO     | sandbox.main:request_context:201 - HTTP 请求开始：方法=POST 路径=/execute 客户端IP=testclient 请求ID=669a0239b32b4ac1b4b28ab999771ef7
+2026-07-21 15:57:05.362 | INFO     | sandbox.main:execute_code:289 - 收到代码执行请求：日期=../2026-07-17 文件名=x.py 数据文件=input.csv 请求超时=None 请求ID=669a0239b32b4ac1b4b28ab999771ef7
+2026-07-21 15:57:05.362 | INFO     | sandbox.main:request_context:209 - HTTP 请求完成：方法=POST 路径=/execute 状态码=400 耗时=0.00ms 请求ID=669a0239b32b4ac1b4b28ab999771ef7
+2026-07-21 15:57:05.363 | INFO     | logging:callHandlers:1762 - HTTP Request: POST http://testserver/execute "HTTP/1.1 400 Bad Request"
+2026-07-21 15:57:05.363 | INFO     | sandbox.main:request_context:201 - HTTP 请求开始：方法=POST 路径=/execute 客户端IP=testclient 请求ID=cef7755044d648faa92c4c4d075a63f6
+2026-07-21 15:57:05.364 | INFO     | sandbox.main:execute_code:289 - 收到代码执行请求：日期=2026-07-17 文件名=missing.py 数据文件=input.csv 请求超时=None 请求ID=cef7755044d648faa92c4c4d075a63f6
+2026-07-21 15:57:05.364 | INFO     | sandbox.main:request_context:209 - HTTP 请求完成：方法=POST 路径=/execute 状态码=404 耗时=0.00ms 请求ID=cef7755044d648faa92c4c4d075a63f6
+2026-07-21 15:57:05.365 | INFO     | logging:callHandlers:1762 - HTTP Request: POST http://testserver/execute "HTTP/1.1 404 Not Found"
+2026-07-21 15:57:05.366 | INFO     | sandbox.main:request_context:201 - HTTP 请求开始：方法=POST 路径=/upload 客户端IP=testclient 请求ID=dddbdbeddffd44629b03e911c8b67c23
+2026-07-21 15:57:05.367 | INFO     | sandbox.main:upload_file:260 - 收到文件上传：原始文件名=slow.py 请求ID=dddbdbeddffd44629b03e911c8b67c23
+2026-07-21 15:57:05.367 | INFO     | sandbox.storage:save:101 - 保存上传文件：文件名=slow.py 日期=2026-07-21 目标路径=C:\Users\admin\AppData\Local\Temp\pytest-of-admin\pytest-972\test_execute_rejects_invalid_m0\2026-07-21\slow.py
+2026-07-21 15:57:05.368 | INFO     | sandbox.storage:save:122 - 文件上传保存成功：C:\Users\admin\AppData\Local\Temp\pytest-of-admin\pytest-972\test_execute_rejects_invalid_m0\2026-07-21\slow.py (4 字节)
+2026-07-21 15:57:05.368 | INFO     | sandbox.main:upload_file:263 - 文件上传成功：日期=2026-07-21 保存文件名=slow.py 请求ID=dddbdbeddffd44629b03e911c8b67c23
+2026-07-21 15:57:05.368 | INFO     | sandbox.main:request_context:209 - HTTP 请求完成：方法=POST 路径=/upload 状态码=201 耗时=0.00ms 请求ID=dddbdbeddffd44629b03e911c8b67c23
+2026-07-21 15:57:05.369 | INFO     | logging:callHandlers:1762 - HTTP Request: POST http://testserver/upload "HTTP/1.1 201 Created"
+2026-07-21 15:57:05.369 | INFO     | sandbox.main:request_context:201 - HTTP 请求开始：方法=POST 路径=/execute 客户端IP=testclient 请求ID=24aff154057c42819ef67fe707e86953
+2026-07-21 15:57:05.370 | INFO     | sandbox.main:execute_code:289 - 收到代码执行请求：日期=2026-07-21 文件名=slow.py 数据文件=input.csv 请求超时=3.0 请求ID=24aff154057c42819ef67fe707e86953
+2026-07-21 15:57:05.370 | INFO     | sandbox.main:request_context:209 - HTTP 请求完成：方法=POST 路径=/execute 状态码=400 耗时=0.00ms 请求ID=24aff154057c42819ef67fe707e86953
+2026-07-21 15:57:05.371 | INFO     | logging:callHandlers:1762 - HTTP Request: POST http://testserver/execute "HTTP/1.1 400 Bad Request"
+2026-07-21 15:57:05.371 | INFO     | sandbox.main:lifespan:175 - 正在关闭沙箱服务生命周期...
+2026-07-21 15:57:05.375 | INFO     | sandbox.main:create_app:157 - 初始化沙箱服务配置：最大并发=%d 最大排队=%d 最大超时时间=%d秒 上传根目录=%s 数据根目录=%s
+2026-07-21 15:57:05.375 | INFO     | sandbox.executor:__init__:34 - SandboxExecutor 初始化完成，执行器脚本路径：%s
+2026-07-21 15:57:05.375 | INFO     | sandbox.admission:__init__:20 - 执行门控初始化完成：最大并发槽位=4 最大等待队列=20 排队超时时间=5.00秒
+2026-07-21 15:57:05.380 | INFO     | sandbox.main:lifespan:168 - 正在启动沙箱服务生命周期...
+2026-07-21 15:57:05.380 | INFO     | sandbox.main:_cleanup_loop:144 - 启动后台文件清理循环任务 (间隔时间: %.1f秒)
+2026-07-21 15:57:05.381 | INFO     | sandbox.main:request_context:201 - HTTP 请求开始：方法=POST 路径=/upload 客户端IP=testclient 请求ID=38fedae645fa4e4f8a050b9cb938258e
+2026-07-21 15:57:05.382 | INFO     | sandbox.main:upload_file:260 - 收到文件上传：原始文件名=data_paths.py 请求ID=38fedae645fa4e4f8a050b9cb938258e
+2026-07-21 15:57:05.383 | INFO     | sandbox.storage:save:101 - 保存上传文件：文件名=data_paths.py 日期=2026-07-21 目标路径=C:\Users\admin\AppData\Local\Temp\pytest-of-admin\pytest-972\test_execute_rejects_unsafe_or0\2026-07-21\data_paths.py
+2026-07-21 15:57:05.383 | INFO     | sandbox.storage:save:122 - 文件上传保存成功：C:\Users\admin\AppData\Local\Temp\pytest-of-admin\pytest-972\test_execute_rejects_unsafe_or0\2026-07-21\data_paths.py (4 字节)
+2026-07-21 15:57:05.383 | INFO     | sandbox.main:upload_file:263 - 文件上传成功：日期=2026-07-21 保存文件名=data_paths.py 请求ID=38fedae645fa4e4f8a050b9cb938258e
+2026-07-21 15:57:05.384 | INFO     | sandbox.main:request_context:209 - HTTP 请求完成：方法=POST 路径=/upload 状态码=201 耗时=0.00ms 请求ID=38fedae645fa4e4f8a050b9cb938258e
+2026-07-21 15:57:05.384 | INFO     | logging:callHandlers:1762 - HTTP Request: POST http://testserver/upload "HTTP/1.1 201 Created"
+2026-07-21 15:57:05.385 | INFO     | sandbox.main:request_context:201 - HTTP 请求开始：方法=POST 路径=/execute 客户端IP=testclient 请求ID=93bdf0c3948e410b8d05e9e501aa17a0
+2026-07-21 15:57:05.387 | INFO     | sandbox.main:execute_code:289 - 收到代码执行请求：日期=2026-07-21 文件名=data_paths.py 数据文件=C:\Users\admin\AppData\Local\Temp\pytest-of-admin\pytest-972\test_execute_rejects_unsafe_or0\data\input.csv 请求超时=None 请求ID=93bdf0c3948e410b8d05e9e501aa17a0
+2026-07-21 15:57:05.387 | INFO     | sandbox.main:request_context:209 - HTTP 请求完成：方法=POST 路径=/execute 状态码=400 耗时=0.00ms 请求ID=93bdf0c3948e410b8d05e9e501aa17a0
+2026-07-21 15:57:05.387 | INFO     | logging:callHandlers:1762 - HTTP Request: POST http://testserver/execute "HTTP/1.1 400 Bad Request"
+2026-07-21 15:57:05.388 | INFO     | sandbox.main:request_context:201 - HTTP 请求开始：方法=POST 路径=/execute 客户端IP=testclient 请求ID=69271601a00240f8a7a2b81be229e62c
+2026-07-21 15:57:05.389 | INFO     | sandbox.main:execute_code:289 - 收到代码执行请求：日期=2026-07-21 文件名=data_paths.py 数据文件=../input.csv 请求超时=None 请求ID=69271601a00240f8a7a2b81be229e62c
+2026-07-21 15:57:05.389 | INFO     | sandbox.main:request_context:209 - HTTP 请求完成：方法=POST 路径=/execute 状态码=400 耗时=0.00ms 请求ID=69271601a00240f8a7a2b81be229e62c
+2026-07-21 15:57:05.390 | INFO     | logging:callHandlers:1762 - HTTP Request: POST http://testserver/execute "HTTP/1.1 400 Bad Request"
+2026-07-21 15:57:05.391 | INFO     | sandbox.main:request_context:201 - HTTP 请求开始：方法=POST 路径=/execute 客户端IP=testclient 请求ID=2ca7837b5d4d4abc99993187e0b10ca8
+2026-07-21 15:57:05.391 | INFO     | sandbox.main:execute_code:289 - 收到代码执行请求：日期=2026-07-21 文件名=data_paths.py 数据文件=input.txt 请求超时=None 请求ID=2ca7837b5d4d4abc99993187e0b10ca8
+2026-07-21 15:57:05.392 | INFO     | sandbox.main:request_context:209 - HTTP 请求完成：方法=POST 路径=/execute 状态码=400 耗时=0.00ms 请求ID=2ca7837b5d4d4abc99993187e0b10ca8
+2026-07-21 15:57:05.392 | INFO     | logging:callHandlers:1762 - HTTP Request: POST http://testserver/execute "HTTP/1.1 400 Bad Request"
+2026-07-21 15:57:05.393 | INFO     | sandbox.main:request_context:201 - HTTP 请求开始：方法=POST 路径=/execute 客户端IP=testclient 请求ID=4a19edbb78d545c7899de4904bd18c1c
+2026-07-21 15:57:05.393 | INFO     | sandbox.main:execute_code:289 - 收到代码执行请求：日期=2026-07-21 文件名=data_paths.py 数据文件=missing.csv 请求超时=None 请求ID=4a19edbb78d545c7899de4904bd18c1c
+2026-07-21 15:57:05.395 | INFO     | sandbox.main:request_context:209 - HTTP 请求完成：方法=POST 路径=/execute 状态码=404 耗时=15.00ms 请求ID=4a19edbb78d545c7899de4904bd18c1c
+2026-07-21 15:57:05.396 | INFO     | logging:callHandlers:1762 - HTTP Request: POST http://testserver/execute "HTTP/1.1 404 Not Found"
+2026-07-21 15:57:05.396 | INFO     | sandbox.main:lifespan:175 - 正在关闭沙箱服务生命周期...
+2026-07-21 15:57:05.400 | INFO     | sandbox.main:create_app:157 - 初始化沙箱服务配置：最大并发=%d 最大排队=%d 最大超时时间=%d秒 上传根目录=%s 数据根目录=%s
+2026-07-21 15:57:05.401 | INFO     | sandbox.executor:__init__:34 - SandboxExecutor 初始化完成，执行器脚本路径：%s
+2026-07-21 15:57:05.401 | INFO     | sandbox.admission:__init__:20 - 执行门控初始化完成：最大并发槽位=4 最大等待队列=20 排队超时时间=5.00秒
+2026-07-21 15:57:05.406 | INFO     | sandbox.main:lifespan:168 - 正在启动沙箱服务生命周期...
+2026-07-21 15:57:05.406 | INFO     | sandbox.main:_cleanup_loop:144 - 启动后台文件清理循环任务 (间隔时间: %.1f秒)
+2026-07-21 15:57:05.407 | INFO     | sandbox.main:request_context:201 - HTTP 请求开始：方法=POST 路径=/upload 客户端IP=testclient 请求ID=8653bcb4b2354fcf99bb61b23822f30c
+2026-07-21 15:57:05.409 | INFO     | sandbox.main:upload_file:260 - 收到文件上传：原始文件名=unsafe_windows_paths.py 请求ID=8653bcb4b2354fcf99bb61b23822f30c
+2026-07-21 15:57:05.409 | INFO     | sandbox.storage:save:101 - 保存上传文件：文件名=unsafe_windows_paths.py 日期=2026-07-21 目标路径=C:\Users\admin\AppData\Local\Temp\pytest-of-admin\pytest-972\test_execute_rejects_windows_u0\2026-07-21\unsafe_windows_paths.py
+2026-07-21 15:57:05.410 | INFO     | sandbox.storage:save:122 - 文件上传保存成功：C:\Users\admin\AppData\Local\Temp\pytest-of-admin\pytest-972\test_execute_rejects_windows_u0\2026-07-21\unsafe_windows_paths.py (4 字节)
+2026-07-21 15:57:05.410 | INFO     | sandbox.main:upload_file:263 - 文件上传成功：日期=2026-07-21 保存文件名=unsafe_windows_paths.py 请求ID=8653bcb4b2354fcf99bb61b23822f30c
+2026-07-21 15:57:05.410 | INFO     | sandbox.main:request_context:209 - HTTP 请求完成：方法=POST 路径=/upload 状态码=201 耗时=16.00ms 请求ID=8653bcb4b2354fcf99bb61b23822f30c
+2026-07-21 15:57:05.410 | INFO     | logging:callHandlers:1762 - HTTP Request: POST http://testserver/upload "HTTP/1.1 201 Created"
+2026-07-21 15:57:05.411 | INFO     | sandbox.main:request_context:201 - HTTP 请求开始：方法=POST 路径=/execute 客户端IP=testclient 请求ID=75438b7e9ffc4737aa1399a984679768
+2026-07-21 15:57:05.412 | INFO     | sandbox.main:execute_code:289 - 收到代码执行请求：日期=2026-07-21 文件名=unsafe_windows_paths.py 数据文件=market/data:secret.csv 请求超时=None 请求ID=75438b7e9ffc4737aa1399a984679768
+2026-07-21 15:57:05.413 | INFO     | sandbox.main:request_context:209 - HTTP 请求完成：方法=POST 路径=/execute 状态码=400 耗时=0.00ms 请求ID=75438b7e9ffc4737aa1399a984679768
+2026-07-21 15:57:05.413 | INFO     | logging:callHandlers:1762 - HTTP Request: POST http://testserver/execute "HTTP/1.1 400 Bad Request"
+2026-07-21 15:57:05.414 | INFO     | sandbox.main:request_context:201 - HTTP 请求开始：方法=POST 路径=/execute 客户端IP=testclient 请求ID=44811074f82945afb3d0fb7ad7895820
+2026-07-21 15:57:05.415 | INFO     | sandbox.main:execute_code:289 - 收到代码执行请求：日期=2026-07-21 文件名=unsafe_windows_paths.py 数据文件=NUL.csv 请求超时=None 请求ID=44811074f82945afb3d0fb7ad7895820
+2026-07-21 15:57:05.415 | INFO     | sandbox.main:request_context:209 - HTTP 请求完成：方法=POST 路径=/execute 状态码=400 耗时=0.00ms 请求ID=44811074f82945afb3d0fb7ad7895820
+2026-07-21 15:57:05.416 | INFO     | logging:callHandlers:1762 - HTTP Request: POST http://testserver/execute "HTTP/1.1 400 Bad Request"
+2026-07-21 15:57:05.417 | INFO     | sandbox.main:request_context:201 - HTTP 请求开始：方法=POST 路径=/execute 客户端IP=testclient 请求ID=b095a9d2e46d46d3a6b7078119ea5d18
+2026-07-21 15:57:05.417 | INFO     | sandbox.main:execute_code:289 - 收到代码执行请求：日期=2026-07-21 文件名=unsafe_windows_paths.py 数据文件=nested/COM1.csv 请求超时=None 请求ID=b095a9d2e46d46d3a6b7078119ea5d18
+2026-07-21 15:57:05.418 | INFO     | sandbox.main:request_context:209 - HTTP 请求完成：方法=POST 路径=/execute 状态码=400 耗时=0.00ms 请求ID=b095a9d2e46d46d3a6b7078119ea5d18
+2026-07-21 15:57:05.419 | INFO     | logging:callHandlers:1762 - HTTP Request: POST http://testserver/execute "HTTP/1.1 400 Bad Request"
+2026-07-21 15:57:05.419 | INFO     | sandbox.main:request_context:201 - HTTP 请求开始：方法=POST 路径=/execute 客户端IP=testclient 请求ID=29670706a00e406184ffafca060553c3
+2026-07-21 15:57:05.420 | INFO     | sandbox.main:execute_code:289 - 收到代码执行请求：日期=2026-07-21 文件名=unsafe_windows_paths.py 数据文件=nested/AUX.report.csv 请求超时=None 请求ID=29670706a00e406184ffafca060553c3
+2026-07-21 15:57:05.421 | INFO     | sandbox.main:request_context:209 - HTTP 请求完成：方法=POST 路径=/execute 状态码=400 耗时=0.00ms 请求ID=29670706a00e406184ffafca060553c3
+2026-07-21 15:57:05.421 | INFO     | logging:callHandlers:1762 - HTTP Request: POST http://testserver/execute "HTTP/1.1 400 Bad Request"
+2026-07-21 15:57:05.422 | INFO     | sandbox.main:request_context:201 - HTTP 请求开始：方法=POST 路径=/execute 客户端IP=testclient 请求ID=4be547d3914c4600b8a8385a2af893aa
+2026-07-21 15:57:05.422 | INFO     | sandbox.main:execute_code:289 - 收到代码执行请求：日期=2026-07-21 文件名=unsafe_windows_paths.py 数据文件=nested/NUL .csv 请求超时=None 请求ID=4be547d3914c4600b8a8385a2af893aa
+2026-07-21 15:57:05.423 | INFO     | sandbox.main:request_context:209 - HTTP 请求完成：方法=POST 路径=/execute 状态码=400 耗时=0.00ms 请求ID=4be547d3914c4600b8a8385a2af893aa
+2026-07-21 15:57:05.423 | INFO     | logging:callHandlers:1762 - HTTP Request: POST http://testserver/execute "HTTP/1.1 400 Bad Request"
+2026-07-21 15:57:05.424 | INFO     | sandbox.main:request_context:201 - HTTP 请求开始：方法=POST 路径=/execute 客户端IP=testclient 请求ID=86839b43ee0c496d84986023e21db1f6
+2026-07-21 15:57:05.425 | INFO     | sandbox.main:execute_code:289 - 收到代码执行请求：日期=2026-07-21 文件名=unsafe_windows_paths.py 数据文件=nested/COM1..csv 请求超时=None 请求ID=86839b43ee0c496d84986023e21db1f6
+2026-07-21 15:57:05.425 | INFO     | sandbox.main:request_context:209 - HTTP 请求完成：方法=POST 路径=/execute 状态码=400 耗时=0.00ms 请求ID=86839b43ee0c496d84986023e21db1f6
+2026-07-21 15:57:05.426 | INFO     | logging:callHandlers:1762 - HTTP Request: POST http://testserver/execute "HTTP/1.1 400 Bad Request"
+2026-07-21 15:57:05.426 | INFO     | sandbox.main:request_context:201 - HTTP 请求开始：方法=POST 路径=/execute 客户端IP=testclient 请求ID=5588712ee3bf4ac7b7dee374dced8866
+2026-07-21 15:57:05.427 | INFO     | sandbox.main:execute_code:289 - 收到代码执行请求：日期=2026-07-21 文件名=unsafe_windows_paths.py 数据文件=nested/conin$.csv 请求超时=None 请求ID=5588712ee3bf4ac7b7dee374dced8866
+2026-07-21 15:57:05.427 | INFO     | sandbox.main:request_context:209 - HTTP 请求完成：方法=POST 路径=/execute 状态码=400 耗时=0.00ms 请求ID=5588712ee3bf4ac7b7dee374dced8866
+2026-07-21 15:57:05.428 | INFO     | logging:callHandlers:1762 - HTTP Request: POST http://testserver/execute "HTTP/1.1 400 Bad Request"
+2026-07-21 15:57:05.429 | INFO     | sandbox.main:request_context:201 - HTTP 请求开始：方法=POST 路径=/execute 客户端IP=testclient 请求ID=fcec5c0ec30144ac81466710102552e0
+2026-07-21 15:57:05.429 | INFO     | sandbox.main:execute_code:289 - 收到代码执行请求：日期=2026-07-21 文件名=unsafe_windows_paths.py 数据文件=CONOUT$.report.csv 请求超时=None 请求ID=fcec5c0ec30144ac81466710102552e0
+2026-07-21 15:57:05.430 | INFO     | sandbox.main:request_context:209 - HTTP 请求完成：方法=POST 路径=/execute 状态码=400 耗时=0.00ms 请求ID=fcec5c0ec30144ac81466710102552e0
+2026-07-21 15:57:05.430 | INFO     | logging:callHandlers:1762 - HTTP Request: POST http://testserver/execute "HTTP/1.1 400 Bad Request"
+2026-07-21 15:57:05.431 | INFO     | sandbox.main:request_context:201 - HTTP 请求开始：方法=POST 路径=/execute 客户端IP=testclient 请求ID=04568fd37c364df3bc1bcf902dde0240
+2026-07-21 15:57:05.431 | INFO     | sandbox.main:execute_code:289 - 收到代码执行请求：日期=2026-07-21 文件名=unsafe_windows_paths.py 数据文件=nested/COM¹.csv 请求超时=None 请求ID=04568fd37c364df3bc1bcf902dde0240
+2026-07-21 15:57:05.432 | INFO     | sandbox.main:request_context:209 - HTTP 请求完成：方法=POST 路径=/execute 状态码=400 耗时=0.00ms 请求ID=04568fd37c364df3bc1bcf902dde0240
+2026-07-21 15:57:05.433 | INFO     | logging:callHandlers:1762 - HTTP Request: POST http://testserver/execute "HTTP/1.1 400 Bad Request"
+2026-07-21 15:57:05.434 | INFO     | sandbox.main:request_context:201 - HTTP 请求开始：方法=POST 路径=/execute 客户端IP=testclient 请求ID=b514d6dc898e4409bba1431500f3df92
+2026-07-21 15:57:05.434 | INFO     | sandbox.main:execute_code:289 - 收到代码执行请求：日期=2026-07-21 文件名=unsafe_windows_paths.py 数据文件=market/com².report.csv 请求超时=None 请求ID=b514d6dc898e4409bba1431500f3df92
+2026-07-21 15:57:05.435 | INFO     | sandbox.main:request_context:209 - HTTP 请求完成：方法=POST 路径=/execute 状态码=400 耗时=0.00ms 请求ID=b514d6dc898e4409bba1431500f3df92
+2026-07-21 15:57:05.436 | INFO     | logging:callHandlers:1762 - HTTP Request: POST http://testserver/execute "HTTP/1.1 400 Bad Request"
+2026-07-21 15:57:05.436 | INFO     | sandbox.main:request_context:201 - HTTP 请求开始：方法=POST 路径=/execute 客户端IP=testclient 请求ID=7dd4f7c0f6f64ea381d60de592e63857
+2026-07-21 15:57:05.437 | INFO     | sandbox.main:execute_code:289 - 收到代码执行请求：日期=2026-07-21 文件名=unsafe_windows_paths.py 数据文件=nested/COM³.csv 请求超时=None 请求ID=7dd4f7c0f6f64ea381d60de592e63857
+2026-07-21 15:57:05.437 | INFO     | sandbox.main:request_context:209 - HTTP 请求完成：方法=POST 路径=/execute 状态码=400 耗时=0.00ms 请求ID=7dd4f7c0f6f64ea381d60de592e63857
+2026-07-21 15:57:05.438 | INFO     | logging:callHandlers:1762 - HTTP Request: POST http://testserver/execute "HTTP/1.1 400 Bad Request"
+2026-07-21 15:57:05.438 | INFO     | sandbox.main:request_context:201 - HTTP 请求开始：方法=POST 路径=/execute 客户端IP=testclient 请求ID=76b9f05a5cb14cb2857d87c306e59acb
+2026-07-21 15:57:05.439 | INFO     | sandbox.main:execute_code:289 - 收到代码执行请求：日期=2026-07-21 文件名=unsafe_windows_paths.py 数据文件=market/LPT¹.csv 请求超时=None 请求ID=76b9f05a5cb14cb2857d87c306e59acb
+2026-07-21 15:57:05.439 | INFO     | sandbox.main:request_context:209 - HTTP 请求完成：方法=POST 路径=/execute 状态码=400 耗时=0.00ms 请求ID=76b9f05a5cb14cb2857d87c306e59acb
+2026-07-21 15:57:05.440 | INFO     | logging:callHandlers:1762 - HTTP Request: POST http://testserver/execute "HTTP/1.1 400 Bad Request"
+2026-07-21 15:57:05.441 | INFO     | sandbox.main:request_context:201 - HTTP 请求开始：方法=POST 路径=/execute 客户端IP=testclient 请求ID=8911460824614e1b963f269c399a8a24
+2026-07-21 15:57:05.442 | INFO     | sandbox.main:execute_code:289 - 收到代码执行请求：日期=2026-07-21 文件名=unsafe_windows_paths.py 数据文件=nested/lpt².report.csv 请求超时=None 请求ID=8911460824614e1b963f269c399a8a24
+2026-07-21 15:57:05.442 | INFO     | sandbox.main:request_context:209 - HTTP 请求完成：方法=POST 路径=/execute 状态码=400 耗时=0.00ms 请求ID=8911460824614e1b963f269c399a8a24
+2026-07-21 15:57:05.443 | INFO     | logging:callHandlers:1762 - HTTP Request: POST http://testserver/execute "HTTP/1.1 400 Bad Request"
+2026-07-21 15:57:05.444 | INFO     | sandbox.main:request_context:201 - HTTP 请求开始：方法=POST 路径=/execute 客户端IP=testclient 请求ID=41bbd4d8845e43d8a804e05dcf8c5c27
+2026-07-21 15:57:05.444 | INFO     | sandbox.main:execute_code:289 - 收到代码执行请求：日期=2026-07-21 文件名=unsafe_windows_paths.py 数据文件=nested/LPT³ .csv 请求超时=None 请求ID=41bbd4d8845e43d8a804e05dcf8c5c27
+2026-07-21 15:57:05.445 | INFO     | sandbox.main:request_context:209 - HTTP 请求完成：方法=POST 路径=/execute 状态码=400 耗时=0.00ms 请求ID=41bbd4d8845e43d8a804e05dcf8c5c27
+2026-07-21 15:57:05.445 | INFO     | logging:callHandlers:1762 - HTTP Request: POST http://testserver/execute "HTTP/1.1 400 Bad Request"
+2026-07-21 15:57:05.446 | INFO     | sandbox.main:request_context:201 - HTTP 请求开始：方法=POST 路径=/execute 客户端IP=testclient 请求ID=89dc575fcc564cecbb5b7c96cdb32006
+2026-07-21 15:57:05.446 | INFO     | sandbox.main:execute_code:289 - 收到代码执行请求：日期=2026-07-21 文件名=unsafe_windows_paths.py 数据文件=market/bad?.csv 请求超时=None 请求ID=89dc575fcc564cecbb5b7c96cdb32006
+2026-07-21 15:57:05.447 | INFO     | sandbox.main:request_context:209 - HTTP 请求完成：方法=POST 路径=/execute 状态码=400 耗时=0.00ms 请求ID=89dc575fcc564cecbb5b7c96cdb32006
+2026-07-21 15:57:05.447 | INFO     | logging:callHandlers:1762 - HTTP Request: POST http://testserver/execute "HTTP/1.1 400 Bad Request"
+2026-07-21 15:57:05.448 | INFO     | sandbox.main:request_context:201 - HTTP 请求开始：方法=POST 路径=/execute 客户端IP=testclient 请求ID=285abdf6fed24f559a4dffb91329add1
+2026-07-21 15:57:05.448 | INFO     | sandbox.main:execute_code:289 - 收到代码执行请求：日期=2026-07-21 文件名=unsafe_windows_paths.py 数据文件=market/control.csv 请求超时=None 请求ID=285abdf6fed24f559a4dffb91329add1
+2026-07-21 15:57:05.449 | INFO     | sandbox.main:request_context:209 - HTTP 请求完成：方法=POST 路径=/execute 状态码=400 耗时=0.00ms 请求ID=285abdf6fed24f559a4dffb91329add1
+2026-07-21 15:57:05.450 | INFO     | logging:callHandlers:1762 - HTTP Request: POST http://testserver/execute "HTTP/1.1 400 Bad Request"
+2026-07-21 15:57:05.450 | INFO     | sandbox.main:request_context:201 - HTTP 请求开始：方法=POST 路径=/execute 客户端IP=testclient 请求ID=e788296f71ca48869d9c5c9ec8d27e56
+2026-07-21 15:57:05.451 | INFO     | sandbox.main:execute_code:289 - 收到代码执行请求：日期=2026-07-21 文件名=unsafe_windows_paths.py 数据文件=market/delete.csv 请求超时=None 请求ID=e788296f71ca48869d9c5c9ec8d27e56
+2026-07-21 15:57:05.451 | INFO     | sandbox.main:request_context:209 - HTTP 请求完成：方法=POST 路径=/execute 状态码=400 耗时=0.00ms 请求ID=e788296f71ca48869d9c5c9ec8d27e56
+2026-07-21 15:57:05.452 | INFO     | logging:callHandlers:1762 - HTTP Request: POST http://testserver/execute "HTTP/1.1 400 Bad Request"
+2026-07-21 15:57:05.453 | INFO     | sandbox.main:request_context:201 - HTTP 请求开始：方法=POST 路径=/execute 客户端IP=testclient 请求ID=ad92bc319e794a6093f165bee3a7c491
+2026-07-21 15:57:05.453 | INFO     | sandbox.main:execute_code:289 - 收到代码执行请求：日期=2026-07-21 文件名=unsafe_windows_paths.py 数据文件=market/nul .csv 请求超时=None 请求ID=ad92bc319e794a6093f165bee3a7c491
+2026-07-21 15:57:05.454 | INFO     | sandbox.main:request_context:209 - HTTP 请求完成：方法=POST 路径=/execute 状态码=400 耗时=0.00ms 请求ID=ad92bc319e794a6093f165bee3a7c491
+2026-07-21 15:57:05.454 | INFO     | logging:callHandlers:1762 - HTTP Request: POST http://testserver/execute "HTTP/1.1 400 Bad Request"
+2026-07-21 15:57:05.454 | INFO     | sandbox.main:lifespan:175 - 正在关闭沙箱服务生命周期...
+2026-07-21 15:57:05.458 | INFO     | sandbox.main:create_app:157 - 初始化沙箱服务配置：最大并发=%d 最大排队=%d 最大超时时间=%d秒 上传根目录=%s 数据根目录=%s
+2026-07-21 15:57:05.459 | INFO     | sandbox.executor:__init__:34 - SandboxExecutor 初始化完成，执行器脚本路径：%s
+2026-07-21 15:57:05.460 | INFO     | sandbox.admission:__init__:20 - 执行门控初始化完成：最大并发槽位=4 最大等待队列=20 排队超时时间=5.00秒
+2026-07-21 15:57:05.464 | INFO     | sandbox.main:lifespan:168 - 正在启动沙箱服务生命周期...
+2026-07-21 15:57:05.464 | INFO     | sandbox.main:_cleanup_loop:144 - 启动后台文件清理循环任务 (间隔时间: %.1f秒)
+2026-07-21 15:57:05.466 | INFO     | sandbox.main:request_context:201 - HTTP 请求开始：方法=POST 路径=/upload 客户端IP=testclient 请求ID=caa6c755e7d64dd198edde8414c29c6a
+2026-07-21 15:57:05.467 | INFO     | sandbox.main:upload_file:260 - 收到文件上传：原始文件名=unicode_data.py 请求ID=caa6c755e7d64dd198edde8414c29c6a
+2026-07-21 15:57:05.467 | INFO     | sandbox.storage:save:101 - 保存上传文件：文件名=unicode_data.py 日期=2026-07-21 目标路径=C:\Users\admin\AppData\Local\Temp\pytest-of-admin\pytest-972\test_execute_accepts_safe_unic0\2026-07-21\unicode_data.py
+2026-07-21 15:57:05.468 | INFO     | sandbox.storage:save:122 - 文件上传保存成功：C:\Users\admin\AppData\Local\Temp\pytest-of-admin\pytest-972\test_execute_accepts_safe_unic0\2026-07-21\unicode_data.py (80 字节)
+2026-07-21 15:57:05.468 | INFO     | sandbox.main:upload_file:263 - 文件上传成功：日期=2026-07-21 保存文件名=unicode_data.py 请求ID=caa6c755e7d64dd198edde8414c29c6a
+2026-07-21 15:57:05.468 | INFO     | sandbox.main:request_context:209 - HTTP 请求完成：方法=POST 路径=/upload 状态码=201 耗时=0.00ms 请求ID=caa6c755e7d64dd198edde8414c29c6a
+2026-07-21 15:57:05.469 | INFO     | logging:callHandlers:1762 - HTTP Request: POST http://testserver/upload "HTTP/1.1 201 Created"
+2026-07-21 15:57:05.470 | INFO     | sandbox.main:request_context:201 - HTTP 请求开始：方法=POST 路径=/execute 客户端IP=testclient 请求ID=b21637a993974690828be6ff89f750fb
+2026-07-21 15:57:05.471 | INFO     | sandbox.main:execute_code:289 - 收到代码执行请求：日期=2026-07-21 文件名=unicode_data.py 数据文件=行情/日线.csv 请求超时=None 请求ID=b21637a993974690828be6ff89f750fb
+2026-07-21 15:57:05.471 | INFO     | sandbox.main:execute_code:333 - 正在申请执行门控槽位：脚本=unicode_data.py 数据文件=日线.csv 超时限制=2.00秒 请求ID=b21637a993974690828be6ff89f750fb
+2026-07-21 15:57:05.474 | INFO     | sandbox.executor:_execute_isolated:111 - 启动隔离子进程：脚本=unicode_data.py 数据文件=日线.csv 超时=2.00s 限制=(CPU:60s, 内存:1610612736B, 进程:32)
+2026-07-21 15:57:05.479 | INFO     | sandbox.executor:_execute_isolated:131 - 子进程已成功启动，PID=34152
+2026-07-21 15:57:05.538 | INFO     | sandbox.executor:execute:62 - 脚本执行结束：脚本=unicode_data.py 状态=success 退出码=0 耗时=0.078秒 标准输出字节=31 标准错误字节=0
+2026-07-21 15:57:05.539 | INFO     | sandbox.main:execute_code:359 - 代码执行完成：请求ID=b21637a993974690828be6ff89f750fb 文件名=unicode_data.py 状态=success 退出码=0
+2026-07-21 15:57:05.539 | INFO     | sandbox.main:request_context:209 - HTTP 请求完成：方法=POST 路径=/execute 状态码=200 耗时=78.00ms 请求ID=b21637a993974690828be6ff89f750fb
+2026-07-21 15:57:05.540 | INFO     | logging:callHandlers:1762 - HTTP Request: POST http://testserver/execute "HTTP/1.1 200 OK"
+2026-07-21 15:57:05.540 | INFO     | sandbox.main:lifespan:175 - 正在关闭沙箱服务生命周期...
+2026-07-21 15:57:05.544 | INFO     | sandbox.main:create_app:157 - 初始化沙箱服务配置：最大并发=%d 最大排队=%d 最大超时时间=%d秒 上传根目录=%s 数据根目录=%s
+2026-07-21 15:57:05.545 | INFO     | sandbox.executor:__init__:34 - SandboxExecutor 初始化完成，执行器脚本路径：%s
+2026-07-21 15:57:05.545 | INFO     | sandbox.admission:__init__:20 - 执行门控初始化完成：最大并发槽位=4 最大等待队列=20 排队超时时间=5.00秒
+2026-07-21 15:57:05.549 | INFO     | sandbox.main:lifespan:168 - 正在启动沙箱服务生命周期...
+2026-07-21 15:57:05.549 | INFO     | sandbox.main:_cleanup_loop:144 - 启动后台文件清理循环任务 (间隔时间: %.1f秒)
+2026-07-21 15:57:05.550 | INFO     | sandbox.main:request_context:201 - HTTP 请求开始：方法=POST 路径=/upload 客户端IP=testclient 请求ID=5f81f5134a2e4112a38b53f2ad3a125b
+2026-07-21 15:57:05.551 | INFO     | sandbox.main:upload_file:260 - 收到文件上传：原始文件名=oversized_data.py 请求ID=5f81f5134a2e4112a38b53f2ad3a125b
+2026-07-21 15:57:05.552 | INFO     | sandbox.storage:save:101 - 保存上传文件：文件名=oversized_data.py 日期=2026-07-21 目标路径=C:\Users\admin\AppData\Local\Temp\pytest-of-admin\pytest-972\test_execute_rejects_oversized0\2026-07-21\oversized_data.py
+2026-07-21 15:57:05.552 | INFO     | sandbox.storage:save:122 - 文件上传保存成功：C:\Users\admin\AppData\Local\Temp\pytest-of-admin\pytest-972\test_execute_rejects_oversized0\2026-07-21\oversized_data.py (4 字节)
+2026-07-21 15:57:05.552 | INFO     | sandbox.main:upload_file:263 - 文件上传成功：日期=2026-07-21 保存文件名=oversized_data.py 请求ID=5f81f5134a2e4112a38b53f2ad3a125b
+2026-07-21 15:57:05.553 | INFO     | sandbox.main:request_context:209 - HTTP 请求完成：方法=POST 路径=/upload 状态码=201 耗时=0.00ms 请求ID=5f81f5134a2e4112a38b53f2ad3a125b
+2026-07-21 15:57:05.554 | INFO     | logging:callHandlers:1762 - HTTP Request: POST http://testserver/upload "HTTP/1.1 201 Created"
+2026-07-21 15:57:05.554 | INFO     | sandbox.main:request_context:201 - HTTP 请求开始：方法=POST 路径=/execute 客户端IP=testclient 请求ID=5d6cfb615ed7489bac6416cc53b4cba9
+2026-07-21 15:57:05.555 | INFO     | sandbox.main:execute_code:289 - 收到代码执行请求：日期=2026-07-21 文件名=oversized_data.py 数据文件=input.csv 请求超时=None 请求ID=5d6cfb615ed7489bac6416cc53b4cba9
+2026-07-21 15:57:05.556 | INFO     | sandbox.main:request_context:209 - HTTP 请求完成：方法=POST 路径=/execute 状态码=413 耗时=0.00ms 请求ID=5d6cfb615ed7489bac6416cc53b4cba9
+2026-07-21 15:57:05.556 | INFO     | logging:callHandlers:1762 - HTTP Request: POST http://testserver/execute "HTTP/1.1 413 Request Entity Too Large"
+2026-07-21 15:57:05.557 | INFO     | sandbox.main:lifespan:175 - 正在关闭沙箱服务生命周期...
+2026-07-21 15:57:05.565 | INFO     | sandbox.main:create_app:157 - 初始化沙箱服务配置：最大并发=%d 最大排队=%d 最大超时时间=%d秒 上传根目录=%s 数据根目录=%s
+2026-07-21 15:57:05.566 | INFO     | sandbox.executor:__init__:34 - SandboxExecutor 初始化完成，执行器脚本路径：%s
+2026-07-21 15:57:05.566 | INFO     | sandbox.admission:__init__:20 - 执行门控初始化完成：最大并发槽位=4 最大等待队列=20 排队超时时间=5.00秒
+2026-07-21 15:57:05.572 | INFO     | sandbox.main:lifespan:168 - 正在启动沙箱服务生命周期...
+2026-07-21 15:57:05.574 | INFO     | sandbox.main:_cleanup_loop:144 - 启动后台文件清理循环任务 (间隔时间: %.1f秒)
+2026-07-21 15:57:05.576 | INFO     | sandbox.main:request_context:201 - HTTP 请求开始：方法=POST 路径=/upload 客户端IP=testclient 请求ID=945d48923fc845b7adc14001e9e4d4cc
+2026-07-21 15:57:05.578 | INFO     | sandbox.main:upload_file:260 - 收到文件上传：原始文件名=error.py 请求ID=945d48923fc845b7adc14001e9e4d4cc
+2026-07-21 15:57:05.578 | INFO     | sandbox.storage:save:101 - 保存上传文件：文件名=error.py 日期=2026-07-21 目标路径=C:\Users\admin\AppData\Local\Temp\pytest-of-admin\pytest-972\test_execute_reports_nonzero_e0\2026-07-21\error.py
+2026-07-21 15:57:05.579 | INFO     | sandbox.storage:save:122 - 文件上传保存成功：C:\Users\admin\AppData\Local\Temp\pytest-of-admin\pytest-972\test_execute_reports_nonzero_e0\2026-07-21\error.py (25 字节)
+2026-07-21 15:57:05.579 | INFO     | sandbox.main:upload_file:263 - 文件上传成功：日期=2026-07-21 保存文件名=error.py 请求ID=945d48923fc845b7adc14001e9e4d4cc
+2026-07-21 15:57:05.579 | INFO     | sandbox.main:request_context:209 - HTTP 请求完成：方法=POST 路径=/upload 状态码=201 耗时=0.00ms 请求ID=945d48923fc845b7adc14001e9e4d4cc
+2026-07-21 15:57:05.580 | INFO     | logging:callHandlers:1762 - HTTP Request: POST http://testserver/upload "HTTP/1.1 201 Created"
+2026-07-21 15:57:05.581 | INFO     | sandbox.main:request_context:201 - HTTP 请求开始：方法=POST 路径=/execute 客户端IP=testclient 请求ID=7e0e205a25c34c66a23df50105f0cf85
+2026-07-21 15:57:05.582 | INFO     | sandbox.main:execute_code:289 - 收到代码执行请求：日期=2026-07-21 文件名=error.py 数据文件=input.csv 请求超时=None 请求ID=7e0e205a25c34c66a23df50105f0cf85
+2026-07-21 15:57:05.583 | INFO     | sandbox.main:execute_code:333 - 正在申请执行门控槽位：脚本=error.py 数据文件=input.csv 超时限制=2.00秒 请求ID=7e0e205a25c34c66a23df50105f0cf85
+2026-07-21 15:57:05.587 | INFO     | sandbox.executor:_execute_isolated:111 - 启动隔离子进程：脚本=error.py 数据文件=input.csv 超时=2.00s 限制=(CPU:60s, 内存:1610612736B, 进程:32)
+2026-07-21 15:57:05.594 | INFO     | sandbox.executor:_execute_isolated:131 - 子进程已成功启动，PID=49248
+2026-07-21 15:57:05.655 | INFO     | sandbox.executor:execute:62 - 脚本执行结束：脚本=error.py 状态=error 退出码=1 耗时=0.062秒 标准输出字节=0 标准错误字节=414
+2026-07-21 15:57:05.656 | INFO     | sandbox.main:execute_code:359 - 代码执行完成：请求ID=7e0e205a25c34c66a23df50105f0cf85 文件名=error.py 状态=error 退出码=1
+2026-07-21 15:57:05.656 | INFO     | sandbox.main:request_context:209 - HTTP 请求完成：方法=POST 路径=/execute 状态码=200 耗时=78.00ms 请求ID=7e0e205a25c34c66a23df50105f0cf85
+2026-07-21 15:57:05.657 | INFO     | logging:callHandlers:1762 - HTTP Request: POST http://testserver/execute "HTTP/1.1 200 OK"
+2026-07-21 15:57:05.657 | INFO     | sandbox.main:lifespan:175 - 正在关闭沙箱服务生命周期...
+2026-07-21 15:57:05.662 | INFO     | sandbox.main:create_app:157 - 初始化沙箱服务配置：最大并发=%d 最大排队=%d 最大超时时间=%d秒 上传根目录=%s 数据根目录=%s
+2026-07-21 15:57:05.662 | INFO     | sandbox.executor:__init__:34 - SandboxExecutor 初始化完成，执行器脚本路径：%s
+2026-07-21 15:57:05.662 | INFO     | sandbox.admission:__init__:20 - 执行门控初始化完成：最大并发槽位=2 最大等待队列=20 排队超时时间=5.00秒
+2026-07-21 15:57:05.667 | INFO     | sandbox.main:lifespan:168 - 正在启动沙箱服务生命周期...
+2026-07-21 15:57:05.667 | INFO     | sandbox.main:_cleanup_loop:144 - 启动后台文件清理循环任务 (间隔时间: %.1f秒)
+2026-07-21 15:57:05.669 | INFO     | sandbox.main:request_context:201 - HTTP 请求开始：方法=POST 路径=/upload 客户端IP=testclient 请求ID=d5cd59103c6a4685ba1c9ed1c21e5fb4
+2026-07-21 15:57:05.670 | INFO     | sandbox.main:upload_file:260 - 收到文件上传：原始文件名=repeatable.py 请求ID=d5cd59103c6a4685ba1c9ed1c21e5fb4
+2026-07-21 15:57:05.670 | INFO     | sandbox.storage:save:101 - 保存上传文件：文件名=repeatable.py 日期=2026-07-21 目标路径=C:\Users\admin\AppData\Local\Temp\pytest-of-admin\pytest-972\test_upload_can_be_executed_tw0\2026-07-21\repeatable.py
+2026-07-21 15:57:05.670 | INFO     | sandbox.storage:save:122 - 文件上传保存成功：C:\Users\admin\AppData\Local\Temp\pytest-of-admin\pytest-972\test_upload_can_be_executed_tw0\2026-07-21\repeatable.py (27 字节)
+2026-07-21 15:57:05.671 | INFO     | sandbox.main:upload_file:263 - 文件上传成功：日期=2026-07-21 保存文件名=repeatable.py 请求ID=d5cd59103c6a4685ba1c9ed1c21e5fb4
+2026-07-21 15:57:05.671 | INFO     | sandbox.main:request_context:209 - HTTP 请求完成：方法=POST 路径=/upload 状态码=201 耗时=0.00ms 请求ID=d5cd59103c6a4685ba1c9ed1c21e5fb4
+2026-07-21 15:57:05.671 | INFO     | logging:callHandlers:1762 - HTTP Request: POST http://testserver/upload "HTTP/1.1 201 Created"
+2026-07-21 15:57:05.672 | INFO     | sandbox.main:request_context:201 - HTTP 请求开始：方法=POST 路径=/execute 客户端IP=testclient 请求ID=703a9a4680d54217a4b2da4427305f24
+2026-07-21 15:57:05.672 | INFO     | sandbox.main:execute_code:289 - 收到代码执行请求：日期=2026-07-21 文件名=repeatable.py 数据文件=input.csv 请求超时=None 请求ID=703a9a4680d54217a4b2da4427305f24
+2026-07-21 15:57:05.673 | INFO     | sandbox.main:execute_code:333 - 正在申请执行门控槽位：脚本=repeatable.py 数据文件=input.csv 超时限制=2.00秒 请求ID=703a9a4680d54217a4b2da4427305f24
+2026-07-21 15:57:05.678 | INFO     | sandbox.main:request_context:201 - HTTP 请求开始：方法=POST 路径=/execute 客户端IP=testclient 请求ID=7fe6df9d0eb1419c8e1eb124a119c1b8
+2026-07-21 15:57:05.679 | INFO     | sandbox.main:execute_code:289 - 收到代码执行请求：日期=2026-07-21 文件名=repeatable.py 数据文件=input.csv 请求超时=None 请求ID=7fe6df9d0eb1419c8e1eb124a119c1b8
+2026-07-21 15:57:05.680 | INFO     | sandbox.main:execute_code:333 - 正在申请执行门控槽位：脚本=repeatable.py 数据文件=input.csv 超时限制=2.00秒 请求ID=7fe6df9d0eb1419c8e1eb124a119c1b8
+2026-07-21 15:57:05.686 | INFO     | sandbox.executor:_execute_isolated:111 - 启动隔离子进程：脚本=repeatable.py 数据文件=input.csv 超时=2.00s 限制=(CPU:60s, 内存:1610612736B, 进程:32)
+2026-07-21 15:57:05.691 | INFO     | sandbox.executor:_execute_isolated:111 - 启动隔离子进程：脚本=repeatable.py 数据文件=input.csv 超时=2.00s 限制=(CPU:60s, 内存:1610612736B, 进程:32)
+2026-07-21 15:57:05.697 | INFO     | sandbox.executor:_execute_isolated:131 - 子进程已成功启动，PID=15056
+2026-07-21 15:57:05.697 | INFO     | sandbox.executor:_execute_isolated:131 - 子进程已成功启动，PID=50716
+2026-07-21 15:57:06.055 | INFO     | sandbox.executor:execute:62 - 脚本执行结束：脚本=repeatable.py 状态=success 退出码=0 耗时=0.391秒 标准输出字节=0 标准错误字节=0
+2026-07-21 15:57:06.056 | INFO     | sandbox.main:execute_code:359 - 代码执行完成：请求ID=703a9a4680d54217a4b2da4427305f24 文件名=repeatable.py 状态=success 退出码=0
+2026-07-21 15:57:06.056 | INFO     | sandbox.main:request_context:209 - HTTP 请求完成：方法=POST 路径=/execute 状态码=200 耗时=391.00ms 请求ID=703a9a4680d54217a4b2da4427305f24
+2026-07-21 15:57:06.057 | INFO     | logging:callHandlers:1762 - HTTP Request: POST http://testserver/execute "HTTP/1.1 200 OK"
+2026-07-21 15:57:06.058 | INFO     | sandbox.executor:execute:62 - 脚本执行结束：脚本=repeatable.py 状态=success 退出码=0 耗时=0.375秒 标准输出字节=0 标准错误字节=0
+2026-07-21 15:57:06.059 | INFO     | sandbox.main:execute_code:359 - 代码执行完成：请求ID=7fe6df9d0eb1419c8e1eb124a119c1b8 文件名=repeatable.py 状态=success 退出码=0
+2026-07-21 15:57:06.059 | INFO     | sandbox.main:request_context:209 - HTTP 请求完成：方法=POST 路径=/execute 状态码=200 耗时=375.00ms 请求ID=7fe6df9d0eb1419c8e1eb124a119c1b8
+2026-07-21 15:57:06.060 | INFO     | logging:callHandlers:1762 - HTTP Request: POST http://testserver/execute "HTTP/1.1 200 OK"
+2026-07-21 15:57:06.060 | INFO     | sandbox.main:lifespan:175 - 正在关闭沙箱服务生命周期...
+2026-07-21 15:57:06.064 | INFO     | sandbox.main:create_app:157 - 初始化沙箱服务配置：最大并发=%d 最大排队=%d 最大超时时间=%d秒 上传根目录=%s 数据根目录=%s
+2026-07-21 15:57:06.064 | INFO     | sandbox.executor:__init__:34 - SandboxExecutor 初始化完成，执行器脚本路径：%s
+2026-07-21 15:57:06.064 | INFO     | sandbox.admission:__init__:20 - 执行门控初始化完成：最大并发槽位=1 最大等待队列=0 排队超时时间=0.10秒
+2026-07-21 15:57:06.069 | INFO     | sandbox.main:lifespan:168 - 正在启动沙箱服务生命周期...
+2026-07-21 15:57:06.069 | INFO     | sandbox.main:_cleanup_loop:144 - 启动后台文件清理循环任务 (间隔时间: %.1f秒)
+2026-07-21 15:57:06.070 | INFO     | sandbox.main:request_context:201 - HTTP 请求开始：方法=POST 路径=/upload 客户端IP=testclient 请求ID=a0bb16b2890544c2bf1e28bd7708c3b4
+2026-07-21 15:57:06.071 | INFO     | sandbox.main:upload_file:260 - 收到文件上传：原始文件名=slow.py 请求ID=a0bb16b2890544c2bf1e28bd7708c3b4
+2026-07-21 15:57:06.071 | INFO     | sandbox.storage:save:101 - 保存上传文件：文件名=slow.py 日期=2026-07-21 目标路径=C:\Users\admin\AppData\Local\Temp\pytest-of-admin\pytest-972\test_execute_returns_429_when_0\2026-07-21\slow.py
+2026-07-21 15:57:06.072 | INFO     | sandbox.storage:save:122 - 文件上传保存成功：C:\Users\admin\AppData\Local\Temp\pytest-of-admin\pytest-972\test_execute_returns_429_when_0\2026-07-21\slow.py (27 字节)
+2026-07-21 15:57:06.072 | INFO     | sandbox.main:upload_file:263 - 文件上传成功：日期=2026-07-21 保存文件名=slow.py 请求ID=a0bb16b2890544c2bf1e28bd7708c3b4
+2026-07-21 15:57:06.072 | INFO     | sandbox.main:request_context:209 - HTTP 请求完成：方法=POST 路径=/upload 状态码=201 耗时=0.00ms 请求ID=a0bb16b2890544c2bf1e28bd7708c3b4
+2026-07-21 15:57:06.073 | INFO     | logging:callHandlers:1762 - HTTP Request: POST http://testserver/upload "HTTP/1.1 201 Created"
+2026-07-21 15:57:06.073 | INFO     | sandbox.main:request_context:201 - HTTP 请求开始：方法=POST 路径=/upload 客户端IP=testclient 请求ID=61cc11ebb0a348319671cf459efc1983
+2026-07-21 15:57:06.074 | INFO     | sandbox.main:upload_file:260 - 收到文件上传：原始文件名=queued.py 请求ID=61cc11ebb0a348319671cf459efc1983
+2026-07-21 15:57:06.074 | INFO     | sandbox.storage:save:101 - 保存上传文件：文件名=queued.py 日期=2026-07-21 目标路径=C:\Users\admin\AppData\Local\Temp\pytest-of-admin\pytest-972\test_execute_returns_429_when_0\2026-07-21\queued.py
+2026-07-21 15:57:06.075 | INFO     | sandbox.storage:save:122 - 文件上传保存成功：C:\Users\admin\AppData\Local\Temp\pytest-of-admin\pytest-972\test_execute_returns_429_when_0\2026-07-21\queued.py (4 字节)
+2026-07-21 15:57:06.075 | INFO     | sandbox.main:upload_file:263 - 文件上传成功：日期=2026-07-21 保存文件名=queued.py 请求ID=61cc11ebb0a348319671cf459efc1983
+2026-07-21 15:57:06.075 | INFO     | sandbox.main:request_context:209 - HTTP 请求完成：方法=POST 路径=/upload 状态码=201 耗时=0.00ms 请求ID=61cc11ebb0a348319671cf459efc1983
+2026-07-21 15:57:06.076 | INFO     | logging:callHandlers:1762 - HTTP Request: POST http://testserver/upload "HTTP/1.1 201 Created"
+2026-07-21 15:57:06.077 | INFO     | sandbox.main:request_context:201 - HTTP 请求开始：方法=POST 路径=/execute 客户端IP=testclient 请求ID=cad457493d1f4f78bbb11048a3b3c858
+2026-07-21 15:57:06.078 | INFO     | sandbox.main:execute_code:289 - 收到代码执行请求：日期=2026-07-21 文件名=slow.py 数据文件=input.csv 请求超时=1.0 请求ID=cad457493d1f4f78bbb11048a3b3c858
+2026-07-21 15:57:06.078 | INFO     | sandbox.main:execute_code:333 - 正在申请执行门控槽位：脚本=slow.py 数据文件=input.csv 超时限制=1.00秒 请求ID=cad457493d1f4f78bbb11048a3b3c858
+2026-07-21 15:57:06.082 | INFO     | sandbox.main:request_context:201 - HTTP 请求开始：方法=POST 路径=/execute 客户端IP=testclient 请求ID=8777ed0f5b2345ccb281de8d6bc9d106
+2026-07-21 15:57:06.084 | INFO     | sandbox.main:execute_code:289 - 收到代码执行请求：日期=2026-07-21 文件名=queued.py 数据文件=input.csv 请求超时=1.0 请求ID=8777ed0f5b2345ccb281de8d6bc9d106
+2026-07-21 15:57:06.085 | INFO     | sandbox.main:execute_code:333 - 正在申请执行门控槽位：脚本=queued.py 数据文件=input.csv 超时限制=1.00秒 请求ID=8777ed0f5b2345ccb281de8d6bc9d106
+2026-07-21 15:57:06.085 | INFO     | sandbox.main:request_context:209 - HTTP 请求完成：方法=POST 路径=/execute 状态码=429 耗时=0.00ms 请求ID=8777ed0f5b2345ccb281de8d6bc9d106
+2026-07-21 15:57:06.086 | INFO     | logging:callHandlers:1762 - HTTP Request: POST http://testserver/execute "HTTP/1.1 429 Too Many Requests"
+2026-07-21 15:57:06.088 | INFO     | sandbox.executor:_execute_isolated:111 - 启动隔离子进程：脚本=slow.py 数据文件=input.csv 超时=1.00s 限制=(CPU:60s, 内存:1610612736B, 进程:32)
+2026-07-21 15:57:06.093 | INFO     | sandbox.executor:_execute_isolated:131 - 子进程已成功启动，PID=12512
+2026-07-21 15:57:06.653 | INFO     | sandbox.executor:execute:62 - 脚本执行结束：脚本=slow.py 状态=success 退出码=0 耗时=0.578秒 标准输出字节=0 标准错误字节=0
+2026-07-21 15:57:06.654 | INFO     | sandbox.main:execute_code:359 - 代码执行完成：请求ID=cad457493d1f4f78bbb11048a3b3c858 文件名=slow.py 状态=success 退出码=0
+2026-07-21 15:57:06.654 | INFO     | sandbox.main:request_context:209 - HTTP 请求完成：方法=POST 路径=/execute 状态码=200 耗时=578.00ms 请求ID=cad457493d1f4f78bbb11048a3b3c858
+2026-07-21 15:57:06.655 | INFO     | logging:callHandlers:1762 - HTTP Request: POST http://testserver/execute "HTTP/1.1 200 OK"
+2026-07-21 15:57:06.655 | INFO     | sandbox.main:lifespan:175 - 正在关闭沙箱服务生命周期...
+2026-07-21 15:57:06.659 | INFO     | sandbox.main:create_app:157 - 初始化沙箱服务配置：最大并发=%d 最大排队=%d 最大超时时间=%d秒 上传根目录=%s 数据根目录=%s
+2026-07-21 15:57:06.660 | INFO     | sandbox.executor:__init__:34 - SandboxExecutor 初始化完成，执行器脚本路径：%s
+2026-07-21 15:57:06.660 | INFO     | sandbox.admission:__init__:20 - 执行门控初始化完成：最大并发槽位=4 最大等待队列=20 排队超时时间=5.00秒
+2026-07-21 15:57:06.664 | INFO     | sandbox.main:lifespan:168 - 正在启动沙箱服务生命周期...
+2026-07-21 15:57:06.664 | INFO     | sandbox.main:_cleanup_loop:144 - 启动后台文件清理循环任务 (间隔时间: %.1f秒)
+2026-07-21 15:57:06.665 | INFO     | sandbox.main:request_context:201 - HTTP 请求开始：方法=POST 路径=/upload 客户端IP=testclient 请求ID=4421bd22902d493dbda229e52a104917
+2026-07-21 15:57:06.666 | INFO     | sandbox.main:upload_file:260 - 收到文件上传：原始文件名=broken.py 请求ID=4421bd22902d493dbda229e52a104917
+2026-07-21 15:57:06.667 | INFO     | sandbox.storage:save:101 - 保存上传文件：文件名=broken.py 日期=2026-07-21 目标路径=C:\Users\admin\AppData\Local\Temp\pytest-of-admin\pytest-972\test_unexpected_execute_error_0\2026-07-21\broken.py
+2026-07-21 15:57:06.667 | INFO     | sandbox.storage:save:122 - 文件上传保存成功：C:\Users\admin\AppData\Local\Temp\pytest-of-admin\pytest-972\test_unexpected_execute_error_0\2026-07-21\broken.py (4 字节)
+2026-07-21 15:57:06.667 | INFO     | sandbox.main:upload_file:263 - 文件上传成功：日期=2026-07-21 保存文件名=broken.py 请求ID=4421bd22902d493dbda229e52a104917
+2026-07-21 15:57:06.667 | INFO     | sandbox.main:request_context:209 - HTTP 请求完成：方法=POST 路径=/upload 状态码=201 耗时=0.00ms 请求ID=4421bd22902d493dbda229e52a104917
+2026-07-21 15:57:06.668 | INFO     | logging:callHandlers:1762 - HTTP Request: POST http://testserver/upload "HTTP/1.1 201 Created"
+2026-07-21 15:57:06.668 | INFO     | sandbox.main:request_context:201 - HTTP 请求开始：方法=POST 路径=/execute 客户端IP=testclient 请求ID=e4aad54c68ec40039d19cb06dec1cf55
+2026-07-21 15:57:06.669 | INFO     | sandbox.main:execute_code:289 - 收到代码执行请求：日期=2026-07-21 文件名=broken.py 数据文件=input.csv 请求超时=None 请求ID=e4aad54c68ec40039d19cb06dec1cf55
+2026-07-21 15:57:06.669 | INFO     | sandbox.main:execute_code:333 - 正在申请执行门控槽位：脚本=broken.py 数据文件=input.csv 超时限制=60.00秒 请求ID=e4aad54c68ec40039d19cb06dec1cf55
+2026-07-21 15:57:06.677 | INFO     | sandbox.main:request_context:209 - HTTP 请求完成：方法=POST 路径=/execute 状态码=500 耗时=16.00ms 请求ID=e4aad54c68ec40039d19cb06dec1cf55
+2026-07-21 15:57:06.677 | INFO     | logging:callHandlers:1762 - HTTP Request: POST http://testserver/execute "HTTP/1.1 500 Internal Server Error"
+2026-07-21 15:57:06.678 | INFO     | sandbox.main:lifespan:175 - 正在关闭沙箱服务生命周期...
+2026-07-21 15:57:06.701 | INFO     | sandbox.executor:__init__:34 - SandboxExecutor 初始化完成，执行器脚本路径：%s
+2026-07-21 15:57:06.706 | INFO     | sandbox.executor:_execute_isolated:111 - 启动隔离子进程：脚本=script.py 数据文件=market.csv 超时=1.00s 限制=(CPU:60s, 内存:1610612736B, 进程:32)
+2026-07-21 15:57:06.712 | INFO     | sandbox.executor:_execute_isolated:131 - 子进程已成功启动，PID=32788
+2026-07-21 15:57:06.776 | INFO     | sandbox.executor:execute:62 - 脚本执行结束：脚本=script.py 状态=success 退出码=0 耗时=0.078秒 标准输出字节=28 标准错误字节=0
+2026-07-21 15:57:06.780 | INFO     | sandbox.executor:__init__:34 - SandboxExecutor 初始化完成，执行器脚本路径：%s
+2026-07-21 15:57:06.785 | INFO     | sandbox.executor:_execute_isolated:111 - 启动隔离子进程：脚本=script.py 数据文件=market.csv 超时=1.00s 限制=(CPU:60s, 内存:1610612736B, 进程:32)
+2026-07-21 15:57:06.790 | INFO     | sandbox.executor:_execute_isolated:131 - 子进程已成功启动，PID=42244
+2026-07-21 15:57:06.854 | INFO     | sandbox.executor:execute:62 - 脚本执行结束：脚本=script.py 状态=error 退出码=7 耗时=0.079秒 标准输出字节=0 标准错误字节=4
+2026-07-21 15:57:06.858 | INFO     | sandbox.executor:__init__:34 - SandboxExecutor 初始化完成，执行器脚本路径：%s
+2026-07-21 15:57:06.864 | INFO     | sandbox.executor:_execute_isolated:111 - 启动隔离子进程：脚本=script.py 数据文件=market.csv 超时=1.00s 限制=(CPU:60s, 内存:1610612736B, 进程:32)
+2026-07-21 15:57:06.870 | INFO     | sandbox.executor:_execute_isolated:131 - 子进程已成功启动，PID=38288
+2026-07-21 15:57:06.932 | INFO     | sandbox.executor:execute:62 - 脚本执行结束：脚本=script.py 状态=error 退出码=1 耗时=0.078秒 标准输出字节=0 标准错误字节=415
+2026-07-21 15:57:06.937 | INFO     | sandbox.executor:__init__:34 - SandboxExecutor 初始化完成，执行器脚本路径：%s
+2026-07-21 15:57:06.942 | INFO     | sandbox.executor:_execute_isolated:111 - 启动隔离子进程：脚本=script.py 数据文件=market.csv 超时=0.10s 限制=(CPU:60s, 内存:1610612736B, 进程:32)
+2026-07-21 15:57:06.947 | INFO     | sandbox.executor:_execute_isolated:131 - 子进程已成功启动，PID=22952
+2026-07-21 15:57:07.390 | INFO     | sandbox.executor:execute:62 - 脚本执行结束：脚本=script.py 状态=timeout 退出码=-1 耗时=0.453秒 标准输出字节=8 标准错误字节=0
+2026-07-21 15:57:07.395 | INFO     | sandbox.executor:__init__:34 - SandboxExecutor 初始化完成，执行器脚本路径：%s
+2026-07-21 15:57:07.399 | INFO     | sandbox.executor:_execute_isolated:111 - 启动隔离子进程：脚本=script.py 数据文件=market.csv 超时=2.00s 限制=(CPU:60s, 内存:1610612736B, 进程:32)
+2026-07-21 15:57:07.404 | INFO     | sandbox.executor:_execute_isolated:131 - 子进程已成功启动，PID=2112
+2026-07-21 15:57:07.463 | INFO     | sandbox.executor:execute:62 - 脚本执行结束：脚本=script.py 状态=success 退出码=0 耗时=0.063秒 标准输出字节=28 标准错误字节=0
+2026-07-21 15:57:07.469 | INFO     | sandbox.executor:__init__:34 - SandboxExecutor 初始化完成，执行器脚本路径：%s
+2026-07-21 15:57:07.481 | INFO     | sandbox.executor:_execute_isolated:111 - 启动隔离子进程：脚本=script.py 数据文件=market.csv 超时=1.00s 限制=(CPU:60s, 内存:1610612736B, 进程:32)
+2026-07-21 15:57:07.513 | INFO     | sandbox.executor:_execute_isolated:131 - 子进程已成功启动，PID=27260
+2026-07-21 15:57:07.574 | INFO     | sandbox.executor:execute:62 - 脚本执行结束：脚本=script.py 状态=success 退出码=0 耗时=0.109秒 标准输出字节=3 标准错误字节=0
+2026-07-21 15:57:07.579 | INFO     | sandbox.executor:__init__:34 - SandboxExecutor 初始化完成，执行器脚本路径：%s
+2026-07-21 15:57:07.592 | INFO     | sandbox.executor:_execute_isolated:111 - 启动隔离子进程：脚本=script.py 数据文件=market.csv 超时=1.00s 限制=(CPU:60s, 内存:1610612736B, 进程:32)
+2026-07-21 15:57:07.597 | INFO     | sandbox.executor:_execute_isolated:131 - 子进程已成功启动，PID=23024
+2026-07-21 15:57:07.656 | INFO     | sandbox.executor:execute:62 - 脚本执行结束：脚本=script.py 状态=success 退出码=0 耗时=0.078秒 标准输出字节=8 标准错误字节=0
+2026-07-21 15:57:07.661 | INFO     | sandbox.executor:__init__:34 - SandboxExecutor 初始化完成，执行器脚本路径：%s
+2026-07-21 15:57:07.666 | INFO     | sandbox.executor:_execute_isolated:111 - 启动隔离子进程：脚本=script.py 数据文件=market.csv 超时=1.00s 限制=(CPU:60s, 内存:1610612736B, 进程:32)
+2026-07-21 15:57:07.671 | INFO     | sandbox.executor:_execute_isolated:131 - 子进程已成功启动，PID=48920
+2026-07-21 15:57:07.730 | INFO     | sandbox.executor:execute:62 - 脚本执行结束：脚本=script.py 状态=success 退出码=0 耗时=0.063秒 标准输出字节=0 标准错误字节=0
+2026-07-21 15:57:07.735 | INFO     | sandbox.executor:__init__:34 - SandboxExecutor 初始化完成，执行器脚本路径：%s
+2026-07-21 15:57:07.803 | INFO     | sandbox.executor:_execute_isolated:111 - 启动隔离子进程：脚本=script.py 数据文件=market.csv 超时=1.00s 限制=(CPU:60s, 内存:1610612736B, 进程:32)
+2026-07-21 15:57:07.808 | INFO     | sandbox.executor:_execute_isolated:131 - 子进程已成功启动，PID=46572
+2026-07-21 15:57:07.867 | INFO     | sandbox.executor:execute:62 - 脚本执行结束：脚本=script.py 状态=success 退出码=0 耗时=0.140秒 标准输出字节=7 标准错误字节=0
+2026-07-21 15:57:07.871 | INFO     | sandbox.executor:__init__:34 - SandboxExecutor 初始化完成，执行器脚本路径：%s
+2026-07-21 15:57:07.886 | INFO     | sandbox.executor:_execute_isolated:111 - 启动隔离子进程：脚本=script.py 数据文件=market.csv 超时=1.00s 限制=(CPU:60s, 内存:1610612736B, 进程:32)
+2026-07-21 15:57:07.890 | INFO     | sandbox.executor:_execute_isolated:131 - 子进程已成功启动，PID=3560
+2026-07-21 15:57:07.948 | INFO     | sandbox.executor:execute:62 - 脚本执行结束：脚本=script.py 状态=success 退出码=0 耗时=0.078秒 标准输出字节=3 标准错误字节=0
+2026-07-21 15:57:07.954 | INFO     | sandbox.executor:__init__:34 - SandboxExecutor 初始化完成，执行器脚本路径：%s
+2026-07-21 15:57:07.958 | INFO     | sandbox.executor:_execute_isolated:111 - 启动隔离子进程：脚本=script.py 数据文件=market.csv 超时=1.00s 限制=(CPU:60s, 内存:1610612736B, 进程:32)
+2026-07-21 15:57:07.964 | INFO     | sandbox.executor:_execute_isolated:131 - 子进程已成功启动，PID=49312
+2026-07-21 15:57:08.017 | INFO     | sandbox.executor:execute:62 - 脚本执行结束：脚本=script.py 状态=error 退出码=1 耗时=0.063秒 标准输出字节=0 标准错误字节=309
+2026-07-21 15:57:08.021 | INFO     | sandbox.executor:__init__:34 - SandboxExecutor 初始化完成，执行器脚本路径：%s
+2026-07-21 15:57:08.026 | INFO     | sandbox.executor:_execute_isolated:111 - 启动隔离子进程：脚本=script.py 数据文件=market.csv 超时=1.00s 限制=(CPU:60s, 内存:1610612736B, 进程:32)
+2026-07-21 15:57:08.031 | INFO     | sandbox.executor:_execute_isolated:131 - 子进程已成功启动，PID=13860
+2026-07-21 15:57:08.091 | INFO     | sandbox.executor:execute:62 - 脚本执行结束：脚本=script.py 状态=error 退出码=1 耗时=0.063秒 标准输出字节=0 标准错误字节=672
+2026-07-21 15:57:08.097 | INFO     | sandbox.executor:__init__:34 - SandboxExecutor 初始化完成，执行器脚本路径：%s
+2026-07-21 15:57:08.100 | INFO     | sandbox.executor:_execute_isolated:111 - 启动隔离子进程：脚本=script.py 数据文件=market.csv 超时=0.10s 限制=(CPU:60s, 内存:1610612736B, 进程:32)
+2026-07-21 15:57:08.106 | INFO     | sandbox.executor:_execute_isolated:131 - 子进程已成功启动，PID=44560
+2026-07-21 15:57:08.553 | INFO     | sandbox.executor:execute:62 - 脚本执行结束：脚本=script.py 状态=timeout 退出码=-1 耗时=0.469秒 标准输出字节=8 标准错误字节=0
+2026-07-21 15:57:08.558 | INFO     | sandbox.executor:__init__:34 - SandboxExecutor 初始化完成，执行器脚本路径：%s
+2026-07-21 15:57:08.570 | INFO     | sandbox.executor:_execute_isolated:111 - 启动隔离子进程：脚本=script.py 数据文件=market.csv 超时=1.00s 限制=(CPU:60s, 内存:1610612736B, 进程:32)
+2026-07-21 15:57:08.638 | INFO     | sandbox.executor:execute:62 - 脚本执行结束：脚本=script.py 状态=success 退出码=0 耗时=0.078秒 标准输出字节=22 标准错误字节=0
+2026-07-21 15:57:08.658 | INFO     | sandbox.storage:save:101 - 保存上传文件：文件名=random123.py 日期=2026-07-21 目标路径=C:\Users\admin\AppData\Local\Temp\pytest-of-admin\pytest-972\test_save_preserves_filename_a0\2026-07-21\random123.py
+2026-07-21 15:57:08.660 | INFO     | sandbox.storage:save:122 - 文件上传保存成功：C:\Users\admin\AppData\Local\Temp\pytest-of-admin\pytest-972\test_save_preserves_filename_a0\2026-07-21\random123.py (12 字节)
+2026-07-21 15:57:08.665 | INFO     | sandbox.storage:save:101 - 保存上传文件：文件名=same.py 日期=2026-07-21 目标路径=C:\Users\admin\AppData\Local\Temp\pytest-of-admin\pytest-972\test_save_rejects_duplicate_wi0\2026-07-21\same.py
+2026-07-21 15:57:08.667 | INFO     | sandbox.storage:save:122 - 文件上传保存成功：C:\Users\admin\AppData\Local\Temp\pytest-of-admin\pytest-972\test_save_rejects_duplicate_wi0\2026-07-21\same.py (5 字节)
+2026-07-21 15:57:08.667 | INFO     | sandbox.storage:save:101 - 保存上传文件：文件名=same.py 日期=2026-07-21 目标路径=C:\Users\admin\AppData\Local\Temp\pytest-of-admin\pytest-972\test_save_rejects_duplicate_wi0\2026-07-21\same.py
+2026-07-21 15:57:08.674 | INFO     | sandbox.storage:save:101 - 保存上传文件：文件名=large.py 日期=2026-07-21 目标路径=C:\Users\admin\AppData\Local\Temp\pytest-of-admin\pytest-972\test_save_removes_partial_file0\2026-07-21\large.py
+2026-07-21 15:57:08.684 | INFO     | sandbox.storage:cleanup_expired:151 - 已清理过期上传脚本：C:\Users\admin\AppData\Local\Temp\pytest-of-admin\pytest-972\test_cleanup_expired_removes_o0\2026-07-01\old.py (修改时间: 2026-07-13 15:57:08.683540)
+2026-07-21 15:57:08.685 | INFO     | sandbox.storage:cleanup_expired:168 - 已清理过期的空上传目录：C:\Users\admin\AppData\Local\Temp\pytest-of-admin\pytest-972\test_cleanup_expired_removes_o0\2026-07-01
+2026-07-21 15:57:08.685 | INFO     | sandbox.storage:cleanup_expired:172 - 文件清理周期完成。共计清理文件数：1
+2026-07-21 15:57:08.688 | INFO     | sandbox.storage:cleanup_expired:168 - 已清理过期的空上传目录：C:\Users\admin\AppData\Local\Temp\pytest-of-admin\pytest-972\test_cleanup_expired_only_remo0\2026-07-13
