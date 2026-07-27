@@ -9,3 +9,6 @@
 docs
 tests
 uploads
+
+# Local AI development context
+/AGENTS.md

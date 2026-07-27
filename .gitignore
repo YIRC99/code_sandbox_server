@@ -24,4 +24,7 @@ uploads/
 .DS_Store
 Thumbs.db
 logs/
+
+# Local AI development context
+/AGENTS.md
 docs/
