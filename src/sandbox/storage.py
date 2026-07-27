@@ -1,4 +1,5 @@
 import re
+import uuid
 from dataclasses import dataclass
 from datetime import date, datetime, timedelta
 from pathlib import Path, PurePosixPath, PureWindowsPath
@@ -44,6 +45,12 @@ class DataFileTooLargeError(StorageError):
 class SavedUpload:
     date: str
     filename: str
+
+
+@dataclass(frozen=True, slots=True)
+class SavedDataFile:
+    data_file: str
+    size_bytes: int
 
 
 def validate_date(value: str) -> str:
@@ -98,7 +105,7 @@ class UploadStorage:
         target_dir.mkdir(parents=True, exist_ok=True)
         target = target_dir / filename
         created = False
-        logger.info(f"保存上传文件：文件名={filename} 日期={date_string} 目标路径={target}")
+        logger.info(f"保存上传文件：文件名={filename} 日期={date_string}")
         try:
             with target.open("xb") as destination:
                 created = True
@@ -113,13 +120,13 @@ class UploadStorage:
                         raise UploadTooLargeError(f"upload exceeds {self._max_upload_bytes} bytes")
                     destination.write(chunk)
         except FileExistsError as exc:
-            logger.warning(f"重复上传被拒绝：文件已存在于 {target}")
+            logger.warning(f"重复上传被拒绝：日期={date_string} 文件名={filename}")
             raise DuplicateUploadError("a file with this name already exists today") from exc
         except Exception:
             if created:
                 target.unlink(missing_ok=True)
             raise
-        logger.info(f"文件上传保存成功：{target} ({total} 字节)")
+        logger.info(f"文件上传保存成功：日期={date_string} 文件名={filename} ({total} 字节)")
         return SavedUpload(date=date_string, filename=filename)
 
     def resolve(self, date_string: str, filename: str) -> Path:
@@ -127,12 +134,12 @@ class UploadStorage:
         safe_filename = validate_filename(filename)
         candidate = self._root / safe_date / safe_filename
         resolved = candidate.resolve()
-        logger.debug(f"解析上传脚本路径：请求=({date_string}, {filename}) -> 解析目标={resolved}")
+        logger.debug(f"解析上传脚本路径：日期={date_string} 文件名={filename}")
         if not resolved.is_relative_to(self._root):
-            logger.error(f"安全告警：解析后的上传路径 {resolved} 越界超出了上传根目录 {self._root}")
+            logger.error(f"上传脚本路径越界：日期={date_string} 文件名={filename}")
             raise InvalidPathError("resolved path is outside the upload directory")
         if not resolved.is_file():
-            logger.warning(f"未找到上传脚本：日期={date_string} 文件名={filename} 路径={resolved}")
+            logger.warning(f"未找到上传脚本：日期={date_string} 文件名={filename}")
             raise FileNotFoundError(safe_filename)
         return resolved
 
@@ -148,7 +155,10 @@ class UploadStorage:
                 if modified < cutoff:
                     path.unlink(missing_ok=True)
                     removed += 1
-                    logger.info(f"已清理过期上传脚本：{path} (修改时间: {modified})")
+                    logger.info(
+                        f"已清理过期上传脚本：日期={path.parent.name} "
+                        f"文件名={path.name} 修改时间={modified}"
+                    )
             except FileNotFoundError:
                 continue
         try:
@@ -176,45 +186,129 @@ class UploadStorage:
 class DataFileStorage:
     def __init__(self, settings: Settings) -> None:
         self._root = settings.data_dir
+        self._upload_root = settings.data_upload_dir
         self._max_data_file_bytes = settings.max_data_file_bytes
+        self._retention_days = settings.retention_days
+
+    async def save(self, upload: UploadFile) -> SavedDataFile:
+        filename = upload.filename
+        if not filename or PureWindowsPath(filename).suffix.lower() != ".csv":
+            raise InvalidPathError("file must use the .csv extension")
+
+        date_string = date.today().isoformat()
+        target_dir = self._upload_root / date_string
+        target_dir.mkdir(parents=True, exist_ok=True)
+        generated_name = f"{uuid.uuid4()}.csv"
+        target = target_dir / generated_name
+        part = target.with_suffix(f"{target.suffix}.part")
+        total = 0
+        try:
+            with part.open("xb") as destination:
+                while chunk := await upload.read(_UPLOAD_CHUNK_BYTES):
+                    total += len(chunk)
+                    if total > self._max_data_file_bytes:
+                        raise DataFileTooLargeError(
+                            f"data file upload exceeds {self._max_data_file_bytes} bytes"
+                        )
+                    destination.write(chunk)
+            part.replace(target)
+        except Exception:
+            part.unlink(missing_ok=True)
+            raise
+
+        data_file = f"uploaded/{date_string}/{generated_name}"
+        logger.info(f"行情数据文件上传成功：data_file={data_file} size_bytes={total}")
+        return SavedDataFile(data_file=data_file, size_bytes=total)
 
     def resolve(self, data_file: str) -> Path:
         validate_data_path_segments(data_file)
         windows_path = PureWindowsPath(data_file)
         posix_path = PurePosixPath(data_file)
         relative_path = Path(data_file)
+        path_parts = windows_path.parts
         if (
             not data_file
             or windows_path.drive
             or windows_path.is_absolute()
             or posix_path.is_absolute()
             or relative_path.is_absolute()
+            or any(part in {".", ".."} for part in path_parts)
             or relative_path.suffix.lower() != ".csv"
         ):
             logger.warning(f"请求的数据文件路径结构无效：{data_file}")
             raise InvalidPathError("data_file must be a relative CSV path")
 
+        if path_parts and path_parts[0] == "uploaded":
+            if len(path_parts) == 1:
+                raise InvalidPathError("uploaded data_file path is incomplete")
+            root = self._upload_root
+            relative_path = Path(*path_parts[1:])
+        else:
+            root = self._root
+            relative_path = Path(*path_parts)
+
         try:
-            resolved = (self._root / relative_path).resolve()
+            resolved = (root / relative_path).resolve()
         except (OSError, ValueError) as exc:
             logger.warning(f"无法解析相对数据文件路径：{data_file}")
             raise InvalidPathError("data_file must be a relative CSV path") from exc
-        if not resolved.is_relative_to(self._root):
-            logger.error(f"安全告警：数据文件路径 {resolved} 越界超出了数据根目录 {self._root}")
+        if not resolved.is_relative_to(root):
+            logger.error(f"数据文件路径越界：data_file={data_file}")
             raise InvalidPathError("data_file must stay within the data directory")
         if not resolved.is_file():
-            logger.warning(f"在解析路径处未找到 CSV 数据文件：{resolved}")
+            logger.warning(f"未找到 CSV 数据文件：data_file={data_file}")
             raise FileNotFoundError(data_file)
         try:
             data_size = resolved.stat().st_size
         except FileNotFoundError as exc:
-            logger.warning(f"CSV 数据文件缺失文件信息检测：{resolved}")
+            logger.warning(f"读取 CSV 文件信息时文件消失：data_file={data_file}")
             raise FileNotFoundError(data_file) from exc
         if data_size > self._max_data_file_bytes:
             logger.warning(
-                f"数据文件大小超过限制 ({data_size} > {self._max_data_file_bytes} 字节)：{resolved}"
+                f"数据文件大小超过限制：data_file={data_file} "
+                f"size_bytes={data_size} limit_bytes={self._max_data_file_bytes}"
             )
             raise DataFileTooLargeError("data file exceeds configured size limit")
 
-        logger.debug(f"成功解析数据文件：{resolved} ({data_size} 字节)")
+        logger.debug(f"成功解析数据文件：data_file={data_file} size_bytes={data_size}")
         return resolved
+
+    def cleanup_expired(self) -> int:
+        if not self._upload_root.exists():
+            return 0
+        cutoff = datetime.now() - timedelta(days=self._retention_days)
+        removed = 0
+        for path in self._upload_root.glob("*/*"):
+            if not path.is_file() or (
+                path.suffix.lower() != ".csv" and not path.name.lower().endswith(".csv.part")
+            ):
+                continue
+            try:
+                if datetime.fromtimestamp(path.stat().st_mtime) < cutoff:
+                    path.unlink(missing_ok=True)
+                    removed += 1
+                    logger.info(
+                        f"已清理过期行情数据文件：date={path.parent.name} filename={path.name}"
+                    )
+            except FileNotFoundError:
+                continue
+
+        cutoff_date = cutoff.date()
+        try:
+            directories = list(self._upload_root.iterdir())
+        except FileNotFoundError:
+            return removed
+        for directory in directories:
+            if not directory.is_dir():
+                continue
+            try:
+                directory_date = date.fromisoformat(directory.name)
+            except ValueError:
+                continue
+            if directory_date.isoformat() != directory.name or directory_date >= cutoff_date:
+                continue
+            try:
+                directory.rmdir()
+            except OSError:
+                pass
+        return removed

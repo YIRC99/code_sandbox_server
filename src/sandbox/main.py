@@ -180,6 +180,12 @@ class ExecuteResponse(BaseModel):
     status: str
 
 
+class DataFileUploadResponse(BaseModel):
+    data_file: str
+    size_bytes: int
+    request_id: str
+
+
 class SandboxErrorDetail(BaseModel):
     code: str = Field(description="Stable machine-readable sandbox error code")
     message: str = Field(description="Safe human-readable error message")
@@ -205,7 +211,10 @@ class SandboxHTTPError(Exception):
         self.headers = headers
 
 
-async def _cleanup_loop(storage: UploadStorage, interval: float) -> None:
+async def _cleanup_loop(
+    storage: UploadStorage | DataFileStorage,
+    interval: float,
+) -> None:
     logger.info("启动后台文件清理循环任务 (间隔时间: %.1f秒)", interval)
     while True:
         try:
@@ -220,27 +229,28 @@ async def _cleanup_loop(storage: UploadStorage, interval: float) -> None:
 def create_app(settings: Settings | None = None) -> FastAPI:
     resolved_settings = settings or Settings.from_env()
     logger.info(
-        "初始化沙箱服务配置：最大并发=%d 最大排队=%d 最大超时时间=%d秒 上传根目录=%s 数据根目录=%s",
+        "初始化沙箱服务配置：最大并发=%d 最大排队=%d 最大超时时间=%d秒",
         resolved_settings.max_concurrent,
         resolved_settings.max_waiting,
         resolved_settings.max_timeout_seconds,
-        resolved_settings.upload_dir,
-        resolved_settings.data_dir,
     )
 
     @asynccontextmanager
     async def lifespan(application: FastAPI) -> AsyncIterator[None]:
         logger.info("正在启动沙箱服务生命周期...")
-        cleanup_task = asyncio.create_task(
-            _cleanup_loop(application.state.storage, resolved_settings.cleanup_interval_seconds)
-        )
+        cleanup_tasks = [
+            asyncio.create_task(_cleanup_loop(storage, resolved_settings.cleanup_interval_seconds))
+            for storage in (application.state.storage, application.state.data_files)
+        ]
         try:
             yield
         finally:
             logger.info("正在关闭沙箱服务生命周期...")
-            cleanup_task.cancel()
-            with suppress(asyncio.CancelledError):
-                await cleanup_task
+            for cleanup_task in cleanup_tasks:
+                cleanup_task.cancel()
+            for cleanup_task in cleanup_tasks:
+                with suppress(asyncio.CancelledError):
+                    await cleanup_task
 
     application = FastAPI(
         title="Python Code Sandbox",
@@ -274,6 +284,14 @@ def create_app(settings: Settings | None = None) -> FastAPI:
         request: Request,
         exc: RequestValidationError,
     ) -> JSONResponse:
+        if request.url.path == "/data-files":
+            payload = SandboxErrorResponse(
+                error=SandboxErrorDetail(
+                    code="data_file_upload_invalid",
+                    message="a CSV file is required",
+                )
+            )
+            return JSONResponse(status_code=400, content=payload.model_dump())
         if request.url.path == "/execute":
             logger.warning(
                 "代码执行请求参数校验失败 (400)：请求ID=%s 错误数=%d",
@@ -405,6 +423,54 @@ def create_app(settings: Settings | None = None) -> FastAPI:
         finally:
             await file.close()
         return {"date": saved.date, "filename": saved.filename}
+
+    @application.post(
+        "/data-files",
+        status_code=status.HTTP_201_CREATED,
+        response_model=DataFileUploadResponse,
+        responses={
+            400: {"model": SandboxErrorResponse},
+            401: {"model": SandboxErrorResponse},
+            413: {"model": SandboxErrorResponse},
+            500: {"model": SandboxErrorResponse},
+        },
+    )
+    async def upload_data_file(
+        file: Annotated[UploadFile, File()],
+        request: Request,
+        _: Annotated[None, authenticated],
+    ) -> DataFileUploadResponse:
+        request_id = request.state.request_id
+        try:
+            saved = await application.state.data_files.save(file)
+        except InvalidPathError as exc:
+            logger.warning(f"行情数据文件上传被拒绝：请求ID={request_id} 原因=文件类型无效")
+            raise SandboxHTTPError(
+                status_code=400,
+                code="data_file_upload_invalid",
+                message=str(exc),
+            ) from exc
+        except DataFileTooLargeError as exc:
+            logger.warning(f"行情数据文件上传被拒绝：请求ID={request_id} 原因=文件过大")
+            raise SandboxHTTPError(
+                status_code=413,
+                code="data_file_upload_too_large",
+                message=str(exc),
+            ) from exc
+        except Exception as exc:
+            logger.error(f"行情数据文件上传失败：请求ID={request_id}")
+            raise SandboxHTTPError(
+                status_code=500,
+                code="data_file_upload_failed",
+                message="data file upload failed",
+            ) from exc
+        finally:
+            await file.close()
+        return DataFileUploadResponse(
+            data_file=saved.data_file,
+            size_bytes=saved.size_bytes,
+            request_id=request_id,
+        )
 
     @application.post(
         "/execute",

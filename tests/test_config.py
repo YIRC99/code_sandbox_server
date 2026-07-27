@@ -8,6 +8,7 @@ from sandbox.config import Settings
 def test_settings_read_environment(monkeypatch: pytest.MonkeyPatch, tmp_path: Path) -> None:
     monkeypatch.setenv("SANDBOX_UPLOAD_DIR", str(tmp_path))
     monkeypatch.setenv("SANDBOX_DATA_DIR", str(tmp_path / "market-data"))
+    monkeypatch.setenv("SANDBOX_DATA_UPLOAD_DIR", str(tmp_path / "uploaded-market-data"))
     monkeypatch.setenv("SANDBOX_API_KEY", "secret")
     monkeypatch.setenv("SANDBOX_MAX_UPLOAD_BYTES", "2048")
     monkeypatch.setenv("SANDBOX_MAX_DATA_FILE_BYTES", "4096")
@@ -17,6 +18,7 @@ def test_settings_read_environment(monkeypatch: pytest.MonkeyPatch, tmp_path: Pa
 
     assert settings.upload_dir == tmp_path.resolve()
     assert settings.data_dir == (tmp_path / "market-data").resolve()
+    assert settings.data_upload_dir == (tmp_path / "uploaded-market-data").resolve()
     assert settings.api_key == "secret"
     assert settings.max_upload_bytes == 2048
     assert settings.max_data_file_bytes == 4096
@@ -37,6 +39,15 @@ def test_default_data_directory_is_absolute_project_data_path(
 
     assert Settings().data_dir == Path("data").resolve()
     assert Settings.from_env().data_dir == Path("data").resolve()
+
+
+def test_default_data_upload_directory_is_absolute_data_files_path(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    monkeypatch.delenv("SANDBOX_DATA_UPLOAD_DIR", raising=False)
+
+    assert Settings().data_upload_dir == Path("data-files").resolve()
+    assert Settings.from_env().data_upload_dir == Path("data-files").resolve()
 
 
 def test_default_output_limit_is_10_mib(monkeypatch: pytest.MonkeyPatch) -> None:

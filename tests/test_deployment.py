@@ -23,6 +23,8 @@ def test_dockerfile_uses_lockfile_and_fixed_non_root_user() -> None:
     assert "https://mirrors.tuna.tsinghua.edu.cn" in dockerfile
     assert "USER 10001:10001" in dockerfile
     assert "/data/uploads" in dockerfile
+    assert "/data/data-files" in dockerfile
+    assert "data/ /app/data/" in dockerfile
 
 
 def test_jenkins_installs_uv_before_host_verification() -> None:
@@ -105,11 +107,16 @@ def test_deployment_has_resources_probes_and_writable_mounts() -> None:
     assert "livenessProbe:" in deployment
     assert "readinessProbe:" in deployment
     assert "mountPath: /data/uploads" in deployment
+    assert "mountPath: /data/data-files" in deployment
+    assert "mountPath: /app/data" not in deployment
     assert "mountPath: /tmp" in deployment
     assert "persistentVolumeClaim:" not in deployment
-    assert deployment.count("emptyDir:") == 2
+    assert deployment.count("emptyDir:") == 3
+    assert deployment.count("sizeLimit: 512Mi") == 2
     assert "optional: true" in deployment
     assert 'SANDBOX_RETENTION_DAYS: "30"' in configmap
+    assert "SANDBOX_DATA_UPLOAD_DIR: /data/data-files" in configmap
+    assert 'SANDBOX_MAX_DATA_FILE_BYTES: "104857600"' in configmap
     assert 'SANDBOX_MAX_OUTPUT_BYTES: "10485760"' in configmap
 
 

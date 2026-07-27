@@ -19,11 +19,14 @@ RUNTIME_PARAMETERS = {
 
 def make_client(tmp_path: Path, **overrides: object) -> TestClient:
     data_dir = tmp_path / "data"
+    data_upload_dir = tmp_path / "data-files"
     data_dir.mkdir(exist_ok=True)
     (data_dir / "input.csv").write_text("date,close\n2026-07-21,101.5\n", encoding="utf-8")
+    (data_dir / "test_data.csv").write_text("date,close\n2026-07-20,100.0\n", encoding="utf-8")
     values: dict[str, object] = {
         "upload_dir": tmp_path,
         "data_dir": data_dir,
+        "data_upload_dir": data_upload_dir,
         "api_key": "test-key",
         "max_upload_bytes": 1024,
         "max_timeout_seconds": 2,
@@ -42,6 +45,14 @@ def upload(client: TestClient, filename: str, source: str):
         "/upload",
         headers=auth_headers(),
         files={"file": (filename, source.encode("utf-8"), "text/x-python")},
+    )
+
+
+def upload_data_file(client: TestClient, filename: str, content: bytes, **headers: str):
+    return client.post(
+        "/data-files",
+        headers={**auth_headers(), **headers},
+        files={"file": (filename, content, "text/csv")},
     )
 
 
@@ -80,11 +91,111 @@ def test_business_endpoints_require_valid_api_key(tmp_path: Path) -> None:
             headers={"X-API-Key": "wrong"},
             files={"file": ("a.py", b"pass")},
         )
+        missing_data_file = client.post(
+            "/data-files",
+            files={"file": ("quotes.csv", b"a,b\n1,2\n", "text/csv")},
+        )
 
     assert missing.status_code == 401
     assert wrong.status_code == 401
+    assert missing_data_file.status_code == 401
     assert_error(missing, "invalid_api_key")
     assert_error(wrong, "invalid_api_key")
+    assert_error(missing_data_file, "invalid_api_key")
+
+
+def test_data_file_upload_succeeds_and_can_be_used_by_execute(tmp_path: Path) -> None:
+    content = b"date,close\n2026-07-27,123.45\n"
+    request_id = "market-upload-request"
+    with make_client(tmp_path) as client:
+        uploaded = upload_data_file(
+            client,
+            "bond-bars.csv",
+            content,
+            **{"X-Request-ID": request_id},
+        )
+        identity = upload(
+            client,
+            "read_uploaded_csv.py",
+            "import sys\nfrom pathlib import Path\nprint(Path(sys.argv[1]).read_text(), end='')",
+        ).json()
+        executed = client.post(
+            "/execute",
+            headers=auth_headers(),
+            json=execution_body(identity, data_file=uploaded.json()["data_file"]),
+        )
+
+    assert uploaded.status_code == 201
+    payload = uploaded.json()
+    assert set(payload) == {"data_file", "size_bytes", "request_id"}
+    assert payload["data_file"].startswith("uploaded/")
+    assert payload["data_file"].endswith(".csv")
+    assert "bond-bars" not in payload["data_file"]
+    assert payload["size_bytes"] == len(content)
+    assert payload["request_id"] == request_id
+    assert uploaded.headers["X-Request-ID"] == request_id
+    assert executed.status_code == 200
+    assert executed.json()["stdout"] == content.decode("utf-8")
+
+
+def test_data_file_upload_rejects_non_csv_and_oversized_file(tmp_path: Path) -> None:
+    with make_client(tmp_path, max_data_file_bytes=4) as client:
+        invalid = upload_data_file(client, "quotes.txt", b"1234")
+        too_large = upload_data_file(client, "quotes.csv", b"12345")
+        upload_root = client.app.state.settings.data_upload_dir
+
+    assert invalid.status_code == 400
+    assert too_large.status_code == 413
+    assert_error(invalid, "data_file_upload_invalid")
+    assert_error(too_large, "data_file_upload_too_large")
+    assert not list(upload_root.rglob("*.part"))
+    assert not list(upload_root.rglob("*.csv"))
+
+
+def test_data_file_upload_rejects_missing_file_with_stable_error(tmp_path: Path) -> None:
+    with make_client(tmp_path) as client:
+        response = client.post("/data-files", headers=auth_headers())
+
+    assert response.status_code == 400
+    assert_error(response, "data_file_upload_invalid")
+
+
+def test_data_file_upload_failure_does_not_leak_server_path(tmp_path: Path) -> None:
+    class BrokenDataFileStorage:
+        async def save(self, _file):
+            raise OSError(f"cannot write {tmp_path.resolve()}")
+
+    with make_client(tmp_path) as client:
+        client.app.state.data_files = BrokenDataFileStorage()
+        response = upload_data_file(client, "quotes.csv", b"a,b\n1,2\n")
+
+    assert response.status_code == 500
+    assert_error(response, "data_file_upload_failed")
+    assert str(tmp_path.resolve()) not in response.text
+    assert "Traceback" not in response.text
+
+
+def test_data_file_upload_generates_unique_server_names(tmp_path: Path) -> None:
+    with make_client(tmp_path) as client:
+        first = upload_data_file(client, "same.csv", b"first")
+        second = upload_data_file(client, "same.csv", b"second")
+
+    assert first.status_code == 201
+    assert second.status_code == 201
+    assert first.json()["data_file"] != second.json()["data_file"]
+
+
+def test_data_file_upload_openapi_contract(tmp_path: Path) -> None:
+    with make_client(tmp_path) as client:
+        openapi = client.app.openapi()
+
+    operation = openapi["paths"]["/data-files"]["post"]
+    response_ref = operation["responses"]["201"]["content"]["application/json"]["schema"]["$ref"]
+    response_schema = openapi["components"]["schemas"][response_ref.rsplit("/", 1)[-1]]
+    request_schema = operation["requestBody"]["content"]["multipart/form-data"]["schema"]
+
+    assert set(response_schema["required"]) == {"data_file", "size_bytes", "request_id"}
+    assert request_schema["$ref"].rsplit("/", 1)[-1] in openapi["components"]["schemas"]
 
 
 def test_upload_and_execute_preserve_date_filename_contract(tmp_path: Path) -> None:
@@ -343,6 +454,11 @@ def test_execute_rejects_unsafe_or_missing_data_paths_without_leaking_root(
             headers=auth_headers(),
             json=execution_body(identity, data_file="../input.csv"),
         )
+        uploaded_traversal = client.post(
+            "/execute",
+            headers=auth_headers(),
+            json=execution_body(identity, data_file="uploaded/../input.csv"),
+        )
         non_csv = client.post(
             "/execute",
             headers=auth_headers(),
@@ -358,11 +474,28 @@ def test_execute_rejects_unsafe_or_missing_data_paths_without_leaking_root(
     assert traversal.status_code == 400
     assert non_csv.status_code == 400
     assert missing.status_code == 404
-    for response in (absolute, traversal, non_csv):
+    for response in (absolute, traversal, uploaded_traversal, non_csv):
         assert_error(response, "data_file_path_invalid")
         assert str(tmp_path) not in response.text
     assert_error(missing, "data_file_not_found")
     assert str(tmp_path) not in missing.text
+
+
+def test_execute_still_supports_built_in_test_data_csv(tmp_path: Path) -> None:
+    with make_client(tmp_path) as client:
+        identity = upload(
+            client,
+            "read_test_data.py",
+            "import sys\nfrom pathlib import Path\nprint(Path(sys.argv[1]).read_text(), end='')",
+        ).json()
+        response = client.post(
+            "/execute",
+            headers=auth_headers(),
+            json=execution_body(identity, data_file="test_data.csv"),
+        )
+
+    assert response.status_code == 200
+    assert response.json()["stdout"] == "date,close\n2026-07-20,100.0\n"
 
 
 def test_execute_rejects_windows_unsafe_data_path_segments(tmp_path: Path) -> None:

@@ -78,10 +78,15 @@ spec:
           volumeMounts:
             - name: uploads
               mountPath: /data/uploads
+            - name: data-files
+              mountPath: /data/data-files
             - name: tmp
               mountPath: /tmp
       volumes:
         - name: uploads
+          emptyDir:
+            sizeLimit: 512Mi
+        - name: data-files
           emptyDir:
             sizeLimit: 512Mi
         - name: tmp

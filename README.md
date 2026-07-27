@@ -13,7 +13,7 @@
 1. Python AI 服务按照固定回测模板生成并校验代码，同时生成不会重复的随机 `.py` 文件名。
 2. Python AI 服务通过 `/upload` 上传模板代码，服务按 `uploads/YYYY-MM-DD/<filename>.py` 保存。
 3. 上传接口返回 `date` 和 `filename`。
-4. 将 CSV 放入 `SANDBOX_DATA_DIR` 指定的数据根目录。
+4. Python AI 服务通过 `/data-files` 上传 CSV，服务返回可直接用于执行的 `data_file`。
 5. 使用相同的 `date`、`filename`、CSV 相对路径 `data_file` 和四个字符串运行参数调用
    `/execute`。
 
@@ -52,6 +52,21 @@ curl -X POST http://127.0.0.1:32004/upload \
 {"date":"2026-07-17","filename":"random_8f31a2.py"}
 ```
 
+上传行情 CSV：
+
+```bash
+curl -X POST http://127.0.0.1:32004/data-files \
+  -H "X-API-Key: your-key" \
+  -H "X-Request-ID: request-123" \
+  -F "file=@bond-bars.csv;type=text/csv"
+```
+
+响应：
+
+```json
+{"data_file":"uploaded/2026-07-27/9cfd8fd8-90a4-4b2d-9091-93d6fe2cc471.csv","size_bytes":12345,"request_id":"request-123"}
+```
+
 执行代码：
 
 ```bash
@@ -67,7 +82,7 @@ curl -X POST http://127.0.0.1:32004/execute \
 {"stdout":"...","stderr":"","exit_code":0,"status":"success"}
 ```
 
-`data_file` 必填，只能是相对于数据根目录的 `.csv` 路径，不支持通过接口上传 CSV。`parameters` 也必填，且只能包含 `initial_capital`、`fee_rate`、`slippage_rate` 和 `max_drawdown_limit_rate` 四个字符串字段；服务使用 Decimal 语义校验有限值和范围，不接受 JSON 数字、NaN、Infinity、缺失或额外字段。绝对路径、越界路径和非 CSV 路径返回 HTTP 400；CSV 或代码文件不存在返回 404。`status` 可能为 `success`、`error` 或 `timeout`。脚本非零退出时返回 `error` 和实际退出码；超时返回 `timeout` 和 `-1`。重复上传为 409，文件过大为 413，执行队列繁忙为 429。
+`data_file` 必填，既支持 `SANDBOX_DATA_DIR` 内镜像自带 CSV 的相对路径，也支持 `/data-files` 返回的 `uploaded/...` 路径。上传接口只接收 `.csv`，按原始字节流保存，不解析或校验行情业务字段。`parameters` 也必填，且只能包含 `initial_capital`、`fee_rate`、`slippage_rate` 和 `max_drawdown_limit_rate` 四个字符串字段；服务使用 Decimal 语义校验有限值和范围，不接受 JSON 数字、NaN、Infinity、缺失或额外字段。绝对路径、越界路径和非 CSV 路径返回 HTTP 400；CSV 或代码文件不存在返回 404。`status` 可能为 `success`、`error` 或 `timeout`。脚本非零退出时返回 `error` 和实际退出码；超时返回 `timeout` 和 `-1`。重复上传为 409，文件过大为 413，执行队列繁忙为 429。
 
 沙箱不会把参数写入 CSV、上传目录或共享数据目录。`parameters.json` 只存在于该次执行的一次性工作区，并随工作区销毁；并发和重复执行不会共享参数文件。内部 runner 最终设置：
 
@@ -90,7 +105,8 @@ sys.argv = [str(script), str(data_file), str(parameters_file)]
 `invalid_api_key`、`upload_filename_invalid`、`upload_duplicate`、
 `upload_too_large`、`execution_timeout_invalid`、`runtime_parameters_invalid`、`uploaded_code_path_invalid`、
 `uploaded_code_not_found`、`data_file_path_invalid`、`data_file_not_found`、
-`data_file_too_large`、`sandbox_busy` 和 `sandbox_execution_failed`。
+`data_file_too_large`、`data_file_upload_invalid`、`data_file_upload_too_large`、
+`data_file_upload_failed`、`sandbox_busy` 和 `sandbox_execution_failed`。
 
 ## 配置
 
@@ -98,6 +114,7 @@ sys.argv = [str(script), str(data_file), str(parameters_file)]
 | --- | ---: | --- |
 | `SANDBOX_UPLOAD_DIR` | `uploads` | 上传根目录 |
 | `SANDBOX_DATA_DIR` | `data` | 只读 CSV 数据根目录；配置值会解析为绝对路径 |
+| `SANDBOX_DATA_UPLOAD_DIR` | `data-files` | `/data-files` 上传 CSV 的独立根目录 |
 | `SANDBOX_API_KEY` | 空 | 业务接口 API Key；生产环境必须设置 |
 | `SANDBOX_MAX_UPLOAD_BYTES` | `10485760` | 单文件最大字节数 |
 | `SANDBOX_MAX_DATA_FILE_BYTES` | `104857600` | 单个 CSV 数据文件最大字节数 |
@@ -125,7 +142,7 @@ dev 和 test 清单分别位于 `k8s/overlays/dev` 与 `k8s/overlays/test`。服
 - 确保 dev 使用的 `32004` 和 test 使用的 `32014` 未被其他 Service 占用。
 - 能拉取 `harbor.internal.net` 私有镜像的节点或 `imagePullSecret`。
 
-Deployment 固定为一个副本并采用 `Recreate` 更新策略。上传目录和执行临时目录均使用带容量限制的 `emptyDir`，不需要 PVC；Pod 重启或重新部署后，尚未执行的上传文件会丢失，这是预期行为。`Recreate` 会让更新过程出现短暂中断，但能避免新旧 Pod 同时存在时上传和执行请求落到不同 Pod。
+Deployment 固定为一个副本并采用 `Recreate` 更新策略。代码上传目录、行情 CSV 上传目录和执行临时目录分别使用带容量限制的 `emptyDir`，不会挂载到包含镜像内置测试 CSV 的 `/app/data`。不需要 PVC；Pod 重启或重新部署后，上传文件会丢失，这是预期行为，AI 端可重新上传。`Recreate` 会让更新过程出现短暂中断，但能避免新旧 Pod 同时存在时上传和执行请求落到不同 Pod。
 
 生产环境应先创建 API Key Secret；清单允许开发环境在 Secret 不存在时启动，但此时业务接口不会鉴权。示例清单不能直接用于生产：
 

@@ -33,7 +33,7 @@ class SandboxExecutor:
     def __init__(self, settings: Settings) -> None:
         self._settings = settings
         self._runner = Path(__file__).with_name("runner.py").resolve()
-        logger.info("SandboxExecutor 初始化完成，执行器脚本路径：%s", self._runner)
+        logger.info("SandboxExecutor 初始化完成")
 
     async def execute(
         self,
@@ -53,7 +53,7 @@ class SandboxExecutor:
             )
         start_time = time.monotonic()
         with tempfile.TemporaryDirectory(prefix="code-sandbox-") as workspace:
-            logger.debug("创建临时工作区目录：%s", workspace)
+            logger.debug("已创建临时工作区")
             isolated_script = Path(workspace) / script.name
             isolated_data_file = Path(workspace) / data_file.name
             isolated_parameters_file = Path(workspace) / "parameters.json"
@@ -91,7 +91,7 @@ class SandboxExecutor:
         isolated_data_file: Path,
         isolated_parameters_file: Path,
     ) -> None:
-        logger.debug(f"正在复制脚本 {script} 和数据文件 {data_file} 到沙箱工作区")
+        logger.debug(f"正在复制脚本 {script.name} 和数据文件 {data_file.name} 到沙箱工作区")
         shutil.copyfile(script, isolated_script)
         self._copy_data_file_limited(data_file, isolated_data_file)
         with isolated_parameters_file.open("x", encoding="utf-8", newline="\n") as stream:
@@ -99,7 +99,10 @@ class SandboxExecutor:
 
     def _copy_data_file_limited(self, source: Path, destination: Path) -> None:
         if source.stat().st_size > self._settings.max_data_file_bytes:
-            logger.warning(f"数据文件 {source} 在复制前超出大小限制 ({source.stat().st_size} 字节)")
+            logger.warning(
+                f"数据文件在复制前超出大小限制：filename={source.name} "
+                f"size_bytes={source.stat().st_size}"
+            )
             raise DataFileTooLargeError("data file exceeds configured size limit")
 
         copied = 0
@@ -112,7 +115,7 @@ class SandboxExecutor:
                 destination_stream.write(chunk)
 
         if destination.stat().st_size > self._settings.max_data_file_bytes:
-            logger.warning(f"数据文件 {destination} 在复制后超出大小限制")
+            logger.warning(f"数据文件在复制后超出大小限制：filename={destination.name}")
             raise DataFileTooLargeError("data file exceeds configured size limit")
 
     async def _execute_isolated(

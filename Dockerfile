@@ -20,8 +20,8 @@ RUN sed -i 's|http://deb.debian.org|https://mirrors.tuna.tsinghua.edu.cn|g' \
     && rm -rf /var/lib/apt/lists/* \
     && groupadd --gid 10001 sandbox \
     && useradd --uid 10001 --gid 10001 --no-create-home --home-dir /tmp sandbox \
-    && mkdir -p /data/uploads \
-    && chown 10001:10001 /data/uploads
+    && mkdir -p /data/uploads /data/data-files \
+    && chown 10001:10001 /data/uploads /data/data-files
 
 WORKDIR /app
 COPY --from=builder /app/.venv /app/.venv
