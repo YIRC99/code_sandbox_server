@@ -1,11 +1,20 @@
+import json
 import time
 from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 
+import pytest
 from fastapi.testclient import TestClient
 
 from sandbox.config import Settings
 from sandbox.main import create_app
+
+RUNTIME_PARAMETERS = {
+    "initial_capital": "1000000",
+    "fee_rate": "0.0001",
+    "slippage_rate": "0.0005",
+    "max_drawdown_limit_rate": "0.20",
+}
 
 
 def make_client(tmp_path: Path, **overrides: object) -> TestClient:
@@ -37,7 +46,11 @@ def upload(client: TestClient, filename: str, source: str):
 
 
 def execution_body(identity: dict[str, str], **overrides: object) -> dict[str, object]:
-    body: dict[str, object] = {**identity, "data_file": "input.csv"}
+    body: dict[str, object] = {
+        **identity,
+        "data_file": "input.csv",
+        "parameters": dict(RUNTIME_PARAMETERS),
+    }
     body.update(overrides)
     return body
 
@@ -101,6 +114,172 @@ def test_upload_and_execute_preserve_date_filename_contract(tmp_path: Path) -> N
     assert (tmp_path / identity["date"] / identity["filename"]).exists()
 
 
+def test_execute_passes_isolated_parameters_file_as_second_script_argument(
+    tmp_path: Path,
+) -> None:
+    with make_client(tmp_path) as client:
+        identity = upload(
+            client,
+            "read_parameters.py",
+            (
+                "import json\n"
+                "import sys\n"
+                "from pathlib import Path\n"
+                "parameter_file = Path(sys.argv[2])\n"
+                "print(json.dumps({"
+                "'parameters': json.loads(parameter_file.read_text(encoding='utf-8')),"
+                "'path': str(parameter_file)"
+                "}))"
+            ),
+        ).json()
+        response = client.post(
+            "/execute",
+            headers=auth_headers(),
+            json=execution_body(identity),
+        )
+
+    assert response.status_code == 200
+    result = response.json()
+    assert result["status"] == "success"
+    payload = json.loads(result["stdout"])
+    assert payload["parameters"] == RUNTIME_PARAMETERS
+    parameter_path = Path(payload["path"])
+    assert parameter_path.name == "parameters.json"
+    assert not parameter_path.exists()
+    assert not (tmp_path / "parameters.json").exists()
+    assert not (tmp_path / "data" / "parameters.json").exists()
+
+
+def test_execute_rejects_missing_or_unknown_runtime_parameter_fields(tmp_path: Path) -> None:
+    with make_client(tmp_path) as client:
+        identity = upload(client, "parameter_shape.py", "print('must not run')").json()
+        missing_parameters = client.post(
+            "/execute",
+            headers=auth_headers(),
+            json={**identity, "data_file": "input.csv"},
+        )
+        missing_field = client.post(
+            "/execute",
+            headers=auth_headers(),
+            json=execution_body(
+                identity,
+                parameters={
+                    key: value for key, value in RUNTIME_PARAMETERS.items() if key != "fee_rate"
+                },
+            ),
+        )
+        unknown_parameter = client.post(
+            "/execute",
+            headers=auth_headers(),
+            json=execution_body(
+                identity,
+                parameters={**RUNTIME_PARAMETERS, "benchmark": "000300.SH"},
+            ),
+        )
+        unknown_request_field = client.post(
+            "/execute",
+            headers=auth_headers(),
+            json={**execution_body(identity), "token": "not-supported"},
+        )
+
+    for response in (
+        missing_parameters,
+        missing_field,
+        unknown_parameter,
+        unknown_request_field,
+    ):
+        assert response.status_code == 400
+        assert_error(response, "runtime_parameters_invalid")
+        assert str(tmp_path) not in response.text
+        assert "Traceback" not in response.text
+
+
+@pytest.mark.parametrize(
+    ("field", "value"),
+    [
+        ("initial_capital", 1000000),
+        ("initial_capital", ""),
+        ("initial_capital", "NaN"),
+        ("initial_capital", "Infinity"),
+        ("initial_capital", "not-decimal"),
+        ("initial_capital", "0"),
+        ("fee_rate", "-0.0001"),
+        ("fee_rate", "1"),
+        ("slippage_rate", "-0.0001"),
+        ("slippage_rate", "1"),
+        ("max_drawdown_limit_rate", "0"),
+        ("max_drawdown_limit_rate", "1.0001"),
+    ],
+)
+def test_execute_rejects_invalid_runtime_parameter_values(
+    tmp_path: Path,
+    field: str,
+    value: object,
+) -> None:
+    with make_client(tmp_path) as client:
+        identity = upload(client, f"invalid_{field}.py", "print('must not run')").json()
+        response = client.post(
+            "/execute",
+            headers=auth_headers(),
+            json=execution_body(
+                identity,
+                parameters={**RUNTIME_PARAMETERS, field: value},
+            ),
+        )
+
+    assert response.status_code == 400
+    assert_error(response, "runtime_parameters_invalid")
+
+
+@pytest.mark.parametrize(
+    ("field", "value"),
+    [
+        ("initial_capital", "0.0001"),
+        ("fee_rate", "0"),
+        ("fee_rate", "0.999999"),
+        ("slippage_rate", "0"),
+        ("slippage_rate", "0.999999"),
+        ("max_drawdown_limit_rate", "0.0001"),
+        ("max_drawdown_limit_rate", "1"),
+    ],
+)
+def test_execute_accepts_runtime_parameter_boundary_values(
+    tmp_path: Path,
+    field: str,
+    value: str,
+) -> None:
+    with make_client(tmp_path) as client:
+        identity = upload(client, f"valid_{field}.py", "print('ok')").json()
+        response = client.post(
+            "/execute",
+            headers=auth_headers(),
+            json=execution_body(
+                identity,
+                parameters={**RUNTIME_PARAMETERS, field: value},
+            ),
+        )
+
+    assert response.status_code == 200
+    assert response.json()["status"] == "success"
+
+
+def test_execute_openapi_requires_strict_runtime_parameters_object(tmp_path: Path) -> None:
+    with make_client(tmp_path) as client:
+        openapi = client.app.openapi()
+
+    execute_schema = openapi["components"]["schemas"]["ExecuteRequest"]
+    parameter_ref = execute_schema["properties"]["parameters"]["$ref"]
+    parameter_schema = openapi["components"]["schemas"][parameter_ref.rsplit("/", 1)[-1]]
+
+    assert execute_schema["additionalProperties"] is False
+    assert "parameters" in execute_schema["required"]
+    assert parameter_schema["additionalProperties"] is False
+    assert set(parameter_schema["required"]) == set(RUNTIME_PARAMETERS)
+    assert {
+        name: field_schema["type"] for name, field_schema in parameter_schema["properties"].items()
+    } == {name: "string" for name in RUNTIME_PARAMETERS}
+
+
 def test_upload_rejects_invalid_duplicate_and_large_files(tmp_path: Path) -> None:
     with make_client(tmp_path, max_upload_bytes=4) as client:
         invalid = upload(client, "../unsafe.py", "pass")
@@ -122,16 +301,16 @@ def test_execute_rejects_invalid_missing_and_excessive_timeout(tmp_path: Path) -
         invalid = client.post(
             "/execute",
             headers=auth_headers(),
-            json={"date": "../2026-07-17", "filename": "x.py", "data_file": "input.csv"},
+            json=execution_body(
+                {"date": "../2026-07-17", "filename": "x.py"},
+            ),
         )
         missing = client.post(
             "/execute",
             headers=auth_headers(),
-            json={
-                "date": "2026-07-17",
-                "filename": "missing.py",
-                "data_file": "input.csv",
-            },
+            json=execution_body(
+                {"date": "2026-07-17", "filename": "missing.py"},
+            ),
         )
         uploaded = upload(client, "slow.py", "pass").json()
         excessive = client.post(
@@ -293,6 +472,46 @@ def test_upload_can_be_executed_twice_concurrently(tmp_path: Path) -> None:
     assert (tmp_path / identity["date"] / identity["filename"]).exists()
 
 
+def test_concurrent_executions_use_independent_parameter_files(tmp_path: Path) -> None:
+    with make_client(tmp_path, max_concurrent=2) as client:
+        identity = upload(
+            client,
+            "concurrent_parameters.py",
+            (
+                "import json\n"
+                "import sys\n"
+                "import time\n"
+                "from pathlib import Path\n"
+                "time.sleep(0.2)\n"
+                "print(Path(sys.argv[2]).read_text(encoding='utf-8'))"
+            ),
+        ).json()
+        first_parameters = {**RUNTIME_PARAMETERS, "initial_capital": "1000000.00"}
+        second_parameters = {**RUNTIME_PARAMETERS, "initial_capital": "2000000.00"}
+
+        with ThreadPoolExecutor(max_workers=2) as pool:
+            first = pool.submit(
+                client.post,
+                "/execute",
+                headers=auth_headers(),
+                json=execution_body(identity, parameters=first_parameters),
+            )
+            second = pool.submit(
+                client.post,
+                "/execute",
+                headers=auth_headers(),
+                json=execution_body(identity, parameters=second_parameters),
+            )
+            responses = (first.result(), second.result())
+
+    assert [response.status_code for response in responses] == [200, 200]
+    assert [json.loads(response.json()["stdout"]) for response in responses] == [
+        first_parameters,
+        second_parameters,
+    ]
+    assert list(tmp_path.rglob("parameters.json")) == []
+
+
 def test_execute_returns_429_when_execution_queue_is_full(tmp_path: Path) -> None:
     with make_client(
         tmp_path,
@@ -327,7 +546,7 @@ def test_execute_returns_429_when_execution_queue_is_full(tmp_path: Path) -> Non
 
 def test_unexpected_execute_error_does_not_leak_traceback(tmp_path: Path) -> None:
     class BrokenExecutor:
-        async def execute(self, script: Path, data_file: Path, timeout: float):
+        async def execute(self, script: Path, data_file: Path, parameters, timeout: float):
             raise RuntimeError(f"secret path: {script}")
 
     data_dir = tmp_path / "data"

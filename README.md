@@ -14,7 +14,8 @@
 2. Python AI 服务通过 `/upload` 上传模板代码，服务按 `uploads/YYYY-MM-DD/<filename>.py` 保存。
 3. 上传接口返回 `date` 和 `filename`。
 4. 将 CSV 放入 `SANDBOX_DATA_DIR` 指定的数据根目录。
-5. 使用相同的 `date`、`filename` 和 CSV 相对路径 `data_file` 调用 `/execute`。
+5. 使用相同的 `date`、`filename`、CSV 相对路径 `data_file` 和四个字符串运行参数调用
+   `/execute`。
 
 代码使用文件上传，而不是放在 JSON 请求体中，可以避免长代码的转义、换行和层级解析问题。服务端不会修改文件名，只会做安全校验并拒绝同名覆盖。同一个上传文件可以重复执行，文件超过 30 天后由定时任务清理；Pod 重启或重新部署时也会随 `emptyDir` 一起丢失。
 
@@ -27,7 +28,7 @@ uv sync --frozen --group dev
 uv run python main.py
 ```
 
-本地监听 `http://127.0.0.1:32004`。为了方便本地开发，未设置 `SANDBOX_API_KEY` 时业务接口不校验 API Key；部署环境必须设置该值。默认从项目根目录下的 `data` 目录读取 CSV；策略脚本通过 `sys.argv[1]` 获取本次执行的 CSV 路径。
+本地监听 `http://127.0.0.1:32004`。为了方便本地开发，未设置 `SANDBOX_API_KEY` 时业务接口不校验 API Key；部署环境必须设置该值。默认从项目根目录下的 `data` 目录读取 CSV。每次执行都会在独立临时工作区中复制脚本和 CSV，并创建 UTF-8 `parameters.json`；策略脚本通过 `sys.argv[1]` 获取 CSV 路径，通过 `sys.argv[2]` 获取参数文件路径。
 
 ## API
 
@@ -57,7 +58,7 @@ curl -X POST http://127.0.0.1:32004/upload \
 curl -X POST http://127.0.0.1:32004/execute \
   -H "Content-Type: application/json" \
   -H "X-API-Key: your-key" \
-  -d '{"date":"2026-07-17","filename":"random_8f31a2.py","data_file":"market/quotes.csv","timeout":10}'
+  -d '{"date":"2026-07-17","filename":"random_8f31a2.py","data_file":"market/quotes.csv","parameters":{"initial_capital":"1000000","fee_rate":"0.0001","slippage_rate":"0.0005","max_drawdown_limit_rate":"0.20"},"timeout":10}'
 ```
 
 响应：
@@ -66,7 +67,13 @@ curl -X POST http://127.0.0.1:32004/execute \
 {"stdout":"...","stderr":"","exit_code":0,"status":"success"}
 ```
 
-`data_file` 必填，只能是相对于数据根目录的 `.csv` 路径，不支持通过接口上传 CSV。绝对路径、越界路径和非 CSV 路径返回 HTTP 400；CSV 或代码文件不存在返回 404。`status` 可能为 `success`、`error` 或 `timeout`。脚本非零退出时返回 `error` 和实际退出码；超时返回 `timeout` 和 `-1`。重复上传为 409，文件过大为 413，执行队列繁忙为 429。
+`data_file` 必填，只能是相对于数据根目录的 `.csv` 路径，不支持通过接口上传 CSV。`parameters` 也必填，且只能包含 `initial_capital`、`fee_rate`、`slippage_rate` 和 `max_drawdown_limit_rate` 四个字符串字段；服务使用 Decimal 语义校验有限值和范围，不接受 JSON 数字、NaN、Infinity、缺失或额外字段。绝对路径、越界路径和非 CSV 路径返回 HTTP 400；CSV 或代码文件不存在返回 404。`status` 可能为 `success`、`error` 或 `timeout`。脚本非零退出时返回 `error` 和实际退出码；超时返回 `timeout` 和 `-1`。重复上传为 409，文件过大为 413，执行队列繁忙为 429。
+
+沙箱不会把参数写入 CSV、上传目录或共享数据目录。`parameters.json` 只存在于该次执行的一次性工作区，并随工作区销毁；并发和重复执行不会共享参数文件。内部 runner 最终设置：
+
+```python
+sys.argv = [str(script), str(data_file), str(parameters_file)]
+```
 
 上传或执行请求在进入脚本运行前失败时，统一返回稳定错误码：
 
@@ -81,7 +88,7 @@ curl -X POST http://127.0.0.1:32004/execute \
 
 上游服务应依据 `error.code` 分类，不能依赖 `message` 文案。常用错误码包括
 `invalid_api_key`、`upload_filename_invalid`、`upload_duplicate`、
-`upload_too_large`、`execution_timeout_invalid`、`uploaded_code_path_invalid`、
+`upload_too_large`、`execution_timeout_invalid`、`runtime_parameters_invalid`、`uploaded_code_path_invalid`、
 `uploaded_code_not_found`、`data_file_path_invalid`、`data_file_not_found`、
 `data_file_too_large`、`sandbox_busy` 和 `sandbox_execution_failed`。
 

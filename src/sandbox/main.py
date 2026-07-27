@@ -7,6 +7,7 @@ import time
 import uuid
 from collections.abc import AsyncIterator
 from contextlib import asynccontextmanager, suppress
+from decimal import Decimal, InvalidOperation
 from pathlib import Path
 from typing import Annotated
 
@@ -14,8 +15,9 @@ if sys.platform == "win32":
     asyncio.set_event_loop_policy(asyncio.WindowsProactorEventLoopPolicy())
 
 from fastapi import Depends, FastAPI, File, Header, Request, UploadFile, status
+from fastapi.exceptions import RequestValidationError
 from loguru import logger
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, ConfigDict, Field, StrictStr, field_validator
 from starlette.responses import JSONResponse
 
 from .admission import ExecutionGate, SandboxBusyError
@@ -127,10 +129,47 @@ def setup_loguru_logging(logs_dir: Path | None = None) -> None:
 setup_loguru_logging()
 
 
+class BacktestRuntimeParameters(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+
+    initial_capital: StrictStr
+    fee_rate: StrictStr
+    slippage_rate: StrictStr
+    max_drawdown_limit_rate: StrictStr
+
+    @field_validator("initial_capital", "fee_rate", "slippage_rate", "max_drawdown_limit_rate")
+    @classmethod
+    def validate_decimal_string(cls, value: str, info) -> str:
+        if not value.strip():
+            raise ValueError("runtime parameter must not be blank")
+        try:
+            decimal_value = Decimal(value)
+        except InvalidOperation as exc:
+            raise ValueError("runtime parameter must be a valid decimal string") from exc
+        if not decimal_value.is_finite():
+            raise ValueError("runtime parameter must be finite")
+        if info.field_name == "initial_capital" and decimal_value <= Decimal("0"):
+            raise ValueError("initial_capital must be greater than 0")
+        if info.field_name in {"fee_rate", "slippage_rate"} and not (
+            Decimal("0") <= decimal_value < Decimal("1")
+        ):
+            raise ValueError(f"{info.field_name} must satisfy 0 <= value < 1")
+        if info.field_name == "max_drawdown_limit_rate" and not (
+            Decimal("0") < decimal_value <= Decimal("1")
+        ):
+            raise ValueError("max_drawdown_limit_rate must satisfy 0 < value <= 1")
+        return value
+
+
 class ExecuteRequest(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+
     date: str = Field(description="Upload date in YYYY-MM-DD format")
     filename: str = Field(description="Uploaded Python filename")
     data_file: str = Field(description="CSV path relative to the configured data directory")
+    parameters: BacktestRuntimeParameters = Field(
+        description="Strict string-valued backtest runtime parameters"
+    )
     timeout: float | None = Field(default=None, gt=0, description="Timeout in seconds")
 
 
@@ -228,6 +267,29 @@ def create_app(settings: Settings | None = None) -> FastAPI:
             status_code=exc.status_code,
             content=payload.model_dump(),
             headers=exc.headers,
+        )
+
+    @application.exception_handler(RequestValidationError)
+    async def request_validation_error_response(
+        request: Request,
+        exc: RequestValidationError,
+    ) -> JSONResponse:
+        if request.url.path == "/execute":
+            logger.warning(
+                "代码执行请求参数校验失败 (400)：请求ID=%s 错误数=%d",
+                getattr(request.state, "request_id", "unknown"),
+                len(exc.errors()),
+            )
+            payload = SandboxErrorResponse(
+                error=SandboxErrorDetail(
+                    code="runtime_parameters_invalid",
+                    message="backtest runtime parameters are invalid",
+                )
+            )
+            return JSONResponse(status_code=400, content=payload.model_dump())
+        return JSONResponse(
+            status_code=422,
+            content={"detail": exc.errors()},
         )
 
     @application.middleware("http")
@@ -433,7 +495,12 @@ def create_app(settings: Settings | None = None) -> FastAPI:
         )
         try:
             async with application.state.gate.slot():
-                result = await application.state.executor.execute(script, data_file, timeout)
+                result = await application.state.executor.execute(
+                    script,
+                    data_file,
+                    body.parameters.model_dump(),
+                    timeout,
+                )
         except DataFileTooLargeError as exc:
             logger.warning(f"代码执行被拒绝 (数据文件过大 413)：{exc} 请求ID={req_id}")
             raise SandboxHTTPError(

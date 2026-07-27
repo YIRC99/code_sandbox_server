@@ -1,4 +1,5 @@
 import asyncio
+import json
 import os
 import shutil
 import signal
@@ -7,6 +8,7 @@ import sys
 import tempfile
 import threading
 import time
+from collections.abc import Mapping
 from dataclasses import dataclass
 from pathlib import Path
 
@@ -33,7 +35,13 @@ class SandboxExecutor:
         self._runner = Path(__file__).with_name("runner.py").resolve()
         logger.info("SandboxExecutor 初始化完成，执行器脚本路径：%s", self._runner)
 
-    async def execute(self, script: Path, data_file: Path, timeout: float) -> ExecutionResult:
+    async def execute(
+        self,
+        script: Path,
+        data_file: Path,
+        parameters: Mapping[str, str],
+        timeout: float,
+    ) -> ExecutionResult:
         if timeout <= 0 or timeout > self._settings.max_timeout_seconds:
             logger.warning(
                 "指定了无效的超时时间：%.2f秒 (允许范围: 0..%.2f秒)",
@@ -48,14 +56,22 @@ class SandboxExecutor:
             logger.debug("创建临时工作区目录：%s", workspace)
             isolated_script = Path(workspace) / script.name
             isolated_data_file = Path(workspace) / data_file.name
+            isolated_parameters_file = Path(workspace) / "parameters.json"
             await asyncio.to_thread(
                 self._copy_inputs,
                 script,
                 data_file,
+                parameters,
                 isolated_script,
                 isolated_data_file,
+                isolated_parameters_file,
             )
-            result = await self._execute_isolated(isolated_script, isolated_data_file, timeout)
+            result = await self._execute_isolated(
+                isolated_script,
+                isolated_data_file,
+                isolated_parameters_file,
+                timeout,
+            )
             elapsed = time.monotonic() - start_time
             stdout_len = len(result.stdout.encode("utf-8"))
             stderr_len = len(result.stderr.encode("utf-8"))
@@ -70,12 +86,16 @@ class SandboxExecutor:
         self,
         script: Path,
         data_file: Path,
+        parameters: Mapping[str, str],
         isolated_script: Path,
         isolated_data_file: Path,
+        isolated_parameters_file: Path,
     ) -> None:
         logger.debug(f"正在复制脚本 {script} 和数据文件 {data_file} 到沙箱工作区")
         shutil.copyfile(script, isolated_script)
         self._copy_data_file_limited(data_file, isolated_data_file)
+        with isolated_parameters_file.open("x", encoding="utf-8", newline="\n") as stream:
+            json.dump(dict(parameters), stream, ensure_ascii=False)
 
     def _copy_data_file_limited(self, source: Path, destination: Path) -> None:
         if source.stat().st_size > self._settings.max_data_file_bytes:
@@ -96,7 +116,11 @@ class SandboxExecutor:
             raise DataFileTooLargeError("data file exceeds configured size limit")
 
     async def _execute_isolated(
-        self, script: Path, data_file: Path, timeout: float
+        self,
+        script: Path,
+        data_file: Path,
+        parameters_file: Path,
+        timeout: float,
     ) -> ExecutionResult:
         process_options: dict[str, object]
         if os.name == "nt":
@@ -122,6 +146,7 @@ class SandboxExecutor:
                 str(self._runner),
                 str(script),
                 str(data_file),
+                str(parameters_file),
                 cwd=str(script.parent),
                 env=env,
                 stdout=asyncio.subprocess.PIPE,
@@ -134,7 +159,12 @@ class SandboxExecutor:
                 "当前事件循环/操作系统不支持 asyncio 子进程创建；自动回退降级为同步进程执行模式"
             )
             return await asyncio.to_thread(
-                self._execute_isolated_sync, script, data_file, timeout, process_options
+                self._execute_isolated_sync,
+                script,
+                data_file,
+                parameters_file,
+                timeout,
+                process_options,
             )
 
         assert process.stdout is not None
@@ -160,7 +190,12 @@ class SandboxExecutor:
 
         stdout_bytes, stderr_bytes = await asyncio.gather(stdout_task, stderr_task)
         stdout = self._decode(stdout_bytes)
-        stderr = self._sanitize_stderr(self._decode(stderr_bytes), script)
+        stderr = self._sanitize_stderr(
+            self._decode(stderr_bytes),
+            script,
+            data_file,
+            parameters_file,
+        )
         if timed_out:
             return ExecutionResult(
                 stdout=stdout,
@@ -180,6 +215,7 @@ class SandboxExecutor:
         self,
         script: Path,
         data_file: Path,
+        parameters_file: Path,
         timeout: float,
         process_options: dict[str, object],
     ) -> ExecutionResult:
@@ -191,6 +227,7 @@ class SandboxExecutor:
             str(self._runner),
             str(script),
             str(data_file),
+            str(parameters_file),
         ]
         proc = subprocess.Popen(
             cmd,
@@ -248,7 +285,12 @@ class SandboxExecutor:
             stderr_bytes.extend(_TRUNCATION_MARKER)
 
         stdout = self._decode(bytes(stdout_bytes))
-        stderr = self._sanitize_stderr(self._decode(bytes(stderr_bytes)), script)
+        stderr = self._sanitize_stderr(
+            self._decode(bytes(stderr_bytes)),
+            script,
+            data_file,
+            parameters_file,
+        )
 
         if timed_out:
             return ExecutionResult(
@@ -371,10 +413,20 @@ class SandboxExecutor:
     def _decode(value: bytes) -> str:
         return value.decode("utf-8", errors="replace").replace("\r\n", "\n")
 
-    def _sanitize_stderr(self, value: str, script: Path) -> str:
+    def _sanitize_stderr(
+        self,
+        value: str,
+        script: Path,
+        data_file: Path,
+        parameters_file: Path,
+    ) -> str:
         replacements = (
             (str(script), script.name),
             (script.as_posix(), script.name),
+            (str(data_file), data_file.name),
+            (data_file.as_posix(), data_file.name),
+            (str(parameters_file), parameters_file.name),
+            (parameters_file.as_posix(), parameters_file.name),
             (str(self._runner), self._runner.name),
             (self._runner.as_posix(), self._runner.name),
         )

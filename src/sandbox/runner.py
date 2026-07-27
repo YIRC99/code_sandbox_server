@@ -154,15 +154,16 @@ def apply_resource_limits() -> None:
 
 
 def main() -> None:
-    if len(sys.argv) != 3:
-        raise SystemExit("usage: runner.py <script.py> <data.csv>")
+    if len(sys.argv) != 4:
+        raise SystemExit("usage: runner.py <script.py> <data.csv> <parameters.json>")
     script = Path(sys.argv[1]).resolve(strict=True)
     data_file = Path(sys.argv[2]).resolve(strict=True)
+    parameters_file = Path(sys.argv[3]).resolve(strict=True)
     validate_script_ast(script)
     install_audit_hook()
     apply_resource_limits()
     os.chdir(script.parent)
-    sys.argv = [str(script), str(data_file)]
+    sys.argv = [str(script), str(data_file), str(parameters_file)]
     runpy.run_path(str(script), run_name="__main__")
 
 
