@@ -28,3 +28,4 @@ logs/
 # Local AI development context
 /AGENTS.md
 docs/
+data-files/
