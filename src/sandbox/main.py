@@ -507,7 +507,10 @@ def create_app(settings: Settings | None = None) -> FastAPI:
             raise SandboxHTTPError(
                 status_code=400,
                 code="execution_timeout_invalid",
-                message=(f"timeout cannot exceed {resolved_settings.max_timeout_seconds} seconds"),
+                message=(
+                    f"请求执行超时为 {timeout:g} 秒，超过沙箱允许的最大值 "
+                    f"{resolved_settings.max_timeout_seconds:g} 秒；代码尚未开始运行"
+                ),
             )
         try:
             script = application.state.storage.resolve(body.date, body.filename)

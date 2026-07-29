@@ -434,6 +434,9 @@ def test_execute_rejects_invalid_missing_and_excessive_timeout(tmp_path: Path) -
     assert_error(invalid, "uploaded_code_path_invalid")
     assert_error(missing, "uploaded_code_not_found")
     assert_error(excessive, "execution_timeout_invalid")
+    assert excessive.json()["error"]["message"] == (
+        "请求执行超时为 3 秒，超过沙箱允许的最大值 2 秒；代码尚未开始运行"
+    )
 
 
 def test_execute_rejects_unsafe_or_missing_data_paths_without_leaking_root(
