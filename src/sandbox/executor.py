@@ -29,6 +29,25 @@ class ExecutionResult:
     status: str
 
 
+@dataclass(frozen=True, slots=True)
+class SignalFileInput:
+    alias: str
+    dataset: str
+    path: Path
+    date_field: str
+    time_field: str | None
+    availability_lag_days: int
+
+
+@dataclass(frozen=True, slots=True)
+class ExecutionFileInput:
+    alias: str
+    dataset: str
+    path: Path
+    contract_multiplier: str | None
+    margin_rate: str | None
+
+
 class SandboxExecutor:
     def __init__(self, settings: Settings) -> None:
         self._settings = settings
@@ -41,6 +60,10 @@ class SandboxExecutor:
         data_file: Path,
         parameters: Mapping[str, str],
         timeout: float,
+        *,
+        signal_files: tuple[SignalFileInput, ...] = (),
+        primary_alias: str = "primary",
+        execution_files: tuple[ExecutionFileInput, ...] = (),
     ) -> ExecutionResult:
         if timeout <= 0 or timeout > self._settings.max_timeout_seconds:
             logger.warning(
@@ -57,7 +80,7 @@ class SandboxExecutor:
             isolated_script = Path(workspace) / script.name
             isolated_data_file = Path(workspace) / data_file.name
             isolated_parameters_file = Path(workspace) / "parameters.json"
-            await asyncio.to_thread(
+            isolated_signal_manifest = await asyncio.to_thread(
                 self._copy_inputs,
                 script,
                 data_file,
@@ -65,11 +88,16 @@ class SandboxExecutor:
                 isolated_script,
                 isolated_data_file,
                 isolated_parameters_file,
+                signal_files,
+                primary_alias,
+                execution_files,
+                Path(workspace),
             )
             result = await self._execute_isolated(
                 isolated_script,
                 isolated_data_file,
                 isolated_parameters_file,
+                isolated_signal_manifest,
                 timeout,
             )
             elapsed = time.monotonic() - start_time
@@ -90,12 +118,58 @@ class SandboxExecutor:
         isolated_script: Path,
         isolated_data_file: Path,
         isolated_parameters_file: Path,
-    ) -> None:
+        signal_files: tuple[SignalFileInput, ...],
+        primary_alias: str,
+        execution_files: tuple[ExecutionFileInput, ...],
+        workspace: Path,
+    ) -> Path | None:
         logger.debug(f"正在复制脚本 {script.name} 和数据文件 {data_file.name} 到沙箱工作区")
         shutil.copyfile(script, isolated_script)
         self._copy_data_file_limited(data_file, isolated_data_file)
         with isolated_parameters_file.open("x", encoding="utf-8", newline="\n") as stream:
             json.dump(dict(parameters), stream, ensure_ascii=False)
+        if not signal_files and not execution_files:
+            return None
+        manifest_path = workspace / "signals.json"
+        manifest_items: list[dict[str, object]] = []
+        for index, signal_file in enumerate(signal_files, start=1):
+            isolated_signal = workspace / f"signal-{index}.csv"
+            self._copy_data_file_limited(signal_file.path, isolated_signal)
+            manifest_items.append(
+                {
+                    "alias": signal_file.alias,
+                    "dataset": signal_file.dataset,
+                    "csv_path": str(isolated_signal),
+                    "date_field": signal_file.date_field,
+                    "time_field": signal_file.time_field,
+                    "availability_lag_days": signal_file.availability_lag_days,
+                }
+            )
+        execution_items: list[dict[str, object]] = []
+        for index, execution_file in enumerate(execution_files, start=1):
+            isolated_execution = workspace / f"execution-{index}.csv"
+            self._copy_data_file_limited(execution_file.path, isolated_execution)
+            execution_items.append(
+                {
+                    "alias": execution_file.alias,
+                    "dataset": execution_file.dataset,
+                    "csv_path": str(isolated_execution),
+                    "contract_multiplier": execution_file.contract_multiplier,
+                    "margin_rate": execution_file.margin_rate,
+                }
+            )
+        with manifest_path.open("x", encoding="utf-8", newline="\n") as stream:
+            json.dump(
+                {
+                    "schema_version": "1.0",
+                    "series": manifest_items,
+                    "primary_alias": primary_alias,
+                    "execution_legs": execution_items,
+                },
+                stream,
+                ensure_ascii=False,
+            )
+        return manifest_path
 
     def _copy_data_file_limited(self, source: Path, destination: Path) -> None:
         if source.stat().st_size > self._settings.max_data_file_bytes:
@@ -123,6 +197,7 @@ class SandboxExecutor:
         script: Path,
         data_file: Path,
         parameters_file: Path,
+        signal_manifest: Path | None,
         timeout: float,
     ) -> ExecutionResult:
         process_options: dict[str, object]
@@ -141,7 +216,7 @@ class SandboxExecutor:
         )
 
         try:
-            process = await asyncio.create_subprocess_exec(
+            command = [
                 sys.executable,
                 "-X",
                 "utf8",
@@ -150,6 +225,11 @@ class SandboxExecutor:
                 str(script),
                 str(data_file),
                 str(parameters_file),
+            ]
+            if signal_manifest is not None:
+                command.append(str(signal_manifest))
+            process = await asyncio.create_subprocess_exec(
+                *command,
                 cwd=str(script.parent),
                 env=env,
                 stdout=asyncio.subprocess.PIPE,
@@ -166,6 +246,7 @@ class SandboxExecutor:
                 script,
                 data_file,
                 parameters_file,
+                signal_manifest,
                 timeout,
                 process_options,
             )
@@ -198,6 +279,7 @@ class SandboxExecutor:
             script,
             data_file,
             parameters_file,
+            signal_manifest,
         )
         if timed_out:
             return ExecutionResult(
@@ -219,6 +301,7 @@ class SandboxExecutor:
         script: Path,
         data_file: Path,
         parameters_file: Path,
+        signal_manifest: Path | None,
         timeout: float,
         process_options: dict[str, object],
     ) -> ExecutionResult:
@@ -232,6 +315,8 @@ class SandboxExecutor:
             str(data_file),
             str(parameters_file),
         ]
+        if signal_manifest is not None:
+            cmd.append(str(signal_manifest))
         proc = subprocess.Popen(
             cmd,
             cwd=str(script.parent),
@@ -293,6 +378,7 @@ class SandboxExecutor:
             script,
             data_file,
             parameters_file,
+            signal_manifest,
         )
 
         if timed_out:
@@ -422,6 +508,7 @@ class SandboxExecutor:
         script: Path,
         data_file: Path,
         parameters_file: Path,
+        signal_manifest: Path | None,
     ) -> str:
         replacements = (
             (str(script), script.name),
@@ -433,6 +520,13 @@ class SandboxExecutor:
             (str(self._runner), self._runner.name),
             (self._runner.as_posix(), self._runner.name),
         )
+        if signal_manifest is not None:
+            replacements = replacements + (
+                (str(signal_manifest), signal_manifest.name),
+                (signal_manifest.as_posix(), signal_manifest.name),
+            )
         for absolute_path, safe_name in replacements:
             value = value.replace(absolute_path, safe_name)
+        value = value.replace(str(script.parent), ".")
+        value = value.replace(script.parent.as_posix(), ".")
         return value

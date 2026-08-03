@@ -17,12 +17,19 @@ if sys.platform == "win32":
 from fastapi import Depends, FastAPI, File, Header, Request, UploadFile, status
 from fastapi.exceptions import RequestValidationError
 from loguru import logger
-from pydantic import BaseModel, ConfigDict, Field, StrictStr, field_validator
+from pydantic import (
+    BaseModel,
+    ConfigDict,
+    Field,
+    StrictStr,
+    field_validator,
+    model_validator,
+)
 from starlette.responses import JSONResponse
 
 from .admission import ExecutionGate, SandboxBusyError
 from .config import Settings
-from .executor import SandboxExecutor
+from .executor import ExecutionFileInput, SandboxExecutor, SignalFileInput
 from .storage import (
     DataFileStorage,
     DataFileTooLargeError,
@@ -136,10 +143,21 @@ class BacktestRuntimeParameters(BaseModel):
     fee_rate: StrictStr
     slippage_rate: StrictStr
     max_drawdown_limit_rate: StrictStr
+    contract_multiplier: StrictStr | None = None
+    margin_rate: StrictStr | None = None
 
-    @field_validator("initial_capital", "fee_rate", "slippage_rate", "max_drawdown_limit_rate")
+    @field_validator(
+        "initial_capital",
+        "fee_rate",
+        "slippage_rate",
+        "max_drawdown_limit_rate",
+        "contract_multiplier",
+        "margin_rate",
+    )
     @classmethod
-    def validate_decimal_string(cls, value: str, info) -> str:
+    def validate_decimal_string(cls, value: str | None, info) -> str | None:
+        if value is None:
+            return None
         if not value.strip():
             raise ValueError("runtime parameter must not be blank")
         try:
@@ -158,7 +176,21 @@ class BacktestRuntimeParameters(BaseModel):
             Decimal("0") < decimal_value <= Decimal("1")
         ):
             raise ValueError("max_drawdown_limit_rate must satisfy 0 < value <= 1")
+        if info.field_name == "contract_multiplier" and decimal_value <= Decimal("0"):
+            raise ValueError("contract_multiplier must be greater than 0")
+        if info.field_name == "margin_rate" and not (
+            Decimal("0") < decimal_value <= Decimal("1")
+        ):
+            raise ValueError("margin_rate must satisfy 0 < value <= 1")
         return value
+
+    @model_validator(mode="after")
+    def validate_futures_parameter_pair(self) -> "BacktestRuntimeParameters":
+        if (self.contract_multiplier is None) != (self.margin_rate is None):
+            raise ValueError(
+                "contract_multiplier and margin_rate must be provided together"
+            )
+        return self
 
 
 class ExecuteRequest(BaseModel):
@@ -167,10 +199,62 @@ class ExecuteRequest(BaseModel):
     date: str = Field(description="Upload date in YYYY-MM-DD format")
     filename: str = Field(description="Uploaded Python filename")
     data_file: str = Field(description="CSV path relative to the configured data directory")
+    signal_files: list["SignalFileRequest"] = Field(default_factory=list, max_length=8)
+    primary_alias: str = Field(
+        default="primary",
+        pattern=r"^[A-Za-z][A-Za-z0-9_]{0,31}$",
+    )
+    execution_files: list["ExecutionFileRequest"] = Field(default_factory=list, max_length=7)
     parameters: BacktestRuntimeParameters = Field(
         description="Strict string-valued backtest runtime parameters"
     )
     timeout: float | None = Field(default=None, gt=0, description="Timeout in seconds")
+
+    @model_validator(mode="after")
+    def validate_signal_aliases(self) -> "ExecuteRequest":
+        aliases = [item.alias for item in self.signal_files]
+        if len(set(aliases)) != len(aliases):
+            raise ValueError("signal file aliases must be unique")
+        execution_aliases = [self.primary_alias] + [item.alias for item in self.execution_files]
+        if len(set(execution_aliases)) != len(execution_aliases):
+            raise ValueError("execution file aliases must be unique")
+        return self
+
+
+class SignalFileRequest(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+
+    alias: str = Field(pattern=r"^[A-Za-z][A-Za-z0-9_]{0,31}$")
+    dataset: str = Field(pattern=r"^[a-z][a-z0-9_]{0,127}$")
+    data_file: str
+    date_field: str = Field(pattern=r"^[A-Za-z_][A-Za-z0-9_]{0,127}$")
+    time_field: str | None = Field(
+        default=None,
+        pattern=r"^[A-Za-z_][A-Za-z0-9_]{0,127}$",
+    )
+    availability_lag_days: int = Field(ge=0, le=30)
+
+
+class ExecutionFileRequest(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+
+    alias: str = Field(pattern=r"^[A-Za-z][A-Za-z0-9_]{0,31}$")
+    dataset: str = Field(pattern=r"^(bond_bars|futures_bars)$")
+    data_file: str
+    contract_multiplier: StrictStr | None = None
+    margin_rate: StrictStr | None = None
+
+    @model_validator(mode="after")
+    def validate_market_parameters(self) -> "ExecutionFileRequest":
+        if self.dataset == "futures_bars":
+            if self.contract_multiplier is None or self.margin_rate is None:
+                raise ValueError("futures execution file requires multiplier and margin")
+        elif self.contract_multiplier is not None or self.margin_rate is not None:
+            raise ValueError("bond execution file does not accept futures parameters")
+        return self
+
+
+ExecuteRequest.model_rebuild()
 
 
 class ExecuteResponse(BaseModel):
@@ -558,18 +642,96 @@ def create_app(settings: Settings | None = None) -> FastAPI:
                 message="data file not found",
             ) from exc
 
+        signal_files: list[SignalFileInput] = []
+        for signal in body.signal_files:
+            try:
+                signal_path = application.state.data_files.resolve(signal.data_file)
+            except DataFileTooLargeError as exc:
+                raise SandboxHTTPError(
+                    status_code=413,
+                    code="signal_data_file_too_large",
+                    message=str(exc),
+                ) from exc
+            except InvalidPathError as exc:
+                raise SandboxHTTPError(
+                    status_code=400,
+                    code="signal_data_file_path_invalid",
+                    message=str(exc),
+                ) from exc
+            except FileNotFoundError as exc:
+                raise SandboxHTTPError(
+                    status_code=404,
+                    code="signal_data_file_not_found",
+                    message="signal data file not found",
+                ) from exc
+            signal_files.append(
+                SignalFileInput(
+                    alias=signal.alias,
+                    dataset=signal.dataset,
+                    path=signal_path,
+                    date_field=signal.date_field,
+                    time_field=signal.time_field,
+                    availability_lag_days=signal.availability_lag_days,
+                )
+            )
+
+        execution_files: list[ExecutionFileInput] = []
+        for execution_file in body.execution_files:
+            try:
+                execution_path = application.state.data_files.resolve(
+                    execution_file.data_file
+                )
+            except DataFileTooLargeError as exc:
+                raise SandboxHTTPError(
+                    status_code=413,
+                    code="execution_data_file_too_large",
+                    message=str(exc),
+                ) from exc
+            except InvalidPathError as exc:
+                raise SandboxHTTPError(
+                    status_code=400,
+                    code="execution_data_file_path_invalid",
+                    message=str(exc),
+                ) from exc
+            except FileNotFoundError as exc:
+                raise SandboxHTTPError(
+                    status_code=404,
+                    code="execution_data_file_not_found",
+                    message="execution data file not found",
+                ) from exc
+            execution_files.append(
+                ExecutionFileInput(
+                    alias=execution_file.alias,
+                    dataset=execution_file.dataset,
+                    path=execution_path,
+                    contract_multiplier=execution_file.contract_multiplier,
+                    margin_rate=execution_file.margin_rate,
+                )
+            )
+
         logger.info(
             f"正在申请执行门控槽位：脚本={script.name} 数据文件={data_file.name} "
             f"超时限制={timeout:.2f}秒 请求ID={req_id}"
         )
         try:
             async with application.state.gate.slot():
-                result = await application.state.executor.execute(
-                    script,
-                    data_file,
-                    body.parameters.model_dump(),
-                    timeout,
-                )
+                if signal_files or execution_files:
+                    result = await application.state.executor.execute(
+                        script,
+                        data_file,
+                        body.parameters.model_dump(exclude_none=True),
+                        timeout,
+                        signal_files=tuple(signal_files),
+                        primary_alias=body.primary_alias,
+                        execution_files=tuple(execution_files),
+                    )
+                else:
+                    result = await application.state.executor.execute(
+                        script,
+                        data_file,
+                        body.parameters.model_dump(exclude_none=True),
+                        timeout,
+                    )
         except DataFileTooLargeError as exc:
             logger.warning(f"代码执行被拒绝 (数据文件过大 413)：{exc} 请求ID={req_id}")
             raise SandboxHTTPError(

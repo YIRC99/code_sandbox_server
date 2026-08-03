@@ -15,6 +15,11 @@ RUNTIME_PARAMETERS = {
     "slippage_rate": "0.0005",
     "max_drawdown_limit_rate": "0.20",
 }
+FUTURES_RUNTIME_PARAMETERS = {
+    **RUNTIME_PARAMETERS,
+    "contract_multiplier": "10000",
+    "margin_rate": "0.02",
+}
 
 
 def make_client(tmp_path: Path, **overrides: object) -> TestClient:
@@ -136,6 +141,108 @@ def test_data_file_upload_succeeds_and_can_be_used_by_execute(tmp_path: Path) ->
     assert uploaded.headers["X-Request-ID"] == request_id
     assert executed.status_code == 200
     assert executed.json()["stdout"] == content.decode("utf-8")
+
+
+def test_execute_copies_signal_files_and_passes_read_only_manifest(tmp_path: Path) -> None:
+    with make_client(tmp_path) as client:
+        market = upload_data_file(client, "market.csv", b"date,close\n2026-07-31,100\n")
+        signal = upload_data_file(
+            client,
+            "omo.csv",
+            b"operationDate,operationAmount\n2026-07-31,500\n",
+        )
+        identity = upload(
+            client,
+            "read_signals.py",
+            (
+                "import json\n"
+                "import sys\n"
+                "from pathlib import Path\n"
+                "payload = json.loads(Path(sys.argv[3]).read_text(encoding='utf-8'))\n"
+                "item = payload['series'][0]\n"
+                "print(item['alias'])\n"
+                "print(Path(item['csv_path']).read_text(encoding='utf-8'), end='')\n"
+            ),
+        ).json()
+        executed = client.post(
+            "/execute",
+            headers=auth_headers(),
+            json=execution_body(
+                identity,
+                data_file=market.json()["data_file"],
+                signal_files=[
+                    {
+                        "alias": "omo",
+                        "dataset": "money_market_omo_info",
+                        "data_file": signal.json()["data_file"],
+                        "date_field": "operationDate",
+                        "time_field": None,
+                        "availability_lag_days": 1,
+                    }
+                ],
+            ),
+        )
+
+    assert executed.status_code == 200
+    assert executed.json()["stdout"] == (
+        "omo\noperationDate,operationAmount\n2026-07-31,500\n"
+    )
+
+
+def test_execute_copies_additional_execution_files_into_portfolio_manifest(
+    tmp_path: Path,
+) -> None:
+    with make_client(tmp_path) as client:
+        primary = upload_data_file(
+            client,
+            "bond.csv",
+            b"issue_time,open_net_price\n2026-07-31T09:31:00+08:00,100\n",
+        )
+        future = upload_data_file(
+            client,
+            "future.csv",
+            b"issue_time,open_price\n2026-07-31T09:31:00+08:00,105\n",
+        )
+        identity = upload(
+            client,
+            "read_portfolio.py",
+            (
+                "import json\n"
+                "import sys\n"
+                "from pathlib import Path\n"
+                "payload = json.loads(Path(sys.argv[3]).read_text(encoding='utf-8'))\n"
+                "leg = payload['execution_legs'][0]\n"
+                "print(payload['primary_alias'])\n"
+                "print(leg['alias'], leg['dataset'], "
+                "leg['contract_multiplier'], leg['margin_rate'])\n"
+                "print(Path(leg['csv_path']).read_text(encoding='utf-8'), end='')\n"
+            ),
+        ).json()
+        executed = client.post(
+            "/execute",
+            headers=auth_headers(),
+            json=execution_body(
+                identity,
+                data_file=primary.json()["data_file"],
+                primary_alias="bond",
+                execution_files=[
+                    {
+                        "alias": "future",
+                        "dataset": "futures_bars",
+                        "data_file": future.json()["data_file"],
+                        "contract_multiplier": "10000",
+                        "margin_rate": "0.02",
+                    }
+                ],
+            ),
+        )
+
+    assert executed.status_code == 200
+    assert executed.json()["stdout"] == (
+        "bond\n"
+        "future futures_bars 10000 0.02\n"
+        "issue_time,open_price\n2026-07-31T09:31:00+08:00,105\n"
+    )
 
 
 def test_data_file_upload_rejects_non_csv_and_oversized_file(tmp_path: Path) -> None:
@@ -374,6 +481,45 @@ def test_execute_accepts_runtime_parameter_boundary_values(
     assert response.json()["status"] == "success"
 
 
+def test_execute_accepts_complete_futures_runtime_parameters(tmp_path: Path) -> None:
+    with make_client(tmp_path) as client:
+        identity = upload(client, "futures_parameters.py", "print('ok')").json()
+        response = client.post(
+            "/execute",
+            headers=auth_headers(),
+            json=execution_body(identity, parameters=FUTURES_RUNTIME_PARAMETERS),
+        )
+
+    assert response.status_code == 200
+    assert response.json()["status"] == "success"
+
+
+@pytest.mark.parametrize(
+    "parameters",
+    [
+        {**RUNTIME_PARAMETERS, "contract_multiplier": "10000"},
+        {**RUNTIME_PARAMETERS, "margin_rate": "0.02"},
+        {**FUTURES_RUNTIME_PARAMETERS, "contract_multiplier": "0"},
+        {**FUTURES_RUNTIME_PARAMETERS, "margin_rate": "0"},
+        {**FUTURES_RUNTIME_PARAMETERS, "margin_rate": "1.01"},
+    ],
+)
+def test_execute_rejects_incomplete_or_invalid_futures_runtime_parameters(
+    tmp_path: Path,
+    parameters: dict[str, str],
+) -> None:
+    with make_client(tmp_path) as client:
+        identity = upload(client, "invalid_futures_parameters.py", "print('must not run')").json()
+        response = client.post(
+            "/execute",
+            headers=auth_headers(),
+            json=execution_body(identity, parameters=parameters),
+        )
+
+    assert response.status_code == 400
+    assert_error(response, "runtime_parameters_invalid")
+
+
 def test_execute_openapi_requires_strict_runtime_parameters_object(tmp_path: Path) -> None:
     with make_client(tmp_path) as client:
         openapi = client.app.openapi()
@@ -388,7 +534,13 @@ def test_execute_openapi_requires_strict_runtime_parameters_object(tmp_path: Pat
     assert set(parameter_schema["required"]) == set(RUNTIME_PARAMETERS)
     assert {
         name: field_schema["type"] for name, field_schema in parameter_schema["properties"].items()
+        if name in RUNTIME_PARAMETERS
     } == {name: "string" for name in RUNTIME_PARAMETERS}
+    assert set(parameter_schema["properties"]) == {
+        *RUNTIME_PARAMETERS,
+        "contract_multiplier",
+        "margin_rate",
+    }
 
 
 def test_upload_rejects_invalid_duplicate_and_large_files(tmp_path: Path) -> None:

@@ -24,6 +24,7 @@ uploads/
 .DS_Store
 Thumbs.db
 logs/
+.codex-runtime/
 
 # Local AI development context
 /AGENTS.md
