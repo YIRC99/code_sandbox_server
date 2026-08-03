@@ -14,8 +14,7 @@
 2. Python AI 服务通过 `/upload` 上传模板代码，服务按 `uploads/YYYY-MM-DD/<filename>.py` 保存。
 3. 上传接口返回 `date` 和 `filename`。
 4. Python AI 服务通过 `/data-files` 上传 CSV，服务返回可直接用于执行的 `data_file`。
-5. 使用相同的 `date`、`filename`、CSV 相对路径 `data_file` 和四个字符串运行参数调用
-   `/execute`。
+5. 使用相同的 `date`、`filename`、主行情 CSV 相对路径 `data_file` 和严格字符串运行参数调用 `/execute`；需要辅助信号或多腿成交时，再提交 `signal_files`、`primary_alias` 和 `execution_files`。
 
 代码使用文件上传，而不是放在 JSON 请求体中，可以避免长代码的转义、换行和层级解析问题。服务端不会修改文件名，只会做安全校验并拒绝同名覆盖。同一个上传文件可以重复执行，文件超过 30 天后由定时任务清理；Pod 重启或重新部署时也会随 `emptyDir` 一起丢失。
 
@@ -28,7 +27,7 @@ uv sync --frozen --group dev
 uv run python main.py
 ```
 
-本地监听 `http://127.0.0.1:32004`。为了方便本地开发，未设置 `SANDBOX_API_KEY` 时业务接口不校验 API Key；部署环境必须设置该值。默认从项目根目录下的 `data` 目录读取 CSV。每次执行都会在独立临时工作区中复制脚本和 CSV，并创建 UTF-8 `parameters.json`；策略脚本通过 `sys.argv[1]` 获取 CSV 路径，通过 `sys.argv[2]` 获取参数文件路径。
+本地监听 `http://127.0.0.1:32004`。为了方便本地开发，未设置 `SANDBOX_API_KEY` 时业务接口不校验 API Key；部署环境必须设置该值。默认从项目根目录下的 `data` 目录读取 CSV。每次执行都会在独立临时工作区中复制脚本和 CSV，并创建 UTF-8 `parameters.json`；策略脚本通过 `sys.argv[1]` 获取主行情 CSV，通过 `sys.argv[2]` 获取参数文件。存在辅助信号或额外成交腿时，`sys.argv[3]` 是只读 `signals.json` 清单。
 
 ## API
 
@@ -82,12 +81,18 @@ curl -X POST http://127.0.0.1:32004/execute \
 {"stdout":"...","stderr":"","exit_code":0,"status":"success"}
 ```
 
-`data_file` 必填，既支持 `SANDBOX_DATA_DIR` 内镜像自带 CSV 的相对路径，也支持 `/data-files` 返回的 `uploaded/...` 路径。上传接口只接收 `.csv`，按原始字节流保存，不解析或校验行情业务字段。`parameters` 也必填，且只能包含 `initial_capital`、`fee_rate`、`slippage_rate` 和 `max_drawdown_limit_rate` 四个字符串字段；服务使用 Decimal 语义校验有限值和范围，不接受 JSON 数字、NaN、Infinity、缺失或额外字段。绝对路径、越界路径和非 CSV 路径返回 HTTP 400；CSV 或代码文件不存在返回 404。`status` 可能为 `success`、`error` 或 `timeout`。脚本非零退出时返回 `error` 和实际退出码；超时返回 `timeout` 和 `-1`。重复上传为 409，文件过大为 413，执行队列繁忙为 429。
+`data_file` 必填，既支持 `SANDBOX_DATA_DIR` 内镜像自带 CSV 的相对路径，也支持 `/data-files` 返回的 `uploaded/...` 路径。上传接口只接收 `.csv`，按原始字节流保存，不解析或校验行情业务字段。`parameters` 也必填：核心字段是 `initial_capital`、`fee_rate`、`slippage_rate`、`max_drawdown_limit_rate`；期货执行还必须成对提供 `contract_multiplier` 和 `margin_rate`。所有值都是字符串，服务使用 Decimal 语义校验有限值和范围，不接受 JSON 数字、NaN、Infinity、缺失、单独一个期货参数或额外字段。
+
+`signal_files` 最多 8 个，每项声明只读辅助序列的 `alias`、`dataset`、`data_file`、`date_field`、可选 `time_field` 和 `availability_lag_days`。`execution_files` 最多 7 个，每项声明额外成交腿的 `alias`、`dataset`、`data_file`，期货腿还必须声明 `contract_multiplier` 和 `margin_rate`；别名不能与 `primary_alias` 或其他别名重复。沙箱只隔离复制这些文件并生成清单，不解释策略字段或交易语义。
+
+绝对路径、越界路径和非 CSV 路径返回 HTTP 400；CSV 或代码文件不存在返回 404。`status` 可能为 `success`、`error` 或 `timeout`。脚本非零退出时返回 `error` 和实际退出码；超时返回 `timeout` 和 `-1`。重复上传为 409，文件过大为 413，执行队列繁忙为 429。
 
 沙箱不会把参数写入 CSV、上传目录或共享数据目录。`parameters.json` 只存在于该次执行的一次性工作区，并随工作区销毁；并发和重复执行不会共享参数文件。内部 runner 最终设置：
 
 ```python
 sys.argv = [str(script), str(data_file), str(parameters_file)]
+# 有 signal_files 或 execution_files 时再追加：
+sys.argv.append(str(signals_manifest_file))
 ```
 
 上传或执行请求在进入脚本运行前失败时，统一返回稳定错误码：
