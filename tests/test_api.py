@@ -184,9 +184,7 @@ def test_execute_copies_signal_files_and_passes_read_only_manifest(tmp_path: Pat
         )
 
     assert executed.status_code == 200
-    assert executed.json()["stdout"] == (
-        "omo\noperationDate,operationAmount\n2026-07-31,500\n"
-    )
+    assert executed.json()["stdout"] == ("omo\noperationDate,operationAmount\n2026-07-31,500\n")
 
 
 def test_execute_copies_additional_execution_files_into_portfolio_manifest(
@@ -533,7 +531,8 @@ def test_execute_openapi_requires_strict_runtime_parameters_object(tmp_path: Pat
     assert parameter_schema["additionalProperties"] is False
     assert set(parameter_schema["required"]) == set(RUNTIME_PARAMETERS)
     assert {
-        name: field_schema["type"] for name, field_schema in parameter_schema["properties"].items()
+        name: field_schema["type"]
+        for name, field_schema in parameter_schema["properties"].items()
         if name in RUNTIME_PARAMETERS
     } == {name: "string" for name in RUNTIME_PARAMETERS}
     assert set(parameter_schema["properties"]) == {

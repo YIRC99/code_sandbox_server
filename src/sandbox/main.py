@@ -178,18 +178,14 @@ class BacktestRuntimeParameters(BaseModel):
             raise ValueError("max_drawdown_limit_rate must satisfy 0 < value <= 1")
         if info.field_name == "contract_multiplier" and decimal_value <= Decimal("0"):
             raise ValueError("contract_multiplier must be greater than 0")
-        if info.field_name == "margin_rate" and not (
-            Decimal("0") < decimal_value <= Decimal("1")
-        ):
+        if info.field_name == "margin_rate" and not (Decimal("0") < decimal_value <= Decimal("1")):
             raise ValueError("margin_rate must satisfy 0 < value <= 1")
         return value
 
     @model_validator(mode="after")
     def validate_futures_parameter_pair(self) -> "BacktestRuntimeParameters":
         if (self.contract_multiplier is None) != (self.margin_rate is None):
-            raise ValueError(
-                "contract_multiplier and margin_rate must be provided together"
-            )
+            raise ValueError("contract_multiplier and margin_rate must be provided together")
         return self
 
 
@@ -678,9 +674,7 @@ def create_app(settings: Settings | None = None) -> FastAPI:
         execution_files: list[ExecutionFileInput] = []
         for execution_file in body.execution_files:
             try:
-                execution_path = application.state.data_files.resolve(
-                    execution_file.data_file
-                )
+                execution_path = application.state.data_files.resolve(execution_file.data_file)
             except DataFileTooLargeError as exc:
                 raise SandboxHTTPError(
                     status_code=413,

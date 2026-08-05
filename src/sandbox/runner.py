@@ -155,9 +155,7 @@ def apply_resource_limits() -> None:
 
 def main() -> None:
     if len(sys.argv) not in {4, 5}:
-        raise SystemExit(
-            "usage: runner.py <script.py> <data.csv> <parameters.json> [signals.json]"
-        )
+        raise SystemExit("usage: runner.py <script.py> <data.csv> <parameters.json> [signals.json]")
     script = Path(sys.argv[1]).resolve(strict=True)
     data_file = Path(sys.argv[2]).resolve(strict=True)
     parameters_file = Path(sys.argv[3]).resolve(strict=True)
