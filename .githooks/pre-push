@@ -1,0 +1,22 @@
+#!/bin/sh
+set -eu
+
+repo_root=$(git rev-parse --show-toplevel)
+cd "$repo_root"
+
+if ! command -v uv >/dev/null 2>&1; then
+    echo "pre-push: uv is required; install uv before pushing." >&2
+    exit 1
+fi
+
+echo "pre-push: syncing locked development dependencies..."
+uv sync --frozen --group dev
+
+echo "pre-push: running pytest..."
+uv run pytest -q
+
+echo "pre-push: running Ruff checks..."
+uv run ruff check .
+uv run ruff format --check .
+
+echo "pre-push: all Jenkins verification checks passed."

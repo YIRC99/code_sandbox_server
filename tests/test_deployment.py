@@ -37,6 +37,25 @@ def test_jenkins_installs_uv_before_host_verification() -> None:
     assert "docker build --target test" not in jenkinsfile
 
 
+def test_pre_push_hook_runs_all_jenkins_verification_commands() -> None:
+    hook = read(".githooks/pre-push")
+    attributes = read(".gitattributes")
+    readme = read("README.md")
+
+    commands = [
+        "uv sync --frozen --group dev",
+        "uv run pytest -q",
+        "uv run ruff check .",
+        "uv run ruff format --check .",
+    ]
+    positions = [hook.index(command) for command in commands]
+
+    assert hook.startswith("#!/bin/sh")
+    assert positions == sorted(positions)
+    assert ".githooks/* text eol=lf" in attributes
+    assert "git config core.hooksPath .githooks" in readme
+
+
 def test_jenkins_uses_installed_credentials_binding_steps() -> None:
     jenkinsfile = read("Jenkinsfile")
 

@@ -185,3 +185,12 @@ uv run ruff format --check .
 docker build -t code-sandbox:verify .
 kubectl apply --dry-run=client -k k8s/overlays/prod
 ```
+
+首次克隆后启用仓库自带的 Git Hook：
+
+```powershell
+git config core.hooksPath .githooks
+```
+
+启用后，每次 `git push` 前会自动执行 Jenkins Verify 阶段的依赖同步、Pytest 和 Ruff
+检查；任意一项失败都会阻止推送。
